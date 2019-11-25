@@ -1,12 +1,12 @@
 # Examples
 
-The following sections show examples of `verified_claims`. 
+以下のセクションでは `verified_claims` に関する例を示す.
 
-The first and second section show JSON snippets of the general identity assurance case, where the RP is provided with verification evidence for different verification methods along with the actual Claims about the End-User.
+最初と 2つ目のセクションでは, 一般的な identity assuarance のケースの JSON snippets を示し, RP には End-User に関する実際の Claims と一緒に, 様々な検証方法による verification evidence が提供される.
 
-The third section illustrates how the contents of this object could look like in case of a notified eID system under eIDAS, where the OP does not need to provide evidence of the identity verification process to the RP. 
+3つ目のセクションでは, OP が RP に対して 本人確認プロセスの evicende を提供する必要がない eIDAS の元で通知されたeID system の場合, どのようにこのオブジェクトのコンテンツが見えるかを説明している.
 
-Subsequent sections contain examples for using the `verified_claims` Claim on different channels and in combination with other (unverified) Claims.
+後続のセクションでは, 異なる経路で `verified_claims` Claim を使用し, 他の (unverified) Claims と組み合わせて使用する例を含む.
 
 ## id_document
 
@@ -143,11 +143,11 @@ Subsequent sections contain examples for using the `verified_claims` Claim on di
 
 ### Request
 
-In this example we assume the RP uses the `scope` parameter to request the email address and, additionally, the `claims` parameter, to request verified Claims. 
+この例では, RP は `scope` パラメーターを`email` `address` を要求するために使用し, さらに verified Claims を要求するために `claims` パラメータを使用することを想定する.
 
-The scope value is: `scope=openid email`
+scope 値は次の通り: `scope=openid email`
 
-The value of the `claims` parameter is:
+`claims` パラメータ値は次の通り:
 
 ```json
 {  
@@ -165,7 +165,7 @@ The value of the `claims` parameter is:
 
 ### UserInfo Response
 
-The respective UserInfo response would be
+それぞれの UserInfo レスポンスは次の通り:
 
 ```http
 HTTP/1.1 200 OK
@@ -211,9 +211,9 @@ Content-Type: application/json
 
 ### Request
 
-In this case, the RP requests verified Claims along with other Claims about the End-User in the `claims` parameter and allocates the response to the ID Token (delivered from the token endpoint in case of grant type `code`). 
+この場合, RP は `claims` パラメーターで End-User に関する他の Claims と一緒に verified Claims を要求し, ID Token (grant type `code` の場合は token endpoint から配信される) にレスポンスを割り当てる.
 
-The `claims` parameter value is
+`claims` パラメータ値は次の通り:
 
 ```json
 {  
@@ -234,8 +234,7 @@ The `claims` parameter value is
 
 ### ID Token
 
-The respective ID Token could be
-
+それぞれの ID Token は次の通り:
 ```json
 {  
    "iss":"https://server.example.com",
@@ -281,7 +280,7 @@ The respective ID Token could be
 ```
 
 ## Aggregated Claims
-Note: line breaks for display purposes only
+Note: 改行は掲載上の都合による
 
 ```http
 HTTP/1.1 200 OK
