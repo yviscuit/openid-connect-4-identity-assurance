@@ -65,8 +65,8 @@ OPがユーザのIDを個別のJSONオブジェクトとして検証するため
 * `issuer`: このidentity documentの発行者の情報を含むJSONオブジェクト. このオブジェクトは次のプロパティで構成されています:
 	*  `name`:必須(REQUIRED). identity documentの発行者の指定
 	*  `country`: ドキュメントを ICAO 2-letter-code [@!ICAO-Doc9303]として発行した国または組織を示す文字列（例： "JP"）. ICAO 3-letter codes は, "UNO"など, 対応するISO 2-letter codes がない場合に使用できます.
-* `date_of_issuance`: 特定の種類のドキュメント用にこの属性が存在する場合は必須(REQUIRED). ISO 8601:2004 YYYY-MM-DDフォーマットでドキュメントが発行された日付.
-* `date_of_expiry`: 特定の種類のドキュメント用にこの属性が存在する場合は必須(REQUIRED). ISO 8601:2004 YYYY-MM-DDフォーマットのドキュメントの有効期限.
+* `date_of_issuance`: 特定の種類のドキュメント用にこの属性が存在する場合は必須(REQUIRED). ISO 8601:2004 YYYY-MM-DDフォーマットでドキュメントが発行された日付.
+* `date_of_expiry`: 特定の種類のドキュメント用にこの属性が存在する場合は必須(REQUIRED). ISO 8601:2004 YYYY-MM-DDフォーマットのドキュメントの有効期限.
 
 #### utility_bill
 
