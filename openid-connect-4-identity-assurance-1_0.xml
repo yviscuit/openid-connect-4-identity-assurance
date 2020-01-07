@@ -43,13 +43,13 @@
 </section>
 
 <section anchor="scope-and-requirements" title="Scope and Requirements">
-<t>拡張のスコープは, 検証されたクレームをアサートするメカニズムを定義し, identity assuranceスペースで必要とされるエンドユーザに関する新しいクレームを導入することである; 例の一つとして出生地がある.</t>
+<t>本仕様のスコープは, 検証されたクレームをアサートするメカニズムを定義し, identity assuranceスペースで必要とされるエンドユーザに関する新しいクレームを導入することである; 例の一つとして出生地がある.</t>
 <t>RPは必要とする最小限のデータセットを要求し（データの最小化）, このデータとOPで利用されるエビデンス, およびidentity verificationプロセスに関する要件を表すことができる.</t>
 <t>この拡張機能は, eIDAS通知eIDシステムなどのidentity assuranceに関連する特定の規制の下で動作するOP, および他のOPで使用できる. 厳密に規制されたOPは, はっきりと定義された責任を伴う明確に定義されたルールに従って動作することを承認されているため, さらなるエビデンスを提出することなくidentityデータを証明することができる.</t>
 <t>例えばeIDASのケースでは, ピアレビューがeIDASのコンプライアンスを保証し, それぞれのメンバー国は通知されたeIDシステムによるidentityの主張に対して責任を負う. そのような明確に定義された条件下にない他のすべてのOPは, 一般的に, RPが独自のリスク評価を実施し, OPから取得したデータを他の法律にマッピングできるように, identityエビデンスに加えてidentity verificationプロセスに関するRPデータを提供する必要がある. 例えばeIDASで定義された要件を満たすために, マネーロンダリング防止法に従って維持されているidentityデータを使用することができる.</t>
 <t>技術的な観点から, この仕様はOPが各トラストフレームワーク(とassuranceレベル)についての情報に加えて, 検証済みクレームの証明を許可することを意味するが, identity verificationプロセスに関する情報の外部化のサポートも行う.</t>
 <t>この仕様で表現された仕様は, 適切なチャネルを介してエンドユーザに関する検証済クレームをRPに提供するために利用できる. OpenID Connectのコンテキストでは, 検証済みクレームはID TokenかUserInfo responseの一部として証明することができる. またOAuth Token Introspection response (<xref target="RFC7662"></xref> 及び <xref target="I-D.ietf-oauth-jwt-introspection-response"></xref>を参照)で説明されている形式を利用して, 検証済みクレームをリソースサーバに提供することも可能である.</t>
-<t>この拡張は真に国際的なものであり, 異なる管轄のidentity assuranceもサポートさせるつもりである. そのためこの拡張機能は追加のトラストフレームワーク, 検証メソッド, identityエビデンスをサポートするために拡張することができる.</t>
+<t>この拡張は真に国際的なものであり, 異なる管轄のidentity assuranceもサポートさせる予定である. そのためこの拡張機能は追加のトラストフレームワーク, 検証メソッド, identityエビデンスをサポートするために拡張することができる.</t>
 <t>実装者に可能な限りの柔軟性を与えるために, この拡張は既存のOpenID Connectのクレームおよび同じOpenID Connectのアサーション(例えば, ID TokenやUserInfo)内の他の拡張と組み合わせて使うことができる.</t>
 <t>例えば, OpenID Connect <xref target="OpenID"></xref> は検証ステータスのないユーザの姓と名を表すクレームを定義している. これらのクレームはこの拡張に従って表現される検証済みクレームのそばの同じOpenID Connectのアサーションで使うことができる.</t>
 <t>同じように, RPに<spanx style="verb">phone_number</spanx>と<spanx style="verb">email</spanx>クレームの検証ステータスを通知する既存クレームもこの拡張とともに使うことができる.</t>
@@ -92,7 +92,7 @@
 <t>このトランザクションデータは, それぞれの規定による監査目的のためにトランザクションデータを保存する必要がある限り保存し続けなければならない(MUST).</t>
 <t>RPはこのクレームを<spanx style="verb">claims</spanx>パラメータを介して, またはscope値によって識別されるデフォルトのクレームの一部として, 他のClaimと同様に要求する.</t>
 <t><spanx style="verb">txn</spanx>値は必要に応じてRPがこれらのトランザクションを参照できるようにしなければならない(MUST).</t>
-<t>注：トランザクションの詳細をOPおよび,それらのフォーマットから取得するメカニズムはこの仕様の範囲外である.</t>
+<t>注：トランザクションの詳細を, OPおよび, それらのフォーマットから取得するメカニズムはこの仕様の範囲外である.</t>
 </section>
 </section>
 
@@ -1133,6 +1133,24 @@ Content-Type: application/json
 
 <back>
 <references title="Normative References">
+<reference anchor="OpenID-Discovery" target="https://openid.net/specs/openid-connect-discovery-1_0.html">
+  <front>
+    <title>OpenID Connect Discovery 1.0 incorporating errata set 1</title>
+    <author fullname="Nat Sakimura" initials="N." surname="Sakimura">
+      <organization>NRI</organization>
+    </author>
+    <author fullname="John Bradley" initials="J." surname="Bradley">
+      <organization>Ping Identity</organization>
+    </author>
+    <author fullname="Breno de Medeiros" initials="B." surname="de Medeiros">
+      <organization>Google</organization>
+    </author>
+    <author fullname="Edmund Jay" initials="E." surname="Jay">
+      <organization> Illumila </organization>
+    </author>
+    <date year="2014" month="Nov" day="8"></date>
+  </front>
+</reference>
 <reference anchor="ISO3166-1" target="https://www.iso.org/standard/63545.html">
   <front>
     <title>ISO 3166-1:1997. Codes for the representation of names of&#xA;&#x9;  countries and their subdivisions -- Part 1: Country codes</title>
@@ -1149,6 +1167,15 @@ Content-Type: application/json
       <organization abbrev="ISO">International Organization for&#xA;&#x9;    Standardization</organization>
     </author>
     <date year="2013"></date>
+  </front>
+</reference>
+<reference anchor="ICAO-Doc9303" target="https://www.icao.int/publications/Documents/9303_p3_cons_en.pdf">
+  <front>
+    <title>Machine Readable Travel Documents, Seventh Edition, 2015, Part 3: Specifications Common to all MRTDs</title>
+    <author fullname="INTERNATIONAL CIVIL AVIATION ORGANIZATION">
+      <organization abbrev="ICAO">INTERNATIONAL CIVIL AVIATION ORGANIZATION</organization>
+    </author>
+    <date year="2015"></date>
   </front>
 </reference>
 <?rfc include="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8417.xml"?>
@@ -1173,36 +1200,8 @@ Content-Type: application/json
     <date year="2014" month="Nov" day="8"></date>
   </front>
 </reference>
-<reference anchor="ICAO-Doc9303" target="https://www.icao.int/publications/Documents/9303_p3_cons_en.pdf">
-  <front>
-    <title>Machine Readable Travel Documents, Seventh Edition, 2015, Part 3: Specifications Common to all MRTDs</title>
-    <author fullname="INTERNATIONAL CIVIL AVIATION ORGANIZATION">
-      <organization abbrev="ICAO">INTERNATIONAL CIVIL AVIATION ORGANIZATION</organization>
-    </author>
-    <date year="2015"></date>
-  </front>
-</reference>
-<reference anchor="OpenID-Discovery" target="https://openid.net/specs/openid-connect-discovery-1_0.html">
-  <front>
-    <title>OpenID Connect Discovery 1.0 incorporating errata set 1</title>
-    <author fullname="Nat Sakimura" initials="N." surname="Sakimura">
-      <organization>NRI</organization>
-    </author>
-    <author fullname="John Bradley" initials="J." surname="Bradley">
-      <organization>Ping Identity</organization>
-    </author>
-    <author fullname="Breno de Medeiros" initials="B." surname="de Medeiros">
-      <organization>Google</organization>
-    </author>
-    <author fullname="Edmund Jay" initials="E." surname="Jay">
-      <organization> Illumila </organization>
-    </author>
-    <date year="2014" month="Nov" day="8"></date>
-  </front>
-</reference>
 </references>
 <references title="Informative References">
-<?rfc include="https://xml2rfc.ietf.org/public/rfc/bibxml-ids/reference.I-D.ietf-oauth-jwt-introspection-response.xml"?>
 <reference anchor="OxfordPassport" target="http://www.oxfordreference.com/view/10.1093/acref/9780199290543.001.0001/acref-9780199290543-e-1616">
   <front>
     <title>The New Oxford Companion to Law. ISBN 9780199290543.</title>
@@ -1211,6 +1210,7 @@ Content-Type: application/json
     <date year="2008"></date>
   </front>
 </reference>
+<?rfc include="https://xml2rfc.ietf.org/public/rfc/bibxml-ids/reference.I-D.ietf-oauth-jwt-introspection-response.xml"?>
 <reference anchor="eIDAS" target="https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32014R0910">
   <front>
     <title>REGULATION (EU) No 910/2014 OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL on electronic identification and trust services for electronic transactions in the internal market and repealing Directive 1999/93/EC</title>
