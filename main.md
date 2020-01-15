@@ -44,3 +44,4 @@ This specification defines an extension of OpenID Connect for providing Relying 
 {{Acknowledgements.md}}
 {{Notices.md}}
 {{documenthistory.md}}
+{{translator.md}}
