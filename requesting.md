@@ -49,7 +49,7 @@ to state the purpose for the transfer of a certain End-User Claim it is asking f
 The field `purpose` can be a member value of each individually requested 
 Claim, but a Claim cannot have more than one associated purpose. -->
 この仕様では, RP が要求する特定の End-User Claim の移転の目的を説明できるようにするために, 追加のフィールド `purpose` を導入する.
-`purpose` フィールドは, 個々に要求された各 Claim のメンバー値にすることができるが, Claim には複数の関連する目的を含めることはできない.
+`purpose` フィールドは, 個々に要求された各 Claim のメンバー値にすることができるが, 1つのClaim には複数の関連する目的を含めることはできない.
 
 <!-- `purpose` OPTIONAL. String describing the purpose for obtaining a certain End-User Claim from the OP. The purpose MUST NOT be shorter than 3 characters or 
 longer than 300 characters. If this rule is violated, the authentication 
@@ -62,7 +62,7 @@ value that was pre-configured for the respective RP. For details on UI
 localization see (#purpose). -->
 `purpose` OPTIONAL. OP から特定の End-User Claim を取得する目的を説明する文字列. `purpose` は 3 文字未満か 300 文字以上となってはならない (MUST NOT).
 もしこのルールに違反した場合, authentication request は失敗し, OP は `invalid_request` エラーを RP にに返さなければならない (MUST).
-OP は移転されるデータの指定された利用か承認される許可についてユーザーに通知するために, それぞれのユーザーの同意画面にこの `purpose` を表示しなければならない (MUST).
+移転されるデータの利用目的や承認しようとしている認可内容をユーザーに明示するため, OPは各同意画面にこの purpose を表示しなければならない (MUST).
 `purpose` パラメーターがリクエストに存在しない場合, OP はRPごとに事前設定された値を表示できる (MAY).
 UI ローカリゼーションの詳細については, (#purpose) 参照.
 
@@ -277,7 +277,7 @@ RP は, 検証データの経過時間, すなわち `verification` 要素で主
 ```
 
 <!-- The OP SHOULD try to fulfill this requirement. If the verification data of the user is older than the requested `max_age`, the OP MAY attempt to refresh the user’s verification by sending her through a online identity verification process, e.g. by utilizing an electronic ID card or a video identification approach. -->
-OP はこの要件を満たそうとしなければならない (SHOULD). ユーザーの確認データがリクエストされた `max_age` よりも古い場合, OP はユーザーにオンラインID確認プロセスを介して, ユーザーの確認を更新しようとするかもしれない (MAY). 例えば 電子IDカードまたはビデオ識別アプローチを利用することによって.
+OP はこの要件を満たそうとしなければならない (SHOULD). ユーザーの検証データがリクエストされた `max_age` よりも古い場合, OP はユーザーにオンラインID確認プロセスを介して, ユーザーの確認を更新しようとするかもしれない (MAY). 例えば 電子IDカードまたはビデオ識別アプローチを利用することによって.
 
 <!-- If the OP is unable to fulfill the requirement (even in case it is marked as being `essential`), it will provide the RP with the data available and the RP may decide how to use the data. The OP MUST NOT return an error in case it cannot return all Claims requested as essential Claims. -->
 OP が要件を満たすことができない場合 (`essential` とマークされている場合でも), RP に利用可能なデータを提供し, RP はデータの使用方法を決定できる. OP は, 必須 Claims として要求されたすべての Claims を返すことができない場合にエラーを返してはならない (MUST NOT).
