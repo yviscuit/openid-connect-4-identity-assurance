@@ -60,4 +60,4 @@ OP は 以下の新しい属性を利用して openid-configuration (see [@!Open
 ```
 
 <!-- The OP MUST support the `claims` parameter and needs to publish this in its openid-configuration using the `claims_parameter_supported` element. -->
-OP は `claims` パラメーターをサポートし、`claims_parameter_supported` 要素を利用して openid-configuration でこれを公開しなければならない (MUST).
+OP は `claims` パラメーターをサポートし, `claims_parameter_supported` 要素を利用して openid-configuration でこれを公開しなければならない (MUST).

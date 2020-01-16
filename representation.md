@@ -38,13 +38,13 @@ OpenID Connect のこの拡張は, RP が検証済みの Claim と未検証の C
 標準化された値の初期リストは, [Trust Frameworks](#predefined_values_tf) で定義されている. 追加の trust framework identifiers も導入できる [how？]. RP は理解できない trust framework identifiers を含む `verified_claims` Claim を無視しなければならない (SHOLUD).
 
 <!-- The `trust_framework` value determines what further data is provided to the RP in the `verification` element. A notified eID system under eIDAS, for example, would not need to provide any further data whereas an OP not governed by eIDAS would need to provide verification evidence in order to allow the RP to fulfill its legal obligations. An example of the latter is an OP acting under the German Anti-Money laundering law (`de_aml`). -->
-`trust_framework` は, `verification` 要素の中で RP に提供される追加のデータを決定する. たとえば、eIDAS 公認 eID システムは, データを追加する必要はないが, eIDAS に管理されていない OP は RP が法的義務を果たすために検証証拠を提供する必要がある. 後者の例としては, ドイツのマネーロンダリング防止法（`de_aml`）に基づいて行動する OP である.
+`trust_framework` は, `verification` 要素の中で RP に提供される追加のデータを決定する. たとえば, eIDAS 公認 eID システムは, データを追加する必要はないが, eIDAS に管理されていない OP は RP が法的義務を果たすために検証証拠を提供する必要がある. 後者の例としては, ドイツのマネーロンダリング防止法（`de_aml`）に基づいて行動する OP である.
 
 <!-- `time`: Time stamp in ISO 8601:2004 [ISO8601-2004] `YYYY-MM-DDThh:mm:ss±hh` format representing the date and time when identity verification took place. Presence of this element might be required for certain trust frameworks. -->
-`time`: ID の検証が行われた日時を示す ISO 8601:2004 [ISO8601-2004] `YYYY-MM-DDThh:mm:ss±hh` フォーマットのタイムスタンプ. 特定のトラストフレームワークでは、この要素の存在が必要になる場合がある.
+`time`: ID の検証が行われた日時を示す ISO 8601:2004 [ISO8601-2004] `YYYY-MM-DDThh:mm:ss±hh` フォーマットのタイムスタンプ. 特定のトラストフレームワークでは, この要素の存在が必要になる場合がある.
 
 <!-- `verification_process`: Unique reference to the identity verification process as performed by the OP. Used for backtracing in case of disputes or audits. Presence of this element might be required for certain trust frameworks. -->
-`verification_process`: OP によって実行される identity verification プロセスへの一意の参照. 紛争または監査の場合のバックトレースに使用される.特定のトラストフレームワークでは、この要素の存在が必要になる場合がある.
+`verification_process`: OP によって実行される identity verification プロセスへの一意の参照. 紛争または監査の場合のバックトレースに使用される.特定のトラストフレームワークでは, この要素の存在が必要になる場合がある.
 
 <!-- Note: While `verification_process` refers to the identity verification process at the OP, the `txn` claim refers to a particular OpenID Connect transaction in which the OP attested the user's verified identity data towards a RP. -->
 注：`verification_process` は OP での identity verification プロセスを指すが, `txn` Claim は OP が RP に対してユーザ検証済 identity データを証明した特定の OpenID Connect トランザクションを指す.
@@ -76,12 +76,12 @@ OpenID Connect のこの拡張は, RP が検証済みの Claim と未検証の C
 `method`: 必須 (REQUIRED). id document を検証するために使われるメソッド. 事前に定義された値は [Verification Methods](#predefined_values_vm) で定義されている.
 
 <!-- `verifier`: OPTIONAL. A JSON object denoting the legal entity that performed the identity verification on behalf of the OP. This object SHOULD only be included if the OP did not perform the identity verification itself. This object consists of the following properties: -->
-`verifier`: オプション (OPTIONAL). OP に代わって identity verification を実行した法人を示す JSON オブジェクト. このオブジェクトは、OP が identity verification を実行しなかった場合にのみ含める必要がある (SHOULD). このオブジェクトは次のプロパティで構成される:
+`verifier`: オプション (OPTIONAL). OP に代わって identity verification を実行した法人を示す JSON オブジェクト. このオブジェクトは, OP が identity verification を実行しなかった場合にのみ含める必要がある (SHOULD). このオブジェクトは次のプロパティで構成される:
 
 <!-- * `organization`: String denoting the organization which performed the verification on behalf of the OP. --> 
 * `organization`: OP に変わって検証を行った組織を表す文字列.
 <!-- * `txn`: identifier refering to the identity verification transaction. This transaction identifier can be resolved into transaction details during an audit. -->
-* `txn`: identity verification のトランザクションを参照する識別子. このトランザクション識別子は、監査中のトランザクションの詳細を分析できる.
+* `txn`: identity verification のトランザクションを参照する識別子. このトランザクション識別子は, 監査中のトランザクションの詳細を分析できる.
 
 <!-- `time`: Time stamp in ISO 8601:2004 [ISO8601-2004] `YYYY-MM-DDThh:mm:ss±hh` format representing the date when this id document was verified. --> 
 `time`: この id document が検証された日付を表す ISO 8601:2004 [ISO8601-2004] `YYYY-MM-DDThh:mm:ss±hh` フォーマットのタイムスタンプ.
