@@ -49,7 +49,7 @@ to state the purpose for the transfer of a certain End-User Claim it is asking f
 The field `purpose` can be a member value of each individually requested 
 Claim, but a Claim cannot have more than one associated purpose. -->
 この仕様では, RP が要求する特定の End-User Claim の移転の目的を説明できるようにするために, 追加のフィールド `purpose` を導入する.
-`purpose` フィールドは, 個々に要求された各 Claim のメンバー値にすることができるが, 1つのClaim には複数の関連する目的を含めることはできない.
+`purpose` フィールドは, 個々に要求された各 Claim のメンバー値にすることができるが, 1つの Claim には複数の関連する目的を含めることはできない.
 
 <!-- `purpose` OPTIONAL. String describing the purpose for obtaining a certain End-User Claim from the OP. The purpose MUST NOT be shorter than 3 characters or 
 longer than 300 characters. If this rule is violated, the authentication 
@@ -62,8 +62,8 @@ value that was pre-configured for the respective RP. For details on UI
 localization see (#purpose). -->
 `purpose` OPTIONAL. OP から特定の End-User Claim を取得する目的を説明する文字列. `purpose` は 3 文字未満か 300 文字以上となってはならない (MUST NOT).
 もしこのルールに違反した場合, authentication request は失敗し, OP は `invalid_request` エラーを RP にに返さなければならない (MUST).
-移転されるデータの利用目的や承認しようとしている認可内容をユーザーに明示するため, OPは各同意画面にこの purpose を表示しなければならない (MUST).
-`purpose` パラメーターがリクエストに存在しない場合, OP はRPごとに事前設定された値を表示できる (MAY).
+移転されるデータの利用目的や承認しようとしている認可内容をユーザーに明示するため, OP は各同意画面にこの purpose を表示しなければならない (MUST).
+`purpose` パラメーターがリクエストに存在しない場合, OP は RP ごとに事前設定された値を表示できる (MAY).
 UI ローカリゼーションの詳細については, (#purpose) 参照.
 
 <!-- Example: -->
@@ -135,7 +135,7 @@ UI ローカリゼーションの詳細については, (#purpose) 参照.
 これは, 発行されたアサーションに検証の日付と利用可能な証拠が存在することを要求する.
 
 <!-- Note: the RP does not need to explicitly request the `trust_framework` field as it is a mandatory element of the `verified_claims` Claim. -->
-注: `verified_claims` Claim の必須要素であるため, RP は明示的に` trust_framework` フィールドを要求する必要はない.
+注: `verified_claims` Claim の必須要素であるため, RP は明示的に `trust_framework` フィールドを要求する必要はない.
 
 <!-- The RP may also dig one step deeper into the structure and request certain data to be present within every `evidence`. A single entry is used as prototype for all entries in the result array: -->
 RP は, 構造を1段深く掘り下げ, 特定のデータがすべての `evidence` 内に存在することを要求する場合もある. result array 内のすべてのエントリのプロトタイプとして, 単一のエントリが使用される.
@@ -164,7 +164,7 @@ RP は, 構造を1段深く掘り下げ, 特定のデータがすべての `evid
 注: `evidence` エントリの必須要素であるため, RP は明示的に `type` フィールドを要求する必要はない.
 
 <!-- The RP may also request certain data within the `document` element to be present. This again follows the syntax rules used above. -->
-RPは, `document` 要素内に特定のデータが存在することを要求する場合もある. これも, 上記で使用した構文規則に従う.
+RP は, `document` 要素内に特定のデータが存在することを要求する場合もある. これも, 上記で使用した構文規則に従う.
 
 ```json
 {  

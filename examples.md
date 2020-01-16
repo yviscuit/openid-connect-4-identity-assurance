@@ -148,7 +148,7 @@
 ### Request
 
 <!-- In this example we assume the RP uses the `scope` parameter to request the email address and, additionally, the `claims` parameter, to request verified Claims. -->
-この例では, RP は `scope` パラメーターを`email` `address` を要求するために使用し, さらに verified Claims を要求するために `claims` パラメータを使用することを想定する.
+この例では, RP は `scope` パラメーターを `email` `address` を要求するために使用し, さらに verified Claims を要求するために `claims` パラメータを使用することを想定する.
 
 <!-- The scope value is: `scope=openid email` -->
 scope 値は次の通り: `scope=openid email`

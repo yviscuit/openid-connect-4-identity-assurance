@@ -8,7 +8,7 @@ to state the purpose for the transfer of user data it is asking for. -->
 `purpose` OPTIONAL. OP から特定のユーザーデータを取得する目的を説明する文字列. `purpose` は 3 文字未満か 300 文字以上となってはならない (MUST NOT). もしこのルールに違反した場合, authentication request は失敗し, OP は `invalid_request` エラーを RP にに返さなければならない (MUST).
 
 <!-- The OP MUST display this purpose in the respective user consent screen(s) in order to inform the user about the designated use of the data to be transferred or the authorization to be approved. -->
-移転されるデータの利用目的や承認しようとしている認可内容をユーザーに明示するため, OPは各同意画面にこの purpose を表示しなければならない (MUST).
+移転されるデータの利用目的や承認しようとしている認可内容をユーザーに明示するため, OP は各同意画面にこの purpose を表示しなければならない (MUST).
 
 <!-- In order to ensure a consistent UX, the RP MAY send the `purpose` in a certain language and request the OP to use the same language using the `ui_locales` parameter. -->
 一貫性のある UX を確保するために, RP は特定の言語で `purpose` を送信し, `ui_locales` パラメーターを使用して同じ言語を使用するよう OP に要求するかもしれない (MAY).
