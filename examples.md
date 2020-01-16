@@ -7,7 +7,7 @@
 最初と 2つ目のセクションでは, 一般的な identity assuarance のケースの JSON snippets を示し, RP には End-User に関する実際の Claims と一緒に, 様々な検証方法による verification evidence が提供される.
 
 <!-- The third section illustrates how the contents of this object could look like in case of a notified eID system under eIDAS, where the OP does not need to provide evidence of the identity verification process to the RP. -->
-3つ目のセクションでは, OP が RP に対して 本人確認プロセスの evicende を提供する必要がない eIDAS の元で通知されたeID system の場合, どのようにこのオブジェクトのコンテンツが見えるかを説明している.
+3つ目のセクションでは, OP が RP に対して identity verification プロセスの evidence を提供する必要がない eIDAS 公認 eID システムの場合, どのようにこのオブジェクトのコンテンツが見えるかを説明している.
 
 <!-- Subsequent sections contain examples for using the `verified_claims` Claim on different channels and in combination with other (unverified) Claims. -->
 後続のセクションでは, 異なる経路で `verified_claims` Claim を使用し, 他の (unverified) Claims と組み合わせて使用する例を含む.

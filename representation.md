@@ -32,7 +32,7 @@ OpenID Connectのこの拡張は,RPが検証済みのClaimと未検証のClaim�
 `trust_framework`: 必須(REQUIRED). OPのidentity verificationプロセスと, identity assuranceレベルを管理するtrust frameworkを定める文字列.
 
 <!-- An example value is `eidas_ial_high`, which denotes a notified eID system under eIDAS [@?eIDAS] providing identity assurance at level of assurance "High". -->
-例としては`eidas_ial_high`で, これはeIDAS [@?eIDAS] の下で通知されたeIDシステムを示し, assuranceレベル"high"のidentity assuranceを提供する.
+例としては`eidas_ial_high`で, これはeIDAS [@?eIDAS] 公認eIDシステムを示し, assuranceレベル"high"のidentity assuranceを提供する.
 
 <!-- An initial list of standardized values is defined in [Trust Frameworks](#predefined_values_tf). Additional trust framework identifiers can be introduced [how?]. RPs SHOULD ignore `verified_claims` claims containing a trust framework id they don't understand. -->
 標準化された値の初期リストは、[Trust Frameworks](#predefined_values_tf)で定義されている. 追加のtrust framework identifiersも導入できる[how？]. RPは理解できないtrust framework identifiersを含む`verified_claims`Claimを無視しなければならない(SHOLUD).
