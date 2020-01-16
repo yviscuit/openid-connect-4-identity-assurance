@@ -4,7 +4,7 @@
 OP は 以下の新しい属性を利用して openid-configuration (see [@!OpenID-Discovery]) で verified Claims に関する機能を通知します。
 
 <!-- `verified_claims_supported`: Boolean value indicating support for `verified_claims`, i.e. the OpenID Connect for Identity Assurance extension. --> 
-`verified_claims_supported`: `verified_claims` をサポートするか, つまり OpenID Connect for Identity Assuarance extension のサポートを示す Boolean 値.
+`verified_claims_supported`: `verified_claims` をサポートするか, つまり OpenID Connect for Identity Assurance extension のサポートを示す Boolean 値.
 
 <!-- `trust_frameworks_supported` This is a JSON array containing all supported trust frameworks. -->
 `trust_frameworks_supported` サポートする全ての trust frameworks を含む JSON 配列.

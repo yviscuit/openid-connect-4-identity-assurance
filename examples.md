@@ -4,7 +4,7 @@
 以下のセクションでは `verified_claims` に関する例を示す.
 
 <!-- The first and second section show JSON snippets of the general identity assurance case, where the RP is provided with verification evidence for different verification methods along with the actual Claims about the End-User. -->
-最初と 2つ目のセクションでは, 一般的な identity assuarance のケースの JSON snippets を示し, RP には End-User に関する実際の Claims と一緒に, 様々な検証方法による verification evidence が提供される.
+最初と 2つ目のセクションでは, 一般的な identity assurance のケースの JSON snippets を示し, RP には End-User に関する実際の Claims と一緒に, 様々な検証方法による verification evidence が提供される.
 
 <!-- The third section illustrates how the contents of this object could look like in case of a notified eID system under eIDAS, where the OP does not need to provide evidence of the identity verification process to the RP. -->
 3つ目のセクションでは, OP が RP に対して identity verification プロセスの evidence を提供する必要がない eIDAS 公認 eID システムの場合, どのようにこのオブジェクトのコンテンツが見えるかを説明している.

@@ -1,4 +1,4 @@
-# OpenID Connect for Identity Assuarance 1.0 日本語訳
+# OpenID Connect for Identity Assurance 1.0 日本語訳
 
 ## build
 
