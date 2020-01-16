@@ -277,7 +277,7 @@ RP は, 検証データの経過時間, すなわち `verification` 要素で主
 ```
 
 <!-- The OP SHOULD try to fulfill this requirement. If the verification data of the user is older than the requested `max_age`, the OP MAY attempt to refresh the user’s verification by sending her through a online identity verification process, e.g. by utilizing an electronic ID card or a video identification approach. -->
-OP はこの要件を満たそうとしなければならない (SHOULD). ユーザーの検証データがリクエストされた `max_age` よりも古い場合, OP はユーザーにオンラインID確認プロセスを介して, ユーザーの確認を更新しようとするかもしれない (MAY). 例えば 電子IDカードまたはビデオ識別アプローチを利用することによって.
+OP はこの要件を満たそうとしなければならない (SHOULD). ユーザーの検証データがリクエストされた `max_age` よりも古い場合, OP はユーザーにオンラインでの identity verification プロセスを介して, ユーザーの確認を更新しようとするかもしれない (MAY). 例えば 電子IDカードまたはビデオ識別アプローチを利用することによって.
 
 <!-- If the OP is unable to fulfill the requirement (even in case it is marked as being `essential`), it will provide the RP with the data available and the RP may decide how to use the data. The OP MUST NOT return an error in case it cannot return all Claims requested as essential Claims. -->
 OP が要件を満たすことができない場合 (`essential` とマークされている場合でも), RP に利用可能なデータを提供し, RP はデータの使用方法を決定できる. OP は, 必須 Claims として要求されたすべての Claims を返すことができない場合にエラーを返してはならない (MUST NOT).

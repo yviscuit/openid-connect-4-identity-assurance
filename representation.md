@@ -86,7 +86,7 @@ OpenID Connect のこの拡張は, RP が検証済みの Claim と未検証の C
 * `organization`: String denoting the organization which performed the verification on behalf of the OP.
 * `txn`: identifier refering to the identity verification transaction. This transaction identifier can be resolved into transaction details during an audit.
 -->
-* `organization`: OP に変わって検証を行った組織を表す文字列.
+* `organization`: OP に代わって検証を行った組織を表す文字列.
 * `txn`: identity verification のトランザクションを参照する識別子. このトランザクション識別子は, 監査中のトランザクションの詳細を分析できる.
 
 <!-- `time`: Time stamp in ISO 8601:2004 [ISO8601-2004] `YYYY-MM-DDThh:mm:ss±hh` format representing the date when this id document was verified. --> 
@@ -104,7 +104,7 @@ OpenID Connect のこの拡張は, RP が検証済みの Claim と未検証の C
 * `date_of_issuance`: REQUIRED if this attribute exists for the particular type of document. The date the document was issued as ISO 8601:2004 YYYY-MM-DD format.
 * `date_of_expiry`: REQUIRED if this attribute exists for the particular type of document. The date the document will expire as ISO 8601:2004 YYYY-MM-DD format.
 -->
-* `type`: 必須 (REQUIRED). id document のタイプを示す文字列. 標準化された値は [Identity Documents](#predefined_values_idd) で定義されます. OP は事前に定義されていない値を使用するかもしれず (MAY), その場合, RP はアサーションを処理できないか, 監査目的でこの値を保存するだけか, またはそれに言及されたビジネスロジックであることを表す.
+* `type`: 必須 (REQUIRED). id document のタイプを示す文字列. 標準化された値は [Identity Documents](#predefined_values_idd) で定義される. OP は事前に定義されていない値を使用するかもしれず (MAY), その場合, RP はアサーションを処理できないか, 監査目的でこの値を保存するだけか, またはそれに言及されたビジネスロジックであることを表す.
 * `number`: identity document の番号を表す文字列.
 * `issuer`: この identity document の発行者の情報を含む JSON オブジェクト. このオブジェクトは次のプロパティで構成される:
 	*  `name`:必須 (REQUIRED). identity document の発行者の名称.

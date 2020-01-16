@@ -1,7 +1,7 @@
 # OP Metadata {#opmetadata}
 
 <!-- The OP advertises its capabilities with respect to verified Claims in its openid-configuration (see [@!OpenID-Discovery]) using the following new elements: -->
-OP は 以下の新しい属性を利用して openid-configuration (see [@!OpenID-Discovery]) で verified Claims に関する機能を通知します。
+OP は 以下の新しい属性を利用して openid-configuration (see [@!OpenID-Discovery]) で verified Claims に関する機能を通知する.
 
 <!-- `verified_claims_supported`: Boolean value indicating support for `verified_claims`, i.e. the OpenID Connect for Identity Assurance extension. --> 
 `verified_claims_supported`: `verified_claims` をサポートするか, つまり OpenID Connect for Identity Assurance extension のサポートを示す Boolean 値.
@@ -10,7 +10,7 @@ OP は 以下の新しい属性を利用して openid-configuration (see [@!Open
 `trust_frameworks_supported` サポートする全ての trust frameworks を含む JSON 配列.
 
 <!-- `evidence_supported` This JSON array contains all types of identity evidence the OP uses. -->
-`evidence_supported` OP が利用する全ての identity evicence の種類を含む JSON 配列.
+`evidence_supported` OP が利用する全ての identity evidence の種類を含む JSON 配列.
 
 <!-- `id_documents_supported` This JSON array contains all identity documents utilized by the OP for identity verification. -->
 `id_documents_supported` OP が identity verification に利用しているすべての identity documents を含む JSON 配列.
