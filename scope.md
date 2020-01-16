@@ -4,7 +4,7 @@
 本仕様のスコープは, 検証された Claim をアサートするメカニズムを定義し, identity assurance スペースで必要とされるエンドユーザに関する新しい Claim を導入することである; 例の一つとして出生地がある.
 
 <!-- The RP will be able to request the minimal data set it needs (data minimization) and to express requirements regarding this data and the evidence and the identity verification processes employed by the OP. -->
-RP は必要とする最小限のデータセットを要求し（データの最小化）, このデータと OP で利用されるエビデンス, および identity verification プロセスに関する要件を表すことができる.
+RP は必要とする最小限のデータセットを要求し (データの最小化) , このデータと OP で利用されるエビデンス, および identity verification プロセスに関する要件を表すことができる.
 
 <!-- This extension will be usable by OPs operating under a certain regulation related to identity assurance, such as eIDAS notified eID systems, as well as other OPs. Strictly regulated OPs can attest identity data without the need to provide further evidence since they are approved to operate according to well-defined rules with clearly defined liability. --> 
 この拡張機能は, eIDAS 公認 eID システムなどの identity assurance に関連する特定の規制の下で動作する OP, および他の OP で使用できる. 厳密に規制された OP は, はっきりと定義された責任を伴う明確に定義されたルールに従って動作することを承認されているため, さらなるエビデンスを提出することなく identity データを証明することができる.

@@ -4,7 +4,7 @@
 この仕様では, OpenID Connect [@!OpenID] の拡張機能を定義して, 特定の法律に従って自然人の強力な identity verification のユースケースに対処している. 例には, マネーロンダリング防止法, 電気通信法, テロ対策法, eIDAS [@?eIDAS] などの信託サービスに関する規制が含まれる.
 
 <!-- In such use cases, the Relying Parties (RPs) need to know the assurance level of the Claims about the End-User attested by the OpenID Connect Providers (OPs) or any other trusted source along with evidence related to the identity verification process. -->
-そのようなユースケースでは, 依拠当事者（RPs）は, OpenID Connect プロバイダー（OPs）またはその他の信頼できるソースによって証明されたエンドユーザーに関す るClaim の保証レベルと, identity verification プロセスに関連するエビデンスを知る必要がある.
+そのようなユースケースでは, 依拠当事者 (RPs) は, OpenID Connect プロバイダー (OPs) またはその他の信頼できるソースによって証明されたエンドユーザーに関す るClaim の保証レベルと, identity verification プロセスに関連するエビデンスを知る必要がある.
 
 <!-- The `acr` Claim, as defined in Section 2 of the OpenID Connect specification [@!OpenID], is suited to attest information about the authentication performed in a OpenID Connect transaction. But identity assurance requires a different representation for the following reason: authentication is an aspect of an OpenID Connect transaction while identity assurance is a property of a certain Claim or a group of Claims and several of them will typically be conveyed to the RP as the result of an OpenID Connect transaction. -->
 OpenID Connect 仕様 [@!OpenID] のセクション2で定義されている `acr` Claim は, OpenID Connect トランザクションで実行される認証に関する情報を証明するのに適してる. ただし, identity assurance には次の理由で異なる表現が必要である: 認証は OpenID Connect トランザクションの側面であり, identity assurance は特定の Claim または Claim のグループのプロパティであり, それらのいくつかは通常, OpenID Connect トランザクションの結果として RP に伝えられる.
@@ -30,7 +30,7 @@ OpenID Connect 仕様 [@!OpenID] のセクション2で定義されている `ac
 * Identity Assurance - OP または Claim プロバイダーが, RP に対してある一定の確からしさをもって特定のユーザーの Identity データを証明するプロセス.  通常は identity assurance レベルで表される. 法的要件に応じて, OP は identity verification プロセスのエビデンスを RP に提供する必要がある場合もある.
 
 <!-- * Verified Claims - Claims about an End-User, typically a natural person, whose binding to a particular user account were verified in the course of an identity verification process. -->
-* Verified Claims - 特定のユーザーアカウントへのバインドが identity verification プロセスの過程で検証されたエンドユーザー（通常は自然人）に関する Claim.
+* Verified Claims - 特定のユーザーアカウントへのバインドが identity verification プロセスの過程で検証されたエンドユーザー (通常は自然人) に関する Claim.
 
 [1]: https://pages.nist.gov/800-63-3/sp800-63a.html "NIST Special Publication 800-63A, Digital Identity Guidelines, Enrollment and Identity Proofing Requirements"
 

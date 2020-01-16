@@ -38,7 +38,7 @@ OpenID Connect のこの拡張は, RP が検証済みの Claim と未検証の C
 標準化された値の初期リストは, [Trust Frameworks](#predefined_values_tf) で定義されている. 追加の trust framework identifiers も導入できる [how？]. RP は理解できない trust framework identifiers を含む `verified_claims` Claim を無視しなければならない (SHOLUD).
 
 <!-- The `trust_framework` value determines what further data is provided to the RP in the `verification` element. A notified eID system under eIDAS, for example, would not need to provide any further data whereas an OP not governed by eIDAS would need to provide verification evidence in order to allow the RP to fulfill its legal obligations. An example of the latter is an OP acting under the German Anti-Money laundering law (`de_aml`). -->
-`trust_framework` は, `verification` 要素の中で RP に提供される追加のデータを決定する. たとえば, eIDAS 公認 eID システムは, データを追加する必要はないが, eIDAS に管理されていない OP は RP が法的義務を果たすために検証証拠を提供する必要がある. 後者の例としては, ドイツのマネーロンダリング防止法（`de_aml`）に基づいて行動する OP である.
+`trust_framework` は, `verification` 要素の中で RP に提供される追加のデータを決定する. たとえば, eIDAS 公認 eID システムは, データを追加する必要はないが, eIDAS に管理されていない OP は RP が法的義務を果たすために検証証拠を提供する必要がある. 後者の例としては, ドイツのマネーロンダリング防止法 (`de_aml`) に基づいて行動する OP である.
 
 <!-- `time`: Time stamp in ISO 8601:2004 [ISO8601-2004] `YYYY-MM-DDThh:mm:ss±hh` format representing the date and time when identity verification took place. Presence of this element might be required for certain trust frameworks. -->
 `time`: ID の検証が行われた日時を示す ISO 8601:2004 [ISO8601-2004] `YYYY-MM-DDThh:mm:ss±hh` フォーマットのタイムスタンプ. 特定のトラストフレームワークでは, この要素の存在が必要になる場合がある.
@@ -98,7 +98,7 @@ OpenID Connect のこの拡張は, RP が検証済みの Claim と未検証の C
 	<!-- *  `name`: REQUIRED. Designation of the issuer of the identity document -->
 	*  `name`:必須 (REQUIRED). identity document の発行者の名称.
 	<!-- *  `country`: String denoting the country or organization that issued the document as ICAO 2-letter-code [@!ICAO-Doc9303], e.g. "JP". ICAO 3-letter codes MAY be used when there is no corresponding ISO 2-letter code, such as "UNO". -->
-	*  `country`: ドキュメントを ICAO 2-letter-code [@!ICAO-Doc9303] として発行した国または組織を示す文字列（例： "JP"）. ICAO 3-letter codes は, "UNO" など, 対応する ISO 2-letter codes がない場合に使用できる.
+	*  `country`: ドキュメントを ICAO 2-letter-code [@!ICAO-Doc9303] として発行した国または組織を示す文字列 (例： "JP") . ICAO 3-letter codes は, "UNO" など, 対応する ISO 2-letter codes がない場合に使用できる.
 <!-- * `date_of_issuance`: REQUIRED if this attribute exists for the particular type of document. The date the document was issued as ISO 8601:2004 YYYY-MM-DD format. -->
 * `date_of_issuance`: 特定の種類のドキュメント用にこの属性が存在する場合は必須 (REQUIRED). ISO 8601:2004 YYYY-MM-DD フォーマットでドキュメントが発行された日付.
 <!-- * `date_of_expiry`: REQUIRED if this attribute exists for the particular type of document. The date the document will expire as ISO 8601:2004 YYYY-MM-DD format. --> 
