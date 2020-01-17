@@ -58,10 +58,10 @@
 <t>本仕様のスコープは, 検証された Claim をアサートするメカニズムを定義し, identity assurance スペースで必要とされるエンドユーザに関する新しい Claim を導入することである; 例の一つとして出生地がある.</t>
 <t>RP は必要とする最小限のデータセットを要求し (データの最小化) , このデータと OP で利用されるエビデンス, および identity verification プロセスに関する要件を表すことができる.</t>
 <t>この拡張機能は, eIDAS 公認 eID システムなどの identity assurance に関連する特定の規制の下で動作する OP, および他の OP で使用できる. 厳密に規制された OP は, はっきりと定義された責任を伴う明確に定義されたルールに従って動作することを承認されているため, さらなるエビデンスを提出することなく identity データを証明することができる.</t>
-<t>例えば eIDAS のケースでは, ピアレビューが eIDAS のコンプライアンスを保証し, それぞれのメンバー国は公認 eID システムによる identity の主張に対して責任を負う. そのような明確に定義された条件下にない他のすべての OP は, 一般的に, RP が独自のリスク評価を実施し, OP から取得したデータを他の法律にマッピングできるように, identity エビデンスに加えて, RP に identity verification プロセスに関するデータを提供する必要がある. 例えば eIDAS で定義された要件を満たすために, マネーロンダリング防止法に従って維持されている identity データを使用することができる.</t>
+<t>例えば eIDAS のケースでは, ピアレビューが eIDAS のコンプライアンスを保証し, それぞれのメンバー国は公認 eID システムによる identity の主張に対して責任を負う. そのような明確に定義された条件下にない他のすべての OP は, 一般的に, RP が独自のリスク評価を実施し, OP から取得したデータを他の法律にマッピングできるように, identity evidence に加えて, RP に identity verification プロセスに関するデータを提供する必要がある. 例えば eIDAS で定義された要件を満たすために, マネーロンダリング防止法に従って維持されている identity データを使用することができる.</t>
 <t>技術的な観点から, この仕様は OP が各トラストフレームワーク(と assurance レベル)についての情報に加えて, 検証済み Claim の証明を許可することを意味するが, identity verification プロセスに関する情報の表出化のサポートも行う.</t>
 <t>この仕様で定義された表現方式は, 適切なチャネルを介してエンドユーザに関する検証済 Claim を RP に提供するために利用できる. OpenID Connect のコンテキストでは, 検証済 Claim は ID Token か UserInfo response の一部として証明することができる. また OAuth Token Introspection response (<xref target="RFC7662"></xref> 及び <xref target="I-D.ietf-oauth-jwt-introspection-response"></xref> を参照)で説明されている形式を利用して, 検証済 Claim をリソースサーバに提供することも可能である.</t>
-<t>この拡張は真に国際的なものであり, 異なる管轄の identity assurance もサポートさせる予定である. そのためこの拡張機能は追加のトラストフレームワーク, 検証メソッド, identity エビデンスをサポートするために拡張することができる.</t>
+<t>この拡張は真に国際的なものであり, 異なる管轄の identity assurance もサポートさせる予定である. そのためこの拡張機能は追加のトラストフレームワーク, 検証メソッド, identity evidenceをサポートするために拡張することができる.</t>
 <t>実装者に可能な限りの柔軟性を与えるために, この拡張は既存の OpenID Connect の Claim および同じ OpenID Connect のアサーション(例えば, ID Token や UserInfo)内の他の拡張と組み合わせて使うことができる.</t>
 <t>例えば, OpenID Connect <xref target="OpenID"></xref> は検証ステータスのないユーザの姓と名を表す Claim を定義している. これらの Claim はこの拡張に従って表現される検証済み Claim とともに同じ OpenID Connect のアサーションで使うことができる.</t>
 <t>同じように, RP に <spanx style="verb">phone_number</spanx> と <spanx style="verb">email</spanx> Claim の検証ステータスを通知する既存 Claim もこの拡張とともに使うことができる.</t>
@@ -127,15 +127,15 @@
 <t><spanx style="verb">trust_framework</spanx>: 必須 (REQUIRED). OP の identity verification プロセスと, identity assurance レベルを管理する trust framework を定める文字列.</t>
 <t>例としては <spanx style="verb">eidas_ial_high</spanx> で, これは eIDAS <xref target="eIDAS"></xref> 公認 eID システムを示し, assurance レベル &quot;high&quot; の identity assurance を提供する.</t>
 <t>標準化された値の初期リストは, <eref target="#predefined_values_tf">Trust Frameworks</eref> で定義されている. 追加の trust framework identifiers も導入できる [how？]. RP は理解できない trust framework identifiers を含む <spanx style="verb">verified_claims</spanx> Claim を無視しなければならない (SHOLUD).</t>
-<t><spanx style="verb">trust_framework</spanx> は, <spanx style="verb">verification</spanx> 要素の中で RP に提供される追加のデータを決定する. たとえば, eIDAS 公認 eID システムは, データを追加する必要はないが, eIDAS に管理されていない OP は RP が法的義務を果たすために検証証拠を提供する必要がある. 後者の例としては, ドイツのマネーロンダリング防止法 (<spanx style="verb">de_aml</spanx>) に基づいて行動する OP である.</t>
+<t><spanx style="verb">trust_framework</spanx> は, <spanx style="verb">verification</spanx> 要素の中で RP に提供される追加のデータを決定する. たとえば, eIDAS 公認 eID システムは, データを追加する必要はないが, eIDAS に管理されていない OP は RP が法的義務を果たすために verification evidence を提供する必要がある. 後者の例としては, ドイツのマネーロンダリング防止法 (<spanx style="verb">de_aml</spanx>) に基づいて行動する OP である.</t>
 <t><spanx style="verb">time</spanx>: ID の検証が行われた日時を示す ISO 8601:2004 [ISO8601-2004] <spanx style="verb">YYYY-MM-DDThh:mm:ss±hh</spanx> フォーマットのタイムスタンプ. 特定のトラストフレームワークでは, この要素の存在が必要になる場合がある.</t>
-<t><spanx style="verb">verification_process</spanx>: OP によって実行される identity verification プロセスへの一意の参照. 紛争または監査の場合のバックトレースに使用される.特定のトラストフレームワークでは, この要素の存在が必要になる場合がある.</t>
+<t><spanx style="verb">verification_process</spanx>: OP によって実行される identity verification プロセスへの一意の参照. 紛争(ないしは紛争解決)または監査の場合のバックトレースに使用される.特定のトラストフレームワークでは, この要素の存在が必要になる場合がある.</t>
 <t>注：<spanx style="verb">verification_process</spanx> は OP での identity verification プロセスを指すが, <spanx style="verb">txn</spanx> Claim は OP が RP に対してユーザ検証済 identity データを証明した特定の OpenID Connect トランザクションを指す.</t>
-<t><spanx style="verb">evidence</spanx>: OP がユーザの identity を個別の JSON オブジェクトとして検証するために使用した <spanx style="verb">evidence</spanx> に関する情報を含む JSON 配列. すべてのオブジェクトには, evidence のタイプを決定する <spanx style="verb">type</spanx> プロパティが含まれている. RP はこの情報を <spanx style="verb">evidence</spanx> プロパティを適切に処理するために利用する.</t>
+<t><spanx style="verb">evidence</spanx>: OP がユーザの identity を個別の JSON オブジェクトとして検証するために使用した <spanx style="verb">evidence</spanx> に関する情報を含む JSON 配列. すべてのオブジェクトには, エビデンスのタイプを決定する <spanx style="verb">type</spanx> プロパティが含まれている. RP はこの情報を <spanx style="verb">evidence</spanx> プロパティを適切に処理するために利用する.</t>
 <t>重要:実装はこの仕様またはこの仕様の拡張で定義されていないサブ要素を無視しなければならない (MUST).</t>
 
 <section anchor="evidence" title="Evidence">
-<t>次の evidence のタイプが定義されている:</t>
+<t>次のエビデンスのタイプが定義されている:</t>
 <t>
 <list style="symbols">
 <t><spanx style="verb">id_document</spanx>: あらゆる種類の政府発行の身分証明書に基づく検証</t>
@@ -145,7 +145,7 @@
 </t>
 
 <section anchor="id-document" title="id_document">
-<t>次の種類の属性が <spanx style="verb">id_document</spanx> evidence のサブ要素として含まれる.</t>
+<t>次の種類の属性が <spanx style="verb">id_document</spanx> エビデンスのサブ要素として含まれる.</t>
 <t><spanx style="verb">method</spanx>: 必須 (REQUIRED). id document を検証するために使われるメソッド. 事前に定義された値は <eref target="#predefined_values_vm">Verification Methods</eref> で定義されている.</t>
 <t><spanx style="verb">verifier</spanx>: オプション (OPTIONAL). OP に代わって identity verification を実行した法人を示す JSON オブジェクト. このオブジェクトは, OP が identity verification を実行しなかった場合にのみ含める必要がある (SHOULD). このオブジェクトは次のプロパティで構成される:</t>
 <t>
@@ -172,7 +172,7 @@
 </section>
 
 <section anchor="utility-bill" title="utility_bill">
-<t>次の種類の要素が <spanx style="verb">utility_bill</spanx> evidence のサブ要素として含まれる.</t>
+<t>次の種類の要素が <spanx style="verb">utility_bill</spanx> エビデンスのサブ要素として含まれる.</t>
 <t><spanx style="verb">provider</spanx>: 必須 (REQUIRED). 請求書を発行した各プロバイダを識別する JSON オブジェクト. オブジェクトは次のプロパティで構成される:</t>
 <t>
 <list style="symbols">
@@ -184,7 +184,7 @@
 </section>
 
 <section anchor="qes" title="qes">
-<t>次の種類の要素が <spanx style="verb">qes</spanx> evidence のサブ要素として含まれる.</t>
+<t>次の種類の要素が <spanx style="verb">qes</spanx> エビデンスのサブ要素として含まれる.</t>
 <t><spanx style="verb">issuer</spanx>: 必須 (REQUIRED). 署名者の証明書を発行した証明機関を示す文字列.</t>
 <t><spanx style="verb">serial_number</spanx>:必須 (REQUIRED). 署名に使用される証明書のシリアルナンバーを含む文字列.</t>
 <t><spanx style="verb">created_at</spanx>: 必須 (REQUIRED).  ISO 8601:2004 YYYY-MM-DDThh:mm:ss±hh フォーマットの署名が作られた時間.</t>
@@ -423,7 +423,7 @@ UI ローカリゼーションの詳細については, <xref target="purpose"><
 <section anchor="examples" title="Examples">
 <t>以下のセクションでは <spanx style="verb">verified_claims</spanx> に関する例を示す.</t>
 <t>最初と 2つ目のセクションでは, 一般的な identity assurance のケースの JSON snippets を示し, RP には End-User に関する実際の Claims と一緒に, 様々な検証方法による verification evidence が提供される.</t>
-<t>3つ目のセクションでは, OP が RP に対して identity verification プロセスの evidence を提供する必要がない eIDAS 公認 eID システムの場合, どのようにこのオブジェクトのコンテンツが見えるかを説明している.</t>
+<t>3つ目のセクションでは, OP が RP に対して identity verification プロセスのエビデンスを提供する必要がない eIDAS 公認 eID システムの場合, どのようにこのオブジェクトのコンテンツが見えるかを説明している.</t>
 <t>後続のセクションでは, 異なる経路で <spanx style="verb">verified_claims</spanx> Claim を使用し, 他の (unverified) Claims と組み合わせて使用する例を含む.</t>
 
 <section anchor="id-document-1" title="id_document">
@@ -1145,6 +1145,15 @@ Content-Type: application/json
 
 <back>
 <references title="Normative References">
+<reference anchor="ISO3166-3" target="https://www.iso.org/standard/63547.html">
+  <front>
+    <title>ISO 3166-1:2013. Codes for the representation of names of countries and their subdivisions -- Part 3: Code for formerly used names of countries</title>
+    <author fullname="International Organization for Standardization">
+      <organization abbrev="ISO">International Organization for&#xA;&#x9;    Standardization</organization>
+    </author>
+    <date year="2013"></date>
+  </front>
+</reference>
 <reference anchor="ICAO-Doc9303" target="https://www.icao.int/publications/Documents/9303_p3_cons_en.pdf">
   <front>
     <title>Machine Readable Travel Documents, Seventh Edition, 2015, Part 3: Specifications Common to all MRTDs</title>
@@ -1154,23 +1163,15 @@ Content-Type: application/json
     <date year="2015"></date>
   </front>
 </reference>
+<?rfc include="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8417.xml"?>
 
-<reference anchor="OpenID-Discovery" target="https://openid.net/specs/openid-connect-discovery-1_0.html">
+<reference anchor="ISO3166-1" target="https://www.iso.org/standard/63545.html">
   <front>
-    <title>OpenID Connect Discovery 1.0 incorporating errata set 1</title>
-    <author fullname="Nat Sakimura" initials="N." surname="Sakimura">
-      <organization>NRI</organization>
+    <title>ISO 3166-1:1997. Codes for the representation of names of&#xA;&#x9;  countries and their subdivisions -- Part 1: Country codes</title>
+    <author fullname="International Organization for Standardization">
+      <organization abbrev="ISO">International Organization for&#xA;&#x9;    Standardization</organization>
     </author>
-    <author fullname="John Bradley" initials="J." surname="Bradley">
-      <organization>Ping Identity</organization>
-    </author>
-    <author fullname="Breno de Medeiros" initials="B." surname="de Medeiros">
-      <organization>Google</organization>
-    </author>
-    <author fullname="Edmund Jay" initials="E." surname="Jay">
-      <organization> Illumila </organization>
-    </author>
-    <date year="2014" month="Nov" day="8"></date>
+    <date year="2013"></date>
   </front>
 </reference>
 <reference anchor="OpenID" target="http://openid.net/specs/openid-connect-core-1_0.html">
@@ -1194,28 +1195,26 @@ Content-Type: application/json
     <date year="2014" month="Nov" day="8"></date>
   </front>
 </reference>
-<reference anchor="ISO3166-1" target="https://www.iso.org/standard/63545.html">
+<reference anchor="OpenID-Discovery" target="https://openid.net/specs/openid-connect-discovery-1_0.html">
   <front>
-    <title>ISO 3166-1:1997. Codes for the representation of names of&#xA;&#x9;  countries and their subdivisions -- Part 1: Country codes</title>
-    <author fullname="International Organization for Standardization">
-      <organization abbrev="ISO">International Organization for&#xA;&#x9;    Standardization</organization>
+    <title>OpenID Connect Discovery 1.0 incorporating errata set 1</title>
+    <author fullname="Nat Sakimura" initials="N." surname="Sakimura">
+      <organization>NRI</organization>
     </author>
-    <date year="2013"></date>
-  </front>
-</reference>
-<?rfc include="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8417.xml"?>
-<reference anchor="ISO3166-3" target="https://www.iso.org/standard/63547.html">
-  <front>
-    <title>ISO 3166-1:2013. Codes for the representation of names of countries and their subdivisions -- Part 3: Code for formerly used names of countries</title>
-    <author fullname="International Organization for Standardization">
-      <organization abbrev="ISO">International Organization for&#xA;&#x9;    Standardization</organization>
+    <author fullname="John Bradley" initials="J." surname="Bradley">
+      <organization>Ping Identity</organization>
     </author>
-    <date year="2013"></date>
+    <author fullname="Breno de Medeiros" initials="B." surname="de Medeiros">
+      <organization>Google</organization>
+    </author>
+    <author fullname="Edmund Jay" initials="E." surname="Jay">
+      <organization> Illumila </organization>
+    </author>
+    <date year="2014" month="Nov" day="8"></date>
   </front>
 </reference>
 </references>
 <references title="Informative References">
-<?rfc include="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7662.xml"?>
 <reference anchor="OxfordPassport" target="http://www.oxfordreference.com/view/10.1093/acref/9780199290543.001.0001/acref-9780199290543-e-1616">
   <front>
     <title>The New Oxford Companion to Law. ISBN 9780199290543.</title>
@@ -1224,6 +1223,7 @@ Content-Type: application/json
     <date year="2008"></date>
   </front>
 </reference>
+<?rfc include="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7662.xml"?>
 <reference anchor="eIDAS" target="https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32014R0910">
   <front>
     <title>REGULATION (EU) No 910/2014 OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL on electronic identification and trust services for electronic transactions in the internal market and repealing Directive 1999/93/EC</title>
@@ -1233,9 +1233,6 @@ Content-Type: application/json
     <date year="2014" month="July" day="23"></date>
   </front>
 </reference>
-
-
-<?rfc include="https://xml2rfc.ietf.org/public/rfc/bibxml-ids/reference.I-D.ietf-oauth-jwt-introspection-response.xml"?>
 <reference anchor="NIST-SP-800-63a" target="https://doi.org/10.6028/NIST.SP.800-63a">
   <front>
     <title>NIST Special Publication 800-63A, Digital Identity Guidelines, Enrollment and Identity Proofing Requirements</title>
@@ -1263,6 +1260,9 @@ Content-Type: application/json
     <date year="2017" month="June"></date>
   </front>
 </reference>
+
+<?rfc include="https://xml2rfc.ietf.org/public/rfc/bibxml-ids/reference.I-D.ietf-oauth-jwt-introspection-response.xml"?>
+
 
 </references>
 
