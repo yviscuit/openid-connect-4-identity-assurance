@@ -40,19 +40,19 @@ OpenID Connect のこの拡張は, RP が検証済みの Claim と未検証の C
 標準化された値の初期リストは, [Trust Frameworks](#predefined_values_tf) で定義されている. 追加の trust framework identifiers も導入できる [how？]. RP は理解できない trust framework identifiers を含む `verified_claims` Claim を無視しなければならない (SHOLUD).
 
 <!-- The `trust_framework` value determines what further data is provided to the RP in the `verification` element. A notified eID system under eIDAS, for example, would not need to provide any further data whereas an OP not governed by eIDAS would need to provide verification evidence in order to allow the RP to fulfill its legal obligations. An example of the latter is an OP acting under the German Anti-Money laundering law (`de_aml`). -->
-`trust_framework` は, `verification` 要素の中で RP に提供される追加のデータを決定する. たとえば, eIDAS 公認 eID システムは, データを追加する必要はないが, eIDAS に管理されていない OP は RP が法的義務を果たすために検証証拠を提供する必要がある. 後者の例としては, ドイツのマネーロンダリング防止法 (`de_aml`) に基づいて行動する OP である.
+`trust_framework` は, `verification` 要素の中で RP に提供される追加のデータを決定する. たとえば, eIDAS 公認 eID システムは, データを追加する必要はないが, eIDAS に管理されていない OP は RP が法的義務を果たすために verification evidence を提供する必要がある. 後者の例としては, ドイツのマネーロンダリング防止法 (`de_aml`) に基づいて行動する OP である.
 
 <!-- `time`: Time stamp in ISO 8601:2004 [ISO8601-2004] `YYYY-MM-DDThh:mm:ss±hh` format representing the date and time when identity verification took place. Presence of this element might be required for certain trust frameworks. -->
 `time`: ID の検証が行われた日時を示す ISO 8601:2004 [ISO8601-2004] `YYYY-MM-DDThh:mm:ss±hh` フォーマットのタイムスタンプ. 特定のトラストフレームワークでは, この要素の存在が必要になる場合がある.
 
 <!-- `verification_process`: Unique reference to the identity verification process as performed by the OP. Used for backtracing in case of disputes or audits. Presence of this element might be required for certain trust frameworks. -->
-`verification_process`: OP によって実行される identity verification プロセスへの一意の参照. 紛争または監査の場合のバックトレースに使用される.特定のトラストフレームワークでは, この要素の存在が必要になる場合がある.
+`verification_process`: OP によって実行される identity verification プロセスへの一意の参照. 紛争(ないしは紛争解決)または監査の場合のバックトレースに使用される.特定のトラストフレームワークでは, この要素の存在が必要になる場合がある.
 
 <!-- Note: While `verification_process` refers to the identity verification process at the OP, the `txn` claim refers to a particular OpenID Connect transaction in which the OP attested the user's verified identity data towards a RP. -->
 注：`verification_process` は OP での identity verification プロセスを指すが, `txn` Claim は OP が RP に対してユーザ検証済 identity データを証明した特定の OpenID Connect トランザクションを指す.
 
 <!-- `evidence` is a JSON array containing information about the evidence the OP used to verify the user's identity as separate JSON objects. Every object contains the property `type` which determines the type of the evidence. The RP uses this information to process the `evidence` property appropriately. -->
-`evidence`: OP がユーザの identity を個別の JSON オブジェクトとして検証するために使用した `evidence` に関する情報を含む JSON 配列. すべてのオブジェクトには, evidence のタイプを決定する `type` プロパティが含まれている. RP はこの情報を `evidence` プロパティを適切に処理するために利用する.
+`evidence`: OP がユーザの identity を個別の JSON オブジェクトとして検証するために使用した `evidence` に関する情報を含む JSON 配列. すべてのオブジェクトには, エビデンスのタイプを決定する `type` プロパティが含まれている. RP はこの情報を `evidence` プロパティを適切に処理するために利用する.
 
 <!-- Important: implementations MUST ignore any sub-element not defined in this specification or extensions of this specification. -->
 重要:実装はこの仕様またはこの仕様の拡張で定義されていないサブ要素を無視しなければならない (MUST).
@@ -60,7 +60,7 @@ OpenID Connect のこの拡張は, RP が検証済みの Claim と未検証の C
 ### Evidence 
 
 <!-- The following types of evidence are defined: -->
-次の evidence のタイプが定義されている:
+次のエビデンスのタイプが定義されている:
 
 <!--
 * `id_document`: verification based on any kind of government issued identity document
@@ -74,7 +74,7 @@ OpenID Connect のこの拡張は, RP が検証済みの Claim と未検証の C
 #### id_document
 
 <!-- The following elements are contained in an `id_document` evidence sub-element. --> 
-次の種類の属性が `id_document` evidence のサブ要素として含まれる.
+次の種類の属性が `id_document` エビデンスのサブ要素として含まれる.
 
 <!-- `method`: REQUIRED. The method used to verify the id document. Predefined values are given in  [Verification Methods](#predefined_values_vm) -->
 `method`: 必須 (REQUIRED). id document を検証するために使われるメソッド. 事前に定義された値は [Verification Methods](#predefined_values_vm) で定義されている.
@@ -115,7 +115,7 @@ OpenID Connect のこの拡張は, RP が検証済みの Claim と未検証の C
 #### utility_bill
 
 <!-- The following elements are contained in a `utility_bill` evidence sub-element. --> 
-次の種類の要素が `utility_bill` evidence のサブ要素として含まれる.
+次の種類の要素が `utility_bill` エビデンスのサブ要素として含まれる.
 
 <!-- `provider`: REQUIRED. A JSON object identifying the respective provider that issued the bill. The object consists of the following properties: -->
 `provider`: 必須 (REQUIRED). 請求書を発行した各プロバイダを識別する JSON オブジェクト. オブジェクトは次のプロパティで構成される:
@@ -133,7 +133,7 @@ OpenID Connect のこの拡張は, RP が検証済みの Claim と未検証の C
 #### qes
 
 <!-- The following elements are contained in a `qes` evidence sub-element. --> 
-次の種類の要素が `qes` evidence のサブ要素として含まれる.
+次の種類の要素が `qes` エビデンスのサブ要素として含まれる.
 
 <!-- `issuer`: REQUIRED. A String denoting the certification authority that issued the signer's certificate. --> 
 `issuer`: 必須 (REQUIRED). 署名者の証明書を発行した証明機関を示す文字列.

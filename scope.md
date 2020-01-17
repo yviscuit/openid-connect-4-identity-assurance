@@ -10,7 +10,7 @@ RP は必要とする最小限のデータセットを要求し (データの最
 この拡張機能は, eIDAS 公認 eID システムなどの identity assurance に関連する特定の規制の下で動作する OP, および他の OP で使用できる. 厳密に規制された OP は, はっきりと定義された責任を伴う明確に定義されたルールに従って動作することを承認されているため, さらなるエビデンスを提出することなく identity データを証明することができる.
 
 <!-- For example in the case of eIDAS, the peer review ensures eIDAS compliance and the respective member state takes the liability for the identities asserted by its notified eID systems. Every other OP not operating under such well-defined conditions is typically required to provide the RP data about the identity verification process along with identity evidence to allow the RP to conduct their own risk assessment and to map the data obtained from the OP to other laws. For example, it shall be possible to use identity data maintained in accordance with the Anti Money Laundering Law to fulfill requirements defined by eIDAS. -->
-例えば eIDAS のケースでは, ピアレビューが eIDAS のコンプライアンスを保証し, それぞれのメンバー国は公認 eID システムによる identity の主張に対して責任を負う. そのような明確に定義された条件下にない他のすべての OP は, 一般的に, RP が独自のリスク評価を実施し, OP から取得したデータを他の法律にマッピングできるように, identity エビデンスに加えて, RP に identity verification プロセスに関するデータを提供する必要がある. 例えば eIDAS で定義された要件を満たすために, マネーロンダリング防止法に従って維持されている identity データを使用することができる.
+例えば eIDAS のケースでは, ピアレビューが eIDAS のコンプライアンスを保証し, それぞれのメンバー国は公認 eID システムによる identity の主張に対して責任を負う. そのような明確に定義された条件下にない他のすべての OP は, 一般的に, RP が独自のリスク評価を実施し, OP から取得したデータを他の法律にマッピングできるように, identity evidence に加えて, RP に identity verification プロセスに関するデータを提供する必要がある. 例えば eIDAS で定義された要件を満たすために, マネーロンダリング防止法に従って維持されている identity データを使用することができる.
 
 <!-- From a technical perspective, this means this specification allows the OP to attest verified Claims along with information about the respective trust framework (and assurance level) but also supports the externalization of information about the identity verification process. -->
 技術的な観点から, この仕様は OP が各トラストフレームワーク(と assurance レベル)についての情報に加えて, 検証済み Claim の証明を許可することを意味するが, identity verification プロセスに関する情報の表出化のサポートも行う.
@@ -20,7 +20,7 @@ verified Claims. -->
 この仕様で定義された表現方式は, 適切なチャネルを介してエンドユーザに関する検証済 Claim を RP に提供するために利用できる. OpenID Connect のコンテキストでは, 検証済 Claim は ID Token か UserInfo response の一部として証明することができる. また OAuth Token Introspection response ([@?RFC7662] 及び [@?I-D.ietf-oauth-jwt-introspection-response] を参照)で説明されている形式を利用して, 検証済 Claim をリソースサーバに提供することも可能である.
 
 <!-- This extension is intended to be truly international and support identity assurance for different and across jurisdictions. The extension is therefore extensible to support additional trust frameworks, verification methods, and identity evidence. -->
-この拡張は真に国際的なものであり, 異なる管轄の identity assurance もサポートさせる予定である. そのためこの拡張機能は追加のトラストフレームワーク, 検証メソッド, identity エビデンスをサポートするために拡張することができる.
+この拡張は真に国際的なものであり, 異なる管轄の identity assurance もサポートさせる予定である. そのためこの拡張機能は追加のトラストフレームワーク, 検証メソッド, identity evidenceをサポートするために拡張することができる.
 
 <!-- In order to give implementors as much flexibility as possible, this extension can be used in conjunction with existing OpenID Connect Claims and other extensions within the same OpenID Connect assertion (e.g., ID Token or UserInfo response) utilized to convey Claims about End-Users. -->
 実装者に可能な限りの柔軟性を与えるために, この拡張は既存の OpenID Connect の Claim および同じ OpenID Connect のアサーション(例えば, ID Token や UserInfo)内の他の拡張と組み合わせて使うことができる.
