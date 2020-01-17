@@ -12,9 +12,11 @@ OpenID Connect のこの拡張は, RP が検証済みの Claim と未検証の C
 <!-- `verified_claims` consists of the following sub-elements: -->
 `verified_claims` は以下のサブ要素で構成される:
 
-<!-- * `verification`: REQUIRED. Object that contains all data about the verification process. -->
+<!--
+* `verification`: REQUIRED. Object that contains all data about the verification process.
+* `claims`: REQUIRED. Object that is the container for the verified Claims about the End-User.
+-->
 * `verification`: 必須 (REQUIRED). 検証プロセスに関するすべてのデータを含むオブジェクト.
-<!-- * `claims`: REQUIRED. Object that is the container for the verified Claims about the End-User. --> 
 * `claims`: 必須 (REQUIRED). エンドユーザに関するの検証済 Claim のためのコンテナであるオブジェクト.
 
 <!-- Note: implementations MUST ignore any sub-element not defined in this specification or extensions of this specification. -->
@@ -60,11 +62,13 @@ OpenID Connect のこの拡張は, RP が検証済みの Claim と未検証の C
 <!-- The following types of evidence are defined: -->
 次の evidence のタイプが定義されている:
 
-<!-- * `id_document`: verification based on any kind of government issued identity document --> 
+<!--
+* `id_document`: verification based on any kind of government issued identity document
+* `utility_bill`: verification based on a utility bill
+* `qes`: verification based on a eIDAS Qualified Electronic Signature
+* -->
 * `id_document`: あらゆる種類の政府発行の身分証明書に基づく検証
-<!-- * `utility_bill`: verification based on a utility bill -->
 * `utility_bill`: 公共料金の支払に基づく検証
-<!-- * `qes`: verification based on a eIDAS Qualified Electronic Signature -->
 * `qes`: eIDAS 認定電子署名に基づく検証
 
 #### id_document
@@ -78,9 +82,11 @@ OpenID Connect のこの拡張は, RP が検証済みの Claim と未検証の C
 <!-- `verifier`: OPTIONAL. A JSON object denoting the legal entity that performed the identity verification on behalf of the OP. This object SHOULD only be included if the OP did not perform the identity verification itself. This object consists of the following properties: -->
 `verifier`: オプション (OPTIONAL). OP に代わって identity verification を実行した法人を示す JSON オブジェクト. このオブジェクトは, OP が identity verification を実行しなかった場合にのみ含める必要がある (SHOULD). このオブジェクトは次のプロパティで構成される:
 
-<!-- * `organization`: String denoting the organization which performed the verification on behalf of the OP. --> 
+<!-- 
+* `organization`: String denoting the organization which performed the verification on behalf of the OP.
+* `txn`: identifier refering to the identity verification transaction. This transaction identifier can be resolved into transaction details during an audit.
+-->
 * `organization`: OP に変わって検証を行った組織を表す文字列.
-<!-- * `txn`: identifier refering to the identity verification transaction. This transaction identifier can be resolved into transaction details during an audit. -->
 * `txn`: identity verification のトランザクションを参照する識別子. このトランザクション識別子は, 監査中のトランザクションの詳細を分析できる.
 
 <!-- `time`: Time stamp in ISO 8601:2004 [ISO8601-2004] `YYYY-MM-DDThh:mm:ss±hh` format representing the date when this id document was verified. --> 
@@ -89,19 +95,21 @@ OpenID Connect のこの拡張は, RP が検証済みの Claim と未検証の C
 <!-- `document`: A JSON object representing the id document used to perform the id verification. It consists of the following properties: -->
 `document`: ID 検証に使用される id document を表す JSON オブジェクト. 次のプロパティで構成される:
 
-<!-- * `type`: REQUIRED. String denoting the type of the id document. Standardized values are defined in [Identity Documents](#predefined_values_idd). The OP MAY use other than the predefined values in which case the RPs will either be unable to process the assertion, just store this value for audit purposes, or apply bespoken business logic to it. -->
+<!--
+* `type`: REQUIRED. String denoting the type of the id document. Standardized values are defined in [Identity Documents](#predefined_values_idd). The OP MAY use other than the predefined values in which case the RPs will either be unable to process the assertion, just store this value for audit purposes, or apply bespoken business logic to it.
+* `number`: String representing the number of the identity document.
+* `issuer`: A JSON object containg information about the issuer of this identity document. This object consists of the following properties:
+	*  `name`: REQUIRED. Designation of the issuer of the identity document
+	*  `country`: String denoting the country or organization that issued the document as ICAO 2-letter-code [@!ICAO-Doc9303], e.g. "JP". ICAO 3-letter codes MAY be used when there is no corresponding ISO 2-letter code, such as "UNO".
+* `date_of_issuance`: REQUIRED if this attribute exists for the particular type of document. The date the document was issued as ISO 8601:2004 YYYY-MM-DD format.
+* `date_of_expiry`: REQUIRED if this attribute exists for the particular type of document. The date the document will expire as ISO 8601:2004 YYYY-MM-DD format.
+-->
 * `type`: 必須 (REQUIRED). id document のタイプを示す文字列. 標準化された値は [Identity Documents](#predefined_values_idd) で定義されます. OP は事前に定義されていない値を使用するかもしれず (MAY), その場合, RP はアサーションを処理できないか, 監査目的でこの値を保存するだけか, またはそれに言及されたビジネスロジックであることを表す.
-<!-- * `number`: String representing the number of the identity document. -->
 * `number`: identity document の番号を表す文字列.
-<!-- * `issuer`: A JSON object containg information about the issuer of this identity document. This object consists of the following properties: -->
 * `issuer`: この identity document の発行者の情報を含む JSON オブジェクト. このオブジェクトは次のプロパティで構成される:
-	<!-- *  `name`: REQUIRED. Designation of the issuer of the identity document -->
 	*  `name`:必須 (REQUIRED). identity document の発行者の名称.
-	<!-- *  `country`: String denoting the country or organization that issued the document as ICAO 2-letter-code [@!ICAO-Doc9303], e.g. "JP". ICAO 3-letter codes MAY be used when there is no corresponding ISO 2-letter code, such as "UNO". -->
 	*  `country`: ドキュメントを ICAO 2-letter-code [@!ICAO-Doc9303] として発行した国または組織を示す文字列 (例： "JP") . ICAO 3-letter codes は, "UNO" など, 対応する ISO 2-letter codes がない場合に使用できる.
-<!-- * `date_of_issuance`: REQUIRED if this attribute exists for the particular type of document. The date the document was issued as ISO 8601:2004 YYYY-MM-DD format. -->
 * `date_of_issuance`: 特定の種類のドキュメント用にこの属性が存在する場合は必須 (REQUIRED). ISO 8601:2004 YYYY-MM-DD フォーマットでドキュメントが発行された日付.
-<!-- * `date_of_expiry`: REQUIRED if this attribute exists for the particular type of document. The date the document will expire as ISO 8601:2004 YYYY-MM-DD format. --> 
 * `date_of_expiry`: 特定の種類のドキュメント用にこの属性が存在する場合は必須 (REQUIRED). ISO 8601:2004 YYYY-MM-DD フォーマットのドキュメントの有効期限.
 
 #### utility_bill
@@ -112,9 +120,11 @@ OpenID Connect のこの拡張は, RP が検証済みの Claim と未検証の C
 <!-- `provider`: REQUIRED. A JSON object identifying the respective provider that issued the bill. The object consists of the following properties: -->
 `provider`: 必須 (REQUIRED). 請求書を発行した各プロバイダを識別する JSON オブジェクト. オブジェクトは次のプロパティで構成される:
 
-<!-- * `name`: A String designating the provider. -->
+<!--
+* `name`: A String designating the provider.
+* All elements of the OpenID Connect `address` Claim ([@!OpenID])
+-->
 * `name`: プロバイダを指定する文字列.
-<!-- * All elements of the OpenID Connect `address` Claim ([@!OpenID]) -->
 * OpenID Connect の `address` Claim ([@!OpenID]) のすべての要素
 
 <!-- `date`: A ISO 8601:2004 YYYY-MM-DD formatted string containing the date when this bill was issued. -->
