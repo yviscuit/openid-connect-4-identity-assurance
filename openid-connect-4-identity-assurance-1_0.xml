@@ -23,52 +23,64 @@
 <middle>
 
 <section anchor="Introduction" title="Introduction">
-<t>この仕様では, OpenID Connect <xref target="OpenID"></xref>の拡張機能を定義して, 特定の法律に従って自然人の強力なidentity verificationのユースケースに対処している. 例には, マネーロンダリング防止法, 電気通信法, テロ対策法, eIDAS <xref target="eIDAS"></xref>などの信託サービスに関する規制が含まれる.</t>
-<t>そのようなユースケースでは, 依拠当事者（RPs）は, OpenID Connectプロバイダー（OPs）またはその他の信頼できるソースによって証明されたエンドユーザーに関するClaimの保証レベルと, identity verificationプロセスに関連するエビデンスを知る必要がある.</t>
-<t>OpenID Connect仕様<xref target="OpenID"></xref>のセクション2で定義されている<spanx style="verb">acr</spanx>Claimは, OpenID Connectトランザクションで実行される認証に関する情報を証明するのに適してる. ただし, identity assuranceには次の理由で異なる表現が必要である: 認証はOpenID Connectトランザクションの側面であり, identity assuranceは特定のClaimまたはClaimのグループのプロパティであり, それらのいくつかは通常, OpenID Connectトランザクションの結果としてRPに伝えられる.</t>
-<t>たとえば, 通常, OPが電子メールアドレスを証明できるという保証は「自己表明」または「オプトインまたは同様のメカニズムによって検証」される. 対照的にユーザーの姓は, OPオペレーターの訓練を受けた従業員にIDカードを提示することにより, それぞれのアンチマネーロンダリング法に従って検証された可能性がある.</t>
-<t>したがって, identity assuranceには, エンドユーザーに関する各Claimとともに保証データを伝達する方法が必要である. この仕様は, RPがエンドユーザーに関する検証済みClaimをidentity assuranceデータとともに要求し, OPがこれらの検証済みClaimと付随するidentity assuranceデータを表すために利用する適切な表現とメカニズムを提案する.</t>
+<t>この仕様では, OpenID Connect <xref target="OpenID"></xref> の拡張機能を定義して, 特定の法律に従って自然人の強力な identity verification のユースケースに対処している. 例には, マネーロンダリング防止法, 電気通信法, テロ対策法, eIDAS <xref target="eIDAS"></xref> などの信託サービスに関する規制が含まれる.</t>
+<t>そのようなユースケースでは, 依拠当事者 (RPs) は, OpenID Connect プロバイダー (OPs) またはその他の信頼できるソースによって証明されたエンドユーザーに関する Claim の保証レベルと, identity verification プロセスに関連するエビデンスを知る必要がある.</t>
+<t>OpenID Connect 仕様 <xref target="OpenID"></xref> の Section 2 で定義されている <spanx style="verb">acr</spanx> Claim は, OpenID Connect トランザクションで実行される認証に関する情報を証明するのに適している. ただし, identity assurance には次の理由で異なる表現が必要である: 認証は OpenID Connect トランザクションの側面であり, identity assurance は特定の Claim または Claim のグループのプロパティであり, それらのいくつかは通常, OpenID Connect トランザクションの結果として RP に伝えられる.</t>
+<t>たとえば, 通常, OP が電子メールアドレスを証明できるという保証は「自己表明」または「オプトインまたは同様のメカニズムによって検証」される. 対照的にユーザーの姓は, OP オペレーターの訓練を受けた従業員に ID カードを提示することにより, それぞれのマネーロンダリング防止法に従って検証された可能性がある.</t>
+<t>したがって, identity assurance には, エンドユーザーに関する各 Claim とともに保証データを伝達する方法が必要である. この仕様は, RP がエンドユーザーに関する検証済み Claim を identity assurance データとともに要求し, OP がこれらの検証済み Claim と付随する identity assurance データを表すために利用する適切な表現とメカニズムを提案する.</t>
 
 <section anchor="terminology" title="Terminology">
-<t>このセクションでは, NIST SP 800-63A <xref target="NIST-SP-800-63a"></xref>に大きな影響を受けた, このドキュメントで扱われているトピックに関連するいくつかの用語を定義する.</t>
+<t>このセクションでは, NIST SP 800-63A <xref target="NIST-SP-800-63a"></xref> に大きな影響を受けた, このドキュメントで扱われているトピックに関連するいくつかの用語を定義する.</t>
 <t>
 <list style="symbols">
-<t>Identity Proofing - ユーザーがOPまたは自分自身を確実に識別するClaimプロバイダーにエビデンスを提供することにより, OPが有用なidentity assuranceレベルで識別できるようにするプロセス.</t>
-<t>Identify Verification - ユーザーの身元を確認するためにOPまたはClaimプロバイダーによって実行されるプロセス.</t>
-<t>Identity Assurance - OPまたはClaimプロバイダーが, RPに対してある一定の確からしさをもって特定のユーザーのIdentityデータを証明するプロセス.  通常はidentity assuranceレベルで表される. 法的要件に応じて, OPはidentity verificationプロセスのエビデンスをRPに提供する必要がある場合もある.</t>
-<t>Verified Claims - 特定のユーザーアカウントへのバインドがidentity verificationプロセスの過程で検証されたエンドユーザー（通常は自然人）に関するClaim.</t>
+<t>Identity Proofing - ユーザーが OP または自分自身を確実に識別する Claim プロバイダーにエビデンスを提供することにより, OP が有用な identity assurance レベルで識別できるようにするプロセス.</t>
+</list>
+</t>
+<t>
+<list style="symbols">
+<t>Identify Verification - ユーザーの身元を確認するために OP または Claim プロバイダーによって実行されるプロセス.</t>
+</list>
+</t>
+<t>
+<list style="symbols">
+<t>Identity Assurance - OP または Claim プロバイダーが, RP に対してある一定の確からしさをもって特定のユーザーの Identity データを証明するプロセス.  通常は identity assurance レベルで表される. 法的要件に応じて, OP は identity verification プロセスのエビデンスを RP に提供する必要がある場合もある.</t>
+</list>
+</t>
+<t>
+<list style="symbols">
+<t>Verified Claims - 特定のユーザーアカウントへのバインドが identity verification プロセスの過程で検証されたエンドユーザー (通常は自然人) に関する Claim.</t>
 </list>
 </t>
 </section>
 </section>
 
 <section anchor="scope-and-requirements" title="Scope and Requirements">
-<t>本仕様のスコープは, 検証されたClaimをアサートするメカニズムを定義し, identity assuranceスペースで必要とされるエンドユーザに関する新しいClaimを導入することである; 例の一つとして出生地がある.</t>
-<t>RPは必要とする最小限のデータセットを要求し（データの最小化）, このデータとOPで利用されるエビデンス, およびidentity verificationプロセスに関する要件を表すことができる.</t>
-<t>この拡張機能は, eIDAS公認eIDシステムなどのidentity assuranceに関連する特定の規制の下で動作するOP, および他のOPで使用できる. 厳密に規制されたOPは, はっきりと定義された責任を伴う明確に定義されたルールに従って動作することを承認されているため, さらなるエビデンスを提出することなくidentityデータを証明することができる.</t>
-<t>例えばeIDASのケースでは, ピアレビューがeIDASのコンプライアンスを保証し, それぞれのメンバー国は公認eIDシステムによるidentityの主張に対して責任を負う. そのような明確に定義された条件下にない他のすべてのOPは, 一般的に, RPが独自のリスク評価を実施し, OPから取得したデータを他の法律にマッピングできるように, identityエビデンスに加えて, RPにidentity verificationプロセスに関するデータを提供する必要がある. 例えばeIDASで定義された要件を満たすために, マネーロンダリング防止法に従って維持されているidentityデータを使用することができる.</t>
-<t>技術的な観点から, この仕様はOPが各トラストフレームワーク(とassuranceレベル)についての情報に加えて, 検証済みClaimの証明を許可することを意味するが, identity verificationプロセスに関する情報の表出化のサポートも行う.</t>
-<t>この仕様で定義された表現方式は, 適切なチャネルを介してエンドユーザに関する検証済ClaimをRPに提供するために利用できる. OpenID Connectのコンテキストでは, 検証済ClaimはID TokenかUserInfo responseの一部として証明することができる. またOAuth Token Introspection response (<xref target="RFC7662"></xref> 及び <xref target="I-D.ietf-oauth-jwt-introspection-response"></xref>を参照)で説明されている形式を利用して, 検証済Claimをリソースサーバに提供することも可能である.</t>
-<t>この拡張は真に国際的なものであり, 異なる管轄のidentity assuranceもサポートさせる予定である. そのためこの拡張機能は追加のトラストフレームワーク, 検証メソッド, identityエビデンスをサポートするために拡張することができる.</t>
-<t>実装者に可能な限りの柔軟性を与えるために, この拡張は既存のOpenID ConnectのClaimおよび同じOpenID Connectのアサーション(例えば, ID TokenやUserInfo)内の他の拡張と組み合わせて使うことができる.</t>
-<t>例えば, OpenID Connect <xref target="OpenID"></xref> は検証ステータスのないユーザの姓と名を表すClaimを定義している. これらのClaimはこの拡張に従って表現される検証済みClaimとともに同じOpenID Connectのアサーションで使うことができる.</t>
-<t>同じように, RPに<spanx style="verb">phone_number</spanx>と<spanx style="verb">email</spanx>Claimの検証ステータスを通知する既存Claimもこの拡張とともに使うことができる.</t>
-<t>検証済みClaimを主張する場合でも, この拡張は可能かつ妥当であれば既存のOpenID ConnectのClaimを利用する. しかしながら, 拡張はRPが未検証Claimを検証済Claimとして(誤って)解釈できないようにする.</t>
+<t>本仕様のスコープは, 検証された Claim をアサートするメカニズムを定義し, identity assurance スペースで必要とされるエンドユーザに関する新しい Claim を導入することである; 例の一つとして出生地がある.</t>
+<t>RP は必要とする最小限のデータセットを要求し (データの最小化) , このデータと OP で利用されるエビデンス, および identity verification プロセスに関する要件を表すことができる.</t>
+<t>この拡張機能は, eIDAS 公認 eID システムなどの identity assurance に関連する特定の規制の下で動作する OP, および他の OP で使用できる. 厳密に規制された OP は, はっきりと定義された責任を伴う明確に定義されたルールに従って動作することを承認されているため, さらなるエビデンスを提出することなく identity データを証明することができる.</t>
+<t>例えば eIDAS のケースでは, ピアレビューが eIDAS のコンプライアンスを保証し, それぞれのメンバー国は公認 eID システムによる identity の主張に対して責任を負う. そのような明確に定義された条件下にない他のすべての OP は, 一般的に, RP が独自のリスク評価を実施し, OP から取得したデータを他の法律にマッピングできるように, identity エビデンスに加えて, RP に identity verification プロセスに関するデータを提供する必要がある. 例えば eIDAS で定義された要件を満たすために, マネーロンダリング防止法に従って維持されている identity データを使用することができる.</t>
+<t>技術的な観点から, この仕様は OP が各トラストフレームワーク(と assurance レベル)についての情報に加えて, 検証済み Claim の証明を許可することを意味するが, identity verification プロセスに関する情報の表出化のサポートも行う.</t>
+<t>この仕様で定義された表現方式は, 適切なチャネルを介してエンドユーザに関する検証済 Claim を RP に提供するために利用できる. OpenID Connect のコンテキストでは, 検証済 Claim は ID Token か UserInfo response の一部として証明することができる. また OAuth Token Introspection response (<xref target="RFC7662"></xref> 及び <xref target="I-D.ietf-oauth-jwt-introspection-response"></xref> を参照)で説明されている形式を利用して, 検証済 Claim をリソースサーバに提供することも可能である.</t>
+<t>この拡張は真に国際的なものであり, 異なる管轄の identity assurance もサポートさせる予定である. そのためこの拡張機能は追加のトラストフレームワーク, 検証メソッド, identity エビデンスをサポートするために拡張することができる.</t>
+<t>実装者に可能な限りの柔軟性を与えるために, この拡張は既存の OpenID Connect の Claim および同じ OpenID Connect のアサーション(例えば, ID Token や UserInfo)内の他の拡張と組み合わせて使うことができる.</t>
+<t>例えば, OpenID Connect <xref target="OpenID"></xref> は検証ステータスのないユーザの姓と名を表す Claim を定義している. これらの Claim はこの拡張に従って表現される検証済み Claim とともに同じ OpenID Connect のアサーションで使うことができる.</t>
+<t>同じように, RP に <spanx style="verb">phone_number</spanx> と <spanx style="verb">email</spanx> Claim の検証ステータスを通知する既存 Claim もこの拡張とともに使うことができる.</t>
+<t>検証済み Claim を主張する場合でも, この拡張は可能かつ妥当であれば既存の OpenID Connect の Claim を利用する. しかしながら, 拡張は RP が未検証 Claim を検証済 Claim として(誤って)解釈できないようにする.</t>
 </section>
 
 <section anchor="claims" title="Claims">
 
 <section anchor="userclaims" title="Additional Claims about End-Users">
-<t>identity assuranceに関する一部の権限の要件を満たすために, この仕様ではOpenID仕様<xref target="OpenID"></xref>に定義されているClaimにユーザデータを伝達するための以下の追加のClaimを定義する:</t>
+<t>identity assurance に関する一部の権限の要件を満たすために, この仕様では OpenID仕様 <xref target="OpenID"></xref> に定義されている Claim にユーザデータを伝達するための以下の追加の Claim を定義する:</t>
 <t>
 <list style="symbols">
-<t><spanx style="verb">place_of_birth</spanx>: エンドユーザの出生地を示す構造化されたClaim. 次のフィールドで構成される:
+<t><spanx style="verb">place_of_birth</spanx>: エンドユーザの出生地を示す構造化された Claim. 次のフィールドで構成される:
 <list style="symbols">
-<t><spanx style="verb">country</spanx>: 必須(REQUIRED). <xref target="ISO3166-1"></xref> Alpha-2 (例えば, DE) または <xref target="ISO3166-3"></xref></t>
+<t><spanx style="verb">country</spanx>: 必須 (REQUIRED). <xref target="ISO3166-1"></xref> Alpha-2 (例えば, DE) または <xref target="ISO3166-3"></xref></t>
 <t><spanx style="verb">region</spanx>: State, province, prefecture, または他の地域コンポーネント. 一部の管轄区域ではこのフィールドは必須かもしれない.</t>
-<t><spanx style="verb">locality</spanx>: 必須(REQUIRED). city, または別の地域.</t>
+<t><spanx style="verb">locality</spanx>: 必須 (REQUIRED). city, または別の地域.</t>
 </list></t>
-<t><spanx style="verb">nationalities</spanx>: ユーザの国籍を表すICAO 2-letter codes <xref target="ICAO-Doc9303"></xref>の文字配列. 例えば &quot;US&quot; や &quot;DE&quot;. &quot;EUE&quot;のように対応する2-letter codeがない場合, 3-letter codesを利用してもよい(MAY).</t>
+<t><spanx style="verb">nationalities</spanx>: ユーザの国籍を表す ICAO 2-letter codes <xref target="ICAO-Doc9303"></xref> の文字配列. 例えば &quot;US&quot; や &quot;DE&quot;. &quot;EUE&quot; のように対応する 2-letter code がない場合, 3-letter codes を利用してもよい (MAY).</t>
 <t><spanx style="verb">birth_family_name</spanx>: 彼または彼女が生まれたとき, あるいは少なくとも子供の時から持っている姓. この用語は人生の途中に何らかの理由で姓を変更した人が利用できる.</t>
 <t><spanx style="verb">birth_given_name</spanx>: 彼または彼女が生まれたとき, あるいは少なくとも子供の時から持っている名前. この用語は人生の途中に何らかの理由で名前を変更した人が利用できる.</t>
 <t><spanx style="verb">birth_middle_name</spanx>: 彼または彼女が生まれたとき, あるいは少なくとも子供の時から持っているミドルネーム. この用語は人生の途中に何らかの理由でミドルネームを変更した人が利用できる.</t>
@@ -79,110 +91,110 @@
 </section>
 
 <section anchor="txn-claim" title="txn Claim">
-<t>一般的に, 強固なidentity verificationは参加者がプロセス全体の監査証跡を保持する必要がある.</t>
-<t><xref target="RFC8417"></xref>で定義されている<spanx style="verb">txn</spanx>Claimはこの拡張のコンテキストで使用され, OpenID Connectトランザクションに関わるの関係者全体の監査証跡を構築する.</t>
-<t>OPが<spanx style="verb">txn</spanx>を発行する場合, 対応する監査証跡を維持する必要があり(MUST), 少なくとも次の詳細で構成される.</t>
+<t>一般的に, 強固な identity verification は参加者がプロセス全体の監査証跡を保持する必要がある.</t>
+<t><xref target="RFC8417"></xref> で定義されている <spanx style="verb">txn</spanx> Claim はこの拡張のコンテキストで使用され, OpenID Connect トランザクションに関わるの関係者全体の監査証跡を構築する.</t>
+<t>OP が <spanx style="verb">txn</spanx> を発行する場合, 対応する監査証跡を維持する必要があり (MUST), 少なくとも次の詳細で構成される.</t>
 <t>
 <list style="symbols">
 <t>transaction id,</t>
 <t>採用されている authentication methods, および</t>
-<t>transaction type (scope値など).</t>
+<t>transaction type (scope 値など).</t>
 </list>
 </t>
-<t>このトランザクションデータは, それぞれの規定による監査目的のためにトランザクションデータを保存する必要がある限り保存し続けなければならない(MUST).</t>
-<t>RPはこのClaimを<spanx style="verb">claims</spanx>パラメータを介して, またはscope値によって識別されるデフォルトのClaimの一部として, 他のClaimと同様に要求する.</t>
-<t><spanx style="verb">txn</spanx>値は必要に応じてRPがこれらのトランザクションを参照できるようにしなければならない(MUST).</t>
-<t>注：トランザクションの詳細を, OPおよび, それらのフォーマットから取得するメカニズムはこの仕様の範囲外である.</t>
+<t>このトランザクションデータは, それぞれの規定による監査目的のためにトランザクションデータを保存する必要がある限り保存し続けなければならない (MUST).</t>
+<t>RP はこの Claim を <spanx style="verb">claims</spanx> パラメータを介して, または scope 値によって識別されるデフォルトの Claim の一部として, 他の Claim と同様に要求する.</t>
+<t><spanx style="verb">txn</spanx> 値は必要に応じて RP がこれらのトランザクションを参照できるようにしなければならない (MUST).</t>
+<t>注：トランザクションの詳細を, OP および, それらのフォーマットから取得するメカニズムはこの仕様の範囲外である.</t>
 </section>
 </section>
 
 <section anchor="verified-data-representation" title="Verified Data Representation">
-<t>OpenID Connectのこの拡張は,RPが検証済みのClaimと未検証のClaimを混在させ, 検証済みのClaimとして未検証のClaimを偶発的に処理できないようにすることを目的としている.</t>
-<t>それ故, 提案された表現は<spanx style="verb">verified_claims</spanx>コンテナ要素内で検証済みClaimをRPに提供することである. このコンテナは特定の検証プロセスに関連する検証のエビデンスとこのプロセスで検証されたエンドユーザについての該当Claimで構成されている.</t>
-<t>このセクションでは<spanx style="verb">verified_claims</spanx>の構造と意味について詳しく説明する. 機械可読な構文定義は<xref target="json_schema"></xref>でJSONスキーマとして提供される. <spanx style="verb">verified_claims</spanx>要素を含むJSONドキュメントを自動的に検証するために使用できる.</t>
-<t><spanx style="verb">verified_claims</spanx>は以下のサブ要素で構成される:</t>
+<t>OpenID Connect のこの拡張は, RP が検証済みの Claim と未検証の Claim を混在させ, 検証済みの Claim として未検証の Claim を偶発的に処理できないようにすることを目的としている.</t>
+<t>それ故, 提案された表現は <spanx style="verb">verified_claims</spanx> コンテナ要素内で検証済み Claim を RP に提供することである. このコンテナは特定の検証プロセスに関連する検証のエビデンスとこのプロセスで検証されたエンドユーザについての該当 Claim で構成されている.</t>
+<t>このセクションでは <spanx style="verb">verified_claims</spanx> の構造と意味について詳しく説明する. 機械可読な構文定義は <xref target="json_schema"></xref> で JSON スキーマとして提供される. <spanx style="verb">verified_claims</spanx> 要素を含む JSON ドキュメントを自動的に検証するために使用できる.</t>
+<t><spanx style="verb">verified_claims</spanx> は以下のサブ要素で構成される:</t>
 <t>
 <list style="symbols">
-<t><spanx style="verb">verification</spanx>: 必須(REQUIRED). 検証プロセスに関するすべてのデータを含むオブジェクト.</t>
-<t><spanx style="verb">claims</spanx>: 必須(REQUIRED). エンドユーザに関するの検証済Claimのためのコンテナであるオブジェクト.</t>
+<t><spanx style="verb">verification</spanx>: 必須 (REQUIRED). 検証プロセスに関するすべてのデータを含むオブジェクト.</t>
+<t><spanx style="verb">claims</spanx>: 必須 (REQUIRED). エンドユーザに関するの検証済 Claim のためのコンテナであるオブジェクト.</t>
 </list>
 </t>
-<t>注: 実装は, この仕様またはこの仕様の拡張で定義されていないサブ要素を無視しなければならない(MUST).</t>
+<t>注: 実装は, この仕様またはこの仕様の拡張で定義されていないサブ要素を無視しなければならない (MUST).</t>
 
 <section anchor="verification" title="verification Element">
 <t>この要素には, 個人の身元を確認し, それぞれの個人データをユーザーアカウントにバインドするために実行されたプロセスに関する情報が含まれる.</t>
-<t><spanx style="verb">verification</spanx>要素は以下の要素を含む:</t>
-<t><spanx style="verb">trust_framework</spanx>: 必須(REQUIRED). OPのidentity verificationプロセスと, identity assuranceレベルを管理するtrust frameworkを定める文字列.</t>
-<t>例としては<spanx style="verb">eidas_ial_high</spanx>で, これはeIDAS <xref target="eIDAS"></xref> の下で通知されたeIDシステムを示し, assuranceレベル&quot;high&quot;のidentity assuranceを提供する.</t>
-<t>標準化された値の初期リストは、<eref target="#predefined_values_tf">Trust Frameworks</eref>で定義されている. 追加のtrust framework identifiersも導入できる[how？]. RPは理解できないtrust framework identifiersを含む<spanx style="verb">verified_claims</spanx>Claimを無視しなければならない(SHOLUD).</t>
-<t><spanx style="verb">trust_framework</spanx>は、<spanx style="verb">verification</spanx>要素の中でRPに提供される追加のデータを決定する. たとえば、eIDAS公認eIDシステムは, データを追加する必要はないが, eIDASに管理されていないOPはRPが法的義務を果たすために検証証拠を提供する必要がある. 後者の例としては、ドイツのマネーロンダリング防止法（<spanx style="verb">de_aml</spanx>）に基づいて行動するOPである.</t>
-<t><spanx style="verb">time</spanx>: IDの検証が行われた日時を示すISO 8601:2004 [ISO8601-2004] <spanx style="verb">YYYY-MM-DDThh:mm:ss±hh</spanx> フォーマットのタイムスタンプ. 特定のトラストフレームワークでは、この要素の存在が必要になる場合がある.</t>
-<t><spanx style="verb">verification_process</spanx>: OPによって実行されるidentity verificationプロセスへの一意の参照. 紛争または監査の場合のバックトレースに使用される.特定のトラストフレームワークでは、この要素の存在が必要になる場合がある.</t>
-<t>注：<spanx style="verb">verification_process</spanx> はOPでのidentity verificationプロセスを指すが, <spanx style="verb">txn</spanx>ClaimはOPがRPに対してユーザ検証済identityデータを証明した特定のOpenID Connectトランザクションを指す.</t>
-<t><spanx style="verb">evidence</spanx>: OPがユーザのidentityを個別のJSONオブジェクトとして検証するために使用した <spanx style="verb">evidence</spanx> に関する情報を含むJSON配列. すべてのオブジェクトには, evidenceのタイプを決定する<spanx style="verb">type</spanx>プロパティが含まれている. RPはこの情報を<spanx style="verb">evidence</spanx>プロパティを適切に処理するために利用する.</t>
-<t>重要:実装はこの仕様またはこの仕様の拡張で定義されていないサブ要素を無視しなければならない(MUST).</t>
+<t><spanx style="verb">verification</spanx> 要素は以下の要素を含む:</t>
+<t><spanx style="verb">trust_framework</spanx>: 必須 (REQUIRED). OP の identity verification プロセスと, identity assurance レベルを管理する trust framework を定める文字列.</t>
+<t>例としては <spanx style="verb">eidas_ial_high</spanx> で, これは eIDAS <xref target="eIDAS"></xref> 公認 eID システムを示し, assurance レベル &quot;high&quot; の identity assurance を提供する.</t>
+<t>標準化された値の初期リストは, <eref target="#predefined_values_tf">Trust Frameworks</eref> で定義されている. 追加の trust framework identifiers も導入できる [how？]. RP は理解できない trust framework identifiers を含む <spanx style="verb">verified_claims</spanx> Claim を無視しなければならない (SHOLUD).</t>
+<t><spanx style="verb">trust_framework</spanx> は, <spanx style="verb">verification</spanx> 要素の中で RP に提供される追加のデータを決定する. たとえば, eIDAS 公認 eID システムは, データを追加する必要はないが, eIDAS に管理されていない OP は RP が法的義務を果たすために検証証拠を提供する必要がある. 後者の例としては, ドイツのマネーロンダリング防止法 (<spanx style="verb">de_aml</spanx>) に基づいて行動する OP である.</t>
+<t><spanx style="verb">time</spanx>: ID の検証が行われた日時を示す ISO 8601:2004 [ISO8601-2004] <spanx style="verb">YYYY-MM-DDThh:mm:ss±hh</spanx> フォーマットのタイムスタンプ. 特定のトラストフレームワークでは, この要素の存在が必要になる場合がある.</t>
+<t><spanx style="verb">verification_process</spanx>: OP によって実行される identity verification プロセスへの一意の参照. 紛争または監査の場合のバックトレースに使用される.特定のトラストフレームワークでは, この要素の存在が必要になる場合がある.</t>
+<t>注：<spanx style="verb">verification_process</spanx> は OP での identity verification プロセスを指すが, <spanx style="verb">txn</spanx> Claim は OP が RP に対してユーザ検証済 identity データを証明した特定の OpenID Connect トランザクションを指す.</t>
+<t><spanx style="verb">evidence</spanx>: OP がユーザの identity を個別の JSON オブジェクトとして検証するために使用した <spanx style="verb">evidence</spanx> に関する情報を含む JSON 配列. すべてのオブジェクトには, evidence のタイプを決定する <spanx style="verb">type</spanx> プロパティが含まれている. RP はこの情報を <spanx style="verb">evidence</spanx> プロパティを適切に処理するために利用する.</t>
+<t>重要:実装はこの仕様またはこの仕様の拡張で定義されていないサブ要素を無視しなければならない (MUST).</t>
 
 <section anchor="evidence" title="Evidence">
-<t>次のevidenceのタイプが定義されている:</t>
+<t>次の evidence のタイプが定義されている:</t>
 <t>
 <list style="symbols">
 <t><spanx style="verb">id_document</spanx>: あらゆる種類の政府発行の身分証明書に基づく検証</t>
 <t><spanx style="verb">utility_bill</spanx>: 公共料金の支払に基づく検証</t>
-<t><spanx style="verb">qes</spanx>: eIDAS認定電子署名に基づく検証</t>
+<t><spanx style="verb">qes</spanx>: eIDAS 認定電子署名に基づく検証</t>
 </list>
 </t>
 
 <section anchor="id-document" title="id_document">
-<t>次の種類の属性が <spanx style="verb">id_document</spanx> evidenceのサブ要素として含まれる.</t>
-<t><spanx style="verb">method</spanx>: 必須(REQUIRED). id documentを検証するために使われるメソッド. 事前に定義された値は <eref target="#predefined_values_vm">Verification Methods</eref>で定義されている.</t>
-<t><spanx style="verb">verifier</spanx>: オプション(OPTIONAL). OPに代わってidentity verificationを実行した法人を示すJSONオブジェクト. このオブジェクトは、OPがidentity verificationを実行しなかった場合にのみ含める必要がある(SHOULD). このオブジェクトは次のプロパティで構成される:</t>
+<t>次の種類の属性が <spanx style="verb">id_document</spanx> evidence のサブ要素として含まれる.</t>
+<t><spanx style="verb">method</spanx>: 必須 (REQUIRED). id document を検証するために使われるメソッド. 事前に定義された値は <eref target="#predefined_values_vm">Verification Methods</eref> で定義されている.</t>
+<t><spanx style="verb">verifier</spanx>: オプション (OPTIONAL). OP に代わって identity verification を実行した法人を示す JSON オブジェクト. このオブジェクトは, OP が identity verification を実行しなかった場合にのみ含める必要がある (SHOULD). このオブジェクトは次のプロパティで構成される:</t>
 <t>
 <list style="symbols">
-<t><spanx style="verb">organization</spanx>: OPに変わって検証を行った組織を表す文字列.</t>
-<t><spanx style="verb">txn</spanx>: identity verificationのトランザクションを参照する識別子. このトランザクション識別子は、監査中のトランザクションの詳細を分析できる.</t>
+<t><spanx style="verb">organization</spanx>: OP に代わって検証を行った組織を表す文字列.</t>
+<t><spanx style="verb">txn</spanx>: identity verification のトランザクションを参照する識別子. このトランザクション識別子は, 監査中のトランザクションの詳細を分析できる.</t>
 </list>
 </t>
-<t><spanx style="verb">time</spanx>: このid documentが検証された日付を表すISO 8601:2004 [ISO8601-2004] <spanx style="verb">YYYY-MM-DDThh:mm:ss±hh</spanx>フォーマットのタイムスタンプ.</t>
-<t><spanx style="verb">document</spanx>: ID検証に使用されるid documentを表すJSONオブジェクト. 次のプロパティで構成される:</t>
+<t><spanx style="verb">time</spanx>: この id document が検証された日付を表す ISO 8601:2004 [ISO8601-2004] <spanx style="verb">YYYY-MM-DDThh:mm:ss±hh</spanx> フォーマットのタイムスタンプ.</t>
+<t><spanx style="verb">document</spanx>: ID 検証に使用される id document を表す JSON オブジェクト. 次のプロパティで構成される:</t>
 <t>
 <list style="symbols">
-<t><spanx style="verb">type</spanx>: 必須(REQUIRED). id documentのタイプを示す文字列. 標準化された値は<eref target="#predefined_values_idd">Identity Documents</eref>で定義されます. OPは事前に定義されていない値を使用するかもしれず(MAY), その場合, RPはアサーションを処理できないか, 監査目的でこの値を保存するだけか, またはそれに言及されたビジネスロジックであることを表す.</t>
-<t><spanx style="verb">number</spanx>: identity documentの番号を表す文字列.</t>
-<t><spanx style="verb">issuer</spanx>: このidentity documentの発行者の情報を含むJSONオブジェクト. このオブジェクトは次のプロパティで構成される:
+<t><spanx style="verb">type</spanx>: 必須 (REQUIRED). id document のタイプを示す文字列. 標準化された値は <eref target="#predefined_values_idd">Identity Documents</eref> で定義される. OP は事前に定義されていない値を使用するかもしれず (MAY), その場合, RP はアサーションを処理できないか, 監査目的でこの値を保存するだけか, またはそれに言及されたビジネスロジックであることを表す.</t>
+<t><spanx style="verb">number</spanx>: identity document の番号を表す文字列.</t>
+<t><spanx style="verb">issuer</spanx>: この identity document の発行者の情報を含む JSON オブジェクト. このオブジェクトは次のプロパティで構成される:
 <list style="symbols">
-<t><spanx style="verb">name</spanx>:必須(REQUIRED). identity documentの発行者の名称.</t>
-<t><spanx style="verb">country</spanx>: ドキュメントを ICAO 2-letter-code <xref target="ICAO-Doc9303"></xref>として発行した国または組織を示す文字列（例： &quot;JP&quot;）. ICAO 3-letter codes は, &quot;UNO&quot;など, 対応するISO 2-letter codes がない場合に使用できる.</t>
+<t><spanx style="verb">name</spanx>:必須 (REQUIRED). identity document の発行者の名称.</t>
+<t><spanx style="verb">country</spanx>: ドキュメントを ICAO 2-letter-code <xref target="ICAO-Doc9303"></xref> として発行した国または組織を示す文字列 (例： &quot;JP&quot;) . ICAO 3-letter codes は, &quot;UNO&quot; など, 対応する ISO 2-letter codes がない場合に使用できる.</t>
 </list></t>
-<t><spanx style="verb">date_of_issuance</spanx>: 特定の種類のドキュメント用にこの属性が存在する場合は必須(REQUIRED). ISO 8601:2004 YYYY-MM-DDフォーマットでドキュメントが発行された日付.</t>
-<t><spanx style="verb">date_of_expiry</spanx>: 特定の種類のドキュメント用にこの属性が存在する場合は必須(REQUIRED). ISO 8601:2004 YYYY-MM-DDフォーマットのドキュメントの有効期限.</t>
+<t><spanx style="verb">date_of_issuance</spanx>: 特定の種類のドキュメント用にこの属性が存在する場合は必須 (REQUIRED). ISO 8601:2004 YYYY-MM-DD フォーマットでドキュメントが発行された日付.</t>
+<t><spanx style="verb">date_of_expiry</spanx>: 特定の種類のドキュメント用にこの属性が存在する場合は必須 (REQUIRED). ISO 8601:2004 YYYY-MM-DD フォーマットのドキュメントの有効期限.</t>
 </list>
 </t>
 </section>
 
 <section anchor="utility-bill" title="utility_bill">
-<t>次の種類の要素が <spanx style="verb">utility_bill</spanx> evidenceのサブ要素として含まれる.</t>
-<t><spanx style="verb">provider</spanx>: 必須(REQUIRED). 請求書を発行した各プロバイダを識別するJSONオブジェクト. オブジェクトは次のプロパティで構成される:</t>
+<t>次の種類の要素が <spanx style="verb">utility_bill</spanx> evidence のサブ要素として含まれる.</t>
+<t><spanx style="verb">provider</spanx>: 必須 (REQUIRED). 請求書を発行した各プロバイダを識別する JSON オブジェクト. オブジェクトは次のプロパティで構成される:</t>
 <t>
 <list style="symbols">
 <t><spanx style="verb">name</spanx>: プロバイダを指定する文字列.</t>
-<t>OpenID Connectの <spanx style="verb">address</spanx> Claim (<xref target="OpenID"></xref>)のすべての要素</t>
+<t>OpenID Connect の <spanx style="verb">address</spanx> Claim (<xref target="OpenID"></xref>) のすべての要素</t>
 </list>
 </t>
-<t><spanx style="verb">date</spanx>: この請求書が発行された日時を含むISO 8601:2004 YYYY-MM-DDフォーマットの文字列.</t>
+<t><spanx style="verb">date</spanx>: この請求書が発行された日時を含む ISO 8601:2004 YYYY-MM-DD フォーマットの文字列.</t>
 </section>
 
 <section anchor="qes" title="qes">
-<t>次の種類の要素が <spanx style="verb">qes</spanx> evidenceのサブ要素として含まれる.</t>
-<t><spanx style="verb">issuer</spanx>: 必須(REQUIRED). 署名者の証明書を発行した証明機関を示す文字列.</t>
-<t><spanx style="verb">serial_number</spanx>:必須(REQUIRED). 署名に使用される証明書のシリアルナンバーを含む文字列.</t>
-<t><spanx style="verb">created_at</spanx>: 必須(REQUIRED).  ISO 8601:2004 YYYY-MM-DDThh:mm:ss±hhフォーマットの署名が作られた時間.</t>
+<t>次の種類の要素が <spanx style="verb">qes</spanx> evidence のサブ要素として含まれる.</t>
+<t><spanx style="verb">issuer</spanx>: 必須 (REQUIRED). 署名者の証明書を発行した証明機関を示す文字列.</t>
+<t><spanx style="verb">serial_number</spanx>:必須 (REQUIRED). 署名に使用される証明書のシリアルナンバーを含む文字列.</t>
+<t><spanx style="verb">created_at</spanx>: 必須 (REQUIRED).  ISO 8601:2004 YYYY-MM-DDThh:mm:ss±hh フォーマットの署名が作られた時間.</t>
 </section>
 </section>
 </section>
 
 <section anchor="claimselement" title="claims Element">
-<t><spanx style="verb">claims</spanx>要素にはプロセスによって検証され, 対応する<spanx style="verb">verification</spanx> 要素によって決定されたポリシーに従って検証されたエンドユーザについてのClaimが含まれる.</t>
-<t><spanx style="verb">claims</spanx>要素にはOpenID Connect specification <xref target="OpenID"></xref>のSection 5.1で定義されている以下のClaimが一つ以上含まれるかもしれない(MAY)</t>
+<t><spanx style="verb">claims</spanx> 要素にはプロセスによって検証され, 対応する <spanx style="verb">verification</spanx> 要素によって決定されたポリシーに従って検証されたエンドユーザについての Claim が含まれる.</t>
+<t><spanx style="verb">claims</spanx> 要素には OpenID Connect specification <xref target="OpenID"></xref> の Section 5.1 で定義されている以下の Claim が一つ以上含まれるかもしれない (MAY)</t>
 <t>
 <list style="symbols">
 <t><spanx style="verb">name</spanx></t>
@@ -193,9 +205,9 @@
 <t><spanx style="verb">address</spanx></t>
 </list>
 </t>
-<t>または<xref target="userclaims"></xref>で定義されているClaimを含むかもしれない.</t>
-<t><spanx style="verb">claims</spanx>要素は, 兄弟要素の<spanx style="verb">verification</spanx>で提示された検証プロセスでそれぞれのClaimの値が検証された場合, 他のClaimも含むかもしれない(MAY).</t>
-<t>Claim名は, OpenID Connect仕様<xref target="OpenID"></xref>のSection5.2で指定されている言語タグで注釈を付けてもよい(MAY).</t>
+<t>または <xref target="userclaims"></xref> で定義されている Claim を含むかもしれない.</t>
+<t><spanx style="verb">claims</spanx> 要素は, 兄弟要素の <spanx style="verb">verification</spanx> で提示された検証プロセスでそれぞれの Claim の値が検証された場合, 他の Claim も含むかもしれない (MAY).</t>
+<t>Claim 名は, OpenID Connect 仕様 <xref target="OpenID"></xref> の Section 5.2 で指定されている言語タグで注釈を付けてもよい (MAY).</t>
 </section>
 </section>
 
@@ -236,11 +248,11 @@
 </artwork></figure>
 
 <t>この仕様では, RP が要求する特定の End-User Claim の移転の目的を説明できるようにするために, 追加のフィールド <spanx style="verb">purpose</spanx> を導入する.
-<spanx style="verb">purpose</spanx> フィールドは, 個々に要求された各 Claim のメンバー値にすることができるが, 1つのClaim には複数の関連する目的を含めることはできない.</t>
+<spanx style="verb">purpose</spanx> フィールドは, 個々に要求された各 Claim のメンバー値にすることができるが, 1つの Claim には複数の関連する目的を含めることはできない.</t>
 <t><spanx style="verb">purpose</spanx> OPTIONAL. OP から特定の End-User Claim を取得する目的を説明する文字列. <spanx style="verb">purpose</spanx> は 3 文字未満か 300 文字以上となってはならない (MUST NOT).
 もしこのルールに違反した場合, authentication request は失敗し, OP は <spanx style="verb">invalid_request</spanx> エラーを RP にに返さなければならない (MUST).
-移転されるデータの利用目的や承認しようとしている認可内容をユーザーに明示するため, OPは各同意画面にこの purpose を表示しなければならない (MUST).
-<spanx style="verb">purpose</spanx> パラメーターがリクエストに存在しない場合, OP はRPごとに事前設定された値を表示できる (MAY).
+移転されるデータの利用目的や承認しようとしている認可内容をユーザーに明示するため, OP は各同意画面にこの purpose を表示しなければならない (MUST).
+<spanx style="verb">purpose</spanx> パラメーターがリクエストに存在しない場合, OP は RP ごとに事前設定された値を表示できる (MAY).
 UI ローカリゼーションの詳細については, <xref target="purpose"></xref> 参照.</t>
 <t>例:</t>
 
@@ -296,7 +308,7 @@ UI ローカリゼーションの詳細については, <xref target="purpose"><
 </artwork></figure>
 
 <t>これは, 発行されたアサーションに検証の日付と利用可能な証拠が存在することを要求する.</t>
-<t>注: <spanx style="verb">verified_claims</spanx> Claim の必須要素であるため, RP は明示的に<spanx style="verb">trust_framework</spanx> フィールドを要求する必要はない.</t>
+<t>注: <spanx style="verb">verified_claims</spanx> Claim の必須要素であるため, RP は明示的に <spanx style="verb">trust_framework</spanx> フィールドを要求する必要はない.</t>
 <t>RP は, 構造を1段深く掘り下げ, 特定のデータがすべての <spanx style="verb">evidence</spanx> 内に存在することを要求する場合もある. result array 内のすべてのエントリのプロトタイプとして, 単一のエントリが使用される.</t>
 
 <figure><artwork type="json">{  
@@ -317,7 +329,7 @@ UI ローカリゼーションの詳細については, <xref target="purpose"><
 
 <t>この例では, 特定のユーザーアカウントで利用可能なすべての証拠について, <spanx style="verb">method</spanx> 要素と <spanx style="verb">document</spanx> 要素を要求する.</t>
 <t>注: <spanx style="verb">evidence</spanx> エントリの必須要素であるため, RP は明示的に <spanx style="verb">type</spanx> フィールドを要求する必要はない.</t>
-<t>RPは, <spanx style="verb">document</spanx> 要素内に特定のデータが存在することを要求する場合もある. これも, 上記で使用した構文規則に従う.</t>
+<t>RP は, <spanx style="verb">document</spanx> 要素内に特定のデータが存在することを要求する場合もある. これも, 上記で使用した構文規則に従う.</t>
 
 <figure><artwork type="json">{  
    &quot;verified_claims&quot;:{  
@@ -403,15 +415,15 @@ UI ローカリゼーションの詳細については, <xref target="purpose"><
 }
 </artwork></figure>
 
-<t>OP はこの要件を満たそうとしなければならない (SHOULD). ユーザーの検証データがリクエストされた <spanx style="verb">max_age</spanx> よりも古い場合, OP はユーザーにオンラインID確認プロセスを介して, ユーザーの確認を更新しようとするかもしれない (MAY). 例えば 電子IDカードまたはビデオ識別アプローチを利用することによって.</t>
+<t>OP はこの要件を満たそうとしなければならない (SHOULD). ユーザーの検証データがリクエストされた <spanx style="verb">max_age</spanx> よりも古い場合, OP はユーザーにオンラインでの identity verification プロセスを介して, ユーザーの確認を更新しようとするかもしれない (MAY). 例えば 電子IDカードまたはビデオ識別アプローチを利用することによって.</t>
 <t>OP が要件を満たすことができない場合 (<spanx style="verb">essential</spanx> とマークされている場合でも), RP に利用可能なデータを提供し, RP はデータの使用方法を決定できる. OP は, 必須 Claims として要求されたすべての Claims を返すことができない場合にエラーを返してはならない (MUST NOT).</t>
 </section>
 </section>
 
 <section anchor="examples" title="Examples">
 <t>以下のセクションでは <spanx style="verb">verified_claims</spanx> に関する例を示す.</t>
-<t>最初と 2つ目のセクションでは, 一般的な identity assuarance のケースの JSON snippets を示し, RP には End-User に関する実際の Claims と一緒に, 様々な検証方法による verification evidence が提供される.</t>
-<t>3つ目のセクションでは, OP が RP に対して 本人確認プロセスの evicende を提供する必要がない eIDAS の元で通知されたeID system の場合, どのようにこのオブジェクトのコンテンツが見えるかを説明している.</t>
+<t>最初と 2つ目のセクションでは, 一般的な identity assurance のケースの JSON snippets を示し, RP には End-User に関する実際の Claims と一緒に, 様々な検証方法による verification evidence が提供される.</t>
+<t>3つ目のセクションでは, OP が RP に対して identity verification プロセスの evidence を提供する必要がない eIDAS 公認 eID システムの場合, どのようにこのオブジェクトのコンテンツが見えるかを説明している.</t>
 <t>後続のセクションでは, 異なる経路で <spanx style="verb">verified_claims</spanx> Claim を使用し, 他の (unverified) Claims と組み合わせて使用する例を含む.</t>
 
 <section anchor="id-document-1" title="id_document">
@@ -550,7 +562,7 @@ UI ローカリゼーションの詳細については, <xref target="purpose"><
 <section anchor="verified-claims-in-userinfo-response" title="Verified Claims in UserInfo Response">
 
 <section anchor="request" title="Request">
-<t>この例では, RP は <spanx style="verb">scope</spanx> パラメーターを<spanx style="verb">email</spanx> <spanx style="verb">address</spanx> を要求するために使用し, さらに verified Claims を要求するために <spanx style="verb">claims</spanx> パラメータを使用することを想定する.</t>
+<t>この例では, RP は <spanx style="verb">scope</spanx> パラメーターを <spanx style="verb">email</spanx> <spanx style="verb">address</spanx> を要求するために使用し, さらに verified Claims を要求するために <spanx style="verb">claims</spanx> パラメータを使用することを想定する.</t>
 <t>scope 値は次の通り: <spanx style="verb">scope=openid email</spanx></t>
 <t><spanx style="verb">claims</spanx> パラメータ値は次の通り:</t>
 
@@ -741,10 +753,10 @@ Content-Type: application/json
 </section>
 
 <section anchor="opmetadata" title="OP Metadata">
-<t>OP は 以下の新しい属性を利用して openid-configuration (see <xref target="OpenID-Discovery"></xref>) で verified Claims に関する機能を通知します。</t>
-<t><spanx style="verb">verified_claims_supported</spanx>: <spanx style="verb">verified_claims</spanx> をサポートするか, つまり OpenID Connect for Identity Assuarance extension のサポートを示す Boolean 値.</t>
+<t>OP は 以下の新しい属性を利用して openid-configuration (see <xref target="OpenID-Discovery"></xref>) で verified Claims に関する機能を通知する.</t>
+<t><spanx style="verb">verified_claims_supported</spanx>: <spanx style="verb">verified_claims</spanx> をサポートするか, つまり OpenID Connect for Identity Assurance extension のサポートを示す Boolean 値.</t>
 <t><spanx style="verb">trust_frameworks_supported</spanx> サポートする全ての trust frameworks を含む JSON 配列.</t>
-<t><spanx style="verb">evidence_supported</spanx> OP が利用する全ての identity evicence の種類を含む JSON 配列.</t>
+<t><spanx style="verb">evidence_supported</spanx> OP が利用する全ての identity evidence の種類を含む JSON 配列.</t>
 <t><spanx style="verb">id_documents_supported</spanx> OP が identity verification に利用しているすべての identity documents を含む JSON 配列.</t>
 <t><spanx style="verb">id_documents_verification_methods_supported</spanx> <xref target="verification"></xref> に定義される OP がサポートする id document verification method を含む JSON配列.</t>
 <t><spanx style="verb">claims_in_verified_claims_supported</spanx> <spanx style="verb">verified_claims</spanx> 内でサポートされる全ての claims を含む JSON 配列</t>
@@ -784,16 +796,16 @@ Content-Type: application/json
 }
 </artwork></figure>
 
-<t>OP は <spanx style="verb">claims</spanx> パラメーターをサポートし、<spanx style="verb">claims_parameter_supported</spanx> 要素を利用して openid-configuration でこれを公開しなければならない (MUST).</t>
+<t>OP は <spanx style="verb">claims</spanx> パラメーターをサポートし, <spanx style="verb">claims_parameter_supported</spanx> 要素を利用して openid-configuration でこれを公開しなければならない (MUST).</t>
 </section>
 
 <section anchor="purpose" title="Transaction-specific Purpose">
 <t>この仕様では,  RP が要求しているユーザーデータの移転目的の説明を可能にする <spanx style="verb">purpose</spanx> リクエストパラメーターを導入する.</t>
 <t><spanx style="verb">purpose</spanx> OPTIONAL. OP から特定のユーザーデータを取得する目的を説明する文字列. <spanx style="verb">purpose</spanx> は 3 文字未満か 300 文字以上となってはならない (MUST NOT). もしこのルールに違反した場合, authentication request は失敗し, OP は <spanx style="verb">invalid_request</spanx> エラーを RP にに返さなければならない (MUST).</t>
-<t>移転されるデータの利用目的や承認しようとしている認可内容をユーザーに明示するため, OPは各同意画面にこの purpose を表示しなければならない (MUST).</t>
+<t>移転されるデータの利用目的や承認しようとしている認可内容をユーザーに明示するため, OP は各同意画面にこの purpose を表示しなければならない (MUST).</t>
 <t>一貫性のある UX を確保するために, RP は特定の言語で <spanx style="verb">purpose</spanx> を送信し, <spanx style="verb">ui_locales</spanx> パラメーターを使用して同じ言語を使用するよう OP に要求するかもしれない (MAY).</t>
 <t><spanx style="verb">purpose</spanx> パラメーターがリクエストに存在しない場合, OP は RP ごとに事前設定された値を表示できる (MAY).</t>
-<t>注: インジェクション攻撃を防ぐために, OP はユーザーインターフェイスに表示される前にテキストを適切にエスケープしなければならない (MUST).  OP は, RP によって提供された URL デコードされた purpose テキスト中に特殊文字を予期しなければならない (MUST). OP は, purpose テキスト内の特殊文字を使用して, OP の Web インターフェイスにコードをインジェクト (例: クロスサイトスクリプティング、改ざんなど) 出来ないようにしなければならない (MUST).  OP は適切なエスケープを適用しなければならない (MUST). OP は, この目的のために purpose テキストから文字を削除してはならない (SHALL NOT).</t>
+<t>注: インジェクション攻撃を防ぐために, OP はユーザーインターフェイスに表示される前にテキストを適切にエスケープしなければならない (MUST).  OP は, RP によって提供された URL デコードされた purpose テキスト中に特殊文字を予期しなければならない (MUST). OP は, purpose テキスト内の特殊文字を使用して, OP の Web インターフェイスにコードをインジェクト (例: クロスサイトスクリプティング, 改ざんなど) 出来ないようにしなければならない (MUST).  OP は適切なエスケープを適用しなければならない (MUST). OP は, この目的のために purpose テキストから文字を削除してはならない (SHALL NOT).</t>
 </section>
 
 <section anchor="Privacy" title="Privacy Consideration">
@@ -1133,15 +1145,16 @@ Content-Type: application/json
 
 <back>
 <references title="Normative References">
-<reference anchor="ISO3166-3" target="https://www.iso.org/standard/63547.html">
+<reference anchor="ICAO-Doc9303" target="https://www.icao.int/publications/Documents/9303_p3_cons_en.pdf">
   <front>
-    <title>ISO 3166-1:2013. Codes for the representation of names of countries and their subdivisions -- Part 3: Code for formerly used names of countries</title>
-    <author fullname="International Organization for Standardization">
-      <organization abbrev="ISO">International Organization for&#xA;&#x9;    Standardization</organization>
+    <title>Machine Readable Travel Documents, Seventh Edition, 2015, Part 3: Specifications Common to all MRTDs</title>
+    <author fullname="INTERNATIONAL CIVIL AVIATION ORGANIZATION">
+      <organization abbrev="ICAO">INTERNATIONAL CIVIL AVIATION ORGANIZATION</organization>
     </author>
-    <date year="2013"></date>
+    <date year="2015"></date>
   </front>
 </reference>
+
 <reference anchor="OpenID-Discovery" target="https://openid.net/specs/openid-connect-discovery-1_0.html">
   <front>
     <title>OpenID Connect Discovery 1.0 incorporating errata set 1</title>
@@ -1158,24 +1171,6 @@ Content-Type: application/json
       <organization> Illumila </organization>
     </author>
     <date year="2014" month="Nov" day="8"></date>
-  </front>
-</reference>
-<reference anchor="ISO3166-1" target="https://www.iso.org/standard/63545.html">
-  <front>
-    <title>ISO 3166-1:1997. Codes for the representation of names of&#xA;&#x9;  countries and their subdivisions -- Part 1: Country codes</title>
-    <author fullname="International Organization for Standardization">
-      <organization abbrev="ISO">International Organization for&#xA;&#x9;    Standardization</organization>
-    </author>
-    <date year="2013"></date>
-  </front>
-</reference>
-<reference anchor="ICAO-Doc9303" target="https://www.icao.int/publications/Documents/9303_p3_cons_en.pdf">
-  <front>
-    <title>Machine Readable Travel Documents, Seventh Edition, 2015, Part 3: Specifications Common to all MRTDs</title>
-    <author fullname="INTERNATIONAL CIVIL AVIATION ORGANIZATION">
-      <organization abbrev="ICAO">INTERNATIONAL CIVIL AVIATION ORGANIZATION</organization>
-    </author>
-    <date year="2015"></date>
   </front>
 </reference>
 <reference anchor="OpenID" target="http://openid.net/specs/openid-connect-core-1_0.html">
@@ -1199,15 +1194,36 @@ Content-Type: application/json
     <date year="2014" month="Nov" day="8"></date>
   </front>
 </reference>
+<reference anchor="ISO3166-1" target="https://www.iso.org/standard/63545.html">
+  <front>
+    <title>ISO 3166-1:1997. Codes for the representation of names of&#xA;&#x9;  countries and their subdivisions -- Part 1: Country codes</title>
+    <author fullname="International Organization for Standardization">
+      <organization abbrev="ISO">International Organization for&#xA;&#x9;    Standardization</organization>
+    </author>
+    <date year="2013"></date>
+  </front>
+</reference>
 <?rfc include="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8417.xml"?>
-
+<reference anchor="ISO3166-3" target="https://www.iso.org/standard/63547.html">
+  <front>
+    <title>ISO 3166-1:2013. Codes for the representation of names of countries and their subdivisions -- Part 3: Code for formerly used names of countries</title>
+    <author fullname="International Organization for Standardization">
+      <organization abbrev="ISO">International Organization for&#xA;&#x9;    Standardization</organization>
+    </author>
+    <date year="2013"></date>
+  </front>
+</reference>
 </references>
 <references title="Informative References">
 <?rfc include="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7662.xml"?>
-<?rfc include="https://xml2rfc.ietf.org/public/rfc/bibxml-ids/reference.I-D.ietf-oauth-jwt-introspection-response.xml"?>
-
-
-
+<reference anchor="OxfordPassport" target="http://www.oxfordreference.com/view/10.1093/acref/9780199290543.001.0001/acref-9780199290543-e-1616">
+  <front>
+    <title>The New Oxford Companion to Law. ISBN 9780199290543.</title>
+    <author fullname="P. Cane" initials="P" surname="Cane"></author>
+    <author fullname="J. Conaghan" initials="Mary F." surname="Conaghan"></author>
+    <date year="2008"></date>
+  </front>
+</reference>
 <reference anchor="eIDAS" target="https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32014R0910">
   <front>
     <title>REGULATION (EU) No 910/2014 OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL on electronic identification and trust services for electronic transactions in the internal market and repealing Directive 1999/93/EC</title>
@@ -1217,6 +1233,9 @@ Content-Type: application/json
     <date year="2014" month="July" day="23"></date>
   </front>
 </reference>
+
+
+<?rfc include="https://xml2rfc.ietf.org/public/rfc/bibxml-ids/reference.I-D.ietf-oauth-jwt-introspection-response.xml"?>
 <reference anchor="NIST-SP-800-63a" target="https://doi.org/10.6028/NIST.SP.800-63a">
   <front>
     <title>NIST Special Publication 800-63A, Digital Identity Guidelines, Enrollment and Identity Proofing Requirements</title>
@@ -1244,14 +1263,7 @@ Content-Type: application/json
     <date year="2017" month="June"></date>
   </front>
 </reference>
-<reference anchor="OxfordPassport" target="http://www.oxfordreference.com/view/10.1093/acref/9780199290543.001.0001/acref-9780199290543-e-1616">
-  <front>
-    <title>The New Oxford Companion to Law. ISBN 9780199290543.</title>
-    <author fullname="P. Cane" initials="P" surname="Cane"></author>
-    <author fullname="J. Conaghan" initials="Mary F." surname="Conaghan"></author>
-    <date year="2008"></date>
-  </front>
-</reference>
+
 </references>
 
 <references title="翻訳プロジェクト">
@@ -1414,8 +1426,8 @@ Michael B. Jones, and Jeff Lombardo for their valuable feedback that helped to e
 質問や修正依頼などについては, Githubレポジトリー <xref target="oidfj-github"></xref>にご連絡ください.</t>
 <t>
 <list style="symbols">
-<t>Muneomi Sakuta (ソフトバンク株式会社)</t>
-<t>Yuu Kikuchi (OPTiM Corporation)</t>
+<t>Muneomi Sakuta (SoftBank Corp.)</t>
+<t>Yuu Kikuchi (OPTiM Corp.)</t>
 <t>Nov Matake (YAuth.jp)</t>
 </list>
 </t>
