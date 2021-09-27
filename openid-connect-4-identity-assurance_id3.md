@@ -92,15 +92,21 @@ Note: この仕様は [@FATF-Digital-Identity]　で定義されているデジ�
 
 ## Terminology
 
-This section defines some terms relevant to the topic covered in this document, inspired by NIST SP 800-63A [@?NIST-SP-800-63a].
+<!-- This section defines some terms relevant to the topic covered in this document, inspired by NIST SP 800-63A [@?NIST-SP-800-63a]. -->
+このセクションでは, NIST SP 800-63A [@?NIST-SP-800-63a] の影響を受けた, このドキュメントで扱われているトピックに関連するいくつかの用語を定義する.
 
-* Identity Proofing - process in which an End-User provides evidence to an OP or Claim provider reliably identifying themselves, thereby allowing the OP or Claim provider to assert that identification at a useful assurance level.
+<!-- * Identity Proofing - process in which an End-User provides evidence to an OP or Claim provider reliably identifying themselves, thereby allowing the OP or Claim provider to assert that identification at a useful assurance level. -->
+* Identity Proofing - エンドユーザーが OP または自分自身を確実に識別する Claim プロバイダーにエビデンスを提供することにより, OP または Claim provider が有用な assurance レベルで識別できるようにするプロセス.
 
-* Identity Verification - process conducted by the OP or a Claim provider to verify the End-User's identity.
+<!-- * Identity Verification - process conducted by the OP or a Claim provider to verify the End-User's identity. -->
+* Identity Verification - エンドユーザーの身元を確認するために OP または Claim プロバイダーによって実行されるプロセス.
 
-* Identity Assurance - process in which the OP or a Claim provider asserts identity data of a certain End-User with a certain assurance towards an RP, typically expressed by way of an assurance level. Depending on legal requirements, the OP may also be required to provide evidence of the identity verification process to the RP.
+<!-- * Identity Assurance - process in which the OP or a Claim provider asserts identity data of a certain End-User with a certain assurance towards an RP, typically expressed by way of an assurance level. Depending on legal requirements, the OP may also be required to provide evidence of the identity verification process to the RP. -->
+* Identity Assurance - OP または Claim プロバイダーが, RP に対してある一定の確からしさをもって特定のエンドユーザーの Identity データを主張するプロセスで，通常は assurance レベルで表される. 法的要件に応じて, OP は identity verification プロセスのエビデンスを RP に提供する必要がある場合もある.
 
-* Verified Claims - Claims about an End-User, typically a natural person, whose binding to a particular End-User account was verified in the course of an identity verification process.
+<!-- * Verified Claims - Claims about an End-User, typically a natural person, whose binding to a particular End-User account was verified in the course of an identity verification process. -->
+* Verified Claims - 特定のエンドユーザーアカウントへのバインドが identity verification プロセスの過程で検証されたエンドユーザー (通常は自然人) に関する Claim.
+
 
 # Scope
 
