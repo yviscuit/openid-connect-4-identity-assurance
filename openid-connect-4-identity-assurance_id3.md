@@ -70,17 +70,25 @@ This specification defines an extension of OpenID Connect for providing Relying 
 
 # Introduction {#Introduction}
 
-This specification defines an extension to OpenID Connect [@!OpenID] for providing Relying Parties with identity information, i.e., Verified Claims, along with an explicit statement about the verification status of these Claims (what, how, when, according to what rules, using what evidence). This specification is aimed at enabling use cases requiring strong assurance, for example, to comply with regulatory requirements such as Anti-Money Laundering laws or access to health data, risk mitigation, or fraud prevention.
+<!-- This specification defines an extension to OpenID Connect [@!OpenID] for providing Relying Parties with identity information, i.e., Verified Claims, along with an explicit statement about the verification status of these Claims (what, how, when, according to what rules, using what evidence). This specification is aimed at enabling use cases requiring strong assurance, for example, to comply with regulatory requirements such as Anti-Money Laundering laws or access to health data, risk mitigation, or fraud prevention. -->
+この仕様では，Relying Party に identity 情報，すなわち検証済みクレーム提供するための OpenID Connect[!@OpenID] の拡張と，これらのクレームの検証ステータスに関する明示的なステートメント（何を、どのように、いつ、どのルールに従って、 どのようなエビデンスを使用して）を定義する．
+この仕様は，たとえば，マネーロンダリング防止法や健康データへのアクセス，リスクの軽減，不正防止などの規制要件に準拠するような，強力な保証を必要とするユースケースを可能にすることを目的としている．
 
-In such use cases, the Relying Party (RP) needs to understand the trustworthiness or assurance level of the Claims about the End-User that the OpenID Connect Provider (OP) is willing to communicate, along with process-related information and evidence used to verify the End-User Claims.
+<!-- In such use cases, the Relying Party (RP) needs to understand the trustworthiness or assurance level of the Claims about the End-User that the OpenID Connect Provider (OP) is willing to communicate, along with process-related information and evidence used to verify the End-User Claims. -->
+そのようなユースケースでは, 依拠当事者 (RP) は, OpenID Connect プロバイダー (OP) の伝達するプロセス関連情報とエンドユーザーの Claim の検証に利用したエビデンスと一緒に，エンドユーザーに関する Claim の信頼性または保証レベルを知る必要がある.
 
-The `acr` Claim, as defined in Section 2 of the OpenID Connect specification [@!OpenID], is suited to assure information about the authentication performed in an OpenID Connect transaction. Identity assurance, however, requires a different representation: While authentication is an aspect of an OpenID Connect transaction, assurance is a property of a certain Claim or a group of Claims. Several of them will typically be conveyed to the RP as the result of an OpenID Connect transaction.
+<!-- The `acr` Claim, as defined in Section 2 of the OpenID Connect specification [@!OpenID], is suited to assure information about the authentication performed in an OpenID Connect transaction. 
+Identity assurance, however, requires a different representation: While authentication is an aspect of an OpenID Connect transaction, assurance is a property of a certain Claim or a group of Claims. Several of them will typically be conveyed to the RP as the result of an OpenID Connect transaction. -->
+OpenID Connect 仕様 [@!OpenID] の Section 2 で定義されている `acr` Claim は, OpenID Connect トランザクションで実行される認証に関する情報を証明するのに適している. ただし, identity assurance には異なる表現が必要である: 認証は OpenID Connect トランザクションの側面であり, assurance は特定の Claim または Claim のグループのプロパティである．それらのいくつかは通常, OpenID Connect トランザクションの結果として RP に伝えられる.
 
-For example, the assurance an OP typically will be able to give for an e-mail address will be “self-asserted” or “verified by opt-in or similar mechanism”. The family name of an End-User, in contrast, might have been verified in accordance with the respective Anti Money Laundering Law by showing an ID Card to a trained employee of the OP operator.
+<!-- For example, the assurance an OP typically will be able to give for an e-mail address will be “self-asserted” or “verified by opt-in or similar mechanism”. The family name of an End-User, in contrast, might have been verified in accordance with the respective Anti Money Laundering Law by showing an ID Card to a trained employee of the OP operator. -->
+たとえば, 通常 OP が電子メールアドレスに与えることができる保証は「自己表明」または「オプトインまたは同様のメカニズムによって検証」される. 対照的にエンドユーザーの姓は, OP オペレーターの訓練を受けた従業員に ID カードを提示することにより, それぞれのマネーロンダリング防止法に従って検証された可能性がある.
 
-Identity assurance therefore requires a way to convey assurance data along with and coupled to the respective Claims about the End-User. This specification defines a suitable representation and mechanisms the RP will utilize to request Verified Claims about an End-User along with assurance data and for the OP to represent these Verified Claims and accompanying assurance data.
+<!-- Identity assurance therefore requires a way to convey assurance data along with and coupled to the respective Claims about the End-User. This specification defines a suitable representation and mechanisms the RP will utilize to request Verified Claims about an End-User along with assurance data and for the OP to represent these Verified Claims and accompanying assurance data. -->
+したがって, identity assurance には, エンドユーザーに関する各 Claim とともに保証データを伝達する方法が必要である. この仕様は, RP がエンドユーザーに関する検証済み Claim を 保証データとともに要求し, OP がこれらの検証済み Claim と付随する保証データを表すために利用する適切な表現とメカニズムを定義する.
 
-Note: This specifications fulfills the criteria for portability and interoperability mechanisms of Digital ID systems as defined in [@FATF-Digital-Identity].
+<!-- Note: This specifications fulfills the criteria for portability and interoperability mechanisms of Digital ID systems as defined in [@FATF-Digital-Identity]. -->
+Note: この仕様は [@FATF-Digital-Identity]　で定義されているデジタル ID システムのポータビリティと相互運用性メカニズムの基準を満たしている．
 
 ## Terminology
 
