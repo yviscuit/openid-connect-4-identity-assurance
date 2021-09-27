@@ -110,11 +110,14 @@ Note: この仕様は [@FATF-Digital-Identity]　で定義されているデジ�
 
 # Scope
 
-This specification defines the technical mechanisms to allow Relying Parties to request Verified Claims and to enable OpenID Providers to provide Relying Parties with Verified Claims ("the tools").
+<!-- This specification defines the technical mechanisms to allow Relying Parties to request Verified Claims and to enable OpenID Providers to provide Relying Parties with Verified Claims ("the tools"). -->
+本仕様は，Relying Party が検証済み Claim を要求できるようにし，OpenID Provider が Relying Party に検証済み Claim を提供できるようにするためのテクニカルメカニズムを定義する．("ツール")
 
-Additional facets needed to deploy a complete solution for identity assurance, such as legal aspects (including liability), concrete trust frameworks, or commercial agreements are out of scope. It is up to the particular deployment to complement the technical solution based on this specification with the respective definitions ("the rules").
+<!-- Additional facets needed to deploy a complete solution for identity assurance, such as legal aspects (including liability), concrete trust frameworks, or commercial agreements are out of scope. It is up to the particular deployment to complement the technical solution based on this specification with the respective definitions ("the rules"). -->
+法的側面(責任を含む)，具体的なトラストフレームワーク，商取引契約など，identity assurance の完全なソリューションを展開するために必要な追加の側面は範囲外である．本仕様に基づくテクニカルソリューションをそれぞれの定義で補完するのは，個別の展開次第である．("ルール")
 
-Note: Although such aspects are out of scope, the aim of the specification is to enable implementations of the technical mechanism to be flexible enough to fulfill different legal and commercial requirements in jurisdictions around the world. Consequently, such requirements will be discussed in this specification as examples.
+<!-- Note: Although such aspects are out of scope, the aim of the specification is to enable implementations of the technical mechanism to be flexible enough to fulfill different legal and commercial requirements in jurisdictions around the world. Consequently, such requirements will be discussed in this specification as examples. -->
+Note: そのような側面は範囲外であるが，仕様の目的は，世界中の管轄区域における異なる法律および商業的要件を満たすのに十分な柔軟性を備えたテクニカルメカニズムの実装を可能にすることである．従って，そのような要件は本仕様で例として検討する．
 
 # Requirements
 
