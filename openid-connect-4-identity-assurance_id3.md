@@ -121,29 +121,43 @@ Note: そのような側面は範囲外であるが，仕様の目的は，世�
 
 # Requirements
 
-The RP will be able to request the minimal data set it needs (data minimization) and to express requirements regarding this data, the evidence and the identity verification processes employed by the OP.
+<!-- The RP will be able to request the minimal data set it needs (data minimization) and to express requirements regarding this data, the evidence and the identity verification processes employed by the OP. -->
+RP は，必要最小限のデータセットの要求 (data minimization) と，このデータ，エビデンスおよび OP で採用されている identity verification プロセスに関する要件を表現できる．
 
-This extension will be usable by OPs operating under a certain regulation related to identity assurance, such as eIDAS, as well as other OPs operating without such a regulation. 
+<!-- This extension will be usable by OPs operating under a certain regulation related to identity assurance, such as eIDAS, as well as other OPs operating without such a regulation.  -->
+この拡張機能は、eIDAS などの identity assurance に関連する特定の規制の下で動作する OP はもちろん，そのような規制なしで動作する他の OP でも使用できる．
 
-It is assumed that OPs operating under a suitable regulation can assure identity data without the need to provide further evidence since they are approved to operate according to well-defined rules with clearly defined liability. For example in the case of eIDAS, the peer review ensures eIDAS compliance and the respective member state assumes the liability for the identities asserted by its notified eID systems.
+<!-- It is assumed that OPs operating under a suitable regulation can assure identity data without the need to provide further evidence since they are approved to operate according to well-defined rules with clearly defined liability. For example in the case of eIDAS, the peer review ensures eIDAS compliance and the respective member state assumes the liability for the identities asserted by its notified eID systems. -->
+適切な規制の下で運用されている OP は，明確に定義された責任を伴う明確に定義されたルールに従って運用することが承認されているため，追加のエビデンスを提供する必要なしに identity data を保証できると想定されている．例えば eIDAS の場合，ピアレビューは eIDAS コンプライアンスを保証し，それぞれの加盟国は、通知されたeID システムによって主張された identity に対する責任を負う．
 
-Every other OP not operating under such well-defined conditions may be required to provide the RP data about the identity verification process along with identity evidence to allow the RP to conduct their own risk assessment and to map the data obtained from the OP to other laws. For example, if an OP verifies and maintains identity data in accordance with an Anti Money Laundering Law, it shall be possible for an RP to use the respective identity in a different regulatory context, such as eHealth or the beforementioned eIDAS.
+<!-- Every other OP not operating under such well-defined conditions may be required to provide the RP data about the identity verification process along with identity evidence to allow the RP to conduct their own risk assessment and to map the data obtained from the OP to other laws. For example, if an OP verifies and maintains identity data in accordance with an Anti Money Laundering Law, it shall be possible for an RP to use the respective identity in a different regulatory context, such as eHealth or the beforementioned eIDAS. -->
+そのような明確な条件下で動作していない他のすべての OP は，RP が独自のリスクアセスメントを行い，OP から入手したデータを他の法律にマッピングできるように，identity evidence に加えて identity verification プロセスに関する RP data を提供することを要求されるかもしれない．
+例えば，もし OP がマネーロンダリング防止法に従って identity data を検証及び維持する場合，RP がeHealth や前述の eIDAS のような異なる規制のコンテキストでそれぞれの identity を利用できるようにすべきである．
 
-The basic idea of this specification is that the OP provides all identity data along with metadata about the identity verification process at the OP. It is the responsibility of the RP to assess this data and map it into its own legal context.
+<!-- The basic idea of this specification is that the OP provides all identity data along with metadata about the identity verification process at the OP. It is the responsibility of the RP to assess this data and map it into its own legal context. -->
+本仕様の基本的な考え方は，OP は OP での identity verification プロセスに関するメタデータとともに，すべての identity data を提供することである．このデータを評価し，それを独自の法的コンテキストにマッピングするのは RP の責任である．
 
-From a technical perspective, this means this specification allows the OP to provide Verified Claims along with information about the respective trust framework, but also supports the externalization of information about the identity verification process.
+<!-- From a technical perspective, this means this specification allows the OP to provide Verified Claims along with information about the respective trust framework, but also supports the externalization of information about the identity verification process. -->
+技術的な観点から，これは本仕様は OP が信頼するトラストフレームワークに関する情報とともに Verified Claim を提供できるようにするだけでなく，identity verificatoin process に関する情報の外部化もサポートすることを意味する．
 
-The representation defined in this specification can be used to provide RPs with Verified Claims about the End-User via any appropriate channel. In the context of OpenID Connnect, Verified Claims can be provided in ID Tokens or as part of the UserInfo response. It is also possible to utilize the format described here in OAuth Access Tokens or Token Introspection responses to provide resource servers with Verified Claims.
+<!-- The representation defined in this specification can be used to provide RPs with Verified Claims about the End-User via any appropriate channel. In the context of OpenID Connnect, Verified Claims can be provided in ID Tokens or as part of the UserInfo response. It is also possible to utilize the format described here in OAuth Access Tokens or Token Introspection responses to provide resource servers with Verified Claims. -->
+本仕様で定義される表現は，いずれかの適切なチャネルを介してエンドユーザーに関する Verified Claim を RP に提供できる．OpenID Connect のコンテキストにおいて，Verified Claim はID Token またはUserInfoレスポンスの一部として提供できる．OAuth Access Token または Token Introspection レスポンスで記述される形式を用いてリソースサーバーに Verified Claim を提供することもできる．
 
-This extension is intended to be truly international and support identity assurance across different jurisdictions. The extension is therefore extensible to support various trust frameworks, identity evidence, validation, and verification processes.
+<!-- This extension is intended to be truly international and support identity assurance across different jurisdictions. The extension is therefore extensible to support various trust frameworks, identity evidence, validation, and verification processes. -->
+本拡張は，真に国際的で異なる管轄区域を跨いで identity assurance をサポートすることを意図している．
+本拡張は従って，様々なトラストフレームワーク，identity エビデンス，バリデーションや検証プロセスをサポートするために拡張可能である．
 
-In order to give implementors as much flexibility as possible, this extension can be used in conjunction with existing OpenID Connect Claims and other extensions within the same OpenID Connect assertion (e.g., ID Token or UserInfo response) utilized to convey Claims about End-Users.
+<!-- In order to give implementors as much flexibility as possible, this extension can be used in conjunction with existing OpenID Connect Claims and other extensions within the same OpenID Connect assertion (e.g., ID Token or UserInfo response) utilized to convey Claims about End-Users. -->
+実装者に可能な限りの柔軟性を与えるために, この拡張は既存の OpenID Connect の Claim および同じ OpenID Connect のアサーション(例えば, ID Token や UserInfo)内の他の拡張と組み合わせて使うことができる.
 
-For example, OpenID Connect [@!OpenID] defines Claims for representing family name and given name of an End-User without a verification status. These Claims can be used in the same OpenID Connect assertion beside Verified Claims represented according to this extension.
+<!-- For example, OpenID Connect [@!OpenID] defines Claims for representing family name and given name of an End-User without a verification status. These Claims can be used in the same OpenID Connect assertion beside Verified Claims represented according to this extension. -->
+例えば，OpenID Connect [@!OpenID] は検証ステータスのないエンドユーザーの性と名を表す Claim を定義している．これらの Claim は本拡張に従って表現される Verified Claim とともに同じ OpenID Connect のアサーションで使うことができる．
 
-In the same way, existing Claims to inform the RP of the verification status of the `phone_number` and `email` Claims can be used together with this extension.
+<!-- In the same way, existing Claims to inform the RP of the verification status of the `phone_number` and `email` Claims can be used together with this extension. -->
+同じように，`phone_number` と `email` Claim の検証ステータスを RP に通知する既存 Claim も本拡張とともに使うことができる．
 
-Even for representing Verified Claims, this extension utilizes existing OpenID Connect Claims if possible and reasonable. The extension will, however, ensure RPs cannot (accidentally) interpret unverified Claims as Verified Claims.
+<!-- Even for representing Verified Claims, this extension utilizes existing OpenID Connect Claims if possible and reasonable. The extension will, however, ensure RPs cannot (accidentally) interpret unverified Claims as Verified Claims. -->
+Verified Claim を表す場合でも，本拡張は可能かつ妥当であれば，既存の OpenID Connect の Claim を利用する．しかしながら，拡張は RP が未検証 Claim を Verified Claim として (誤って) 解釈できないようにする．
 
 # Claims {#claims}
 
