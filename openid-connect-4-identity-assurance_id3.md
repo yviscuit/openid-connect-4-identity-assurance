@@ -190,11 +190,7 @@ identity assurance に関する一部の権限の要件を満たすために, �
 |`nationalities`| array | ICAO 3-letter codes [@!ICAO-Doc9303] (例: "USA" や "JPN")用いてエンドユーザーの国籍を表す. 互換性の理由から，状況によっては 2-letter ICAO codes が使われるかもしれない (MAY).|
 |`birth_family_name`| string | エンドユーザーが生まれたとき, あるいは少なくとも子供の時から持っている姓. この用語は人生の途中に何らかの理由で姓を変更した人が利用できる. 一部の文化では，人々は複数の姓を持つことも，姓を持たないこともあることに注意すること．全ての名前はスペース文字で区切って存在する．|
 |`birth_given_name`| string | エンドユーザーが生まれたとき, あるいは少なくとも子供の時から持っている名前. この用語は人生の途中に何らかの理由で名前を変更した人が利用できる．一部の文化では，人々は複数の名を持つことに注意すること．全ての名前はスペース文字で区切って存在する．|
-|`birth_middle_name`| string | End-User’s middle name(s) when they were born, or at least from the time they were a child. This term can be used by a person who changes the middle name later in life for any reason. 
-エンドユーザーが生まれたとき, あるいは少なくとも子供の時から持っているミドルネーム. この用語は人生の途中に何らかの理由でミドルネームを変更した人が利用できる.
-
-Note that in some cultures, people can have multiple middle names; all can be present, with the names being separated by space characters. Also note that in some cultures, middle names are not used.
-一部の文化では，人々は複数のミドルネームを持つことができることに注意すること．全ての名前はスペース文字で区切って存在する．また，一部の文化ではミドルネームが使用されていないことにも注意すること． |
+|`birth_middle_name`| string | エンドユーザーが生まれたとき, あるいは少なくとも子供の時から持っているミドルネーム. この用語は人生の途中に何らかの理由でミドルネームを変更した人が利用できる.一部の文化では，人々は複数のミドルネームを持つことができることに注意すること．全ての名前はスペース文字で区切って存在する．また，一部の文化ではミドルネームが使用されていないことにも注意すること． |
 |`salutation`| string | エンドユーザの敬称, 例えば “Mr.”|
 |`title`| string | エンドユーザの肩書, 例えば “Dr.”|
 |`msisdn`| string | ITU-T recommendation [@!E.164] (例: “+1999550123”) に従って表現されたエンドユーザーの携帯電話番号．|
