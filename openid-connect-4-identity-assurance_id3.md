@@ -238,25 +238,36 @@ RP はこの Claim を `claims` パラメータを介して, または scope 値
 
 # verified_claims Element {#verified_claims}
 
-This specification defines a generic mechanism to add Verified Claims to JSON-based assertions. The basic idea is to use a container element, called `verified_claims`, to provide the RP with a set of Claims along with the respective metadata and verification evidence related to the verification of these Claims. This way, RPs cannot mix up Verified Claims and unverified Claims and accidentally process unverified Claims as Verified Claims.
+<!-- This specification defines a generic mechanism to add Verified Claims to JSON-based assertions. The basic idea is to use a container element, called `verified_claims`, to provide the RP with a set of Claims along with the respective metadata and verification evidence related to the verification of these Claims. This way, RPs cannot mix up Verified Claims and unverified Claims and accidentally process unverified Claims as Verified Claims. -->
+この仕様は，JSON ベースのアサーションに Verified Claims を追加するための一般的な仕様を定義する．基本的な考え方は `verified_claims` と呼ばれるコンテナ要素を使用し，RP に一連の Claim と，これらの Claim の検証に関連するそれぞれのメタデータ及び検証のエビデンスを提供することである．このように，RP は検証済み Claim と未検証 Claim を混同したり，未検証 Claim を検証済み Claim として誤って処理することはできない．
 
-The following example would assert to the RP that the OP has verified the Claims provided (`given_name` and `family_name`) according to an example trust framework `trust_framework_example`:
+<!-- The following example would assert to the RP that the OP has verified the Claims provided (`given_name` and `family_name`) according to an example trust framework `trust_framework_example`: -->
+次の例では，トラストフレームワーク `trust_framework_example` の例に従って，OP が提供された Claim (`given_name` and `family_name`) を検証したことを RP に表明する:
 
 <{{examples/response/verified_claims_simple.json}}
 
 
-The normative definition is given in the following.
+<!-- The normative definition is given in the following. -->
+基準となる定義を以下に示す．
 
-`verified_claims`: A single object or an array of objects, each object comprising the following sub-elements:
+<!-- `verified_claims`: A single object or an array of objects, each object comprising the following sub-elements: -->
+`verified_claims`: 単一のオブジェクトまたはオブジェクトの配列で，各オブジェクトは以下のサブ要素で構成される:
 
+<!-- 
 * `verification`: REQUIRED. Object that contains data about the verification process.
-* `claims`: REQUIRED. Object that is the container for the Verified Claims about the End-User.
+* `claims`: REQUIRED. Object that is the container for the Verified Claims about the End-User. 
+-->
+* `verification`: 必須 (REQUIRED). 検証プロセスに関するすべてのデータを含むオブジェクト.
+* `claims`: 必須 (REQUIRED). エンドユーザに関するの検証済 Claim のためのコンテナであるオブジェクト.
 
-Note: Implementations MUST ignore any sub-element not defined in this specification or extensions of this specification.
+<!-- Note: Implementations MUST ignore any sub-element not defined in this specification or extensions of this specification. -->
+注: 実装は, この仕様またはこの仕様の拡張で定義されていないサブ要素を無視しなければならない (MUST).
 
-Note: If not stated otherwise, every sub-element in `verified_claims` is defined as optional. Extensions of this specification, including trust framework definitions, can define further constraints on the data structure.
+<!-- Note: If not stated otherwise, every sub-element in `verified_claims` is defined as optional. Extensions of this specification, including trust framework definitions, can define further constraints on the data structure. -->
+注: 特に明記されていない限り，`verified_claims` のすべてのサブ要素はオプショナルとして定義される．トラストフレームワークの定義を含む本仕様の拡張により，データ構造に対するさらなる制約を定義することができる．
 
-A machine-readable syntax definition of `verified_claims` is given as JSON schema in [@!verified_claims.json]. It can be used to automatically validate JSON documents containing a `verified_claims` element.
+<!-- A machine-readable syntax definition of `verified_claims` is given as JSON schema in It can be used to automatically validate JSON documents containing a `verified_claims` element. -->
+`verified_claims`　の machine-readable な構文定義は [@!verified_claims.json] で JSON スキーマとして提供され，`verified_claims` 要素を含む JSON ドキュメントを自動的に検証するために利用できる．
 
 ## verification Element {#verification}
 
