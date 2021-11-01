@@ -271,39 +271,60 @@ RP はこの Claim を `claims` パラメータを介して, または scope 値
 
 ## verification Element {#verification}
 
-This element contains the information about the process conducted to verify a person's identity and bind the respective person data to a user account.
+<!-- This element contains the information about the process conducted to verify a person's identity and bind the respective person data to a user account. -->
+この要素には, 個人の身元を確認し, それぞれの個人データをユーザーアカウントにバインドするために実行されたプロセスに関する情報が含まれる.
 
-The `verification` element consists of the following elements:
+<!-- The `verification` element consists of the following elements: -->
+`verification` 要素は以下の要素を含む:
 
-`trust_framework`: REQUIRED. String determining the trust framework governing the identity verification process of the OP.
+<!-- `trust_framework`: REQUIRED. String determining the trust framework governing the identity verification process of the OP. -->
+`trust_framework`: 必須 (REQUIRED). OP の identity verification プロセスを管理する trust framework を定める文字列.
 
-An example value is `eidas`, which denotes a notified eID system under eIDAS [@?eIDAS].
+<!-- An example value is `eidas`, which denotes a notified eID system under eIDAS [@?eIDAS]. -->
+例としては `eidas` で, これは eIDAS [@?eIDAS] 公認 eID システムを示す.
 
-RPs SHOULD ignore `verified_claims` Claims containing a trust framework identifier they do not understand.
+<!-- RPs SHOULD ignore `verified_claims` Claims containing a trust framework identifier they do not understand. -->
+RPs は理解できないトラストフレームワーク識別子を含む `verified_claims` Claim を無視しなければならない (SHOULD)．
 
-The `trust_framework` value determines what further data is provided to the RP in the `verification` element. A notified eID system under eIDAS, for example, would not need to provide any further data whereas an OP not governed by eIDAS would need to provide verification evidence in order to allow the RP to fulfill its legal obligations. An example of the latter is an OP acting under the German Anti-Money Laundering Law (`de_aml`).
+<!-- The `trust_framework` value determines what further data is provided to the RP in the `verification` element. A notified eID system under eIDAS, for example, would not need to provide any further data whereas an OP not governed by eIDAS would need to provide verification evidence in order to allow the RP to fulfill its legal obligations. An example of the latter is an OP acting under the German Anti-Money Laundering Law (`de_aml`). -->
+`trust_framework` は, `verification` 要素の中で RP に提供される追加のデータを決定する. たとえば, eIDAS 公認 eID システムは, データを追加する必要はないが, eIDAS に管理されていない OP は RP が法的義務を果たすために verification evidence を提供する必要がある. 後者の例としては, ドイツのマネーロンダリング防止法 (`de_aml`) に基づいて行動する OP である.
 
-`assurance_level`: OPTIONAL. String determining the assurance level associated with the End-User Claims in the respective `verified_claims`. The value range depends on the respective `trust_framework` value. 
+<!-- `assurance_level`: OPTIONAL. String determining the assurance level associated with the End-User Claims in the respective `verified_claims`. The value range depends on the respective `trust_framework` value.  -->
+`assurance_level`: OPTIONAL. それぞれの `verified_claims` のエンドユーザーのClaimに関連付けられた assurance レベルを決定する文字列. 値の範囲は，それぞれの `trust_framework` 値によって異なる. 
 
-For example, the trust framework `eidas` can have the identity assurance levels `low`, `substantial` and `high`.
+<!-- For example, the trust framework `eidas` can have the identity assurance levels `low`, `substantial` and `high`. -->
+例えば，トラストフレームワーク `eidas` は，identity assurance level `low`, `substantial` と `high` を持つことができる．
 
-For information on predefined trust framework and assurance level values see [@!predefined_values]. 
+<!-- For information on predefined trust framework and assurance level values see [@!predefined_values].  -->
+事前定義されたトラストフレームワークと assurance level については [@!predefined_values] を参照すること. 
 
-`assurance_process`: OPTIONAL. JSON object representing the assurance process that was followed, with one or more of the following sub-elements:
+<!-- `assurance_process`: OPTIONAL. JSON object representing the assurance process that was followed, with one or more of the following sub-elements: -->
+`assurance_process`: OPTIONAL. 以下のサブ要素の1つ以上を使用して，実行された assurance プロセスを表す JSON オブジェクト:
 
+<!-- 
   * `policy`: OPTIONAL. String representing the standard or policy that was followed.
   * `procedure`: OPTIONAL. String representing a specific procedure from the `policy` that was followed.
   * `status`: OPTIONAL. String representing the current status of the identity verification process.
+-->
+  * `policy`: OPTIONAL. 準拠した標準またはポリシーを表す文字列．
+  * `procedure`: OPTIONAL. 準拠した `policy` からの特定の手順を表す文字列．
+  * `status`: OPTIONAL. identity verification プロセスの現在のステータスを表す文字列.
 
-`time`: OPTIONAL. Time stamp in ISO 8601:2004 [@!ISO8601-2004] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date and time when the identity verification process took place. This time might deviate from (a potentially also present) `document/time` element since the latter represents the time when a certain evidence was checked whereas this element represents the time when the process was completed. Moreover, the overall verification process and evidence verification can be conducted by different parties (see `document/verifier`). Presence of this element might be required for certain trust frameworks.
+<!-- `time`: OPTIONAL. Time stamp in ISO 8601:2004 [@!ISO8601-2004] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date and time when the identity verification process took place. This time might deviate from (a potentially also present) `document/time` element since the latter represents the time when a certain evidence was checked whereas this element represents the time when the process was completed. Moreover, the overall verification process and evidence verification can be conducted by different parties (see `document/verifier`). Presence of this element might be required for certain trust frameworks. -->
+`time`: OPTIONAL. Identity verification が行われた日時を示す ISO 8601:2004 [@!ISO8601-2004] `YYYY-MM-DDThh:mm[:ss]TZD` フォーマットのタイムスタンプ．この時間は，（潜在的に存在する）`document/time` 要素とは異なるかもしれない．なぜなら，後者はあるエビデンスがチェックされた時間を表すのに対し，この要素はプロセスが完了した時間を表すためである．さらに，全体の verification プロセスとエビデンスの検証は，異なる当事者が行うことができる（`document/verifier` を参照）．特定のトラストフレームワークでは，この要素の存在が要求される場合がある．
 
-`verification_process`: OPTIONAL. Unique reference to the identity verification process as performed by the OP. Used for identifying and retrieving details in case of disputes or audits. Presence of this element might be required for certain trust frameworks.
 
-Note: While `verification_process` refers to the identity verification process at the OP, the `txn` Claim refers to a particular OpenID Connect transaction in which the OP provided the End-User's verified identity data towards an RP.
+<!-- `verification_process`: OPTIONAL. Unique reference to the identity verification process as performed by the OP. Used for identifying and retrieving details in case of disputes or audits. Presence of this element might be required for certain trust frameworks. -->
+`verification_process`: OPTIONAL. OP が実行する identity verification process への一意な参照．紛争や監査の際に詳細を識別して取り出すために使用される．特定のトラストフレームワークでは，この要素の存在が要求される場合がある．
 
-`evidence`: OPTIONAL. JSON array containing information about the evidence the OP used to verify the End-User's identity as separate JSON objects. Every object contains the property `type` which determines the type of the evidence. The RP uses this information to process the `evidence` property appropriately.
+<!-- Note: While `verification_process` refers to the identity verification process at the OP, the `txn` Claim refers to a particular OpenID Connect transaction in which the OP provided the End-User's verified identity data towards an RP. -->
+注: `verification_process` は OP での identity verification process を指すが，`txn` Claim は OP がエンドユーザーの検証済み ID データを RP に提供した特定の OpenID Connect トランザクションを指す．
 
-Important: Implementations MUST ignore any sub-element not defined in this specification or extensions of this specification.
+<!-- `evidence`: OPTIONAL. JSON array containing information about the evidence the OP used to verify the End-User's identity as separate JSON objects. Every object contains the property `type` which determines the type of the evidence. The RP uses this information to process the `evidence` property appropriately. -->
+`evidence`: OPTIONAL. エンドユーザーの identity を確認するために OP が使用したエビデンスに関する情報を個別の JSON オブジェクトとして含む JSON 配列．すべてのオブジェクトには，エビデンスの種類を決めるプロパティ `type` が含まれる．RP は `evidence` プロパティを適切に処理するためにこの情報を使用する．
+
+<!-- Important: Implementations MUST ignore any sub-element not defined in this specification or extensions of this specification. -->
+重要: 実装は本仕様または本仕様の拡張で定義されていないサブ要素を無視しなければならない (MUST)．
 
 ### evidence Element
 
