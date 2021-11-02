@@ -328,22 +328,33 @@ RPs は理解できないトラストフレームワーク識別子を含む `ve
 
 ### evidence Element
 
-The `evidence` element is structured with the following elements:
+<!-- The `evidence` element is structured with the following elements: -->
+`evidence` 要素は以下の要素で構成される:
 
-`attachments`: OPTIONAL. Array of JSON objects representing attachments like photocopies of documents or certificates. See (#attachments) on how an attachment is structured.
+<!-- `attachments`: OPTIONAL. Array of JSON objects representing attachments like photocopies of documents or certificates. See (#attachments) on how an attachment is structured. -->
+`attachments`: OPTIONAL. ドキュメントや証明書のコピーなどの添付ファイルを表す JSON オブジェクトの配列．添付ファイルの構造については (#attachments) 参照．
 
-`type`: REQUIRED. The value defines the type of the evidence.
+<!-- `type`: REQUIRED. The value defines the type of the evidence. -->
+`type`: REQUIRED. エビデンスのタイプを定義する値．
 
-The following types of evidence are defined:
+<!-- The following types of evidence are defined: -->
+以下のエビデンスのタイプが定義されている:
 
+<!-- 
 * `document`: Verification based on any kind of physical or electronic document provided by the End-User.
 * `electronic_record`: Verification based on data or information obtained electronically from an approved or recognized source.
 * `vouch`: Verification based on an attestation or reference given by an approved or recognized person declaring they believe to the best of their knowledge that the Claim(s) are genuine and true.
 * `utility_bill`: Verification based on a utility bill (this is to be deprecated in future releases and implementers are recommended to use the `document` type instead).
 * `electronic_signature`: Verification based on an electronic signature.
+-->
+* `document`: エンドユーザーから提供されたあらゆる種類の物理的又は電子的文章に基づく検証．
+* `electronic_record`: 承認または承認されたソースから電子的に取得したデータまたは情報に基づく検証．
+* `vouch`: 承認または承認された人物が，Claim(s)　が正規かつ真実であると彼らの知る限り信じていることを宣言することによって与えられた証明または参照に基づく検証．
+* `utility_bill`: 公共料金に基づく検証 (これは将来のリリースで非推奨になるため，実装者は代わりに `document` タイプを使うことを推奨する).
+* `electronic_signature`: 電子署名に基づく検証．
 
-Depending on the evidence type additional elements are defined, as described in the following.
-
+<!-- Depending on the evidence type additional elements are defined, as described in the following. -->
+エビデンスの種類に応じて，以下で説明するように追加の要素が定義される．
 #### Evidence Type document
 
 The following elements are contained in an evidence sub-element where type is `document`.
