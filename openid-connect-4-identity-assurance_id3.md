@@ -355,38 +355,64 @@ RPs は理解できないトラストフレームワーク識別子を含む `ve
 
 <!-- Depending on the evidence type additional elements are defined, as described in the following. -->
 エビデンスの種類に応じて，以下で説明するように追加の要素が定義される．
+
 #### Evidence Type document
 
 The following elements are contained in an evidence sub-element where type is `document`.
+以下の要素は，タイプが `document` であるエビデンス サブ要素に含まれる．
 
-`type`: REQUIRED. Value MUST be set to `document`. Note: `id_document` is an alias for `document` for backward compatibilty purposes but will be deprecated in future releases, implementers are recommended to use `document`.
+<!-- `type`: REQUIRED. Value MUST be set to `document`. Note: `id_document` is an alias for `document` for backward compatibilty purposes but will be deprecated in future releases, implementers are recommended to use `document`. -->
+`type`: REQUIRED. 値は `document` に設定しなければならない (MUST). 注: `id_document` は下位互換性を目的とした `document` のエイリアスであるが，将来のリリースでは非推奨となるため，実装者は `document` を使うことを推奨する.
 
-`validation_method`: OPTIONAL. JSON object representing how the authenticity of the document was determined. 
+<!-- `validation_method`: OPTIONAL. JSON object representing how the authenticity of the document was determined.  -->
+`validation_method`: OPTIONAL. ドキュメントの信頼性がどのように決定されたかを表す JSON オブジェクト. 
 
+<!-- 
   * `type`: REQUIRED. String representing the method used to check the authenticity of the document. For information on predefined `validation_method` values see [@!predefined_values].
   * `policy`: OPTIONAL. String representing the standard or policy that was followed.
   * `procedure`: OPTIONAL. String representing a specific procedure from the `policy` that was followed.
-  * `status`: OPTIONAL. String representing the current status of the validation.
+  * `status`: OPTIONAL. String representing the current status of the validation. 
+  -->
+  * `type`: REQUIRED. ドキュメントの信頼性をチェックするために利用されるメソッドを表す文字列．事前定義された `validation_method` 値については [@!predefined_values] 参照.
+  * `policy`: OPTIONAL. 準拠する標準またはポリシーを表す文字列．
+  * `procedure`: OPTIONAL. 準拠した `policy` からの特定の手順を表す文字列．
+  * `status`: OPTIONAL. 検証の現在のステータスを表す文字列．
 
-`verification_method`: OPTIONAL. JSON object representing how the user was proven to be the owner of the `claims`.
+<!-- `verification_method`: OPTIONAL. JSON object representing how the user was proven to be the owner of the `claims`. -->
+`verification_method`: OPTIONAL. ユーザーが `claims` の所有者であることをどのように証明したかを表す JSON オブジェクト.
 
+<!-- 
   * `type`: REQUIRED. String representing the method used to verify that the user is the person that the document refers to. For information on predefined `verification_method` values see [@!predefined_values].
   * `policy`: OPTIONAL. String representing the standard or policy that was followed.
   * `procedure`: OPTIONAL. String representing a specific procedure from the `policy` that was followed.
   * `status`: OPTIONAL. String representing the current status of the verification.
+-->
+  * `type`: REQUIRED. ユーザーがドキュメントの参照する人物であることを確認するために使用されるメソッドを表す文字列. 事前定義された `verification_method` 値については [@!predefined_values] 参照.
+  * `policy`: OPTIONAL. 準拠する標準またはポリシーを表す文字列.
+  * `procedure`: OPTIONAL. 準拠した `policy` からの特定の手順を表す文字列．
+  * `status`: OPTIONAL. 検証の現在のステータスを表す文字列．
 
-`method`: OPTIONAL. The method used to validate the document and verify the person is the owner of it. In practice this is a combination of a `validation_method` and `verification_method`, implementers are recommended to use the `validation_method`
-and `verification_method` types and deprecate the use of this option unless methods are defined by the trust framework. For information on predefined method values see [@!predefined_values]. 
+<!-- `method`: OPTIONAL. The method used to validate the document and verify the person is the owner of it. In practice this is a combination of a `validation_method` and `verification_method`, implementers are recommended to use the `validation_method`
+and `verification_method` types and deprecate the use of this option unless methods are defined by the trust framework. For information on predefined method values see [@!predefined_values].  -->
+`method`: OPTIONAL. ドキュメントの検証と，その人がその所有者であることを確認するために使用される方法．実際には， `validation_method` と `verification_method` の組み合わせであり，実装者は `validation_method` と  `verification_method` タイプを使用することを推奨し，方法がトラストフレームワークによって定義されていない限り，このオプションの使用は非推奨である. 事前定義された値は [@!predefined_values] 参照. 
 
-`verifier`: OPTIONAL. JSON object denoting the legal entity that performed the identity verification on behalf of the OP. This object SHOULD only be included if the OP did not perform the identity verification itself. This object consists of the following properties:
+<!-- `verifier`: OPTIONAL. JSON object denoting the legal entity that performed the identity verification on behalf of the OP. This object SHOULD only be included if the OP did not perform the identity verification itself. This object consists of the following properties: -->
+`verifier`: OPTIONAL. OP に代わって identity verification を実行した法人を示す JSON オブジェクト．このオブジェクトは，OP 自身が identity verification を実行しなかった場合にのみ含めるべきである (SHOULD). このオブジェクトは以下の要素プロパティで構成される:
 
+<!-- 
 * `organization`: REQUIRED. String denoting the organization which performed the verification on behalf of the OP.
 * `txn`: OPTIONAL. Identifier referring to the identity verification transaction. The OP MUST ensure that the transaction identifier can be resolved into transaction details during an audit.
+-->
+* `organization`: REQUIRED. OP に代わって検証を実行した組織を示す文字列．
+* `txn`: OPTIONAL. identity verification トランザクションを参照する識別子．OP は監査中にトランザクション識別子をトランザクションの詳細に解決できることを確認しなければならない (MUST)．
 
-`time`: OPTIONAL. Time stamp in ISO 8601:2004 [@!ISO8601-2004] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date when this document was verified.
+<!-- `time`: OPTIONAL. Time stamp in ISO 8601:2004 [@!ISO8601-2004] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date when this document was verified. -->
+`time`: OPTIONAL. ドキュメントが検証された日付を表す ISO 8601:2004 [@!ISO8601-2004] `YYYY-MM-DDThh:mm[:ss]TZD` フォーマットのタイムスタンプ．
 
-`document_details`: OPTIONAL. JSON object representing the document used to perform the identity verification. Note: `document` can be used as an alias for `document_details` for backward compatibility purposes but will be deprecated in future releases, implementers are recommended to use `document_details`. It consists of the following properties:
+<!-- `document_details`: OPTIONAL. JSON object representing the document used to perform the identity verification. Note: `document` can be used as an alias for `document_details` for backward compatibility purposes but will be deprecated in future releases, implementers are recommended to use `document_details`. It consists of the following properties: -->
+`document_details`: OPTIONAL. identity verification の実行に使用されたドキュメントを表す JSON オブジェクト． 注: `document` は下位互換性を目的とした `document_details` のエイリアスとして使用できるが，将来のリリースでは非推奨となるため，実装者は `document_details` を使用することを推奨する．これは以下のプロパティで構成される:
 
+<!-- 
 * `type`: REQUIRED. String denoting the type of the document. For information on predefined document values see [@!predefined_values]. The OP MAY use other than the predefined values in which case the RPs will either be unable to process the assertion, just store this value for audit purposes, or apply bespoken business logic to it.
 * `document_number`: OPTIONAL. String representing an identifier/number that uniquely identifies a document that was issued to the End-User. This is used on one document and will change if it is reissued, e.g., a passport number, certificate number, etc. Note: `number` can be used as an alias for 'document_number' for backward compatibilty purposes but will be deprecated in future releases, implementers are recommended to use `document_number`.
 * `personal_number`: OPTIONAL. String representing an identifier that is assigned to the End-User and is not limited to being used in one document, for example a national identification number, personal identity number, citizen number, social security number, driver number, account number, customer number, licensee number, etc.
@@ -398,6 +424,18 @@ and `verification_method` types and deprecate the use of this option unless meth
     * All elements of the OpenID Connect `address` Claim (see [@!OpenID])
     * `country_code`: OPTIONAL. String denoting the country or supranational organization that issued the document as ISO 3166/ICAO 3-letter codes [@!ICAO-Doc9303], e.g., "USA" or "JPN". 2-letter ICAO codes MAY be used in some circumstances for compatibility reasons.
     * `jurisdiction`: OPTIONAL. String containing the name of the region(s)/state(s)/province(s)/municipality(ies) that issuer has jurisdiction over (if this information is not common knowledge or derivable from the address).
+-->
+* `type`: REQUIRED. ドキュメントのタイプを表す文字列．事前定義されたドキュメント値については [@!predefined_values] 参照. OP は RP がアサーションを処理できないか，監査目的でこの値を保存するか，特注のビジネスロジックを適用する場合，事前定義された値以外を使用してもよい (MAY).
+* `document_number`: OPTIONAL. エンドユーザーに発行されたドキュメントを一意に識別する識別子/番号を表す文字列．これはパスポート番号や証明書番号などのように，1つのドキュメントで利用され，再発行されると変更される．注: `number` は下位互換性を目的とした 'document_number' のエイリアスとして使用できるが，将来のリリースでは非推奨となるため，実装者は `document_number` を使用することを推奨する.
+* `personal_number`: OPTIONAL. 国民識別番号，個人識別番号，市民番号，社会保障番号，運転免許証番号，口座番号，顧客番号，ライセンシー番号のような，エンドユーザーに割り当てられ，1つのドキュメントで使用されることに限定されない識別子を表す文字列．
+* `serial_number`: OPTIONAL. パーソナライズ情報に関係なくドキュメントを識別する識別子/番号を表す文字列 (これは通常，物理的中間生成物にのみ適用され，パーソナライゼーションの前に存在する).
+* `date_of_issuance`: OPTIONAL. ISO 8601:2004 [@!ISO8601-2004] `YYYY-MM-DD` 形式で表す，ドキュメントの発行された日付.
+* `date_of_expiry`: OPTIONAL. ISO 8601:2004 [@!ISO8601-2004] `YYYY-MM-DD` 形式で表す，ドキュメントの有効期限の日付.
+* `issuer`: OPTIONAL. ドキュメントの発行者に関する情報を含む JSON オブジェクト．このオブジェクトは下記のプロパティで構成される:
+    * `name`: OPTIONAL. ドキュメントの発行者を指定する．
+    * OpenID Connect `address` Claim (see [@!OpenID]) のすべての要素
+    * `country_code`: OPTIONAL. "USA" や "JPN" のような ISO 3166/ICAO 3-letter codes [@!ICAO-Doc9303] で，ドキュメントを発行した国や超国家組織を表す文字列．状況によっては，互換性の理由から 2-letter ICAO codes が使用されるかもしれない (MAY)．
+    * `jurisdiction`: OPTIONAL. 発行者が管轄する地域/州/件/市町村の名前を含む文字列 (この情報が一般的な知識でないか，住所から導き出せない場合)．
 
 #### Evidence Type electronic_record
 
