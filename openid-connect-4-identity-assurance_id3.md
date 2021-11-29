@@ -358,7 +358,7 @@ RPs は理解できないトラストフレームワーク識別子を含む `ve
 
 #### Evidence Type document
 
-The following elements are contained in an evidence sub-element where type is `document`.
+<!-- The following elements are contained in an evidence sub-element where type is `document`. -->
 以下の要素は，タイプが `document` であるエビデンス サブ要素に含まれる．
 
 <!-- `type`: REQUIRED. Value MUST be set to `document`. Note: `id_document` is an alias for `document` for backward compatibilty purposes but will be deprecated in future releases, implementers are recommended to use `document`. -->
@@ -397,7 +397,7 @@ and `verification_method` types and deprecate the use of this option unless meth
 `method`: OPTIONAL. ドキュメントの検証と，その人がその所有者であることを確認するために使用される方法．実際には， `validation_method` と `verification_method` の組み合わせであり，実装者は `validation_method` と  `verification_method` タイプを使用することを推奨し，方法がトラストフレームワークによって定義されていない限り，このオプションの使用は非推奨である. 事前定義された値は [@!predefined_values] 参照. 
 
 <!-- `verifier`: OPTIONAL. JSON object denoting the legal entity that performed the identity verification on behalf of the OP. This object SHOULD only be included if the OP did not perform the identity verification itself. This object consists of the following properties: -->
-`verifier`: OPTIONAL. OP に代わって identity verification を実行した法人を示す JSON オブジェクト．このオブジェクトは，OP 自身が identity verification を実行しなかった場合にのみ含めるべきである (SHOULD). このオブジェクトは以下の要素プロパティで構成される:
+`verifier`: OPTIONAL. OP に代わって identity verification を実行した法人を示す JSON オブジェクト．このオブジェクトは，OP 自身が identity verification を実行しなかった場合にのみ含めるべきである (SHOULD). このオブジェクトは以下のプロパティで構成される:
 
 <!-- 
 * `organization`: REQUIRED. String denoting the organization which performed the verification on behalf of the OP.
@@ -439,33 +439,57 @@ and `verification_method` types and deprecate the use of this option unless meth
 
 #### Evidence Type electronic_record
 
-The following elements are contained in an evidence sub-element where type is `electronic_record`.
+<!-- The following elements are contained in an evidence sub-element where type is `electronic_record`. -->
+以下の要素は，タイプが `electronic_record` であるエビデンス サブ要素に含まれる．
 
-`type`: REQUIRED. Value MUST be set to `electronic_record`.
+<!-- `type`: REQUIRED. Value MUST be set to `electronic_record`. -->
+`type`: REQUIRED. 値は `electronic_record` に設定しなければならない (MUST).
 
-`validation_method`: OPTIONAL. JSON object representing how the authenticity of the record was determined. 
+<!-- `validation_method`: OPTIONAL. JSON object representing how the authenticity of the record was determined.  -->
+`validation_method`: OPTIONAL. ドキュメントの信頼性がどのように決定されたかを表す JSON オブジェクト. 
 
+<!--
   * `type`: REQUIRED. String representing the method used to check the authenticity of the record. For information on predefined `validation_method` values see [@!predefined_values].
   * `policy`: OPTIONAL. String representing the standard or policy that was followed.
   * `procedure`: OPTIONAL. String representing a specific procedure from the `policy` that was followed.
   * `status`: OPTIONAL. String representing the current status of the validation.
+-->
+  * `type`: REQUIRED. ドキュメントの信頼性をチェックするために利用されるメソッドを表す文字列．事前定義された `validation_method` 値については [@!predefined_values] 参照.
+  * `policy`: OPTIONAL. 準拠する標準またはポリシーを表す文字列．
+  * `procedure`: OPTIONAL. 準拠した `policy` からの特定の手順を表す文字列．
+  * `status`: OPTIONAL. 検証の現在のステータスを表す文字列．
     
-`verification_method`: OPTIONAL. JSON object representing how the user was proven to be the owner of the `claims`.
+<!-- `verification_method`: OPTIONAL. JSON object representing how the user was proven to be the owner of the `claims`. -->
+`verification_method`: OPTIONAL. ユーザーが `claims` の所有者であることをどのように証明したかを表す JSON オブジェクト.
 
+<!--
   * `type`: REQUIRED. String representing the method used to verify that the user is the person that the electronic record refers to. For information on predefined `verification_method` values see [@!predefined_values].
   * `policy`: OPTIONAL. String representing the standard or policy that was followed.
   * `procedure`: OPTIONAL. String representing a specific procedure from the `policy` that was followed.
   * `status`: OPTIONAL. String representing the current status of the verification.
+-->
+  * `type`: REQUIRED. ユーザーが電子記録の参照する人物であることを確認するために使用されるメソッドを表す文字列. 事前定義された `verification_method` 値については [@!predefined_values] 参照.
+  * `policy`: OPTIONAL. 準拠する標準またはポリシーを表す文字列.
+  * `procedure`: OPTIONAL. 準拠した `policy` からの特定の手順を表す文字列．
+  * `status`: OPTIONAL. 検証の現在のステータスを表す文字列．
 
-`verifier`: OPTIONAL. JSON object denoting the legal entity that performed the identity verification on behalf of the OP. This object SHOULD only be included if the OP did not perform the identity verification itself. This object consists of the following properties:
+<!-- `verifier`: OPTIONAL. JSON object denoting the legal entity that performed the identity verification on behalf of the OP. This object SHOULD only be included if the OP did not perform the identity verification itself. This object consists of the following properties: -->
+`verifier`: OPTIONAL. OP に代わって identity verification を実行した法人を示す JSON オブジェクト．このオブジェクトは，OP 自身が identity verification を実行しなかった場合にのみ含めるべきである (SHOULD). このオブジェクトは以下のプロパティで構成される:
 
+<!--
 * `organization`: REQUIRED. String denoting the organization which performed the verification on behalf of the OP.
 * `txn`: OPTIONAL. Identifier referring to the identity verification transaction. This transaction identifier can be resolved into transaction details during an audit.
+-->
+* `organization`: REQUIRED. OP に代わって検証を実行した組織を示す文字列．
+* `txn`: OPTIONAL. identity verification トランザクションを参照する識別子．このトランザクション識別子は，監査中にトランザクションの詳細を解決できることができる．
 
-`time`: OPTIONAL. Time stamp in ISO 8601:2004 [@!ISO8601-2004] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date when this record was verified.
+<!-- `time`: OPTIONAL. Time stamp in ISO 8601:2004 [@!ISO8601-2004] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date when this record was verified. -->
+`time`: OPTIONAL. レコードが検証された日付を表す ISO 8601:2004 [@!ISO8601-2004] `YYYY-MM-DDThh:mm[:ss]TZD` フォーマットのタイムスタンプ．
 
-`record`: OPTIONAL. JSON object representing the record used to perform the identity verification. It consists of the following properties:
+<!-- `record`: OPTIONAL. JSON object representing the record used to perform the identity verification. It consists of the following properties: -->
+`record`: OPTIONAL. identity verification の実行に使用されたレコードを表す JSON オブジェクト．これは以下のプロパティで構成される:
 
+<!--
 * `type`: REQUIRED. String denoting the type of electronic record. For information on predefined identity evidence values see [@!predefined_values]. The OP MAY use other than the predefined values in which case the RPs will either be unable to process the assertion, just store this value for audit purposes, or apply bespoken business logic to it.
 * `personal_number`: OPTIONAL. String representing an identifier that is assigned to the End-User and is not limited to being used in one document, for example a national identification number, personal identity number, citizen number, social security number, driver number, account number, customer number, licensee number, etc.
 * `created_at`: OPTIONAL. The time the record was created as ISO 8601:2004 [@!ISO8601-2004] `YYYY-MM-DDThh:mm[:ss]TZD` format.
@@ -475,37 +499,71 @@ The following elements are contained in an evidence sub-element where type is `e
     * All elements of the OpenID Connect `address` Claim (see [@!OpenID]): OPTIONAL.
     * `country_code`: OPTIONAL. String denoting the country or supranational organization that issued the document as ISO 3166/ICAO 3-letter codes [@!ICAO-Doc9303], e.g., "USA" or "JPN". 2-letter ICAO codes MAY be used in some circumstances for compatibility reasons.
     * `jurisdiction`: OPTIONAL. String containing the name of the region(s) / state(s) / province(s) / municipality(ies) that issuer has jurisdiction over (if it’s not common knowledge or derivable from the address).
+-->
+* `type`: REQUIRED. 電子記録のタイプを表す文字列．事前定義された identity エビデンス値については [@!predefined_values] 参照. OP は RP がアサーションを処理できないか，監査目的でこの値を保存するか，特注のビジネスロジックを適用する場合，事前定義された値以外を使用してもよい (MAY).
+ `personal_number`: OPTIONAL. 国民識別番号，個人識別番号，市民番号，社会保障番号，運転免許証番号，口座番号，顧客番号，ライセンシー番号のような，エンドユーザーに割り当てられ，1つのドキュメントで使用されることに限定されない識別子を表す文字列．
+* `created_at`: OPTIONAL. ISO 8601:2004 [@!ISO8601-2004] `YYYY-MM-DD` 形式で表す，レコードの作成された日付.
+* `date_of_expiry`: OPTIONAL. ISO 8601:2004 [@!ISO8601-2004] `YYYY-MM-DD` 形式で表す，ドキュメントの有効期限の日付.
+* `source`: OPTIONAL. レコードのソースに関する情報を含む JSON オブジェクト．このオブジェクトは下記のプロパティで構成される:
+    * `name`: OPTIONAL. ドキュメントの発行者を指定する．
+    * OpenID Connect `address` Claim (see [@!OpenID]) のすべての要素: OPTIONAL.
+    * `country_code`: OPTIONAL. "USA" や "JPN" のような ISO 3166/ICAO 3-letter codes [@!ICAO-Doc9303] で，ドキュメントを発行した国や超国家組織を表す文字列．状況によっては，互換性の理由から 2-letter ICAO codes が使用されるかもしれない (MAY)．
+    * `jurisdiction`: OPTIONAL. 発行者が管轄する地域/州/件/市町村の名前を含む文字列 (それ一般的な知識でないか，住所から導き出せない場合)．
 
 #### Evidence Type vouch
 
 
-The following elements are contained in an evidence sub-element where type is `vouch`.
+<!-- The following elements are contained in an evidence sub-element where type is `vouch`. -->
+以下の要素は，タイプが `vouch` であるエビデンス サブ要素に含まれる．
 
-`type`: REQUIRED. Value MUST be set to `vouch`.
+<!-- `type`: REQUIRED. Value MUST be set to `vouch`. -->
+`type`: REQUIRED. 値は `vouch` に設定しなければならない (MUST).
 
-`validation_method`: OPTIONAL. JSON object representing how the authenticity of the vouch was determined. 
+<!-- `validation_method`: OPTIONAL. JSON object representing how the authenticity of the vouch was determined.  -->
+`validation_method`: OPTIONAL. ドキュメントの信頼性がどのように決定されたかを表す JSON オブジェクト. 
 
+<!--
   * `type`: REQUIRED. String representing the method used to check the authenticity of the vouch. For information on predefined `validation_method` values see [@!predefined_values].
   * `policy`: OPTIONAL. String representing the standard or policy that was followed.
   * `procedure`: OPTIONAL. String representing a specific procedure from the `policy` that was followed.
   * `status`: OPTIONAL. String representing the current status of the validation.
+-->
+  * `type`: REQUIRED. 証拠の信頼性をチェックするために利用されるメソッドを表す文字列．事前定義された `validation_method` 値については [@!predefined_values] 参照.
+  * `policy`: OPTIONAL. 準拠する標準またはポリシーを表す文字列．
+  * `procedure`: OPTIONAL. 準拠した `policy` からの特定の手順を表す文字列．
+  * `status`: OPTIONAL. 検証の現在のステータスを表す文字列．
 
-`verification_method`: OPTIONAL. JSON object representing how the user was proven to be the owner of the Claims.
+<!-- `verification_method`: OPTIONAL. JSON object representing how the user was proven to be the owner of the Claims. -->
+`verification_method`: OPTIONAL. ユーザーが `claims` の所有者であることをどのように証明したかを表す JSON オブジェクト.
 
+<!--
   * `type`: REQUIRED. String representing the method used to verify that the user is the person that the vouch refers to. For information on predefined `verification_method` values see [@!predefined_values].
   * `policy`: OPTIONAL. String representing the standard or policy that was followed.
   * `procedure`: OPTIONAL. String representing a specific procedure from the `policy` that was followed.
   * `status`: OPTIONAL. String representing the current status of the verification.
+-->
+  * `type`: REQUIRED. ユーザーが証拠の参照する人物であることを確認するために使用されるメソッドを表す文字列. 事前定義された `verification_method` 値については [@!predefined_values] 参照.
+  * `policy`: OPTIONAL. 準拠する標準またはポリシーを表す文字列.
+  * `procedure`: OPTIONAL. 準拠した `policy` からの特定の手順を表す文字列．
+  * `status`: OPTIONAL. 検証の現在のステータスを表す文字列．
     
-`verifier`: OPTIONAL. JSON object denoting the legal entity that performed the identity verification on behalf of the OP. This object SHOULD only be included if the OP did not perform the identity verification itself. This object consists of the following properties:
+<!-- `verifier`: OPTIONAL. JSON object denoting the legal entity that performed the identity verification on behalf of the OP. This object SHOULD only be included if the OP did not perform the identity verification itself. This object consists of the following properties: -->
+`verifier`: OPTIONAL. OP に代わって identity verification を実行した法人を示す JSON オブジェクト．このオブジェクトは，OP 自身が identity verification を実行しなかった場合にのみ含めるべきである (SHOULD). このオブジェクトは以下のプロパティで構成される:
 
+<!--
 * `organization`: REQUIRED. String denoting the organization which performed the verification on behalf of the OP.
 * `txn`: OPTIONAL. Identifier referring to the identity verification transaction. This transaction identifier can be resolved into transaction details during an audit.
+-->
+* `organization`: REQUIRED. OP に代わって検証を実行した組織を示す文字列．
+* `txn`: OPTIONAL. identity verification トランザクションを参照する識別子．このトランザクション識別子は，監査中にトランザクションの詳細を解決できることができる．
 
-`time`: OPTIONAL. Time stamp in ISO 8601:2004 [@!ISO8601-2004] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date when this vouch was verified.
+<!-- `time`: OPTIONAL. Time stamp in ISO 8601:2004 [@!ISO8601-2004] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date when this vouch was verified. -->
+`time`: OPTIONAL. 証拠が検証された日付を表す ISO 8601:2004 [@!ISO8601-2004] `YYYY-MM-DDThh:mm[:ss]TZD` フォーマットのタイムスタンプ．
 
-`attestation`: OPTIONAL. JSON object representing the attestation that is the basis of the vouch. It consists of the following properties:
+<!-- `attestation`: OPTIONAL. JSON object representing the attestation that is the basis of the vouch. It consists of the following properties: -->
+`attestation`: OPTIONAL. 証拠の基礎となるアテステーションを表す JSON オブジェクト．これは以下のプロパティで構成される:
 
+<!--
 * `type`: REQUIRED. String denoting the type of vouch. For information on predefined vouch values see [@!predefined_values]. The OP MAY use other than the predefined values in which case the RPs will either be unable to process the assertion, just store this value for audit purposes, or apply bespoken business logic to it.
 * `reference_number`: OPTIONAL. String representing an identifier/number that uniquely identifies a vouch given about the End-User.
 * `personal_number`: OPTIONAL. String representing an identifier that is assigned to the End-User and is not limited to being used in one document, for example a national identification number, personal identity number, citizen number, social security number, driver number, account number, customer number, licensee number, etc.
@@ -517,39 +575,69 @@ The following elements are contained in an evidence sub-element where type is `v
     * All elements of the OpenID Connect `address` Claim (see [@!OpenID]): OPTIONAL.
     * `occupation`: OPTIONAL. String containing the occupation or other authority of the person giving the vouch/reference.
     * `organization`: OPTIONAL. String containing the name of the organization the voucher is representing.
+-->
+* `type`: REQUIRED. 証拠のタイプを表す文字列．事前定義された証拠値については [@!predefined_values] 参照. OP は RP がアサーションを処理できないか，監査目的でこの値を保存するか，特注のビジネスロジックを適用する場合，事前定義された値以外を使用してもよい (MAY).
+* `reference_number`: OPTIONAL. エンドユーザーについて与えられた証拠を一意に識別する識別子/番号を表す文字列．
+* `personal_number`: OPTIONAL. 国民識別番号，個人識別番号，市民番号，社会保障番号，運転免許証番号，口座番号，顧客番号，ライセンシー番号のような，エンドユーザーに割り当てられ，1つのドキュメントで使用されることに限定されない識別子を表す文字列．
+* `date_of_issuance`: OPTIONAL. ISO 8601:2004 [@!ISO8601-2004] `YYYY-MM-DD` 形式で表す，ドキュメントの発行された日付.
+* `date_of_expiry`: OPTIONAL. ISO 8601:2004 [@!ISO8601-2004] `YYYY-MM-DD` 形式で表す，エビデンスの有効期限の日付.
+* `voucher`: OPTIONAL. 証拠を提供するエンティティに関する情報を含む JSON オブジェクト．このオブジェクトは下記のプロパティで構成される:
+    * `name`: OPTIONAL. ドキュメントの発行者を指定する．
+    * `name`: OPTIONAL. OpenID Connect 仕様の Section 5.1 で定義されているのと同じ形式で，エンドユーザー Claim の証拠/参照を提供する人の名前を含む文字列．
+    * `birthdate`: OPTIONAL. OpenID Connect 仕様の Section 5.1 で定義されているのと同じ形式で，エンドユーザー Claim の証拠/参照を提供する人の誕生日を含む文字列．
+    * OpenID Connect `address` Claim (see [@!OpenID]) のすべての要素: OPTIONAL.
+    * `occupation`: OPTIONAL. 証拠/参照を与える人の職業または他の権限を含む文字列 .
+    * `organization`: OPTIONAL. voucher が表す組織の名前を含む文字列．
 
 #### Evidence Type utility_bill
 
-Note: This type is to be deprecated in future releases. Implementers are recommended to use `document` instead.
+<!-- Note: This type is to be deprecated in future releases. Implementers are recommended to use `document` instead. -->
+注: このタイプは将来のリリースで廃止となる．実装者は代わりに `document` を使うことを推奨する．
 
-The following elements are contained in an evidence sub-element where type is  `utility_bill`. 
+<!-- The following elements are contained in an evidence sub-element where type is  `utility_bill`.  -->
+以下の要素は，タイプが `utility_bill` であるエビデンス サブ要素に含まれる．
 
-`type`: REQUIRED. Value MUST be set to "utility_bill".
+<!-- `type`: REQUIRED. Value MUST be set to "utility_bill". -->
+`type`: REQUIRED. 値は `utility_bill` に設定しなければならない (MUST).
 
-`provider`: OPTIONAL. JSON object identifying the respective provider that issued the bill. The object consists of the following properties:
+<!-- `provider`: OPTIONAL. JSON object identifying the respective provider that issued the bill. The object consists of the following properties: -->
+`provider`: OPTIONAL. 請求書を発行したそれぞれのプロバイダーを識別する JSON object．このオブジェクトは以下のプロパティで構成される:
 
+<!--
 * `name`: REQUIRED. String designating the provider.
 * All elements of the OpenID Connect `address` Claim (see [@!OpenID])
+-->
+* `name`: REQUIRED. プロバイダーを指定する文字列.
+* OpenID Connect `address` Claim (see [@!OpenID]) のすべての要素．
 
-`date`: OPTIONAL. String in ISO 8601:2004 [@!ISO8601-2004] `YYYY-MM-DD` format containing the date when this bill was issued.
+<!-- `date`: OPTIONAL. String in ISO 8601:2004 [@!ISO8601-2004] `YYYY-MM-DD` format containing the date when this bill was issued. -->
+`date`: OPTIONAL. 請求書が発行された日付を含む ISO 8601:2004 [@!ISO8601-2004] `YYYY-MM-DD` 形式の文字列.
 
-`method`: OPTIONAL. The method used to verify the utility bill. For information on predefined method values see [@!predefined_values]. 
+<!-- `method`: OPTIONAL. The method used to verify the utility bill. For information on predefined method values see [@!predefined_values].  -->
+`method`: OPTIONAL. 公共料金の確認に使用される方法．事前定義されたメソッド値については [@!predefined_values] 参照.
 
-`time`: OPTIONAL. Time stamp in ISO 8601:2004 [@!ISO8601-2004] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date when the utility bill was verified.
+<!-- `time`: OPTIONAL. Time stamp in ISO 8601:2004 [@!ISO8601-2004] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date when the utility bill was verified. -->
+`time`: OPTIONAL. 公共料金の請求が確認された日付を表す ISO 8601:2004 [@!ISO8601-2004] `YYYY-MM-DDThh:mm[:ss]TZD` フォーマットのタイムスタンプ．
 
 #### Evidence Type electronic_signature
 
-The following elements are contained in a `electronic_signature` evidence sub-element.
+<!-- The following elements are contained in a `electronic_signature` evidence sub-element. -->
+以下の要素は，タイプが `electronic_signature` であるエビデンス サブ要素に含まれる．
 
-`type`: REQUIRED. Value MUST be set to `electronic_signature`.
+<!-- `type`: REQUIRED. Value MUST be set to `electronic_signature`. -->
+`type`: REQUIRED. 値は `electronic_signature` に設定しなければならない (MUST).
 
-`signature_type`: REQUIRED. String denoting the type of signature used as evidence. The value range might be restricted by the respective trust framework. 
+<!-- `signature_type`: REQUIRED. String denoting the type of signature used as evidence. The value range might be restricted by the respective trust framework.  -->
+`signature_type`: REQUIRED. エビデンスとして使用される署名のタイプを表す文字列. 値の範囲は，それぞれのトラストフレームワークによって制限されるかもしれない． 
 
-`issuer`: REQUIRED. String denoting the certification authority that issued the signer's certificate.
+<!-- `issuer`: REQUIRED. String denoting the certification authority that issued the signer's certificate. -->
+`issuer`: REQUIRED. 署名者の証明書を発行した認証局を表す文字列.
 
-`serial_number`: REQUIRED. String containing the serial number of the certificate used to sign.
+<!-- `serial_number`: REQUIRED. String containing the serial number of the certificate used to sign. -->
+`serial_number`: REQUIRED. 署名に使用される証明書のシリアル番号を表す文字列.
 
-`created_at`: OPTIONAL. The time the signature was created as ISO 8601:2004 [@!ISO8601-2004] `YYYY-MM-DDThh:mm[:ss]TZD` format.
+<!-- `created_at`: OPTIONAL. The time the signature was created as ISO 8601:2004 [@!ISO8601-2004] `YYYY-MM-DDThh:mm[:ss]TZD` format. -->
+`created_at`: OPTIONAL. ISO 8601:2004 [@!ISO8601-2004] `YYYY-MM-DD` 形式で表す，署名の作成された日付.
 
 ### Attachments {#attachments}
 
