@@ -642,58 +642,87 @@ and `verification_method` types and deprecate the use of this option unless meth
 ### Attachments {#attachments}
 
 During the identity verification process, specific document artifacts will be created and depending on the trust framework, will be required to be stored for a specific duration. These artifacts can later be reviewed during audits or quality control for example. These artifacts include, but are not limited to:
+identity verification プロセス中に，特定のドキュメントアーティファクトが生成され，トラストフレームワークに応じて特定の期間保存する必要がある．これらのアーティファクトは，後で監査や品質管理などの際に確認することができる．これらのアーティファクトには次のものが含まれるが，これらに限定されない:
 
+<!--
 * scans of filled and signed forms documenting/certifying the verification process itself,
 * scans or photocopies of the documents used to verify the identity of End-Users,
 * video recordings of the verification process,
 * certificates of electronic signatures.
+-->
+* 検証プロセス自体を文章化/証明する，記入済みかつ署名済みフォームのスキャン
+* エンドユーザーの identity を確認するために使用されるドキュメントのスキャンまたは写真コピー
+* 検証プロセスのビデオ録画
+* 電子署名の証明書
 
-When requested by the RP, these artifacts can be attached to the Verified Claims response allowing the RP to store these artifacts along with the Verified Claims information.
 
-An attachment is represented by a JSON object. This specification allows two types of representations:
+<!-- When requested by the RP, these artifacts can be attached to the Verified Claims response allowing the RP to store these artifacts along with the Verified Claims information. -->
+RP から要求された場合，RP が検証済み Claim 情報とともにこれらのアーティファクトを保存できるように，これらのアーティファクトを検証済み Claim のレスポンスに添付することができる．
+
+<!-- An attachment is represented by a JSON object. This specification allows two types of representations: -->
+添付ファイルは JSON オブジェクト形式で表現される．本仕様では2種類の表現が可能である:
 
 #### Embedded Attachments
 
-All the information of the document (including the content itself) is provided within a JSON object having the following elements:
+<!-- All the information of the document (including the content itself) is provided within a JSON object having the following elements: -->
+(コンテンツ自身を含む) ドキュメントのすべての情報は，以下の要素を持つ JSON オブジェクト内で提供される:
 
-`desc`: OPTIONAL. Description of the document. This can be the filename or just an explanation of the content. The used language is not specified, but is usually bound to the jurisdiction of the underlying trust framework of the OP.
+<!-- `desc`: OPTIONAL. Description of the document. This can be the filename or just an explanation of the content. The used language is not specified, but is usually bound to the jurisdiction of the underlying trust framework of the OP. -->
+`desc`: OPTIONAL. ドキュメントの説明. ファイル名または単なるコンテンツの説明にすることができる．使用する言語は指定されていないが，通常 OP の基礎となるトラストフレームワークの管轄に拘束される．
 
-`content_type`: REQUIRED. Content (MIME) type of the document. See [@!RFC6838]. Multipart or message media types are not allowed. Example: "image/png"
+<!-- `content_type`: REQUIRED. Content (MIME) type of the document. See [@!RFC6838]. Multipart or message media types are not allowed. Example: "image/png" -->
+`content_type`: REQUIRED. ドキュメントのコンテンツ (MIME) タイプ． [@!RFC6838] 参照．マルチパートまたはメッセージメディアタイプは許可されない．例: "image/png"
 
-`content`: REQUIRED. Base64 encoded representation of the document content.
+<!-- `content`: REQUIRED. Base64 encoded representation of the document content. -->
+`content`: REQUIRED. ドキュメントコンテンツの Base64 エンコード表現.
 
-The following example shows embedded attachments. The actual contents of the documents are truncated:
+<!-- The following example shows embedded attachments. The actual contents of the documents are truncated: -->
+以下の例は，埋め込まれた添付ファイルを示す．ドキュメントの実際の内容は切り捨てられている:
 
 <{{examples/response/embedded_attachments.json}}
 
-Note: Due to their size, embedded attachments are not appropriate when embedding Verified Claims in access tokens or ID tokens.
+<!-- Note: Due to their size, embedded attachments are not appropriate when embedding Verified Claims in access tokens or ID tokens. -->
+注: サイズが大きいため，アクセストークンまたは ID トークンに検証済み Claim を埋め込む場合，埋め込み添付ファイルは適切ではない．
 
 #### External Attachments
 
-External attachments are similar to distributed Claims. The reference to the external document is provided in a JSON object with the following elements:
+<!-- External attachments are similar to distributed Claims. The reference to the external document is provided in a JSON object with the following elements: -->
+External attachments は分散 Claim と似ている．外部ドキュメントへの参照は，以下の要素を持つ JSON オブジェクト内で提供される:
 
-`desc`: OPTIONAL. Description of the document. This can be the filename or just an explanation of the content. The used language is not specified, but is usually bound to the jurisdiction of the underlying trust framework or the OP.
+<!-- `desc`: OPTIONAL. Description of the document. This can be the filename or just an explanation of the content. The used language is not specified, but is usually bound to the jurisdiction of the underlying trust framework or the OP. -->
+`desc`: OPTIONAL. ドキュメントの説明. ファイル名または単なるコンテンツの説明にすることができる．使用する言語は指定されていないが，通常 OP の基礎となるトラストフレームワークの管轄に拘束される．
 
-`url`: REQUIRED. OAuth 2.0 resource endpoint from which the document can be retrieved. Providers MUST protect this endpoint. The endpoint URL MUST return the document whose cryptographic hash matches the value given in the `digest` element.
+<!-- `url`: REQUIRED. OAuth 2.0 resource endpoint from which the document can be retrieved. Providers MUST protect this endpoint. The endpoint URL MUST return the document whose cryptographic hash matches the value given in the `digest` element. -->
+`url`: REQUIRED. ドキュメントを取得できる OAuth 2.0 リソースエンドポイント．プロバイダはこのエンドポイントを保護しなければならない (MUST)．このエンドポイント URL は，暗号化ハッシュが `digest` 要素で提供される値と一致するドキュメントを返さなければならない (MUST)．
 
-`access_token`: OPTIONAL. Access Token as type `string` enabling retrieval of the document from the given `url`. The attachment MUST be requested using the OAuth 2.0 Bearer Token Usage [@!RFC6750] protocol and the OP MUST support this method, unless another Token Type or method has been negotiated with the Client. Use of other Token Types is outside the scope of this specification. If the `access_token` element is not available, RPs MUST use the Access Token issued by the OP in the Token response and when requesting the attachment the RP MUST use the same method as when accessing the UserInfo endpoint. If the value of this element is `null`, no Access Token is used to request the attachment and the RP MUST NOT use the Access Token issued by the Token response. In this case the OP MUST incorporate other effective methods to protect the attachment and inform/instruct the RP accordingly.
+<!-- `access_token`: OPTIONAL. Access Token as type `string` enabling retrieval of the document from the given `url`. The attachment MUST be requested using the OAuth 2.0 Bearer Token Usage [@!RFC6750] protocol and the OP MUST support this method, unless another Token Type or method has been negotiated with the Client. Use of other Token Types is outside the scope of this specification. If the `access_token` element is not available, RPs MUST use the Access Token issued by the OP in the Token response and when requesting the attachment the RP MUST use the same method as when accessing the UserInfo endpoint. If the value of this element is `null`, no Access Token is used to request the attachment and the RP MUST NOT use the Access Token issued by the Token response. In this case the OP MUST incorporate other effective methods to protect the attachment and inform/instruct the RP accordingly. -->
+`access_token`: OPTIONAL. 与えられた `url` からドキュメントを取得できるようにする `string` タイプの Access Token．添付ファイルは OAuth 2.0 Bearer Token Usage [@!RFC6750] プロトコルを使用してリクエストしなければならず (MUST)， 別のトークンタイプまたはメソッドが Client とネゴシエートされていない限り，OP はメソッドをサポートしなければならない (MUST)．他のトークンタイプの仕様は本仕様の範囲外である．`access_token` 要素が利用できない場合，RP は Token Response で OP によって発行された Access Token を利用しなければならず (MUST)，添付ファイルを要求する時，RP は UserInfo エンドポイントにアクセスするときと同じ方法を使用しなければならない (MUST)．この要素の値が `null` の場合，添付ファイルを要求するために Access Token は使用されず，RP は Token Response によって発行された Access Token を使用してはならない (MUST NOT)．この場合，OP は添付ファイルを保護するための他の有効な方法を組み込み，それに応じて RP に通知/指示しなければならない (MUST)．
 
-`expires_in`: OPTIONAL. Positive integer representing the number of seconds until the attachment becomes unavailable and/or the provided `access_token` becomes invalid.
+<!-- `expires_in`: OPTIONAL. Positive integer representing the number of seconds until the attachment becomes unavailable and/or the provided `access_token` becomes invalid. -->
+`expires_in`: OPTIONAL. 添付ファイルが使用できなくなるか，指定された `access_token` が無効になるまでの秒数を表す正の整数．
 
-`digest`: REQUIRED. JSON object representing a cryptographic hash of the document content. The JSON object has the following elements:
+<!-- `digest`: REQUIRED. JSON object representing a cryptographic hash of the document content. The JSON object has the following elements: -->
+`digest`: REQUIRED. ドキュメントコンテンツの暗号化ハッシュを表す JSON オブジェクト．JSON オブジェクトは以下の要素を持つ:
 
+<!--
 * `alg`: REQUIRED. Specifies the algorithm used for the calculation of the cryptographic hash. The algorithm has been negotiated previously between RP and OP during Client Registration or Management.
 * `value`: REQUIRED. Base64 encoded representation of the cryptographic hash.
+-->
+* `alg`: REQUIRED. 暗号化ハッシュの計算に使用されるアルゴリズムを指定する．アルゴリズムは，Client の登録または管理の間に RP と OP の間で事前にネゴシエートされている．
+* `value`: REQUIRED. 暗号化ハッシュの Base64 エンコード表現．
 
-External attachments are suitable when embedding Verified Claims in Tokens. However, the `verified_claims` element is not self-contained. The documents need to be retrieved separately, and the digest values MUST be calculated and validated to ensure integrity.
+<!-- External attachments are suitable when embedding Verified Claims in Tokens. However, the `verified_claims` element is not self-contained. The documents need to be retrieved separately, and the digest values MUST be calculated and validated to ensure integrity. -->
+External attachments は検証済み Claim を Token に埋め込む場合に適している．だがしかし，`verified_claims` 要素は自己完結型ではない．ドキュメントは個別に取得しなければならず，整合性を確保するためにダイジェスト値を計算し，検証しなければならない (MUST)．
 
-The following example shows external attachments:
+<!-- The following example shows external attachments: -->
+以下の例は external attachments を示す:
 
 <{{examples/response/external_attachments.json}}
 
 #### Privacy Considerations
 
-As attachments will most likely contain more personal information than was requested by the RP with specific Claim names, an OP MUST ensure that the End-User is well aware of when and what kind of attachments are about to be transferred to the RP. If possible or applicable, the OP SHOULD allow the End-User to review the content of these attachments before giving consent to the transaction.
+<!-- As attachments will most likely contain more personal information than was requested by the RP with specific Claim names, an OP MUST ensure that the End-User is well aware of when and what kind of attachments are about to be transferred to the RP. If possible or applicable, the OP SHOULD allow the End-User to review the content of these attachments before giving consent to the transaction. -->
+添付ファイルには，特定の Claim 名を使用して RP から要求されたよりも多くの個人情報が含まれる可能性が高いため，OP はいつどのような種類の添付ファイルが RP に転送されるかを，エンドユーザーが十分に認識していることを確認しなければならない (MUST)．可能であれば，あるいは適用可能であれば，OP はエンドユーザーがトランザクションに同意する前に，これらの添付ファイルのコンテンツを確認できるようにするべきである (SHOULD)．
 
 ## claims Element {#claimselement}
 
