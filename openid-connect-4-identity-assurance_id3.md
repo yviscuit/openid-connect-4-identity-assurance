@@ -729,8 +729,8 @@ External attachments は検証済み Claim を Token に埋め込む場合に適
 <!-- The `claims` element contains the Claims about the End-User which were verified by the process and according to the policies determined by the corresponding `verification` element. -->
 `claims` 要素にはプロセスによって検証され, 対応する `verification` 要素によって決定されたポリシーに従って検証されたエンドユーザについての Claim が含まれる.
 
-
-The `claims` element MAY contain one or more of the following Claims as defined in Section 5.1 of the OpenID Connect specification [@!OpenID]
+<!-- The `claims` element MAY contain one or more of the following Claims as defined in Section 5.1 of the OpenID Connect specification [@!OpenID] -->
+`claims` 要素には OpenID Connect specification [@!OpenID] の Section 5.1 で定義されている以下の Claim が一つ以上含まれるかもしれない (MAY)
 
 * `name`
 * `given_name`
@@ -740,10 +740,13 @@ The `claims` element MAY contain one or more of the following Claims as defined 
 * `address`
 
 and the Claims defined in (#userclaims).
+そして (#userclaims) で定義されている Claim を含むかもしれない.
 
-The `claims` element MAY also contain other Claims provided the value of the respective Claim was verified in the verification process represented by the sibling `verification` element.
+<!-- The `claims` element MAY also contain other Claims provided the value of the respective Claim was verified in the verification process represented by the sibling `verification` element. -->
+`claims` 要素は, 兄弟要素の `verification` で提示された検証プロセスでそれぞれの Claim の値が検証された場合, 他の Claim も含むかもしれない (MAY).
 
-Claim names MAY be annotated with language tags as specified in Section 5.2 of the OpenID Connect specification [@!OpenID].
+<!-- Claim names MAY be annotated with language tags as specified in Section 5.2 of the OpenID Connect specification [@!OpenID]. -->
+Claim 名は, OpenID Connect 仕様 [@!OpenID] の Section 5.2 で指定されている言語タグで注釈を付けてもよい (MAY).
 
 ## verified_claims Delivery
 
