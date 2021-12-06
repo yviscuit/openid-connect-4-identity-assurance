@@ -833,28 +833,37 @@ Note: The OP MUST NOT provide the RP with any data it did not request. However, 
 
 ## Requesting End-User Claims {#req_claims}
 
-Verified Claims can be requested on the level of individual Claims about the End-User by utilizing the `claims` parameter as defined in Section 5.5 of the OpenID Connect specification [@!OpenID].
+<!-- Verified Claims can be requested on the level of individual Claims about the End-User by utilizing the `claims` parameter as defined in Section 5.5 of the OpenID Connect specification [@!OpenID]. -->
+Verified Claims は OpenID Connect specification [@!OpenID] の Section 5.5 に定義されている `claims` parameter を利用することで, End-User について 個々の Claims のレベルで要求できる.
 
-Note: A machine-readable definition of the syntax to be used to request `verified_claims` is given as JSON schema in [@!verified_claims_request.json]. It can be used to automatically validate `claims` request parameters.
+<!-- Note: A machine-readable definition of the syntax to be used to request `verified_claims` is given as JSON schema in [@!verified_claims_request.json]. It can be used to automatically validate `claims` request parameters. -->
+注: `verified_claims` をリクエストするために使用される機械可読な構文定義は [@!verified_claims_request.json] で JSON スキーマとして提供される．これは `claims` リクエストパラメータを自動的に検証するために使用できる．
 
-To request Verified Claims, the `verified_claims` element is added to the `userinfo` or the `id_token` element of the `claims` parameter.
+<!-- To request Verified Claims, the `verified_claims` element is added to the `userinfo` or the `id_token` element of the `claims` parameter. -->
+検証済み Claim を要求するには，`verified_claims` 要素を `claims` パラメータの `userinfo` または `id_token` 要素に追加する．
 
-Since `verified_claims` contains the effective Claims about the End-User in a nested `claims` element, the syntax is extended to include expressions on nested elements as follows. The `verified_claims` element includes a `claims` element, which in turn includes the desired Claims as keys with a `null` value. An example is shown in the following:
+<!-- Since `verified_claims` contains the effective Claims about the End-User in a nested `claims` element, the syntax is extended to include expressions on nested elements as follows. The `verified_claims` element includes a `claims` element, which in turn includes the desired Claims as keys with a `null` value. An example is shown in the following: -->
+`verified_claims` にはネストされた `claims` 要素の中に End-User についての有効な Claims が含まれるため, syntax は次のようにネストされた要素の式を含むように拡張される. `verified_claims` 要素は `claims` 要素を含み, `null` 値を持つキーとして要求する Claims を含む. 以下に例を示す.
 
 <{{examples/request/claims.json}}
 
-Use of the `claims` parameter allows the RP to exactly select the Claims about the End-User needed for its use case. This extension therefore allows RPs to fulfill the requirement for data minimization.
+<!-- Use of the `claims` parameter allows the RP to exactly select the Claims about the End-User needed for its use case. This extension therefore allows RPs to fulfill the requirement for data minimization. -->
+`claims` パラメータを使用すると, RP はユースケースに必要な End-User に関する Claims を正確に選択できる. したがって, この拡張は RPs はデータ最小化の要件を満たすことができる.
 
-RPs MAY indicate that a certain Claim is essential to the successful completion of the request for Verified Claims by utilizing the `essential` field as defined in Section 5.5.1 of the OpenID Connect specification [@!OpenID]. The following example designates both given name as well as family name as being essential.
+
+<!-- RPs MAY indicate that a certain Claim is essential to the successful completion of the request for Verified Claims by utilizing the `essential` field as defined in Section 5.5.1 of the OpenID Connect specification [@!OpenID]. The following example designates both given name as well as family name as being essential. -->
+RPs は, OpenID Connect specification [@!OpenID] の Section 5.5.1 で定義されている `essential` フィールドを利用することにより, 検証済み Claim のリクエストを正常に完了するために特定の Claim が不可欠であることを示すことができる (MAY). 次の例では, 姓と名の両方を必須として指定している.
 
 <{{examples/request/essential.json}}
 
-This specification introduces the additional field `purpose` to allow an RP
+<!-- This specification introduces the additional field `purpose` to allow an RP
 to state the purpose for the transfer of a certain End-User Claim it is asking for.
 The field `purpose` can be a member value of each individually requested
-Claim, but a Claim cannot have more than one associated purpose.
+Claim, but a Claim cannot have more than one associated purpose. -->
+この仕様では, RP が要求する特定の End-User Claim の移転の目的を説明できるようにするために, 追加のフィールド `purpose` を導入する.
+`purpose` フィールドは, 個々に要求された各 Claim のメンバー値にすることができるが, 1つの Claim には複数の関連する目的を含めることはできない.
 
-`purpose`: OPTIONAL. String describing the purpose for obtaining a certain End-User Claim from the OP. The purpose MUST NOT be shorter than 3 characters or
+<!-- `purpose`: OPTIONAL. String describing the purpose for obtaining a certain End-User Claim from the OP. The purpose MUST NOT be shorter than 3 characters or
 longer than 300 characters. If this rule is violated, the authentication
 request MUST fail and the OP return an error `invalid_request` to the RP.
 The OP MUST display this purpose in the respective End-User consent screen(s)
@@ -862,9 +871,15 @@ in order to inform the End-User about the designated use of the data to be
 transferred or the authorization to be approved. If the parameter `purpose`
 is not present in the request, the OP MAY display a
 value that was pre-configured for the respective RP. For details on UI
-localization, see (#purpose).
+localization, see (#purpose). -->
+`purpose` OPTIONAL. OP から特定の End-User Claim を取得する目的を説明する文字列. `purpose` は 3 文字未満か 300 文字以上となってはならない (MUST NOT).
+もしこのルールに違反した場合, authentication request は失敗し, OP は `invalid_request` エラーを RP にに返さなければならない (MUST).
+移転されるデータの利用目的や承認しようとしている認可内容をエンドユーザーに明示するため, OP は各同意画面にこの purpose を表示しなければならない (MUST).
+`purpose` パラメーターがリクエストに存在しない場合, OP は RP ごとに事前設定された値を表示できる (MAY).
+UI ローカリゼーションの詳細については, (#purpose) 参照.
 
-Example:
+<!-- Example: -->
+例:
 
 <{{examples/request/purpose.json}}
 
