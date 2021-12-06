@@ -888,27 +888,36 @@ UI ローカリゼーションの詳細については, (#purpose) 参照.
 
 ## Requesting Verification Data {#req_verification}
 
-RPs request verification data in the same way they request Claims about the End-User. The syntax is based on the rules given in (#req_claims) and extends them for navigation into the structure of the `verification` element.
+<!-- RPs request verification data in the same way they request Claims about the End-User. The syntax is based on the rules given in (#req_claims) and extends them for navigation into the structure of the `verification` element. -->
+RP はエンドユーザーに関する Claim を要求するのと同じ方法で検証データを要求する．構文は (#req_claims) で指定したルールに基づき，`verification` 要素の構造にナビゲーションするためにそれらを拡張する．
 
-Elements within `verification` are requested by adding the respective element as shown in the following example:
+<!-- Elements within `verification` are requested by adding the respective element as shown in the following example: -->
+次の例に示すように，`verification` 内の要素は，それぞれの要素を追加することによって要求される
 
 <{{examples/request/verification.json}}
 
-It requests the trust framework the OP complies with and the date of the verification of the End-User Claims.
+<!-- It requests the trust framework the OP complies with and the date of the verification of the End-User Claims. -->
+それは OP の準拠するトラストフレームワークとエンドユーザー Claim の検証日を要求する．
 
-The RP MUST explicitly request any data it wants the OP to add to the `verification` element. 
+<!-- The RP MUST explicitly request any data it wants the OP to add to the `verification` element.  -->
+RP は OP  が `verification` 要素に追加するデータを明示的に要求しなければならない (MUST).
 
-Therefore, the RP MUST set fields one step deeper into the structure if it wants to obtain evidence. One or more entries in the `evidence` array are used as filter criteria and templates for all entries in the result array. The following examples shows a request asking for evidence of type `document`.
+<!-- Therefore, the RP MUST set fields one step deeper into the structure if it wants to obtain evidence. One or more entries in the `evidence` array are used as filter criteria and templates for all entries in the result array. The following examples shows a request asking for evidence of type `document`. -->
+従って，RP はエビデンスを取得する場合，構造の1ステップ深くフィールドを設定しなければならない (MUST)．`evidence` 配列の1つ以上のエントリは，result 配列のすべてのエントリのフィルタ基準とテンプレートとして使用される．次の例は，`document` タイプのエビデンスを要求するリクエストを示す．
 
 <{{examples/request/verification_deeper.json}}
 
-The example also requests the OP to add the respective `method` and the `document` elements (including data about the document type) for every evidence to the resulting `verified_claims` Claim.
+<!-- The example also requests the OP to add the respective `method` and the `document` elements (including data about the document type) for every evidence to the resulting `verified_claims` Claim. -->
+この例では，OP に対して すべてのエビデンスのそれぞれの `method` と `document` 要素 (ドキュメントタイプに関するデータを含む) を，結果の `verified_claims` Claim に含むように要求している．
 
-A single entry in the `evidence` array represents a filter over elements of a certain evidence type. The RP therefore MUST specify this type by including the `type` field including a suitable `value` sub-element value. The `values` sub-element MUST NOT be used for the `evidence/type` field. 
+<!-- A single entry in the `evidence` array represents a filter over elements of a certain evidence type. The RP therefore MUST specify this type by including the `type` field including a suitable `value` sub-element value. The `values` sub-element MUST NOT be used for the `evidence/type` field.  -->
+`evidence` 配列の単一エントリは，特定のエビデンスタイプの要素に対するフィルターを洗わず．従って，RP は適切な `value` サブ要素値を含む `type` フィールドを含めることによって，このタイプを指定しなければならない (MUST)．`values` サブ要素を `evidence/type` フィールドに使用してはならない (MUST NOT)．
 
-If multiple entries are present in `evidence`, these filters are linked by a logical OR.
+<!-- If multiple entries are present in `evidence`, these filters are linked by a logical OR. -->
+`evidence` に複数のエンドリが存在する場合，これらのフィルターは論理和によって紐付けられる．
 
-The RP MAY also request certain data within the `document` element to be present. This again follows the syntax rules used above:
+<!-- The RP MAY also request certain data within the `document` element to be present. This again follows the syntax rules used above: -->
+RP は `document`要素ないの特定のデータの存在を要求するかもしれない (MAY)．これも上記で使用した構文規則に従う:
 
 <{{examples/request/verification_document.json}}
 
