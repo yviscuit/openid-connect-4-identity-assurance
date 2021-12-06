@@ -750,52 +750,78 @@ Claim 名は, OpenID Connect 仕様 [@!OpenID] の Section 5.2 で指定され�
 
 ## verified_claims Delivery
 
-OPs can deliver `verified_claims` in various ways. 
+<!-- OPs can deliver `verified_claims` in various ways.  -->
+OP は様々な方法で `verified_claims` を配信できる．
 
-A `verified_claims` element can be added to an OpenID Connect UserInfo response or an ID Token.
+<!-- A `verified_claims` element can be added to an OpenID Connect UserInfo response or an ID Token. -->
+`verified_claims` 要素は OpenID Connect UserInfo レスポンス，または ID Token に追加することができる．
 
-OAuth Authorization Servers can add `verified_claims` to access tokens in JWT format or Token Introspection responses, either in plain JSON or JWT-protected format.
+<!-- OAuth Authorization Servers can add `verified_claims` to access tokens in JWT format or Token Introspection responses, either in plain JSON or JWT-protected format. -->
+OAuth Authorization Server は，JWT 形式のアクセストークンや Token Introspection のレスポンスに，プレーン JSON または JWT-protected な形式で `verified_claims` を追加することができる．
 
-An OP or AS MAY also include `verified_claims` in the above assertions, whether they are access tokens or in Token Introspection responses, as aggregated or distributed claims (see Section 5.6.2 of the OpenID Connect specification [@!OpenID]). 
+<!-- An OP or AS MAY also include `verified_claims` in the above assertions, whether they are access tokens or in Token Introspection responses, as aggregated or distributed claims (see Section 5.6.2 of the OpenID Connect specification [@!OpenID]).  -->
+OP または AS は，アクセストークンであるか，Token Introspection のレスポンスであるかに関わらず，集約もしくは分散 Claim (OpenID Connect specification [@!OpenID] の Section 5.6.2 参照) として，上記のアサーションに `verified_claims` を含めることもできる (MAY)，
 
-In this case, every assertion provided by the external Claims source MUST contain 
+<!-- In this case, every assertion provided by the external Claims source MUST contain  -->
+この場合，外部の Claim ソースが提供するすべてのアサーションは，以下を含まなければならない (MUST):
 
+<!-- 
 * an `iss` Claim identifying the claims source,
 * a `sub` Claim identifying the End-User in the context of the claim source,
 * a `verified_claims` element containing one or more `verified_claims` objects.
+-->
+* Claim ソース を特定する `iss` Claim，
+* Claim ソース のコンテキストでエンドユーザーを識別する `sub` Claim，
+* 1つ以上の `verified_claims` オブジェクトを含む `verified_claims` 要素．
 
 The `verified_claims` element in a response MUST have one of the following forms:
+レスポンス中の `verified_claims` 要素は，以下のいずれかの形式でなければならない (MUST):
 
+<!-- 
 * a JSON string referring to a certain claim source (as defined in [@!OpenID])
 * a JSON array of strings referring to the different claim sources
-* a JSON object composed of sub elements formatted with the syntax as defined for requesting `verified_claims` where the name of the object is the name of the respective claim source. Every object contains additional information about the `verified_claims` object provided by the respective claims source, i.e., the End-User Claims and verification data provided by the respective claims source. This allows the RP to look ahead before it actually requests distributed Claims in order to prevent extra time, cost, data collisions, etc. caused by these requests. 
+* a JSON object composed of sub elements formatted with the syntax as defined for requesting `verified_claims` where the name of the object is the name of the respective claim source. Every object contains additional information about the `verified_claims` object provided by the respective claims source, i.e., the End-User Claims and verification data provided by the respective claims source. This allows the RP to look ahead before it actually requests distributed Claims in order to prevent extra time, cost, data collisions, etc. caused by these requests.
+-->
+* 特定の Claim ソース ([@!OpenID] で定義) を参照する JSON 文字列
+* 様々な Claim ソースを参照する文字列の JSON 配列
+* `verified_claims` をリクエストするために定義された構文でフォーマットされた，サブ要素で構成される JSON オブジェクトで，オブジェクト名はそれぞれの Claim ソース名である．すべてのオブジェクトはそれぞれの Claim ソースによって提供される `verified_claims` オブジェクトに関する追加情報，つまり，それぞれの Claim ソースによって提供されるエンドユーザー Claim と検証データが含まれる．これにより RP は分散 Claim を実際に要求する前に先読みし，これらの要求が引き起こす余分な時間，コスト，データ衝突などを防ぐ事ができる．
 
-Note: The two later forms extend the syntax as defined in Section 5.6.2 of the OpenID Connect specification [@!OpenID]) in order to accommodate the specific use cases for `verified_claims`.
+<!-- Note: The two later forms extend the syntax as defined in Section 5.6.2 of the OpenID Connect specification [@!OpenID]) in order to accommodate the specific use cases for `verified_claims`. -->
+注: あとの2つの形式は，`verified_claims` の特定のユースケースに対応するために OpenID Connect 仕様 [@!OpenID] の Section 5.6.2 で定義されている構文を拡張する．
 
-The following are examples of assertions including Verified Claims as aggregated Claims 
+<!-- The following are examples of assertions including Verified Claims as aggregated Claims  -->
+以下は 集約 Claim としての 検証済み Claim を含むアサーションの例である
 
 <{{examples/response/aggregated_claims_simple.json}}
 
-and distributed Claims.
+<!-- and distributed Claims. -->
+及び，分散クレーム．
 
 <{{examples/response/distributed_claims.json}}
 
-The following example shows an ID token containing `verified_claims` from two different external claims sources, one as aggregated and the other as distributed Claims. 
+<!-- The following example shows an ID token containing `verified_claims` from two different external claims sources, one as aggregated and the other as distributed Claims.  -->
+次の例は，2つの異なる外部 Claim ソースからの `verified_claims` を含む ID トークンの例で，1つは集約 Claim，もう1つは分散 Claim である．
 
 <{{examples/response/multiple_external_claims_sources.json}}
 
-The next example shows an ID token containing `verified_claims` from two different external claims sources along with additional data about the content of the Verified Claims (look ahead).
+<!-- The next example shows an ID token containing `verified_claims` from two different external claims sources along with additional data about the content of the Verified Claims (look ahead). -->
+次の例は，2つの異なる外部 Claim ソースからの `verified_claims` を含む ID トークンと，検証済み Claim のコンテンツに関する追加データを示す (先読み)．
 
 <{{examples/response/multiple_external_claims_sources_with_lookahead.json}}
 
-Claims sources SHOULD sign the assertions containing `verified_claims` in order to demonstrate authenticity and provide for non-repudiation. 
-The way an RP determines the key material used for validation of the signed assertions is out of scope. The recommended way is to determine the claims source's public keys by obtaining its JSON Web Key Set via the `jwks_uri` metadata value read from its `openid-configuration` metadata document. This document can be discovered using the `iss` Claim of the particular JWT.
+<!-- Claims sources SHOULD sign the assertions containing `verified_claims` in order to demonstrate authenticity and provide for non-repudiation. 
+The way an RP determines the key material used for validation of the signed assertions is out of scope. The recommended way is to determine the claims source's public keys by obtaining its JSON Web Key Set via the `jwks_uri` metadata value read from its `openid-configuration` metadata document. This document can be discovered using the `iss` Claim of the particular JWT. -->
+Claim ソースは，信頼性の実証と否認防止を提供するために `verified_claims` を含むアサーションを署名しなければならない (SHOULD)．
+RP が署名されたアサーションを検証するために利用する主要な資料を決定する方法は，本仕様外である．推奨される方法は，`openid-configuration` メタデータドキュメントから読み取られた `jwks_uri` メタデータ値を介して JSON Web Key Set を取得することにより，Claim ソースの公開鍵を特定する方法である．このドキュメントは特定の JWT の `iss` Claim を使用して見つけることができる．
 
-The OP MAY combine aggregated and distributed Claims with `verified_claims` provided by itself (see (#op_attested_and_external_claims)).
+<!-- The OP MAY combine aggregated and distributed Claims with `verified_claims` provided by itself (see (#op_attested_and_external_claims)). -->
+OP は集約および分散 Claim を，それ自身が提供する `verified_claims` と組み合わせてもよい (MAY)  ((#op_attested_and_external_claims) 参照).
 
-If `verified_claims` elements are contained in multiple places of a response, e.g., in the ID token and an embedded aggregated Claim, the RP MUST preserve the claims source as context of the particular `verified_claims` element.
+<!-- If `verified_claims` elements are contained in multiple places of a response, e.g., in the ID token and an embedded aggregated Claim, the RP MUST preserve the claims source as context of the particular `verified_claims` element. -->
+ID トークンや埋め込まれた集約 Claim のように `verified_claims` 要素が応答の複数の場所に含まれている場合，RP は　特定の `verified_claims` 要素のコンテキストとして Claim ソースを保持しなければならない (MUST)．
 
-Note: Any assertion provided by an OP or AS including aggregated or distributed Claims MAY contain multiple instances of the same End-User Claim. It is up to the RP to decide how to process these different instances. 
+<!-- Note: Any assertion provided by an OP or AS including aggregated or distributed Claims MAY contain multiple instances of the same End-User Claim. It is up to the RP to decide how to process these different instances.  -->
+注: 集約または分散 Claim を含む OP または AS によって提供されるアサーションには，同じエンドユーザー Claim の複数インスタンスが含まれるかもしれない (MAY)．これらの様々なインスタンスを処理する方法を決定するのは RP 次第である．
 
 # Requesting Verified Claims
 
