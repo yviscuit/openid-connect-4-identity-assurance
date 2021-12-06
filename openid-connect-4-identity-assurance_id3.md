@@ -825,11 +825,14 @@ ID トークンや埋め込まれた集約 Claim のように `verified_claims` 
 
 # Requesting Verified Claims
 
-Making a request for Verified Claims and related verification data can be explicitly requested on the level of individual data elements by utilizing the `claims` parameter as defined in Section 5.5 of the OpenID Connect specification [@!OpenID].
+<!-- Making a request for Verified Claims and related verification data can be explicitly requested on the level of individual data elements by utilizing the `claims` parameter as defined in Section 5.5 of the OpenID Connect specification [@!OpenID]. -->
+OpenID Connect 仕様 [@!OpenID] の Section 5.5 で定義されている `claims` パラメータを利用することで，検証済み Claim と関連する検証データのリクエストを個々のデータ要素レベルで明示的にリクエストできる．
 
-It is also possible to use the `scope` parameter to request one or more specific pre-defined Claim sets as defined in Section 5.4 of the OpenID Connect specification [@!OpenID].
+<!-- It is also possible to use the `scope` parameter to request one or more specific pre-defined Claim sets as defined in Section 5.4 of the OpenID Connect specification [@!OpenID]. -->
+`scope` を使用して，OpenID Connect 仕様 [@!OpenID] の Section 5.4 で定義されている1つ以上の特定の事前定義された Claim セットを要求することもできる．
 
-Note: The OP MUST NOT provide the RP with any data it did not request. However, the OP MAY at its discretion omit Claims from the response. 
+<!-- Note: The OP MUST NOT provide the RP with any data it did not request. However, the OP MAY at its discretion omit Claims from the response.  -->
+注: OP は，要求しなかったデータを RP に提供してはならない (MUST NOT)．ただし，OP はその裁量によりレスポンスから Claim を省略してもよい (MAY)．
 
 ## Requesting End-User Claims {#req_claims}
 
