@@ -207,11 +207,9 @@ identity assurance に関する一部の権限の要件を満たすために, �
 <!-- If the OP issues a `txn`, it MUST maintain a corresponding audit trail, which at least consists of the following details: -->
 OP が `txn` を発行する場合, 対応する監査証跡を維持する必要があり (MUST), 少なくとも次の詳細で構成される.
 
-<!--
-* the transaction ID,
+<!-- * the transaction ID,
 * the authentication method employed, and
-* the transaction type (e.g., the set of Claims returned).
--->
+* the transaction type (e.g., the set of Claims returned). -->
 * transaction ID,
 * 採用されている authentication methods, および
 * transaction type (Claim セットの返却など).
@@ -253,10 +251,8 @@ RP はこの Claim を `claims` パラメータを介して, または scope 値
 <!-- `verified_claims`: A single object or an array of objects, each object comprising the following sub-elements: -->
 `verified_claims`: 単一のオブジェクトまたはオブジェクトの配列で，各オブジェクトは以下のサブ要素で構成される:
 
-<!-- 
-* `verification`: REQUIRED. Object that contains data about the verification process.
-* `claims`: REQUIRED. Object that is the container for the Verified Claims about the End-User. 
--->
+<!-- * `verification`: REQUIRED. Object that contains data about the verification process.
+* `claims`: REQUIRED. Object that is the container for the Verified Claims about the End-User.  -->
 * `verification`: 必須 (REQUIRED). 検証プロセスに関するすべてのデータを含むオブジェクト.
 * `claims`: 必須 (REQUIRED). エンドユーザに関するの検証済 Claim のためのコンテナであるオブジェクト.
 
@@ -301,11 +297,9 @@ RPs は理解できないトラストフレームワーク識別子を含む `ve
 <!-- `assurance_process`: OPTIONAL. JSON object representing the assurance process that was followed, with one or more of the following sub-elements: -->
 `assurance_process`: OPTIONAL. 以下のサブ要素の1つ以上を使用して，実行された assurance プロセスを表す JSON オブジェクト:
 
-<!-- 
-  * `policy`: OPTIONAL. String representing the standard or policy that was followed.
+  <!-- * `policy`: OPTIONAL. String representing the standard or policy that was followed.
   * `procedure`: OPTIONAL. String representing a specific procedure from the `policy` that was followed.
-  * `status`: OPTIONAL. String representing the current status of the identity verification process.
--->
+  * `status`: OPTIONAL. String representing the current status of the identity verification process. -->
   * `policy`: OPTIONAL. 準拠した標準またはポリシーを表す文字列．
   * `procedure`: OPTIONAL. 準拠した `policy` からの特定の手順を表す文字列．
   * `status`: OPTIONAL. identity verification プロセスの現在のステータスを表す文字列.
@@ -340,13 +334,11 @@ RPs は理解できないトラストフレームワーク識別子を含む `ve
 <!-- The following types of evidence are defined: -->
 以下のエビデンスのタイプが定義されている:
 
-<!-- 
-* `document`: Verification based on any kind of physical or electronic document provided by the End-User.
+<!-- * `document`: Verification based on any kind of physical or electronic document provided by the End-User.
 * `electronic_record`: Verification based on data or information obtained electronically from an approved or recognized source.
 * `vouch`: Verification based on an attestation or reference given by an approved or recognized person declaring they believe to the best of their knowledge that the Claim(s) are genuine and true.
 * `utility_bill`: Verification based on a utility bill (this is to be deprecated in future releases and implementers are recommended to use the `document` type instead).
-* `electronic_signature`: Verification based on an electronic signature.
--->
+* `electronic_signature`: Verification based on an electronic signature. -->
 * `document`: エンドユーザーから提供されたあらゆる種類の物理的又は電子的文章に基づく検証．
 * `electronic_record`: 承認または承認されたソースから電子的に取得したデータまたは情報に基づく検証．
 * `vouch`: 承認または承認された人物が，Claim(s)　が正規かつ真実であると彼らの知る限り信じていることを宣言することによって与えられた証明または参照に基づく検証．
@@ -367,12 +359,10 @@ RPs は理解できないトラストフレームワーク識別子を含む `ve
 <!-- `validation_method`: OPTIONAL. JSON object representing how the authenticity of the document was determined.  -->
 `validation_method`: OPTIONAL. ドキュメントの信頼性がどのように決定されたかを表す JSON オブジェクト. 
 
-<!-- 
-  * `type`: REQUIRED. String representing the method used to check the authenticity of the document. For information on predefined `validation_method` values see [@!predefined_values].
+  <!-- * `type`: REQUIRED. String representing the method used to check the authenticity of the document. For information on predefined `validation_method` values see [@!predefined_values].
   * `policy`: OPTIONAL. String representing the standard or policy that was followed.
   * `procedure`: OPTIONAL. String representing a specific procedure from the `policy` that was followed.
-  * `status`: OPTIONAL. String representing the current status of the validation. 
-  -->
+  * `status`: OPTIONAL. String representing the current status of the validation.  -->
   * `type`: REQUIRED. ドキュメントの信頼性をチェックするために利用されるメソッドを表す文字列．事前定義された `validation_method` 値については [@!predefined_values] 参照.
   * `policy`: OPTIONAL. 準拠する標準またはポリシーを表す文字列．
   * `procedure`: OPTIONAL. 準拠した `policy` からの特定の手順を表す文字列．
@@ -381,12 +371,10 @@ RPs は理解できないトラストフレームワーク識別子を含む `ve
 <!-- `verification_method`: OPTIONAL. JSON object representing how the user was proven to be the owner of the `claims`. -->
 `verification_method`: OPTIONAL. ユーザーが `claims` の所有者であることをどのように証明したかを表す JSON オブジェクト.
 
-<!-- 
-  * `type`: REQUIRED. String representing the method used to verify that the user is the person that the document refers to. For information on predefined `verification_method` values see [@!predefined_values].
+  <!-- * `type`: REQUIRED. String representing the method used to verify that the user is the person that the document refers to. For information on predefined `verification_method` values see [@!predefined_values].
   * `policy`: OPTIONAL. String representing the standard or policy that was followed.
   * `procedure`: OPTIONAL. String representing a specific procedure from the `policy` that was followed.
-  * `status`: OPTIONAL. String representing the current status of the verification.
--->
+  * `status`: OPTIONAL. String representing the current status of the verification. -->
   * `type`: REQUIRED. ユーザーがドキュメントの参照する人物であることを確認するために使用されるメソッドを表す文字列. 事前定義された `verification_method` 値については [@!predefined_values] 参照.
   * `policy`: OPTIONAL. 準拠する標準またはポリシーを表す文字列.
   * `procedure`: OPTIONAL. 準拠した `policy` からの特定の手順を表す文字列．
@@ -399,10 +387,8 @@ and `verification_method` types and deprecate the use of this option unless meth
 <!-- `verifier`: OPTIONAL. JSON object denoting the legal entity that performed the identity verification on behalf of the OP. This object SHOULD only be included if the OP did not perform the identity verification itself. This object consists of the following properties: -->
 `verifier`: OPTIONAL. OP に代わって identity verification を実行した法人を示す JSON オブジェクト．このオブジェクトは，OP 自身が identity verification を実行しなかった場合にのみ含めるべきである (SHOULD). このオブジェクトは以下のプロパティで構成される:
 
-<!-- 
-* `organization`: REQUIRED. String denoting the organization which performed the verification on behalf of the OP.
-* `txn`: OPTIONAL. Identifier referring to the identity verification transaction. The OP MUST ensure that the transaction identifier can be resolved into transaction details during an audit.
--->
+<!-- * `organization`: REQUIRED. String denoting the organization which performed the verification on behalf of the OP.
+* `txn`: OPTIONAL. Identifier referring to the identity verification transaction. The OP MUST ensure that the transaction identifier can be resolved into transaction details during an audit. -->
 * `organization`: REQUIRED. OP に代わって検証を実行した組織を示す文字列．
 * `txn`: OPTIONAL. identity verification トランザクションを参照する識別子．OP は監査中にトランザクション識別子をトランザクションの詳細に解決できることを確認しなければならない (MUST)．
 
@@ -412,8 +398,7 @@ and `verification_method` types and deprecate the use of this option unless meth
 <!-- `document_details`: OPTIONAL. JSON object representing the document used to perform the identity verification. Note: `document` can be used as an alias for `document_details` for backward compatibility purposes but will be deprecated in future releases, implementers are recommended to use `document_details`. It consists of the following properties: -->
 `document_details`: OPTIONAL. identity verification の実行に使用されたドキュメントを表す JSON オブジェクト． 注: `document` は下位互換性を目的とした `document_details` のエイリアスとして使用できるが，将来のリリースでは非推奨となるため，実装者は `document_details` を使用することを推奨する．これは以下のプロパティで構成される:
 
-<!-- 
-* `type`: REQUIRED. String denoting the type of the document. For information on predefined document values see [@!predefined_values]. The OP MAY use other than the predefined values in which case the RPs will either be unable to process the assertion, just store this value for audit purposes, or apply bespoken business logic to it.
+<!-- * `type`: REQUIRED. String denoting the type of the document. For information on predefined document values see [@!predefined_values]. The OP MAY use other than the predefined values in which case the RPs will either be unable to process the assertion, just store this value for audit purposes, or apply bespoken business logic to it.
 * `document_number`: OPTIONAL. String representing an identifier/number that uniquely identifies a document that was issued to the End-User. This is used on one document and will change if it is reissued, e.g., a passport number, certificate number, etc. Note: `number` can be used as an alias for 'document_number' for backward compatibilty purposes but will be deprecated in future releases, implementers are recommended to use `document_number`.
 * `personal_number`: OPTIONAL. String representing an identifier that is assigned to the End-User and is not limited to being used in one document, for example a national identification number, personal identity number, citizen number, social security number, driver number, account number, customer number, licensee number, etc.
 * `serial_number`: OPTIONAL. String representing an identifier/number that identifies the document irrespective of any personalization information (this usually only applies to physical artefacts and is present before personalization).
@@ -423,8 +408,7 @@ and `verification_method` types and deprecate the use of this option unless meth
     * `name`: OPTIONAL. Designation of the issuer of the document.
     * All elements of the OpenID Connect `address` Claim (see [@!OpenID])
     * `country_code`: OPTIONAL. String denoting the country or supranational organization that issued the document as ISO 3166/ICAO 3-letter codes [@!ICAO-Doc9303], e.g., "USA" or "JPN". 2-letter ICAO codes MAY be used in some circumstances for compatibility reasons.
-    * `jurisdiction`: OPTIONAL. String containing the name of the region(s)/state(s)/province(s)/municipality(ies) that issuer has jurisdiction over (if this information is not common knowledge or derivable from the address).
--->
+    * `jurisdiction`: OPTIONAL. String containing the name of the region(s)/state(s)/province(s)/municipality(ies) that issuer has jurisdiction over (if this information is not common knowledge or derivable from the address). -->
 * `type`: REQUIRED. ドキュメントのタイプを表す文字列．事前定義されたドキュメント値については [@!predefined_values] 参照. OP は RP がアサーションを処理できないか，監査目的でこの値を保存するか，特注のビジネスロジックを適用する場合，事前定義された値以外を使用してもよい (MAY).
 * `document_number`: OPTIONAL. エンドユーザーに発行されたドキュメントを一意に識別する識別子/番号を表す文字列．これはパスポート番号や証明書番号などのように，1つのドキュメントで利用され，再発行されると変更される．注: `number` は下位互換性を目的とした 'document_number' のエイリアスとして使用できるが，将来のリリースでは非推奨となるため，実装者は `document_number` を使用することを推奨する.
 * `personal_number`: OPTIONAL. 国民識別番号，個人識別番号，市民番号，社会保障番号，運転免許証番号，口座番号，顧客番号，ライセンシー番号のような，エンドユーザーに割り当てられ，1つのドキュメントで使用されることに限定されない識別子を表す文字列．
@@ -448,12 +432,10 @@ and `verification_method` types and deprecate the use of this option unless meth
 <!-- `validation_method`: OPTIONAL. JSON object representing how the authenticity of the record was determined.  -->
 `validation_method`: OPTIONAL. ドキュメントの信頼性がどのように決定されたかを表す JSON オブジェクト. 
 
-<!--
-  * `type`: REQUIRED. String representing the method used to check the authenticity of the record. For information on predefined `validation_method` values see [@!predefined_values].
+  <!-- * `type`: REQUIRED. String representing the method used to check the authenticity of the record. For information on predefined `validation_method` values see [@!predefined_values].
   * `policy`: OPTIONAL. String representing the standard or policy that was followed.
   * `procedure`: OPTIONAL. String representing a specific procedure from the `policy` that was followed.
-  * `status`: OPTIONAL. String representing the current status of the validation.
--->
+  * `status`: OPTIONAL. String representing the current status of the validation. -->
   * `type`: REQUIRED. ドキュメントの信頼性をチェックするために利用されるメソッドを表す文字列．事前定義された `validation_method` 値については [@!predefined_values] 参照.
   * `policy`: OPTIONAL. 準拠する標準またはポリシーを表す文字列．
   * `procedure`: OPTIONAL. 準拠した `policy` からの特定の手順を表す文字列．
@@ -462,12 +444,10 @@ and `verification_method` types and deprecate the use of this option unless meth
 <!-- `verification_method`: OPTIONAL. JSON object representing how the user was proven to be the owner of the `claims`. -->
 `verification_method`: OPTIONAL. ユーザーが `claims` の所有者であることをどのように証明したかを表す JSON オブジェクト.
 
-<!--
-  * `type`: REQUIRED. String representing the method used to verify that the user is the person that the electronic record refers to. For information on predefined `verification_method` values see [@!predefined_values].
+  <!-- * `type`: REQUIRED. String representing the method used to verify that the user is the person that the electronic record refers to. For information on predefined `verification_method` values see [@!predefined_values].
   * `policy`: OPTIONAL. String representing the standard or policy that was followed.
   * `procedure`: OPTIONAL. String representing a specific procedure from the `policy` that was followed.
-  * `status`: OPTIONAL. String representing the current status of the verification.
--->
+  * `status`: OPTIONAL. String representing the current status of the verification. -->
   * `type`: REQUIRED. ユーザーが電子記録の参照する人物であることを確認するために使用されるメソッドを表す文字列. 事前定義された `verification_method` 値については [@!predefined_values] 参照.
   * `policy`: OPTIONAL. 準拠する標準またはポリシーを表す文字列.
   * `procedure`: OPTIONAL. 準拠した `policy` からの特定の手順を表す文字列．
@@ -476,10 +456,8 @@ and `verification_method` types and deprecate the use of this option unless meth
 <!-- `verifier`: OPTIONAL. JSON object denoting the legal entity that performed the identity verification on behalf of the OP. This object SHOULD only be included if the OP did not perform the identity verification itself. This object consists of the following properties: -->
 `verifier`: OPTIONAL. OP に代わって identity verification を実行した法人を示す JSON オブジェクト．このオブジェクトは，OP 自身が identity verification を実行しなかった場合にのみ含めるべきである (SHOULD). このオブジェクトは以下のプロパティで構成される:
 
-<!--
-* `organization`: REQUIRED. String denoting the organization which performed the verification on behalf of the OP.
-* `txn`: OPTIONAL. Identifier referring to the identity verification transaction. This transaction identifier can be resolved into transaction details during an audit.
--->
+<!-- * `organization`: REQUIRED. String denoting the organization which performed the verification on behalf of the OP.
+* `txn`: OPTIONAL. Identifier referring to the identity verification transaction. This transaction identifier can be resolved into transaction details during an audit. -->
 * `organization`: REQUIRED. OP に代わって検証を実行した組織を示す文字列．
 * `txn`: OPTIONAL. identity verification トランザクションを参照する識別子．このトランザクション識別子は，監査中にトランザクションの詳細を解決できることができる．
 
@@ -489,8 +467,7 @@ and `verification_method` types and deprecate the use of this option unless meth
 <!-- `record`: OPTIONAL. JSON object representing the record used to perform the identity verification. It consists of the following properties: -->
 `record`: OPTIONAL. identity verification の実行に使用されたレコードを表す JSON オブジェクト．これは以下のプロパティで構成される:
 
-<!--
-* `type`: REQUIRED. String denoting the type of electronic record. For information on predefined identity evidence values see [@!predefined_values]. The OP MAY use other than the predefined values in which case the RPs will either be unable to process the assertion, just store this value for audit purposes, or apply bespoken business logic to it.
+<!-- * `type`: REQUIRED. String denoting the type of electronic record. For information on predefined identity evidence values see [@!predefined_values]. The OP MAY use other than the predefined values in which case the RPs will either be unable to process the assertion, just store this value for audit purposes, or apply bespoken business logic to it.
 * `personal_number`: OPTIONAL. String representing an identifier that is assigned to the End-User and is not limited to being used in one document, for example a national identification number, personal identity number, citizen number, social security number, driver number, account number, customer number, licensee number, etc.
 * `created_at`: OPTIONAL. The time the record was created as ISO 8601:2004 [@!ISO8601-2004] `YYYY-MM-DDThh:mm[:ss]TZD` format.
 * `date_of_expiry`: OPTIONAL. The date the evidence will expire as ISO 8601:2004 [@!ISO8601-2004] `YYYY-MM-DD` format.
@@ -498,8 +475,7 @@ and `verification_method` types and deprecate the use of this option unless meth
     * `name`: OPTIONAL. Designation of the issuer of the document.
     * All elements of the OpenID Connect `address` Claim (see [@!OpenID]): OPTIONAL.
     * `country_code`: OPTIONAL. String denoting the country or supranational organization that issued the document as ISO 3166/ICAO 3-letter codes [@!ICAO-Doc9303], e.g., "USA" or "JPN". 2-letter ICAO codes MAY be used in some circumstances for compatibility reasons.
-    * `jurisdiction`: OPTIONAL. String containing the name of the region(s) / state(s) / province(s) / municipality(ies) that issuer has jurisdiction over (if it’s not common knowledge or derivable from the address).
--->
+    * `jurisdiction`: OPTIONAL. String containing the name of the region(s) / state(s) / province(s) / municipality(ies) that issuer has jurisdiction over (if it’s not common knowledge or derivable from the address). -->
 * `type`: REQUIRED. 電子記録のタイプを表す文字列．事前定義された identity エビデンス値については [@!predefined_values] 参照. OP は RP がアサーションを処理できないか，監査目的でこの値を保存するか，特注のビジネスロジックを適用する場合，事前定義された値以外を使用してもよい (MAY).
  `personal_number`: OPTIONAL. 国民識別番号，個人識別番号，市民番号，社会保障番号，運転免許証番号，口座番号，顧客番号，ライセンシー番号のような，エンドユーザーに割り当てられ，1つのドキュメントで使用されることに限定されない識別子を表す文字列．
 * `created_at`: OPTIONAL. ISO 8601:2004 [@!ISO8601-2004] `YYYY-MM-DD` 形式で表す，レコードの作成された日付.
@@ -522,12 +498,10 @@ and `verification_method` types and deprecate the use of this option unless meth
 <!-- `validation_method`: OPTIONAL. JSON object representing how the authenticity of the vouch was determined.  -->
 `validation_method`: OPTIONAL. ドキュメントの信頼性がどのように決定されたかを表す JSON オブジェクト. 
 
-<!--
-  * `type`: REQUIRED. String representing the method used to check the authenticity of the vouch. For information on predefined `validation_method` values see [@!predefined_values].
+  <!-- * `type`: REQUIRED. String representing the method used to check the authenticity of the vouch. For information on predefined `validation_method` values see [@!predefined_values].
   * `policy`: OPTIONAL. String representing the standard or policy that was followed.
   * `procedure`: OPTIONAL. String representing a specific procedure from the `policy` that was followed.
-  * `status`: OPTIONAL. String representing the current status of the validation.
--->
+  * `status`: OPTIONAL. String representing the current status of the validation. -->
   * `type`: REQUIRED. 証拠の信頼性をチェックするために利用されるメソッドを表す文字列．事前定義された `validation_method` 値については [@!predefined_values] 参照.
   * `policy`: OPTIONAL. 準拠する標準またはポリシーを表す文字列．
   * `procedure`: OPTIONAL. 準拠した `policy` からの特定の手順を表す文字列．
@@ -536,12 +510,10 @@ and `verification_method` types and deprecate the use of this option unless meth
 <!-- `verification_method`: OPTIONAL. JSON object representing how the user was proven to be the owner of the Claims. -->
 `verification_method`: OPTIONAL. ユーザーが `claims` の所有者であることをどのように証明したかを表す JSON オブジェクト.
 
-<!--
-  * `type`: REQUIRED. String representing the method used to verify that the user is the person that the vouch refers to. For information on predefined `verification_method` values see [@!predefined_values].
+  <!-- * `type`: REQUIRED. String representing the method used to verify that the user is the person that the vouch refers to. For information on predefined `verification_method` values see [@!predefined_values].
   * `policy`: OPTIONAL. String representing the standard or policy that was followed.
   * `procedure`: OPTIONAL. String representing a specific procedure from the `policy` that was followed.
-  * `status`: OPTIONAL. String representing the current status of the verification.
--->
+  * `status`: OPTIONAL. String representing the current status of the verification. -->
   * `type`: REQUIRED. ユーザーが証拠の参照する人物であることを確認するために使用されるメソッドを表す文字列. 事前定義された `verification_method` 値については [@!predefined_values] 参照.
   * `policy`: OPTIONAL. 準拠する標準またはポリシーを表す文字列.
   * `procedure`: OPTIONAL. 準拠した `policy` からの特定の手順を表す文字列．
@@ -550,10 +522,8 @@ and `verification_method` types and deprecate the use of this option unless meth
 <!-- `verifier`: OPTIONAL. JSON object denoting the legal entity that performed the identity verification on behalf of the OP. This object SHOULD only be included if the OP did not perform the identity verification itself. This object consists of the following properties: -->
 `verifier`: OPTIONAL. OP に代わって identity verification を実行した法人を示す JSON オブジェクト．このオブジェクトは，OP 自身が identity verification を実行しなかった場合にのみ含めるべきである (SHOULD). このオブジェクトは以下のプロパティで構成される:
 
-<!--
-* `organization`: REQUIRED. String denoting the organization which performed the verification on behalf of the OP.
-* `txn`: OPTIONAL. Identifier referring to the identity verification transaction. This transaction identifier can be resolved into transaction details during an audit.
--->
+<!-- * `organization`: REQUIRED. String denoting the organization which performed the verification on behalf of the OP.
+* `txn`: OPTIONAL. Identifier referring to the identity verification transaction. This transaction identifier can be resolved into transaction details during an audit. -->
 * `organization`: REQUIRED. OP に代わって検証を実行した組織を示す文字列．
 * `txn`: OPTIONAL. identity verification トランザクションを参照する識別子．このトランザクション識別子は，監査中にトランザクションの詳細を解決できることができる．
 
@@ -563,8 +533,7 @@ and `verification_method` types and deprecate the use of this option unless meth
 <!-- `attestation`: OPTIONAL. JSON object representing the attestation that is the basis of the vouch. It consists of the following properties: -->
 `attestation`: OPTIONAL. 証拠の基礎となるアテステーションを表す JSON オブジェクト．これは以下のプロパティで構成される:
 
-<!--
-* `type`: REQUIRED. String denoting the type of vouch. For information on predefined vouch values see [@!predefined_values]. The OP MAY use other than the predefined values in which case the RPs will either be unable to process the assertion, just store this value for audit purposes, or apply bespoken business logic to it.
+<!-- * `type`: REQUIRED. String denoting the type of vouch. For information on predefined vouch values see [@!predefined_values]. The OP MAY use other than the predefined values in which case the RPs will either be unable to process the assertion, just store this value for audit purposes, or apply bespoken business logic to it.
 * `reference_number`: OPTIONAL. String representing an identifier/number that uniquely identifies a vouch given about the End-User.
 * `personal_number`: OPTIONAL. String representing an identifier that is assigned to the End-User and is not limited to being used in one document, for example a national identification number, personal identity number, citizen number, social security number, driver number, account number, customer number, licensee number, etc.
 * `date_of_issuance`: OPTIONAL. The date the document was issued as ISO 8601:2004 [@!ISO8601-2004] `YYYY-MM-DD` format.
@@ -574,8 +543,7 @@ and `verification_method` types and deprecate the use of this option unless meth
     * `birthdate`: OPTIONAL. String containing the birthdate of the person giving the vouch/reference in the same format as defined in Section 5.1 of the OpenID Connect specification for End-User Claims.
     * All elements of the OpenID Connect `address` Claim (see [@!OpenID]): OPTIONAL.
     * `occupation`: OPTIONAL. String containing the occupation or other authority of the person giving the vouch/reference.
-    * `organization`: OPTIONAL. String containing the name of the organization the voucher is representing.
--->
+    * `organization`: OPTIONAL. String containing the name of the organization the voucher is representing. -->
 * `type`: REQUIRED. 証拠のタイプを表す文字列．事前定義された証拠値については [@!predefined_values] 参照. OP は RP がアサーションを処理できないか，監査目的でこの値を保存するか，特注のビジネスロジックを適用する場合，事前定義された値以外を使用してもよい (MAY).
 * `reference_number`: OPTIONAL. エンドユーザーについて与えられた証拠を一意に識別する識別子/番号を表す文字列．
 * `personal_number`: OPTIONAL. 国民識別番号，個人識別番号，市民番号，社会保障番号，運転免許証番号，口座番号，顧客番号，ライセンシー番号のような，エンドユーザーに割り当てられ，1つのドキュメントで使用されることに限定されない識別子を表す文字列．
@@ -603,10 +571,8 @@ and `verification_method` types and deprecate the use of this option unless meth
 <!-- `provider`: OPTIONAL. JSON object identifying the respective provider that issued the bill. The object consists of the following properties: -->
 `provider`: OPTIONAL. 請求書を発行したそれぞれのプロバイダーを識別する JSON object．このオブジェクトは以下のプロパティで構成される:
 
-<!--
-* `name`: REQUIRED. String designating the provider.
-* All elements of the OpenID Connect `address` Claim (see [@!OpenID])
--->
+<!-- * `name`: REQUIRED. String designating the provider.
+* All elements of the OpenID Connect `address` Claim (see [@!OpenID]) -->
 * `name`: REQUIRED. プロバイダーを指定する文字列.
 * OpenID Connect `address` Claim (see [@!OpenID]) のすべての要素．
 
@@ -644,12 +610,10 @@ and `verification_method` types and deprecate the use of this option unless meth
 During the identity verification process, specific document artifacts will be created and depending on the trust framework, will be required to be stored for a specific duration. These artifacts can later be reviewed during audits or quality control for example. These artifacts include, but are not limited to:
 identity verification プロセス中に，特定のドキュメントアーティファクトが生成され，トラストフレームワークに応じて特定の期間保存する必要がある．これらのアーティファクトは，後で監査や品質管理などの際に確認することができる．これらのアーティファクトには次のものが含まれるが，これらに限定されない:
 
-<!--
-* scans of filled and signed forms documenting/certifying the verification process itself,
+<!-- * scans of filled and signed forms documenting/certifying the verification process itself,
 * scans or photocopies of the documents used to verify the identity of End-Users,
 * video recordings of the verification process,
-* certificates of electronic signatures.
--->
+* certificates of electronic signatures. -->
 * 検証プロセス自体を文章化/証明する，記入済みかつ署名済みフォームのスキャン
 * エンドユーザーの identity を確認するために使用されるドキュメントのスキャンまたは写真コピー
 * 検証プロセスのビデオ録画
@@ -704,10 +668,8 @@ External attachments は分散 Claim と似ている．外部ドキュメント�
 <!-- `digest`: REQUIRED. JSON object representing a cryptographic hash of the document content. The JSON object has the following elements: -->
 `digest`: REQUIRED. ドキュメントコンテンツの暗号化ハッシュを表す JSON オブジェクト．JSON オブジェクトは以下の要素を持つ:
 
-<!--
-* `alg`: REQUIRED. Specifies the algorithm used for the calculation of the cryptographic hash. The algorithm has been negotiated previously between RP and OP during Client Registration or Management.
-* `value`: REQUIRED. Base64 encoded representation of the cryptographic hash.
--->
+<!-- * `alg`: REQUIRED. Specifies the algorithm used for the calculation of the cryptographic hash. The algorithm has been negotiated previously between RP and OP during Client Registration or Management.
+* `value`: REQUIRED. Base64 encoded representation of the cryptographic hash. -->
 * `alg`: REQUIRED. 暗号化ハッシュの計算に使用されるアルゴリズムを指定する．アルゴリズムは，Client の登録または管理の間に RP と OP の間で事前にネゴシエートされている．
 * `value`: REQUIRED. 暗号化ハッシュの Base64 エンコード表現．
 
@@ -739,7 +701,7 @@ External attachments は検証済み Claim を Token に埋め込む場合に適
 * `birthdate`
 * `address`
 
-and the Claims defined in (#userclaims).
+<!-- and the Claims defined in (#userclaims). -->
 そして (#userclaims) で定義されている Claim を含むかもしれない.
 
 <!-- The `claims` element MAY also contain other Claims provided the value of the respective Claim was verified in the verification process represented by the sibling `verification` element. -->
@@ -765,11 +727,9 @@ OP または AS は，アクセストークンであるか，Token Introspection
 <!-- In this case, every assertion provided by the external Claims source MUST contain  -->
 この場合，外部の Claim ソースが提供するすべてのアサーションは，以下を含まなければならない (MUST):
 
-<!-- 
-* an `iss` Claim identifying the claims source,
+<!-- * an `iss` Claim identifying the claims source,
 * a `sub` Claim identifying the End-User in the context of the claim source,
-* a `verified_claims` element containing one or more `verified_claims` objects.
--->
+* a `verified_claims` element containing one or more `verified_claims` objects. -->
 * Claim ソース を特定する `iss` Claim，
 * Claim ソース のコンテキストでエンドユーザーを識別する `sub` Claim，
 * 1つ以上の `verified_claims` オブジェクトを含む `verified_claims` 要素．
@@ -777,11 +737,9 @@ OP または AS は，アクセストークンであるか，Token Introspection
 The `verified_claims` element in a response MUST have one of the following forms:
 レスポンス中の `verified_claims` 要素は，以下のいずれかの形式でなければならない (MUST):
 
-<!-- 
-* a JSON string referring to a certain claim source (as defined in [@!OpenID])
+<!-- * a JSON string referring to a certain claim source (as defined in [@!OpenID])
 * a JSON array of strings referring to the different claim sources
-* a JSON object composed of sub elements formatted with the syntax as defined for requesting `verified_claims` where the name of the object is the name of the respective claim source. Every object contains additional information about the `verified_claims` object provided by the respective claims source, i.e., the End-User Claims and verification data provided by the respective claims source. This allows the RP to look ahead before it actually requests distributed Claims in order to prevent extra time, cost, data collisions, etc. caused by these requests.
--->
+* a JSON object composed of sub elements formatted with the syntax as defined for requesting `verified_claims` where the name of the object is the name of the respective claim source. Every object contains additional information about the `verified_claims` object provided by the respective claims source, i.e., the End-User Claims and verification data provided by the respective claims source. This allows the RP to look ahead before it actually requests distributed Claims in order to prevent extra time, cost, data collisions, etc. caused by these requests. -->
 * 特定の Claim ソース ([@!OpenID] で定義) を参照する JSON 文字列
 * 様々な Claim ソースを参照する文字列の JSON 配列
 * `verified_claims` をリクエストするために定義された構文でフォーマットされた，サブ要素で構成される JSON オブジェクトで，オブジェクト名はそれぞれの Claim ソース名である．すべてのオブジェクトはそれぞれの Claim ソースによって提供される `verified_claims` オブジェクトに関する追加情報，つまり，それぞれの Claim ソースによって提供されるエンドユーザー Claim と検証データが含まれる．これにより RP は分散 Claim を実際に要求する前に先読みし，これらの要求が引き起こす余分な時間，コスト，データ衝突などを防ぐ事ができる．
