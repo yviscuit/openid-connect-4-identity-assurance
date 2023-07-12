@@ -70,70 +70,102 @@ This specification defines an extension of OpenID Connect for providing Relying 
 
 # Introduction {#Introduction}
 
-This specification defines an extension to OpenID Connect [@!OpenID] for providing Relying Parties with identity information, i.e., Verified Claims, along with an explicit statement about the verification status of these Claims (what, how, when, according to what rules, using what evidence). This specification is aimed at enabling use cases requiring strong assurance, for example, to comply with regulatory requirements such as Anti-Money Laundering laws or access to health data, risk mitigation, or fraud prevention.
+<!-- This specification defines an extension to OpenID Connect [@!OpenID] for providing Relying Parties with identity information, i.e., Verified Claims, along with an explicit statement about the verification status of these Claims (what, how, when, according to what rules, using what evidence). This specification is aimed at enabling use cases requiring strong assurance, for example, to comply with regulatory requirements such as Anti-Money Laundering laws or access to health data, risk mitigation, or fraud prevention. -->
+この仕様では，Relying Party に identity 情報，すなわち検証済みクレーム提供するための OpenID Connect [@!OpenID] の拡張と，これらのクレームの検証ステータスに関する明示的なステートメント（何を、どのように、いつ、どのルールに従って、 どのようなエビデンスを使用して）を定義する．
+この仕様は，たとえば，マネーロンダリング防止法や健康データへのアクセス，リスクの軽減，不正防止などの規制要件に準拠するような，強力な保証を必要とするユースケースを可能にすることを目的としている．
 
-In such use cases, the Relying Party (RP) needs to understand the trustworthiness or assurance level of the Claims about the End-User that the OpenID Connect Provider (OP) is willing to communicate, along with process-related information and evidence used to verify the End-User Claims.
+<!-- In such use cases, the Relying Party (RP) needs to understand the trustworthiness or assurance level of the Claims about the End-User that the OpenID Connect Provider (OP) is willing to communicate, along with process-related information and evidence used to verify the End-User Claims. -->
+そのようなユースケースでは, 依拠当事者 (RP) は, OpenID Connect プロバイダー (OP) の伝達するプロセス関連情報とエンドユーザーの Claim の検証に利用したエビデンスと一緒に，エンドユーザーに関する Claim の信頼性または保証レベルを知る必要がある.
 
-The `acr` Claim, as defined in Section 2 of the OpenID Connect specification [@!OpenID], is suited to assure information about the authentication performed in an OpenID Connect transaction. Identity assurance, however, requires a different representation: While authentication is an aspect of an OpenID Connect transaction, assurance is a property of a certain Claim or a group of Claims. Several of them will typically be conveyed to the RP as the result of an OpenID Connect transaction.
+<!-- The `acr` Claim, as defined in Section 2 of the OpenID Connect specification [@!OpenID], is suited to assure information about the authentication performed in an OpenID Connect transaction. Identity assurance, however, requires a different representation: While authentication is an aspect of an OpenID Connect transaction, assurance is a property of a certain Claim or a group of Claims. Several of them will typically be conveyed to the RP as the result of an OpenID Connect transaction. -->
+OpenID Connect 仕様 [@!OpenID] の Section 2 で定義されている `acr` Claim は, OpenID Connect トランザクションで実行される認証に関する情報を証明するのに適している. ただし, identity assurance には異なる表現が必要である: 認証は OpenID Connect トランザクションの側面であり, assurance は特定の Claim または Claim のグループのプロパティである．それらのいくつかは通常, OpenID Connect トランザクションの結果として RP に伝えられる.
 
-For example, the assurance an OP typically will be able to give for an e-mail address will be “self-asserted” or “verified by opt-in or similar mechanism”. The family name of an End-User, in contrast, might have been verified in accordance with the respective Anti Money Laundering Law by showing an ID Card to a trained employee of the OP operator.
+<!-- For example, the assurance an OP typically will be able to give for an e-mail address will be “self-asserted” or “verified by opt-in or similar mechanism”. The family name of an End-User, in contrast, might have been verified in accordance with the respective Anti Money Laundering Law by showing an ID Card to a trained employee of the OP operator. -->
+たとえば, 通常 OP が電子メールアドレスに与えることができる保証は「自己表明」または「オプトインまたは同様のメカニズムによって検証」される. 対照的にエンドユーザーの姓は, OP オペレーターの訓練を受けた従業員に ID カードを提示することにより, それぞれのマネーロンダリング防止法に従って検証された可能性がある.
 
-Identity assurance therefore requires a way to convey assurance data along with and coupled to the respective Claims about the End-User. This specification defines a suitable representation and mechanisms the RP will utilize to request Verified Claims about an End-User along with assurance data and for the OP to represent these Verified Claims and accompanying assurance data.
+<!-- Identity assurance therefore requires a way to convey assurance data along with and coupled to the respective Claims about the End-User. This specification defines a suitable representation and mechanisms the RP will utilize to request Verified Claims about an End-User along with assurance data and for the OP to represent these Verified Claims and accompanying assurance data. -->
+したがって, identity assurance には, エンドユーザーに関する各 Claim とともに保証データを伝達する方法が必要である. この仕様は, RP がエンドユーザーに関する検証済み Claim を 保証データとともに要求し, OP がこれらの検証済み Claim と付随する保証データを表すために利用する適切な表現とメカニズムを定義する.
 
-Note: This specifications fulfills the criteria for portability and interoperability mechanisms of Digital ID systems as defined in [@FATF-Digital-Identity].
+<!-- Note: This specifications fulfills the criteria for portability and interoperability mechanisms of Digital ID systems as defined in [@FATF-Digital-Identity]. -->
+Note: この仕様は [@FATF-Digital-Identity]　で定義されているデジタル ID システムのポータビリティと相互運用性メカニズムの基準を満たしている．
 
 ## Terminology
 
-This section defines some terms relevant to the topic covered in this document, inspired by NIST SP 800-63A [@NIST-SP-800-63a].
+<!-- This section defines some terms relevant to the topic covered in this document, inspired by NIST SP 800-63A [@NIST-SP-800-63a]. -->
+このセクションでは, NIST SP 800-63A [@?NIST-SP-800-63a] の影響を受けた, このドキュメントで扱われているトピックに関連するいくつかの用語を定義する.
 
-* Identity Proofing - process in which an End-User provides evidence to an OP or Claim provider reliably identifying themselves, thereby allowing the OP or Claim provider to assert that identification at a useful assurance level.
+<!-- * Identity Proofing - process in which an End-User provides evidence to an OP or Claim provider reliably identifying themselves, thereby allowing the OP or Claim provider to assert that identification at a useful assurance level. -->
 
-* Identity Verification - process conducted by the OP or a Claim provider to verify the End-User's identity.
+* Identity Proofing - エンドユーザーが OP または自分自身を確実に識別する Claim プロバイダーにエビデンスを提供することにより, OP または Claim provider が有用な assurance レベルで識別できるようにするプロセス.
 
-* Identity Assurance - process in which the OP or a Claim provider asserts identity data of a certain End-User with a certain assurance towards an RP, typically expressed by way of an assurance level. Depending on legal requirements, the OP may also be required to provide evidence of the identity verification process to the RP.
+<!-- * Identity Verification - process conducted by the OP or a Claim provider to verify the End-User's identity. -->
+* Identity Verification - エンドユーザーの身元を確認するために OP または Claim プロバイダーによって実行されるプロセス.
 
-* Verified Claims - Claims about an End-User, typically a natural person, whose binding to a particular End-User account was verified in the course of an identity verification process.
+<!-- * Identity Assurance - process in which the OP or a Claim provider asserts identity data of a certain End-User with a certain assurance towards an RP, typically expressed by way of an assurance level. Depending on legal requirements, the OP may also be required to provide evidence of the identity verification process to the RP. -->
+* Identity Assurance - OP または Claim プロバイダーが, RP に対してある一定の確からしさをもって特定のエンドユーザーの Identity データを主張するプロセスで，通常は assurance レベルで表される. 法的要件に応じて, OP は identity verification プロセスのエビデンスを RP に提供する必要がある場合もある.
+
+<!-- * Verified Claims - Claims about an End-User, typically a natural person, whose binding to a particular End-User account was verified in the course of an identity verification process. -->
+* Verified Claims - 特定のエンドユーザーアカウントへのバインドが identity verification プロセスの過程で検証されたエンドユーザー (通常は自然人) に関する Claim.
 
 # Scope
 
-This specification defines the technical mechanisms to allow Relying Parties to request Verified Claims and to enable OpenID Providers to provide Relying Parties with Verified Claims ("the tools").
+<!-- This specification defines the technical mechanisms to allow Relying Parties to request Verified Claims and to enable OpenID Providers to provide Relying Parties with Verified Claims ("the tools"). -->
+本仕様は，Relying Party が検証済み Claim を要求できるようにし，OpenID Provider が Relying Party に検証済み Claim を提供できるようにするためのテクニカルメカニズムを定義する．("ツール")
 
-Additional facets needed to deploy a complete solution for identity assurance, such as legal aspects (including liability), concrete trust frameworks, or commercial agreements are out of scope. It is up to the particular deployment to complement the technical solution based on this specification with the respective definitions ("the rules").
+<!-- Additional facets needed to deploy a complete solution for identity assurance, such as legal aspects (including liability), concrete trust frameworks, or commercial agreements are out of scope. It is up to the particular deployment to complement the technical solution based on this specification with the respective definitions ("the rules"). -->
+法的側面(責任を含む)，具体的なトラストフレームワーク，商取引契約など，identity assurance の完全なソリューションを展開するために必要な追加の側面は範囲外である．本仕様に基づくテクニカルソリューションをそれぞれの定義で補完するのは，個別の展開次第である．("ルール")
 
-Note: Although such aspects are out of scope, the aim of the specification is to enable implementations of the technical mechanism to be flexible enough to fulfill different legal and commercial requirements in jurisdictions around the world. Consequently, such requirements will be discussed in this specification as examples.
+<!-- Note: Although such aspects are out of scope, the aim of the specification is to enable implementations of the technical mechanism to be flexible enough to fulfill different legal and commercial requirements in jurisdictions around the world. Consequently, such requirements will be discussed in this specification as examples. -->
+Note: そのような側面は範囲外であるが，仕様の目的は，世界中の管轄区域における異なる法律および商業的要件を満たすのに十分な柔軟性を備えたテクニカルメカニズムの実装を可能にすることである．従って，そのような要件は本仕様で例として検討する．
 
 # Requirements
 
-The RP will be able to request the minimal data set it needs (data minimization) and to express requirements regarding this data, the evidence and the identity verification processes employed by the OP.
+<!-- The RP will be able to request the minimal data set it needs (data minimization) and to express requirements regarding this data, the evidence and the identity verification processes employed by the OP. -->
+RP は，必要最小限のデータセットの要求 (data minimization) と，このデータ，エビデンスおよび OP で採用されている identity verification プロセスに関する要件を表現できる．
 
-This extension will be usable by OPs operating under a certain regulation related to identity assurance, such as eIDAS, as well as other OPs operating without such a regulation.
+<!-- This extension will be usable by OPs operating under a certain regulation related to identity assurance, such as eIDAS, as well as other OPs operating without such a regulation. -->
+この拡張機能は、eIDAS などの identity assurance に関連する特定の規制の下で動作する OP はもちろん，そのような規制なしで動作する他の OP でも使用できる．
 
-It is assumed that OPs operating under a suitable regulation can assure identity data without the need to provide further evidence since they are approved to operate according to well-defined rules with clearly defined liability. For example in the case of eIDAS, the peer review ensures eIDAS compliance and the respective member state assumes the liability for the identities asserted by its notified eID systems.
+<!-- It is assumed that OPs operating under a suitable regulation can assure identity data without the need to provide further evidence since they are approved to operate according to well-defined rules with clearly defined liability. For example in the case of eIDAS, the peer review ensures eIDAS compliance and the respective member state assumes the liability for the identities asserted by its notified eID systems. -->
+適切な規制の下で運用されている OP は，明確に定義された責任を伴う明確に定義されたルールに従って運用することが承認されているため，追加のエビデンスを提供する必要なしに identity data を保証できると想定されている．例えば eIDAS の場合，ピアレビューは eIDAS コンプライアンスを保証し，それぞれの加盟国は、通知されたeID システムによって主張された identity に対する責任を負う．
 
-Every other OP not operating under such well-defined conditions may be required to provide the RP data about the identity verification process along with identity evidence to allow the RP to conduct their own risk assessment and to map the data obtained from the OP to other laws. For example, if an OP verifies and maintains identity data in accordance with an Anti Money Laundering Law, it shall be possible for an RP to use the respective identity in a different regulatory context, such as eHealth or the previously mentioned eIDAS.
+<!-- Every other OP not operating under such well-defined conditions may be required to provide the RP data about the identity verification process along with identity evidence to allow the RP to conduct their own risk assessment and to map the data obtained from the OP to other laws. For example, if an OP verifies and maintains identity data in accordance with an Anti Money Laundering Law, it shall be possible for an RP to use the respective identity in a different regulatory context, such as eHealth or the previously mentioned eIDAS. -->
+そのような明確な条件下で動作していない他のすべての OP は，RP が独自のリスクアセスメントを行い，OP から入手したデータを他の法律にマッピングできるように，identity evidence に加えて identity verification プロセスに関する RP data を提供することを要求されるかもしれない．
+例えば，もし OP がマネーロンダリング防止法に従って identity data を検証及び維持する場合，RP がeHealth や前述の eIDAS のような異なる規制のコンテキストでそれぞれの identity を利用できるようにすべきである．
 
-The basic idea of this specification is that the OP provides all identity data along with metadata about the identity verification process at the OP. It is the responsibility of the RP to assess this data and map it into its own legal context.
+<!-- The basic idea of this specification is that the OP provides all identity data along with metadata about the identity verification process at the OP. It is the responsibility of the RP to assess this data and map it into its own legal context. -->
+本仕様の基本的な考え方は，OP は OP での identity verification プロセスに関するメタデータとともに，すべての identity data を提供することである．このデータを評価し，それを独自の法的コンテキストにマッピングするのは RP の責任である．
 
-From a technical perspective, this means this specification allows the OP to provide Verified Claims along with information about the respective trust framework, but also supports the externalization of information about the identity verification process.
+<!-- From a technical perspective, this means this specification allows the OP to provide Verified Claims along with information about the respective trust framework, but also supports the externalization of information about the identity verification process. -->
+技術的な観点から，これは本仕様は OP が信頼するトラストフレームワークに関する情報とともに Verified Claim を提供できるようにするだけでなく，identity verificatoin process に関する情報の外部化もサポートすることを意味する．
 
-The representation defined in this specification can be used to provide RPs with Verified Claims about the End-User via any appropriate channel. In the context of OpenID Connnect, Verified Claims can be provided in ID Tokens or as part of the UserInfo response. It is also possible to utilize the format described here in OAuth Access Tokens or Token Introspection responses to provide resource servers with Verified Claims.
+<!-- The representation defined in this specification can be used to provide RPs with Verified Claims about the End-User via any appropriate channel. In the context of OpenID Connnect, Verified Claims can be provided in ID Tokens or as part of the UserInfo response. It is also possible to utilize the format described here in OAuth Access Tokens or Token Introspection responses to provide resource servers with Verified Claims. -->
+本仕様で定義される表現は，いずれかの適切なチャネルを介してエンドユーザーに関する Verified Claim を RP に提供できる．OpenID Connect のコンテキストにおいて，Verified Claim はID Token またはUserInfoレスポンスの一部として提供できる．OAuth Access Token または Token Introspection レスポンスで記述される形式を用いてリソースサーバーに Verified Claim を提供することもできる．
 
-This extension is intended to be truly international and support identity assurance across different jurisdictions. The extension is therefore extensible to support various trust frameworks, identity evidence and assurance processes.
+<!-- This extension is intended to be truly international and support identity assurance across different jurisdictions. The extension is therefore extensible to support various trust frameworks, identity evidence and assurance processes. -->
+本拡張は，真に国際的で異なる管轄区域を跨いで identity assurance をサポートすることを意図している．
+本拡張は従って，様々なトラストフレームワーク，identity エビデンス，バリデーションや検証プロセスをサポートするために拡張可能である．
 
-In order to give implementors as much flexibility as possible, this extension can be used in conjunction with existing OpenID Connect Claims and other extensions within the same OpenID Connect assertion (e.g., ID Token or UserInfo response) utilized to convey Claims about End-Users.
+<!-- In order to give implementors as much flexibility as possible, this extension can be used in conjunction with existing OpenID Connect Claims and other extensions within the same OpenID Connect assertion (e.g., ID Token or UserInfo response) utilized to convey Claims about End-Users. -->
+実装者に可能な限りの柔軟性を与えるために, この拡張は既存の OpenID Connect の Claim および同じ OpenID Connect のアサーション(例えば, ID Token や UserInfo)内の他の拡張と組み合わせて使うことができる.
 
-For example, OpenID Connect [@!OpenID] defines Claims for representing family name and given name of an End-User without a verification status. These Claims can be used in the same OpenID Connect assertion beside Verified Claims represented according to this extension.
+<!-- For example, OpenID Connect [@!OpenID] defines Claims for representing family name and given name of an End-User without a verification status. These Claims can be used in the same OpenID Connect assertion beside Verified Claims represented according to this extension. -->
+例えば，OpenID Connect [@!OpenID] は検証ステータスのないエンドユーザーの性と名を表す Claim を定義している．これらの Claim は本拡張に従って表現される Verified Claim とともに同じ OpenID Connect のアサーションで使うことができる．
 
-In the same way, existing Claims to inform the RP of the verification status of the `phone_number` and `email` Claims can be used together with this extension.
+<!-- In the same way, existing Claims to inform the RP of the verification status of the `phone_number` and `email` Claims can be used together with this extension. -->
+同じように，`phone_number` と `email` Claim の検証ステータスを RP に通知する既存 Claim も本拡張とともに使うことができる．
 
-Even for representing Verified Claims, this extension utilizes existing OpenID Connect Claims if possible and reasonable. The extension will, however, ensure RPs cannot (accidentally) interpret unverified Claims as Verified Claims.
+<!-- Even for representing Verified Claims, this extension utilizes existing OpenID Connect Claims if possible and reasonable. The extension will, however, ensure RPs cannot (accidentally) interpret unverified Claims as Verified Claims. -->
+Verified Claim を表す場合でも，本拡張は可能かつ妥当であれば，既存の OpenID Connect の Claim を利用する．しかしながら，拡張は RP が未検証 Claim を Verified Claim として (誤って) 解釈できないようにする．
 
 # Claims {#claims}
 
 ## Additional Claims about End-Users {#userclaims}
 
-In order to fulfill the requirements of some jurisdictions on identity assurance, this specification defines the following Claims for conveying End-User data in addition to the Claims defined in the OpenID Connect specification [@!OpenID]:
+<!-- In order to fulfill the requirements of some jurisdictions on identity assurance, this specification defines the following Claims for conveying End-User data in addition to the Claims defined in the OpenID Connect specification [@!OpenID]: -->
+identity assurance に関する一部の権限の要件を満たすために, この仕様では OpenID仕様 [@!OpenID] に定義されている Claim にエンドユーザデータを伝達するための以下の追加の Claim を定義する:
 
+<!--
 | Claim | Type | Description |
 |:------|:-----|:------------|
 |`place_of_birth`| JSON object | End-User’s place of birth. The value of this member is a JSON structure containing some or all of the following members:|
@@ -148,49 +180,88 @@ In order to fulfill the requirements of some jurisdictions on identity assurance
 |`title`| string | End-User’s title, e.g., “Dr.”|
 |`msisdn`| string | End-User’s mobile phone number formatted according to ITU-T recommendation [@!E.164], e.g., “1999550123”|
 |`also_known_as`| string | Stage name, religious name or any other type of alias/pseudonym with which a person is known in a specific context besides its legal name. This must be part of the applicable legislation and thus the trust framework (e.g., be an attribute on the identity card).|
+-->
+
+| Claim | Type | Description |
+|:------|:-----|:------------|
+|`place_of_birth`| JSON object | エンドユーザーの出生地. このメンバー値は，次のメンバーの一部またはすべてを含む JSON 構造である:|
+| | |`country`: [@!ISO3166-1] Alpha-2 (例えば, DE) または [@!ISO3166-3] 構文で国を表す文字列. |
+| | |`region`: State, province, prefecture, または他の地域コンポーネントを表す文字列. 一部の管轄区域ではこのフィールドは必須かもしれない.|
+| | |`locality`: city, または別の地域を表す文字列.|
+|`nationalities`| array | ICAO 3-letter codes [@!ICAO-Doc9303] (例: "USA" や "JPN")用いてエンドユーザーの国籍を表す. 互換性の理由から，状況によっては 2-letter ICAO codes が使われるかもしれない (MAY).|
+|`birth_family_name`| string | エンドユーザーが生まれたとき, あるいは少なくとも子供の時から持っている姓. この用語は人生の途中に何らかの理由で姓を変更した人が利用できる. 一部の文化では，人々は複数の姓を持つことも，姓を持たないこともあることに注意すること．全ての名前はスペース文字で区切って存在する．|
+|`birth_given_name`| string | エンドユーザーが生まれたとき, あるいは少なくとも子供の時から持っている名前. この用語は人生の途中に何らかの理由で名前を変更した人が利用できる．一部の文化では，人々は複数の名を持つことに注意すること．全ての名前はスペース文字で区切って存在する．|
+|`birth_middle_name`| string | エンドユーザーが生まれたとき, あるいは少なくとも子供の時から持っているミドルネーム. この用語は人生の途中に何らかの理由でミドルネームを変更した人が利用できる.一部の文化では，人々は複数のミドルネームを持つことができることに注意すること．全ての名前はスペース文字で区切って存在する．また，一部の文化ではミドルネームが使用されていないことにも注意すること． |
+|`salutation`| string | エンドユーザの敬称, 例えば “Mr.”|
+|`title`| string | エンドユーザの肩書, 例えば “Dr.”|
+|`msisdn`| string | ITU-T recommendation [@!E.164] (例: “1999550123”) に従って表現されたエンドユーザーの携帯電話番号．|
+|`also_known_as`| string | 芸名，宗教名，または実名以外の特定の文脈で人が知られているその他の種類の別名/仮名．これは、適用される法律の一部である必要があり，従ってトラストフレームワーク (例: IDカードの属性) である必要がある．|
 
 ## txn Claim
 
-Strong identity verification typically requires the participants to keep an audit trail of the whole process.
+<!-- Strong identity verification typically requires the participants to keep an audit trail of the whole process. -->
+一般的に, 強固な identity verification は参加者がプロセス全体の監査証跡を保持する必要がある.
 
-The `txn` Claim as defined in [@!RFC8417] is used in the context of this extension to build audit trails across the parties involved in an OpenID Connect transaction.
+<!-- The `txn` Claim as defined in [@!RFC8417] is used in the context of this extension to build audit trails across the parties involved in an OpenID Connect transaction. -->
+[@!RFC8417] で定義されている `txn` Claim はこの拡張のコンテキストで使用され, OpenID Connect トランザクションに関わるの関係者全体の監査証跡を構築する.
 
-If the OP issues a `txn`, it MUST maintain a corresponding audit trail, which at least consists of the following details:
+<!-- If the OP issues a `txn`, it MUST maintain a corresponding audit trail, which at least consists of the following details: -->
+OP が `txn` を発行する場合, 対応する監査証跡を維持する必要があり (MUST), 少なくとも次の詳細で構成される.
 
+<!--
 * the transaction ID,
 * the authentication method employed, and
 * the transaction type (e.g., the set of Claims returned).
+-->
+* transaction ID,
+* 採用されている authentication methods, および
+* transaction type (Claim セットの返却など).
 
-This transaction data MUST be stored as long as it is required to store transaction data for auditing purposes by the respective regulation.
+<!-- This transaction data MUST be stored as long as it is required to store transaction data for auditing purposes by the respective regulation. -->
+このトランザクションデータは, それぞれの規定による監査目的のためにトランザクションデータを保存する必要がある限り保存し続けなければならない (MUST).
 
-The RP requests this Claim like any other Claim via the `claims` parameter or as part of a default Claim set identified by a scope value.
+<!-- The RP requests this Claim like any other Claim via the `claims` parameter or as part of a default Claim set identified by a scope value. -->
+RP はこの Claim を `claims` パラメータを介して, または scope 値によって識別されるデフォルトの Claim の一部として, 他の Claim と同様に要求する.
 
-The `txn` value MUST allow an RP to obtain these transaction details if needed.
+<!-- The `txn` value MUST allow an RP to obtain these transaction details if needed. -->
+`txn` 値は必要に応じて RP がこれらのトランザクションを参照できるようにしなければならない (MUST).
 
-Note: The mechanism to obtain the transaction details from the OP and their format is out of scope of this specification.
+<!-- Note: The mechanism to obtain the transaction details from the OP and their format is out of scope of this specification. -->
+注：トランザクションの詳細を, OP および, それらのフォーマットから取得するメカニズムはこの仕様の範囲外である.
 
 ## Extended address Claim
 
-This specification extends the `address` Claim as defined in [@!OpenID] by another sub field containing the country as ISO code.
+<!-- This specification extends the `address` Claim as defined in [@!OpenID] by another sub field containing the country as ISO code. -->
+この仕様は，[@!OpenID] で定義されている `address`クレームを，国を ISO コードとして含む別のサブフィールドによって拡張する．
 
-`country_code`: OPTIONAL. country part of an address represented using an ISO 3-letter code [@!ISO3166-3], e.g., "USA" or "JPN". 2-letter ISO codes [@!ISO3166-1] MAY be used for compatibility reasons. `country_code` MAY be used as alternative to the existing `country` field.
+<!-- `country_code`: OPTIONAL. country part of an address represented using an ISO 3-letter code [@!ISO3166-3], e.g., "USA" or "JPN". 2-letter ISO codes [@!ISO3166-1] MAY be used for compatibility reasons. `country_code` MAY be used as alternative to the existing `country` field. -->
+`country_code`: OPTIONAL. ISO 3-letter code [@!ISO3166-3]  (例: "USA" や "JPN") を使用して表される住所の国部分．2-letter ISO codes [@!ISO3166-1] は，互換性の理由から使用されるかもしれない (NAY)．`country_code` は，既存の` country` フィールドの代わりに使用してもよい (MAY)．
 
 # Representing Verified Claims {#verified_claims}
 
-This specification defines a generic mechanism to add Verified Claims to JSON-based assertions. The basic idea is to use a container element, called `verified_claims`, to provide the RP with a set of Claims along with the respective metadata and verification evidence related to the verification of these Claims. This way, RPs cannot mix up Verified Claims and unverified Claims and accidentally process unverified Claims as Verified Claims.
+<!-- This specification defines a generic mechanism to add Verified Claims to JSON-based assertions. The basic idea is to use a container element, called `verified_claims`, to provide the RP with a set of Claims along with the respective metadata and verification evidence related to the verification of these Claims. This way, RPs cannot mix up Verified Claims and unverified Claims and accidentally process unverified Claims as Verified Claims. -->
+この仕様は，JSON ベースのアサーションに Verified Claims を追加するための一般的な仕様を定義する．基本的な考え方は `verified_claims` と呼ばれるコンテナ要素を使用し，RP に一連の Claim と，これらの Claim の検証に関連するそれぞれのメタデータ及び検証のエビデンスを提供することである．このように，RP は検証済み Claim と未検証 Claim を混同したり，未検証 Claim を検証済み Claim として誤って処理することはできない．
 
-The following example would assert to the RP that the OP has verified the Claims provided (`given_name` and `family_name`) according to an example trust framework `trust_framework_example`:
+<!-- The following example would assert to the RP that the OP has verified the Claims provided (`given_name` and `family_name`) according to an example trust framework `trust_framework_example`: -->
+次の例では，トラストフレームワーク `trust_framework_example` の例に従って，OP が提供された Claim (`given_name` and `family_name`) を検証したことを RP に表明する:
 
 <{{examples/response/verified_claims_simple.json}}
 
-The normative definition is given in the following.
+<!-- The normative definition is given in the following. -->
+基準となる定義を以下に示す．
 
-`verified_claims`: A single object or an array of objects, each object comprising the following sub-elements:
+<!-- `verified_claims`: A single object or an array of objects, each object comprising the following sub-elements: -->
+`verified_claims`: 単一のオブジェクトまたはオブジェクトの配列で，各オブジェクトは以下のサブ要素で構成される:
 
+<!--
 * `verification`: REQUIRED. Object that contains data about the verification process.
 * `claims`: REQUIRED. Object that is the container for the Verified Claims about the End-User.
+-->
+* `verification`: 必須 (REQUIRED). 検証プロセスに関するすべてのデータを含むオブジェクト.
+* `claims`: 必須 (REQUIRED). エンドユーザに関するの検証済 Claim のためのコンテナであるオブジェクト.
 
-Note: Implementations MUST ignore any sub-element not defined in this specification or extensions of this specification. Extensions to this specification that specify additional sub-elements under the `verified_claims` element MAY be created by the OpenID Foundation, ecosystem or scheme operators or indeed singular OpenID Connect for IDA implementers.
+<!-- Note: Implementations MUST ignore any sub-element not defined in this specification or extensions of this specification. Extensions to this specification that specify additional sub-elements under the `verified_claims` element MAY be created by the OpenID Foundation, ecosystem or scheme operators or indeed singular OpenID Connect for IDA implementers. -->
+注: 実装は, この仕様またはこの仕様の拡張で定義されていないサブ要素を無視しなければならない (MUST). Extensions to this specification that specify additional sub-elements under the `verified_claims` element MAY be created by the OpenID Foundation, ecosystem or scheme operators or indeed singular OpenID Connect for IDA implementers.
 
 A machine-readable syntax definition of `verified_claims` is given as JSON schema in [@verified_claims.json], it can be used to automatically validate JSON documents containing a `verified_claims` element. The provided JSON schema files are a non-normative implementation of this specification and any discrepancies that exist are either implementation bugs or interpretations. 
 
@@ -198,26 +269,36 @@ Extensions of this specification, including trust framework definitions, can def
 
 ## verification Element {#verification}
 
-This element contains the information about the process conducted to verify a person's identity and bind the respective person data to a user account.
+<!-- This element contains the information about the process conducted to verify a person's identity and bind the respective person data to a user account. -->
+この要素には, 個人の身元を確認し, それぞれの個人データをユーザーアカウントにバインドするために実行されたプロセスに関する情報が含まれる.
 
-The `verification` element consists of the following elements:
+<!-- The `verification` element consists of the following elements: -->
+`verification` 要素は以下の要素を含む:
 
-`trust_framework`: REQUIRED. String determining the trust framework governing the identity verification process of the OP.
+<!-- `trust_framework`: REQUIRED. String determining the trust framework governing the identity verification process of the OP. -->
+`trust_framework`: 必須 (REQUIRED). OP の identity verification プロセスを管理する trust framework を定める文字列.
 
-An example value is `eidas`, which denotes a notified eID system under eIDAS [@eIDAS].
+<!-- An example value is `eidas`, which denotes a notified eID system under eIDAS [@eIDAS]. -->
+例としては `eidas` で, これは eIDAS [@?eIDAS] 公認 eID システムを示す.
 
-RPs SHOULD ignore `verified_claims` Claims containing a trust framework identifier they do not understand.
+<!-- RPs SHOULD ignore `verified_claims` Claims containing a trust framework identifier they do not understand. -->
+RPs は理解できないトラストフレームワーク識別子を含む `verified_claims` Claim を無視しなければならない (SHOULD)．
 
-The `trust_framework` value determines what further data is provided to the RP in the `verification` element. A notified eID system under eIDAS, for example, would not need to provide any further data whereas an OP not governed by eIDAS would need to provide verification evidence in order to allow the RP to fulfill its legal obligations. An example of the latter is an OP acting under the German Anti-Money Laundering Law (`de_aml`).
+<!-- The `trust_framework` value determines what further data is provided to the RP in the `verification` element. A notified eID system under eIDAS, for example, would not need to provide any further data whereas an OP not governed by eIDAS would need to provide verification evidence in order to allow the RP to fulfill its legal obligations. An example of the latter is an OP acting under the German Anti-Money Laundering Law (`de_aml`). -->
+`trust_framework` は, `verification` 要素の中で RP に提供される追加のデータを決定する. たとえば, eIDAS 公認 eID システムは, データを追加する必要はないが, eIDAS に管理されていない OP は RP が法的義務を果たすために verification evidence を提供する必要がある. 後者の例としては, ドイツのマネーロンダリング防止法 (`de_aml`) に基づいて行動する OP である.
 
-`assurance_level`: OPTIONAL. String determining the assurance level associated with the End-User Claims in the respective `verified_claims`. The value range depends on the respective `trust_framework` value.
+<!-- `assurance_level`: OPTIONAL. String determining the assurance level associated with the End-User Claims in the respective `verified_claims`. The value range depends on the respective `trust_framework` value. -->
+`assurance_level`: OPTIONAL. それぞれの `verified_claims` のエンドユーザーのClaimに関連付けられた assurance レベルを決定する文字列. 値の範囲は，それぞれの `trust_framework` 値によって異なる.
 
-For example, the trust framework `eidas` can have the identity assurance levels `low`, `substantial` and `high`.
+<!-- For example, the trust framework `eidas` can have the identity assurance levels `low`, `substantial` and `high`. -->
+例えば，トラストフレームワーク `eidas` は，identity assurance level `low`, `substantial` と `high` を持つことができる．
 
-For information on predefined trust framework and assurance level values see [@!predefined_values].
+<!-- For information on predefined trust framework and assurance level values see [@!predefined_values] -->
+事前定義されたトラストフレームワークと assurance level については [@!predefined_values] を参照すること. 
 
 `assurance_process`: OPTIONAL. JSON object representing the assurance process that was followed. This reflects how the evidence meets the requirements of the `trust_framework` and `assurance_level`. The factual record of the evidence and the procedures followed are recorded in the `evidence` element, this element is used to cross reference the `evidence` to the `assurance_process` followed. This has one or more of the following sub-elements:
 
+<!--
   * `policy`: OPTIONAL. String representing the standard or policy that was followed.
   * `procedure`: OPTIONAL. String representing a specific procedure from the `policy` that was followed.
   * `assurance_details`: OPTIONAL. JSON array denoting the details about how the evidence complies with the `policy`. When present this array MUST have at least one member. Each member can have the following sub-elements:
@@ -227,42 +308,64 @@ For information on predefined trust framework and assurance level values see [@!
       * `txn`: REQUIRED. Identifier referring to the `txn` used in the `check_details`. The OP MUST ensure that `txn` is present in the `check_details` when `evidence_ref` element is used.
       * `evidence_metadata`: OPTIONAL. Object indicating any meta data about the `evidence` that is required by the `assurance_process` in order to demonstrate compliance with the `trust_framework`. It has the following sub-elements:
         * `evidence_classification`: OPTIONAL. String indicating how the process demonstrated by the `check_details` for the `evidence` is classified by the `assurance_process` in order to demonstrate compliance with the `trust_framework`.
+-->
+  * `policy`: OPTIONAL. 準拠した標準またはポリシーを表す文字列．
+  * `procedure`: OPTIONAL. 準拠した `policy` からの特定の手順を表す文字列．
 
-`time`: OPTIONAL. Time stamp in ISO 8601 [@!ISO8601] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date and time when the identity verification process took place. This time might deviate from (a potentially also present) `document/time` element since the latter represents the time when a certain evidence was checked whereas this element represents the time when the process was completed. Moreover, the overall verification process and evidence verification can be conducted by different parties (see `document/verifier`). Presence of this element might be required for certain trust frameworks.
+<!-- `time`: OPTIONAL. Time stamp in ISO 8601 [@!ISO8601] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date and time when the identity verification process took place. This time might deviate from (a potentially also present) `document/time` element since the latter represents the time when a certain evidence was checked whereas this element represents the time when the process was completed. Moreover, the overall verification process and evidence verification can be conducted by different parties (see `document/verifier`). Presence of this element might be required for certain trust frameworks. -->
+`time`: OPTIONAL. Identity verification が行われた日時を示す ISO 8601 [@!ISO8601] `YYYY-MM-DDThh:mm[:ss]TZD` フォーマットのタイムスタンプ．この時間は，（潜在的に存在する）`document/time` 要素とは異なるかもしれない．なぜなら，後者はあるエビデンスがチェックされた時間を表すのに対し，この要素はプロセスが完了した時間を表すためである．さらに，全体の verification プロセスとエビデンスの検証は，異なる当事者が行うことができる（`document/verifier` を参照）．特定のトラストフレームワークでは，この要素の存在が要求される場合がある．
 
-`verification_process`: OPTIONAL. Unique reference to the identity verification process as performed by the OP. Used for identifying and retrieving details in case of disputes or audits. Presence of this element might be required for certain trust frameworks.
+<!-- `verification_process`: OPTIONAL. Unique reference to the identity verification process as performed by the OP. Used for identifying and retrieving details in case of disputes or audits. Presence of this element might be required for certain trust frameworks. -->
+`verification_process`: OPTIONAL. OP が実行する identity verification process への一意な参照．紛争や監査の際に詳細を識別して取り出すために使用される．特定のトラストフレームワークでは，この要素の存在が要求される場合がある．
 
-Note: While `verification_process` refers to the identity verification process at the OP, the `txn` Claim refers to a particular OpenID Connect transaction in which the OP provided the End-User's verified identity data towards an RP.
+<!-- Note: While `verification_process` refers to the identity verification process at the OP, the `txn` Claim refers to a particular OpenID Connect transaction in which the OP provided the End-User's verified identity data towards an RP. -->
+注: `verification_process` は OP での identity verification process を指すが，`txn` Claim は OP がエンドユーザーの検証済み ID データを RP に提供した特定の OpenID Connect トランザクションを指す．
 
-`evidence`: OPTIONAL. JSON array containing information about the evidence the OP used to verify the End-User's identity as separate JSON objects. Every object contains the property `type` which determines the type of the evidence. The RP uses this information to process the `evidence` property appropriately.
+<!-- `evidence`: OPTIONAL. JSON array containing information about the evidence the OP used to verify the End-User's identity as separate JSON objects. Every object contains the property `type` which determines the type of the evidence. The RP uses this information to process the `evidence` property appropriately. -->
+`evidence`: OPTIONAL. エンドユーザーの identity を確認するために OP が使用したエビデンスに関する情報を個別の JSON オブジェクトとして含む JSON 配列．すべてのオブジェクトには，エビデンスの種類を決めるプロパティ `type` が含まれる．RP は `evidence` プロパティを適切に処理するためにこの情報を使用する．
 
-Important: Implementations MUST ignore any sub-element not defined in this specification or extensions of this specification.
+<!-- Important: Implementations MUST ignore any sub-element not defined in this specification or extensions of this specification. -->
+重要: 実装は本仕様または本仕様の拡張で定義されていないサブ要素を無視しなければならない (MUST)．
 
 ### evidence Element
 
-The `evidence` element is structured with the following elements:
+<!-- The `evidence` element is structured with the following elements: -->
+`evidence` 要素は以下の要素で構成される:
 
-`attachments`: OPTIONAL. Array of JSON objects representing attachments like photocopies of documents or certificates. See (#attachments) on how an attachment is structured.
+<!-- `attachments`: OPTIONAL. Array of JSON objects representing attachments like photocopies of documents or certificates. See (#attachments) on how an attachment is structured. -->
+`attachments`: OPTIONAL. ドキュメントや証明書のコピーなどの添付ファイルを表す JSON オブジェクトの配列．添付ファイルの構造については (#attachments) 参照．
 
-`type`: REQUIRED. The value defines the type of the evidence.
+<!-- `type`: REQUIRED. The value defines the type of the evidence. -->
+`type`: REQUIRED. エビデンスのタイプを定義する値．
 
-The following types of evidence are defined:
+<!-- The following types of evidence are defined: -->
+以下のエビデンスのタイプが定義されている:
 
+<!--
 * `document`: Verification based on any kind of physical or electronic document provided by the End-User.
 * `electronic_record`: Verification based on data or information obtained electronically from an approved or recognized source.
 * `vouch`: Verification based on an attestation or reference given by an approved or recognized person declaring they believe to the best of their knowledge that the Claim(s) are genuine and true.
 * `utility_bill`: Verification based on a utility bill (this is to be deprecated in future releases and implementers are recommended to use the `document` type instead).
 * `electronic_signature`: Verification based on an electronic signature.
+-->
+* `document`: エンドユーザーから提供されたあらゆる種類の物理的又は電子的文章に基づく検証．
+* `electronic_record`: 承認または承認されたソースから電子的に取得したデータまたは情報に基づく検証．
+* `vouch`: 承認または承認された人物が，Claim(s)　が正規かつ真実であると彼らの知る限り信じていることを宣言することによって与えられた証明または参照に基づく検証．
+* `utility_bill`: 公共料金に基づく検証 (これは将来のリリースで非推奨になるため，実装者は代わりに `document` タイプを使うことを推奨する).
+* `electronic_signature`: 電子署名に基づく検証．
 
 Note: `id_document` is an alias for `document` for backward compatibility purposes but will be deprecated in future releases, implementers are recommended to use `document`.
 
-Depending on the evidence type additional elements are defined, as described in the following.
+<!-- Depending on the evidence type additional elements are defined, as described in the following. -->
+エビデンスの種類に応じて，以下で説明するように追加の要素が定義される．
 
 #### Evidence Type document
 
-The following elements are contained in an evidence sub-element where type is `document`.
+<!-- The following elements are contained in an evidence sub-element where type is `document`. -->
+以下の要素は，タイプが `document` であるエビデンス サブ要素に含まれる．
 
-`type`: REQUIRED. Value MUST be set to `document`.
+<!-- `type`: REQUIRED. Value MUST be set to `document`. -->
+`type`: REQUIRED. 値は `document` に設定しなければならない (MUST).
 
 `check_details`: OPTIONAL. JSON array representing the checks done in relation to the `evidence`. When present this array MUST have at least one member.
 
@@ -275,13 +378,20 @@ The following elements are contained in an evidence sub-element where type is `d
 
 `verifier`: OPTIONAL. JSON object denoting the legal entity that performed the identity verification. This object SHOULD be included if the OP did not perform the identity verification itself. This object is retained for backward compatibility, implementers are recommended to use `check_details` & `organization` instead. This object consists of the following properties:
 
+<!--
 * `organization`: REQUIRED. String denoting the organization which performed the verification on behalf of the OP.
 * `txn`: OPTIONAL. Identifier referring to the identity verification transaction. The OP MUST ensure that the transaction identifier can be resolved into transaction details during an audit.
+-->
+* `organization`: REQUIRED. OP に代わって検証を実行した組織を示す文字列．
+* `txn`: OPTIONAL. identity verification トランザクションを参照する識別子．OP は監査中にトランザクション識別子をトランザクションの詳細に解決できることを確認しなければならない (MUST)．
 
-`time`: OPTIONAL. Time stamp in ISO 8601 [@!ISO8601] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date when this document was verified.
+<!-- `time`: OPTIONAL. Time stamp in ISO 8601 [@!ISO8601] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date when this document was verified. -->
+`time`: OPTIONAL. ドキュメントが検証された日付を表す ISO 8601 [@!ISO8601] `YYYY-MM-DDThh:mm[:ss]TZD` フォーマットのタイムスタンプ．
 
-`document_details`: OPTIONAL. JSON object representing the document used to perform the identity verification. Note: `document` can be used as an alias for `document_details` for backward compatibility purposes but will be deprecated in future releases, implementers are recommended to use `document_details`. It consists of the following properties:
+<!-- `document_details`: OPTIONAL. JSON object representing the document used to perform the identity verification. Note: `document` can be used as an alias for `document_details` for backward compatibility purposes but will be deprecated in future releases, implementers are recommended to use `document_details`. It consists of the following properties: -->
+`document_details`: OPTIONAL. identity verification の実行に使用されたドキュメントを表す JSON オブジェクト． 注: `document` は下位互換性を目的とした `document_details` のエイリアスとして使用できるが，将来のリリースでは非推奨となるため，実装者は `document_details` を使用することを推奨する．これは以下のプロパティで構成される:
 
+<!--
 * `type`: REQUIRED. String denoting the type of the document. For information on predefined document values see [@!predefined_values]. The OP MAY use other than the predefined values in which case the RPs will either be unable to process the assertion, just store this value for audit purposes, or apply bespoken business logic to it.
 * `document_number`: OPTIONAL. String representing an identifier/number that uniquely identifies a document that was issued to the End-User. This is used on one document and will change if it is reissued, e.g., a passport number, certificate number, etc. Note: `number` can be used as an alias for 'document_number' for backward compatibility purposes but will be deprecated in future releases, implementers are recommended to use `document_number`.
 * `personal_number`: OPTIONAL. String representing an identifier that is assigned to the End-User and is not limited to being used in one document, for example a national identification number, personal identity number, citizen number, social security number, driver number, account number, customer number, licensee number, etc.
@@ -293,12 +403,26 @@ The following elements are contained in an evidence sub-element where type is `d
     * All elements of the OpenID Connect `address` Claim (see [@!OpenID])
     * `country_code`: OPTIONAL. String denoting the country or supranational organization that issued the document as ISO 3166/ICAO 3-letter codes [@!ICAO-Doc9303], e.g., "USA" or "JPN". 2-letter ICAO codes MAY be used in some circumstances for compatibility reasons.
     * `jurisdiction`: OPTIONAL. String containing the name of the region(s)/state(s)/province(s)/municipality(ies) that issuer has jurisdiction over (if this information is not common knowledge or derivable from the address).
+-->
+* `type`: REQUIRED. ドキュメントのタイプを表す文字列．事前定義されたドキュメント値については [@!predefined_values] 参照. OP は RP がアサーションを処理できないか，監査目的でこの値を保存するか，特注のビジネスロジックを適用する場合，事前定義された値以外を使用してもよい (MAY).
+* `document_number`: OPTIONAL. エンドユーザーに発行されたドキュメントを一意に識別する識別子/番号を表す文字列．これはパスポート番号や証明書番号などのように，1つのドキュメントで利用され，再発行されると変更される．注: `number` は下位互換性を目的とした 'document_number' のエイリアスとして使用できるが，将来のリリースでは非推奨となるため，実装者は `document_number` を使用することを推奨する.
+* `personal_number`: OPTIONAL. 国民識別番号，個人識別番号，市民番号，社会保障番号，運転免許証番号，口座番号，顧客番号，ライセンシー番号のような，エンドユーザーに割り当てられ，1つのドキュメントで使用されることに限定されない識別子を表す文字列．
+* `serial_number`: OPTIONAL. パーソナライズ情報に関係なくドキュメントを識別する識別子/番号を表す文字列 (これは通常，物理的中間生成物にのみ適用され，パーソナライゼーションの前に存在する).
+* `date_of_issuance`: OPTIONAL. ISO 8601 [@!ISO8601] `YYYY-MM-DD` 形式で表す，ドキュメントの発行された日付.
+* `date_of_expiry`: OPTIONAL. ISO 8601 [@!ISO8601] `YYYY-MM-DD` 形式で表す，ドキュメントの有効期限の日付.
+* `issuer`: OPTIONAL. ドキュメントの発行者に関する情報を含む JSON オブジェクト．このオブジェクトは下記のプロパティで構成される:
+    * `name`: OPTIONAL. ドキュメントの発行者を指定する．
+    * OpenID Connect `address` Claim (see [@!OpenID]) のすべての要素
+    * `country_code`: OPTIONAL. "USA" や "JPN" のような ISO 3166/ICAO 3-letter codes [@!ICAO-Doc9303] で，ドキュメントを発行した国や超国家組織を表す文字列．状況によっては，互換性の理由から 2-letter ICAO codes が使用されるかもしれない (MAY)．
+    * `jurisdiction`: OPTIONAL. 発行者が管轄する地域/州/件/市町村の名前を含む文字列 (この情報が一般的な知識でないか，住所から導き出せない場合)．
 
 #### Evidence Type electronic_record
 
-The following elements are contained in an evidence sub-element where type is `electronic_record`.
+<!-- The following elements are contained in an evidence sub-element where type is `electronic_record`. -->
+以下の要素は，タイプが `electronic_record` であるエビデンス サブ要素に含まれる．
 
-`type`: REQUIRED. Value MUST be set to `electronic_record`.
+<!-- `type`: REQUIRED. Value MUST be set to `electronic_record`. -->
+`type`: REQUIRED. 値は `electronic_record` に設定しなければならない (MUST).
 
 `check_details`: OPTIONAL. JSON array representing the checks done in relation to the `evidence`.
 
@@ -307,10 +431,13 @@ The following elements are contained in an evidence sub-element where type is `e
   * `txn`: OPTIONAL. Identifier referring to the identity verification transaction. The OP MUST ensure that this is present when `evidence_ref` element is used. The OP MUST ensure that the transaction identifier can be resolved into transaction details during an audit.
   * `time`: OPTIONAL. Time stamp in ISO 8601 [@!ISO8601] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date when the check was completed.  
 
-`time`: OPTIONAL. Time stamp in ISO 8601 [@!ISO8601] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date when this record was verified.
+<!-- `time`: OPTIONAL. Time stamp in ISO 8601 [@!ISO8601] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date when this record was verified. -->
+`time`: OPTIONAL. レコードが検証された日付を表す ISO 8601 [@!ISO8601] `YYYY-MM-DDThh:mm[:ss]TZD` フォーマットのタイムスタンプ．
 
-`record`: OPTIONAL. JSON object representing the record used to perform the identity verification. It consists of the following properties:
+<!-- `record`: OPTIONAL. JSON object representing the record used to perform the identity verification. It consists of the following properties: -->
+`record`: OPTIONAL. identity verification の実行に使用されたレコードを表す JSON オブジェクト．これは以下のプロパティで構成される:
 
+<!--
 * `type`: REQUIRED. String denoting the type of electronic record. For information on predefined identity evidence values see [@!predefined_values]. The OP MAY use other than the predefined values in which case the RPs will either be unable to process the assertion, just store this value for audit purposes, or apply bespoken business logic to it.
 * `personal_number`: OPTIONAL. String representing an identifier that is assigned to the End-User and is not limited to being used in one record, for example a national identification number, personal identity number, citizen number, social security number, driver number, account number, customer number, licensee number, etc.
 * `created_at`: OPTIONAL. The time the record was created as ISO 8601 [@!ISO8601] `YYYY-MM-DDThh:mm[:ss]TZD` format.
@@ -320,12 +447,24 @@ The following elements are contained in an evidence sub-element where type is `e
     * All elements of the OpenID Connect `address` Claim (see [@!OpenID]): OPTIONAL.
     * `country_code`: OPTIONAL. String denoting the country or supranational organization that issued the evidence as ISO 3166/ICAO 3-letter codes [@!ICAO-Doc9303], e.g., "USA" or "JPN". 2-letter ICAO codes MAY be used in some circumstances for compatibility reasons.
     * `jurisdiction`: OPTIONAL. String containing the name of the region(s) / state(s) / province(s) / municipality(ies) that source has jurisdiction over (if it’s not common knowledge or derivable from the address).
+-->
+* `type`: REQUIRED. 電子記録のタイプを表す文字列．事前定義された identity エビデンス値については [@!predefined_values] 参照. OP は RP がアサーションを処理できないか，監査目的でこの値を保存するか，特注のビジネスロジックを適用する場合，事前定義された値以外を使用してもよい (MAY).
+* `personal_number`: OPTIONAL. 国民識別番号，個人識別番号，市民番号，社会保障番号，運転免許証番号，口座番号，顧客番号，ライセンシー番号のような，エンドユーザーに割り当てられ，1つのレコードで使用されることに限定されない識別子を表す文字列．
+* `created_at`: OPTIONAL. ISO 8601 [@!ISO8601] `YYYY-MM-DDThh:mm[:ss]TZD` 形式で表す，レコードの作成された日付.
+* `date_of_expiry`: OPTIONAL. ISO 8601 [@!ISO8601] `YYYY-MM-DDThh:mm[:ss]TZD` 形式で表す，ドキュメントの有効期限の日付.
+* `source`: OPTIONAL. レコードのソースに関する情報を含む JSON オブジェクト．このオブジェクトは下記のプロパティで構成される:
+    * `name`: OPTIONAL. Designation of the source of the electronic_record.
+    * OpenID Connect `address` Claim (see [@!OpenID]) のすべての要素: OPTIONAL.
+    * `country_code`: OPTIONAL. "USA" や "JPN" のような ISO 3166/ICAO 3-letter codes [@!ICAO-Doc9303] で，エビデンスを発行した国や超国家組織を表す文字列．状況によっては，互換性の理由から 2-letter ICAO codes が使用されるかもしれない (MAY)．
+    * `jurisdiction`: OPTIONAL. ソースが管轄する地域/州/件/市町村の名前を含む文字列 (それ一般的な知識でないか，住所から導き出せない場合)．
 
 #### Evidence Type vouch
 
-The following elements are contained in an evidence sub-element where type is `vouch`.
+<!-- The following elements are contained in an evidence sub-element where type is `vouch`. -->
+以下の要素は，タイプが `vouch` であるエビデンス サブ要素に含まれる．
 
-`type`: REQUIRED. Value MUST be set to `vouch`.
+<!-- `type`: REQUIRED. Value MUST be set to `vouch`. -->
+`type`: REQUIRED. 値は `vouch` に設定しなければならない (MUST).
 
 `check_details`: OPTIONAL. JSON array representing the checks done in relation to the `vouch`.
 
@@ -334,10 +473,13 @@ The following elements are contained in an evidence sub-element where type is `v
   * `txn`: OPTIONAL. Identifier referring to the identity verification transaction. The OP MUST ensure that this is present when `evidence_ref` element is used. The OP MUST ensure that the transaction identifier can be resolved into transaction details during an audit.
   * `time`: OPTIONAL. Time stamp in ISO 8601 [@!ISO8601] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date when the check was completed.  
 
-`time`: OPTIONAL. Time stamp in ISO 8601 [@!ISO8601] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date when this vouch was verified.
+<!-- `time`: OPTIONAL. Time stamp in ISO 8601 [@!ISO8601] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date when this vouch was verified. -->
+`time`: OPTIONAL. 証拠が検証された日付を表す ISO 8601 [@!ISO8601] `YYYY-MM-DDThh:mm[:ss]TZD` フォーマットのタイムスタンプ．
 
-`attestation`: OPTIONAL. JSON object representing the attestation that is the basis of the vouch. It consists of the following properties:
+<!-- `attestation`: OPTIONAL. JSON object representing the attestation that is the basis of the vouch. It consists of the following properties: -->
+`attestation`: OPTIONAL. 証拠の基礎となるアテステーションを表す JSON オブジェクト．これは以下のプロパティで構成される:
 
+<!--
 * `type`: REQUIRED. String denoting the type of vouch. For information on predefined vouch values see [@!predefined_values]. The OP MAY use other than the predefined values in which case the RPs will either be unable to process the assertion, just store this value for audit purposes, or apply bespoken business logic to it.
 * `reference_number`: OPTIONAL. String representing an identifier/number that uniquely identifies a vouch given about the End-User.
 * `personal_number`: OPTIONAL. String representing an identifier that is assigned to the End-User and is not limited to being used in one document, for example a national identification number, personal identity number, citizen number, social security number, driver number, account number, customer number, licensee number, etc.
@@ -350,108 +492,168 @@ The following elements are contained in an evidence sub-element where type is `v
     * `country_code`: OPTIONAL. String denoting the country or supranational organization that issued the evidence as ISO 3166/ICAO 3-letter codes [@!ICAO-Doc9303], e.g., "USA" or "JPN". 2-letter ICAO codes MAY be used in some circumstances for compatibility reasons.
     * `occupation`: OPTIONAL. String containing the occupation or other authority of the person giving the vouch/reference.
     * `organization`: OPTIONAL. String containing the name of the organization the voucher is representing.
+-->
+* `type`: REQUIRED. 証拠のタイプを表す文字列．事前定義された証拠値については [@!predefined_values] 参照. OP は RP がアサーションを処理できないか，監査目的でこの値を保存するか，特注のビジネスロジックを適用する場合，事前定義された値以外を使用してもよい (MAY).
+* `reference_number`: OPTIONAL. エンドユーザーについて与えられた証拠を一意に識別する識別子/番号を表す文字列．
+* `personal_number`: OPTIONAL. 国民識別番号，個人識別番号，市民番号，社会保障番号，運転免許証番号，口座番号，顧客番号，ライセンシー番号のような，エンドユーザーに割り当てられ，1つのドキュメントで使用されることに限定されない識別子を表す文字列．
+* `date_of_issuance`: OPTIONAL. The date the vouch was made as ISO 8601 [@!ISO8601] `YYYY-MM-DD` format.
+* `date_of_expiry`: OPTIONAL. ISO 8601 [@!ISO8601] `YYYY-MM-DD` 形式で表す，エビデンスの有効期限の日付.
+* `voucher`: OPTIONAL. 証拠を提供するエンティティに関する情報を含む JSON オブジェクト．このオブジェクトは下記のプロパティで構成される:
+    * `name`: OPTIONAL. OpenID Connect 仕様の Section 5.1 で定義されているのと同じ形式で，エンドユーザー Claim の証拠/参照を提供する人の名前を含む文字列．
+    * `birthdate`: OPTIONAL. OpenID Connect 仕様の Section 5.1 で定義されているのと同じ形式で，エンドユーザー Claim の証拠/参照を提供する人の誕生日を含む文字列．
+    * OpenID Connect `address` Claim (see [@!OpenID]) のすべての要素: OPTIONAL.
+    * `country_code`: OPTIONAL. String denoting the country or supranational organization that issued the evidence as ISO 3166/ICAO 3-letter codes [@!ICAO-Doc9303], e.g., "USA" or "JPN". 2-letter ICAO codes MAY be used in some circumstances for compatibility reasons.
+    * `occupation`: OPTIONAL. 証拠/参照を与える人の職業または他の権限を含む文字列 .
+    * `organization`: OPTIONAL. voucher が表す組織の名前を含む文字列．
 
 #### Evidence Type utility_bill
 
-Note: This type is to be deprecated in future releases. Implementers are recommended to use `document` instead.
+<!-- Note: This type is to be deprecated in future releases. Implementers are recommended to use `document` instead. -->
+注: このタイプは将来のリリースで廃止となる．実装者は代わりに `document` を使うことを推奨する．
 
-The following elements are contained in an evidence sub-element where type is `utility_bill`.
+<!-- The following elements are contained in an evidence sub-element where type is `utility_bill`. -->
+以下の要素は，タイプが `utility_bill` であるエビデンス サブ要素に含まれる．
 
-`type`: REQUIRED. Value MUST be set to "utility_bill".
+<!-- `type`: REQUIRED. Value MUST be set to "utility_bill". -->
+`type`: REQUIRED. 値は `utility_bill` に設定しなければならない (MUST).
 
-`provider`: OPTIONAL. JSON object identifying the respective provider that issued the bill. The object consists of the following properties:
+<!-- `provider`: OPTIONAL. JSON object identifying the respective provider that issued the bill. The object consists of the following properties: -->
+`provider`: OPTIONAL. 請求書を発行したそれぞれのプロバイダーを識別する JSON object．このオブジェクトは以下のプロパティで構成される:
 
+<!--
 * `name`: REQUIRED. String designating the provider.
 * All elements of the OpenID Connect `address` Claim (see [@!OpenID])
 * `country_code`: OPTIONAL. String denoting the country or supranational organization that issued the evidence as ISO 3166/ICAO 3-letter codes [@!ICAO-Doc9303], e.g., "USA" or "JPN". 2-letter ICAO codes MAY be used in some circumstances for compatibility reasons.
+-->
+* `name`: REQUIRED. プロバイダーを指定する文字列.
+* OpenID Connect `address` Claim (see [@!OpenID]) のすべての要素．
+* `country_code`: OPTIONAL. String denoting the country or supranational organization that issued the evidence as ISO 3166/ICAO 3-letter codes [@!ICAO-Doc9303], e.g., "USA" or "JPN". 2-letter ICAO codes MAY be used in some circumstances for compatibility reasons.
 
-`date`: OPTIONAL. String in ISO 8601 [@!ISO8601] `YYYY-MM-DD` format containing the date when this bill was issued.
+<!-- `date`: OPTIONAL. String in ISO 8601 [@!ISO8601] `YYYY-MM-DD` format containing the date when this bill was issued. -->
+`date`: OPTIONAL. 請求書が発行された日付を含む ISO 8601 [@!ISO8601] `YYYY-MM-DD` 形式の文字列.
 
-`method`: OPTIONAL. The method used to verify the utility bill. For information on predefined method values see [@!predefined_values].
+<!-- `method`: OPTIONAL. The method used to verify the utility bill. For information on predefined method values see [@!predefined_values]. -->
+`method`: OPTIONAL. 公共料金の確認に使用される方法．事前定義されたメソッド値については [@!predefined_values] 参照.
 
-`time`: OPTIONAL. Time stamp in ISO 8601 [@!ISO8601] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date when the utility bill was verified.
+<!-- `time`: OPTIONAL. Time stamp in ISO 8601 [@!ISO8601] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date when the utility bill was verified. -->
+`time`: OPTIONAL. 公共料金の請求が確認された日付を表す ISO 8601 [@!ISO8601] `YYYY-MM-DDThh:mm[:ss]TZD` フォーマットのタイムスタンプ．
 
 #### Evidence Type electronic_signature
 
-The following elements are contained in a `electronic_signature` evidence sub-element.
+<!-- The following elements are contained in a `electronic_signature` evidence sub-element. -->
+以下の要素は，タイプが `electronic_signature` であるエビデンス サブ要素に含まれる．
 
-`type`: REQUIRED. Value MUST be set to `electronic_signature`.
+<!-- `type`: REQUIRED. Value MUST be set to `electronic_signature`. -->
+`type`: REQUIRED. 値は `electronic_signature` に設定しなければならない (MUST).
 
-`signature_type`: REQUIRED. String denoting the type of signature used as evidence. The value range might be restricted by the respective trust framework.
+<!-- `signature_type`: REQUIRED. String denoting the type of signature used as evidence. The value range might be restricted by the respective trust framework. -->
+`signature_type`: REQUIRED. エビデンスとして使用される署名のタイプを表す文字列. 値の範囲は，それぞれのトラストフレームワークによって制限されるかもしれない． 
 
-`issuer`: REQUIRED. String denoting the certification authority that issued the signer's certificate.
+<!-- `issuer`: REQUIRED. String denoting the certification authority that issued the signer's certificate. -->
+`issuer`: REQUIRED. 署名者の証明書を発行した認証局を表す文字列.
 
-`serial_number`: REQUIRED. String containing the serial number of the certificate used to sign.
+<!-- `serial_number`: REQUIRED. String containing the serial number of the certificate used to sign. -->
+`serial_number`: REQUIRED. 署名に使用される証明書のシリアル番号を表す文字列.
 
-`created_at`: OPTIONAL. The time the signature was created as ISO 8601 [@!ISO8601] `YYYY-MM-DDThh:mm[:ss]TZD` format.
+<!-- `created_at`: OPTIONAL. The time the signature was created as ISO 8601 [@!ISO8601] `YYYY-MM-DDThh:mm[:ss]TZD` format. -->
+`created_at`: OPTIONAL. ISO 8601 [@!ISO8601] `YYYY-MM-DDThh:mm[:ss]TZD` 形式で表す，署名の作成された日付.
 
 ### Attachments {#attachments}
 
-During the identity verification process, specific document artifacts will be created and depending on the trust framework, will be required to be stored for a specific duration. These artifacts can later be reviewed during audits or quality control for example. These artifacts include, but are not limited to:
+<!--  During the identity verification process, specific document artifacts will be created and depending on the trust framework, will be required to be stored for a specific duration. These artifacts can later be reviewed during audits or quality control for example. These artifacts include, but are not limited to: -->
+identity verification プロセス中に，特定のドキュメントアーティファクトが生成され，トラストフレームワークに応じて特定の期間保存する必要がある．これらのアーティファクトは，後で監査や品質管理などの際に確認することができる．これらのアーティファクトには次のものが含まれるが，これらに限定されない:
 
+<!--
 * scans of filled and signed forms documenting/certifying the verification process itself,
 * scans or photocopies of the documents used to verify the identity of End-Users,
 * video recordings of the verification process,
 * certificates of electronic signatures.
+-->
+* 検証プロセス自体を文章化/証明する，記入済みかつ署名済みフォームのスキャン
+* エンドユーザーの identity を確認するために使用されるドキュメントのスキャンまたは写真コピー
+* 検証プロセスのビデオ録画
+* 電子署名の証明書
 
-When requested by the RP, these artifacts can be attached to the Verified Claims response allowing the RP to store these artifacts along with the Verified Claims information.
+<!-- When requested by the RP, these artifacts can be attached to the Verified Claims response allowing the RP to store these artifacts along with the Verified Claims information. -->
+RP から要求された場合，RP が検証済み Claim 情報とともにこれらのアーティファクトを保存できるように，これらのアーティファクトを検証済み Claim のレスポンスに添付することができる．
 
-An attachment is represented by a JSON object. This specification allows two types of representations:
+<!-- An attachment is represented by a JSON object. This specification allows two types of representations: -->
+添付ファイルは JSON オブジェクト形式で表現される．本仕様では2種類の表現が可能である:
 
 #### Embedded Attachments
 
-All the information of the document (including the content itself) is provided within a JSON object having the following elements:
+<!-- All the information of the document (including the content itself) is provided within a JSON object having the following elements: -->
+(コンテンツ自身を含む) ドキュメントのすべての情報は，以下の要素を持つ JSON オブジェクト内で提供される:
 
-`desc`: OPTIONAL. Description of the document. This can be the filename or just an explanation of the content. The used language is not specified, but is usually bound to the jurisdiction of the underlying trust framework of the OP.
+<!-- `desc`: OPTIONAL. Description of the document. This can be the filename or just an explanation of the content. The used language is not specified, but is usually bound to the jurisdiction of the underlying trust framework of the OP. -->
+`desc`: OPTIONAL. ドキュメントの説明. ファイル名または単なるコンテンツの説明にすることができる．使用する言語は指定されていないが，通常 OP の基礎となるトラストフレームワークの管轄に拘束される．
 
-`content_type`: REQUIRED. Content (MIME) type of the document. See [@!RFC6838]. Multipart or message media types are not allowed. Example: "image/png"
+<!-- `content_type`: REQUIRED. Content (MIME) type of the document. See [@!RFC6838]. Multipart or message media types are not allowed. Example: "image/png" -->
+`content_type`: REQUIRED. ドキュメントのコンテンツ (MIME) タイプ． [@!RFC6838] 参照．マルチパートまたはメッセージメディアタイプは許可されない．例: "image/png"
 
-`content`: REQUIRED. Base64 encoded representation of the document content.
+<!-- `content`: REQUIRED. Base64 encoded representation of the document content. -->
+`content`: REQUIRED. ドキュメントコンテンツの Base64 エンコード表現.
 
 `txn`: OPTIONAL. Identifier referring to the transaction. The OP SHOULD ensure this matches a `txn` contained within `check_method` when `check_method` needs to reference the embedded attachment.
 
-The following example shows embedded attachments. The actual contents of the documents are truncated:
+<!-- The following example shows embedded attachments. The actual contents of the documents are truncated: -->
+以下の例は，埋め込まれた添付ファイルを示す．ドキュメントの実際の内容は切り捨てられている:
 
 <{{examples/response/embedded_attachments.json}}
 
-Note: Due to their size, embedded attachments are not appropriate when embedding Verified Claims in Access Tokens or ID Tokens.
+<!-- Note: Due to their size, embedded attachments are not appropriate when embedding Verified Claims in Access Tokens or ID Tokens. -->
+注: サイズが大きいため，アクセストークンまたは ID トークンに検証済み Claim を埋め込む場合，埋め込み添付ファイルは適切ではない．
 
 #### External Attachments
 
-External attachments are similar to distributed Claims. The reference to the external document is provided in a JSON object with the following elements:
+<!-- External attachments are similar to distributed Claims. The reference to the external document is provided in a JSON object with the following elements: -->
+External attachments は分散 Claim と似ている．外部ドキュメントへの参照は，以下の要素を持つ JSON オブジェクト内で提供される:
 
-`desc`: OPTIONAL. Description of the document. This can be the filename or just an explanation of the content. The used language is not specified, but is usually bound to the jurisdiction of the underlying trust framework or the OP.
+<!-- `desc`: OPTIONAL. Description of the document. This can be the filename or just an explanation of the content. The used language is not specified, but is usually bound to the jurisdiction of the underlying trust framework or the OP. -->
+`desc`: OPTIONAL. ドキュメントの説明. ファイル名または単なるコンテンツの説明にすることができる．使用する言語は指定されていないが，通常 OP の基礎となるトラストフレームワークの管轄に拘束される．
 
 `url`: REQUIRED. OAuth 2.0 resource endpoint from which the document can be retrieved. Providers MUST protect this endpoint. The endpoint URL MUST return the document whose cryptographic hash matches the value given in the `digest` element. The content MIME type of the document must be indicated in a content-type HTTP response header, as per [RFC6838](https://datatracker.ietf.org/doc/html/rfc6838). Multipart or message media types SHALL NOT be used.
 
-`access_token`: OPTIONAL. Access Token as type `string` enabling retrieval of the document from the given `url`. The attachment MUST be requested using the OAuth 2.0 Bearer Token Usage [@!RFC6750] protocol and the OP MUST support this method, unless another Token Type or method has been negotiated with the Client. Use of other Token Types is outside the scope of this specification. If the `access_token` element is not available, RPs MUST use the Access Token issued by the OP in the Token response and when requesting the attachment the RP MUST use the same method as when accessing the UserInfo endpoint. If the value of this element is `null`, no Access Token is used to request the attachment and the RP MUST NOT use the Access Token issued by the Token response. In this case the OP MUST incorporate other effective methods to protect the attachment and inform/instruct the RP accordingly.
+<!-- `access_token`: OPTIONAL. Access Token as type `string` enabling retrieval of the document from the given `url`. The attachment MUST be requested using the OAuth 2.0 Bearer Token Usage [@!RFC6750] protocol and the OP MUST support this method, unless another Token Type or method has been negotiated with the Client. Use of other Token Types is outside the scope of this specification. If the `access_token` element is not available, RPs MUST use the Access Token issued by the OP in the Token response and when requesting the attachment the RP MUST use the same method as when accessing the UserInfo endpoint. If the value of this element is `null`, no Access Token is used to request the attachment and the RP MUST NOT use the Access Token issued by the Token response. In this case the OP MUST incorporate other effective methods to protect the attachment and inform/instruct the RP accordingly. -->
+`access_token`: OPTIONAL. 与えられた `url` からドキュメントを取得できるようにする `string` タイプの Access Token．添付ファイルは OAuth 2.0 Bearer Token Usage [@!RFC6750] プロトコルを使用してリクエストしなければならず (MUST)， 別のトークンタイプまたはメソッドが Client とネゴシエートされていない限り，OP はメソッドをサポートしなければならない (MUST)．他のトークンタイプの仕様は本仕様の範囲外である．`access_token` 要素が利用できない場合，RP は Token Response で OP によって発行された Access Token を利用しなければならず (MUST)，添付ファイルを要求する時，RP は UserInfo エンドポイントにアクセスするときと同じ方法を使用しなければならない (MUST)．この要素の値が `null` の場合，添付ファイルを要求するために Access Token は使用されず，RP は Token Response によって発行された Access Token を使用してはならない (MUST NOT)．この場合，OP は添付ファイルを保護するための他の有効な方法を組み込み，それに応じて RP に通知/指示しなければならない (MUST)．
 
-`expires_in`: OPTIONAL. Positive integer representing the number of seconds until the attachment becomes unavailable and/or the provided `access_token` becomes invalid.
+<!-- `expires_in`: OPTIONAL. Positive integer representing the number of seconds until the attachment becomes unavailable and/or the provided `access_token` becomes invalid. -->
+`expires_in`: OPTIONAL. 添付ファイルが使用できなくなるか，指定された `access_token` が無効になるまでの秒数を表す正の整数．
 
-`digest`: REQUIRED. JSON object representing a cryptographic hash of the document content. The JSON object has the following elements:
+<!-- `digest`: REQUIRED. JSON object representing a cryptographic hash of the document content. The JSON object has the following elements: -->
+`digest`: REQUIRED. ドキュメントコンテンツの暗号化ハッシュを表す JSON オブジェクト．JSON オブジェクトは以下の要素を持つ:
 
+<!--
 * `alg`: REQUIRED. Specifies the algorithm used for the calculation of the cryptographic hash. The algorithm has been negotiated previously between RP and OP during Client Registration or Management.
 * `value`: REQUIRED. Base64 encoded representation of the cryptographic hash.
+-->
+* `alg`: REQUIRED. 暗号化ハッシュの計算に使用されるアルゴリズムを指定する．アルゴリズムは，Client の登録または管理の間に RP と OP の間で事前にネゴシエートされている．
+* `value`: REQUIRED. 暗号化ハッシュの Base64 エンコード表現．
 
 `txn`: OPTIONAL. Identifier referring to the transaction. The OP SHOULD ensure this matches a `txn` contained within `check_method` when `check_method` needs to reference the embedded attachment.
 
-External attachments are suitable when embedding Verified Claims in Tokens. However, the `verified_claims` element is not self-contained. The documents need to be retrieved separately, and the digest values MUST be calculated and validated to ensure integrity.
+<!-- External attachments are suitable when embedding Verified Claims in Tokens. However, the `verified_claims` element is not self-contained. The documents need to be retrieved separately, and the digest values MUST be calculated and validated to ensure integrity. -->
+External attachments は検証済み Claim を Token に埋め込む場合に適している．だがしかし，`verified_claims` 要素は自己完結型ではない．ドキュメントは個別に取得しなければならず，整合性を確保するためにダイジェスト値を計算し，検証しなければならない (MUST)．
 
 It is RECOMMENDED that access tokens for external attachments have a binding to the specific resource being requested so that the access token may not be used to retrieve additional external attachments or resources. For example, the value of `url` could be tied to the access token as audience. This enhances security by enabling the resource server to check whether the audience of a presented access token matches the accessed URL and reject the access when they do not match. The same idea is described in Resource Indicators for OAuth 2.0 [@RFC8707], which defines the `resource` request parameter whereby to specify one or more resources which should be tied to an access token being issued.
 
-The following example shows external attachments:
+<!-- The following example shows external attachments: -->
+以下の例は external attachments を示す:
 
 <{{examples/response/external_attachments.json}}
 
 #### Privacy Considerations
 
-As attachments will most likely contain more personal information than was requested by the RP with specific Claim names, an OP MUST ensure that the End-User is well aware of when and what kind of attachments are about to be transferred to the RP. If possible or applicable, the OP SHOULD allow the End-User to review the content of these attachments before giving consent to the transaction.
+<!-- As attachments will most likely contain more personal information than was requested by the RP with specific Claim names, an OP MUST ensure that the End-User is well aware of when and what kind of attachments are about to be transferred to the RP. If possible or applicable, the OP SHOULD allow the End-User to review the content of these attachments before giving consent to the transaction. -->
+添付ファイルには，特定の Claim 名を使用して RP から要求されたよりも多くの個人情報が含まれる可能性が高いため，OP はいつどのような種類の添付ファイルが RP に転送されるかを，エンドユーザーが十分に認識していることを確認しなければならない (MUST)．可能であれば，あるいは適用可能であれば，OP はエンドユーザーがトランザクションに同意する前に，これらの添付ファイルのコンテンツを確認できるようにするべきである (SHOULD)．
 
 ## claims Element {#claimselement}
 
-The `claims` element contains the Claims about the End-User which were verified by the process and according to the policies determined by the corresponding `verification` element.
+<!-- The `claims` element contains the Claims about the End-User which were verified by the process and according to the policies determined by the corresponding `verification` element. -->
+`claims` 要素にはプロセスによって検証され, 対応する `verification` 要素によって決定されたポリシーに従って検証されたエンドユーザについての Claim が含まれる.
 
-The `claims` element MAY contain one or more of the following Claims as defined in Section 5.1 of the OpenID Connect specification [@!OpenID]
+<!-- The `claims` element MAY contain one or more of the following Claims as defined in Section 5.1 of the OpenID Connect specification [@!OpenID] -->
+`claims` 要素には OpenID Connect specification [@!OpenID] の Section 5.1 で定義されている以下の Claim が一つ以上含まれるかもしれない (MAY)
 
 * `name`
 * `given_name`
@@ -460,19 +662,25 @@ The `claims` element MAY contain one or more of the following Claims as defined 
 * `birthdate`
 * `address`
 
-and the Claims defined in (#userclaims).
+<!-- and the Claims defined in (#userclaims). -->
+そして (#userclaims) で定義されている Claim を含むかもしれない.
 
-The `claims` element MAY also contain other Claims provided the value of the respective Claim was verified in the verification process represented by the sibling `verification` element.
+<!-- The `claims` element MAY also contain other Claims provided the value of the respective Claim was verified in the verification process represented by the sibling `verification` element. -->
+`claims` 要素は, 兄弟要素の `verification` で提示された検証プロセスでそれぞれの Claim の値が検証された場合, 他の Claim も含むかもしれない (MAY).
 
-Claim names MAY be annotated with language tags as specified in Section 5.2 of the OpenID Connect specification [@!OpenID].
+<!-- Claim names MAY be annotated with language tags as specified in Section 5.2 of the OpenID Connect specification [@!OpenID]. -->
+Claim 名は, OpenID Connect 仕様 [@!OpenID] の Section 5.2 で指定されている言語タグで注釈を付けてもよい (MAY).
 
 ## verified_claims Delivery
 
-OPs can deliver `verified_claims` in various ways.
+<!-- OPs can deliver `verified_claims` in various ways. -->
+OP は様々な方法で `verified_claims` を配信できる．
 
-A `verified_claims` element can be added to an OpenID Connect UserInfo response or an ID Token.
+<!-- A `verified_claims` element can be added to an OpenID Connect UserInfo response or an ID Token. -->
+`verified_claims` 要素は OpenID Connect UserInfo レスポンス，または ID Token に追加することができる．
 
-OAuth Authorization Servers can add `verified_claims` to Access Tokens in JWT format or Token Introspection responses, either in plain JSON or JWT-protected format.
+<!-- OAuth Authorization Servers can add `verified_claims` to Access Tokens in JWT format or Token Introspection responses, either in plain JSON or JWT-protected format. -->
+OAuth Authorization Server は，JWT 形式のアクセストークンや Token Introspection のレスポンスに，プレーン JSON または JWT-protected な形式で `verified_claims` を追加することができる．
 
 Here is an example of the payload of an Access Token in JWT format including Verified Claims:
 
@@ -499,75 +707,105 @@ An OP or AS MAY also include `verified_claims` in the above assertions, whether 
 
 For aggregated or distributed claims, every assertion provided by the external Claims source MUST contain:
 
+<!--
 * an `iss` Claim identifying the claims source,
 * a `sub` Claim identifying the End-User in the context of the claim source,
 * a `verified_claims` element containing one or more `verified_claims` objects.
+-->
+* Claim ソース を特定する `iss` Claim，
+* Claim ソース のコンテキストでエンドユーザーを識別する `sub` Claim，
+* 1つ以上の `verified_claims` オブジェクトを含む `verified_claims` 要素．
 
 The `verified_claims` element in an aggregated or distributed claims object MUST have one of the following forms:
 
+<!--
 * a JSON string referring to a certain claim source (as defined in [@!OpenID])
 * a JSON array of strings referring to the different claim sources
 * a JSON object composed of sub-elements formatted with the syntax as defined for requesting `verified_claims` where the name of each object is a name for the respective claim source. Every such named object contains sub-objects called  `claims` and `verification` expressing data provided by the respective claims source. This allows the RP to look ahead before it actually requests distributed Claims in order to prevent extra time, cost, data collisions, etc. caused by these requests.
+-->
+* 特定の Claim ソース ([@!OpenID] で定義) を参照する JSON 文字列
+* 様々な Claim ソースを参照する文字列の JSON 配列
+* a JSON object composed of sub-elements formatted with the syntax as defined for requesting `verified_claims` where the name of each object is a name for the respective claim source. Every such named object contains sub-objects called  `claims` and `verification` expressing data provided by the respective claims source. This allows the RP to look ahead before it actually requests distributed Claims in order to prevent extra time, cost, data collisions, etc. caused by these requests.
 
-Note: The two later forms extend the syntax as defined in Section 5.6.2 of the OpenID Connect specification [@!OpenID]) in order to accommodate the specific use cases for `verified_claims`.
+<!-- Note: The two later forms extend the syntax as defined in Section 5.6.2 of the OpenID Connect specification [@!OpenID]) in order to accommodate the specific use cases for `verified_claims`. -->
+注: あとの2つの形式は，`verified_claims` の特定のユースケースに対応するために OpenID Connect 仕様 [@!OpenID] の Section 5.6.2 で定義されている構文を拡張する．
 
-The following are examples of assertions including Verified Claims as aggregated Claims
+<!-- The following are examples of assertions including Verified Claims as aggregated Claims -->
+以下は 集約 Claim としての 検証済み Claim を含むアサーションの例である
 
 <{{examples/response/aggregated_claims_simple.json}}
 
-and distributed Claims.
+<!-- and distributed Claims. -->
+及び，分散クレーム．
 
 <{{examples/response/distributed_claims.json}}
 
-The following example shows an ID Token containing `verified_claims` from two different external claim sources, one as aggregated and the other as distributed Claims.
+<!-- The following example shows an ID Token containing `verified_claims` from two different external claim sources, one as aggregated and the other as distributed Claims. -->
+次の例は，2つの異なる外部 Claim ソースからの `verified_claims` を含む ID トークンの例で，1つは集約 Claim，もう1つは分散 Claim である．
 
 <{{examples/response/multiple_external_claims_sources.json}}
 
-The next example shows an ID Token containing `verified_claims` from two different external claim sources along with additional data about the content of the Verified Claims (look ahead).
+<!-- The next example shows an ID Token containing `verified_claims` from two different external claim sources along with additional data about the content of the Verified Claims (look ahead). -->
+次の例は，2つの異なる外部 Claim ソースからの `verified_claims` を含む ID トークンと，検証済み Claim のコンテンツに関する追加データを示す (先読み)．
 
 <{{examples/response/multiple_external_claims_sources_with_lookahead.json}}
 
-Claim sources SHOULD sign the assertions containing `verified_claims` in order to demonstrate authenticity and provide for non-repudiation.
+<!--  Claim sources SHOULD sign the assertions containing `verified_claims` in order to demonstrate authenticity and provide for non-repudiation.
+The recommended way for an RP to determine the key material used for validation of the signed assertions is via the claim source's public keys. These keys SHOULD be available in the JSON Web Key Set available in the `jwks_uri` metadata value in the `openid-configuration` metadata document. This document can be discovered using the `iss` Claim of the particular JWT. -->
+Claim ソースは，信頼性の実証と否認防止を提供するために `verified_claims` を含むアサーションを署名しなければならない (SHOULD)．
 The recommended way for an RP to determine the key material used for validation of the signed assertions is via the claim source's public keys. These keys SHOULD be available in the JSON Web Key Set available in the `jwks_uri` metadata value in the `openid-configuration` metadata document. This document can be discovered using the `iss` Claim of the particular JWT.
 
-The OP MAY combine aggregated and distributed Claims with `verified_claims` provided by itself (see (#op_attested_and_external_claims)).
+<!-- The OP MAY combine aggregated and distributed Claims with `verified_claims` provided by itself (see (#op_attested_and_external_claims)). -->
+OP は集約および分散 Claim を，それ自身が提供する `verified_claims` と組み合わせてもよい (MAY)  ((#op_attested_and_external_claims) 参照).
 
-If `verified_claims` elements are contained in multiple places of a response, e.g., in the ID Token and an embedded aggregated Claim, the RP MUST preserve the claims source as context of the particular `verified_claims` element.
+<!-- If `verified_claims` elements are contained in multiple places of a response, e.g., in the ID Token and an embedded aggregated Claim, the RP MUST preserve the claims source as context of the particular `verified_claims` element. -->
+ID トークンや埋め込まれた集約 Claim のように `verified_claims` 要素が応答の複数の場所に含まれている場合，RP は　特定の `verified_claims` 要素のコンテキストとして Claim ソースを保持しなければならない (MUST)．
 
-Note: Any assertion provided by an OP or AS including aggregated or distributed Claims MAY contain multiple instances of the same End-User Claim. It is up to the RP to decide how to process these different instances.
+<!-- Note: Any assertion provided by an OP or AS including aggregated or distributed Claims MAY contain multiple instances of the same End-User Claim. It is up to the RP to decide how to process these different instances. -->
+注: 集約または分散 Claim を含む OP または AS によって提供されるアサーションには，同じエンドユーザー Claim の複数インスタンスが含まれるかもしれない (MAY)．これらの様々なインスタンスを処理する方法を決定するのは RP 次第である．
 
 # Requesting Verified Claims
 
-Making a request for Verified Claims and related verification data can be explicitly requested on the level of individual data elements by utilizing the `claims` parameter as defined in Section 5.5 of the OpenID Connect specification [@!OpenID].
+<!-- Making a request for Verified Claims and related verification data can be explicitly requested on the level of individual data elements by utilizing the `claims` parameter as defined in Section 5.5 of the OpenID Connect specification [@!OpenID]. -->
+OpenID Connect 仕様 [@!OpenID] の Section 5.5 で定義されている `claims` パラメータを利用することで，検証済み Claim と関連する検証データのリクエストを個々のデータ要素レベルで明示的にリクエストできる．
 
-It is also possible to use the `scope` parameter to request one or more specific pre-defined Claim sets as defined in Section 5.4 of the OpenID Connect specification [@!OpenID].
+<!-- It is also possible to use the `scope` parameter to request one or more specific pre-defined Claim sets as defined in Section 5.4 of the OpenID Connect specification [@!OpenID]. -->
+`scope` を使用して，OpenID Connect 仕様 [@!OpenID] の Section 5.4 で定義されている1つ以上の特定の事前定義された Claim セットを要求することもできる．
 
-Note: The OP MUST NOT provide the RP with any data it did not request. However, the OP MAY at its discretion omit Claims from the response.
+<!-- Note: The OP MUST NOT provide the RP with any data it did not request. However, the OP MAY at its discretion omit Claims from the response. -->
+注: OP は，要求しなかったデータを RP に提供してはならない (MUST NOT)．ただし，OP はその裁量によりレスポンスから Claim を省略してもよい (MAY)．
 
 ## Requesting End-User Claims {#req_claims}
 
-Verified Claims can be requested on the level of individual Claims about the End-User by utilizing the `claims` parameter as defined in Section 5.5 of the OpenID Connect specification [@!OpenID].
+<!-- Verified Claims can be requested on the level of individual Claims about the End-User by utilizing the `claims` parameter as defined in Section 5.5 of the OpenID Connect specification [@!OpenID]. -->
+Verified Claims は OpenID Connect specification [@!OpenID] の Section 5.5 に定義されている `claims` parameter を利用することで, End-User について 個々の Claims のレベルで要求できる.
 
-Note: A machine-readable definition of the syntax to be used to request `verified_claims` is given as JSON schema in [@verified_claims_request.json], it can be used to automatically validate `claims` request parameters. The provided JSON schema files are a non-normative implementation of this specification and any discrepancies that exist are either implementation bugs or interpretations.
+<!-- Note: A machine-readable definition of the syntax to be used to request `verified_claims` is given as JSON schema in [@verified_claims_request.json], it can be used to automatically validate `claims` request parameters. The provided JSON schema files are a non-normative implementation of this specification and any discrepancies that exist are either implementation bugs or interpretations. -->
+注: `verified_claims` をリクエストするために使用される機械可読な構文定義は [@verified_claims_request.json] で JSON スキーマとして提供され，これは `claims` リクエストパラメータを自動的に検証するために使用できる．The provided JSON schema files are a non-normative implementation of this specification and any discrepancies that exist are either implementation bugs or interpretations.
 
 To request Verified Claims, the `verified_claims` element is added to the `userinfo` or the `id_token` element of the `claims` parameter.
+検証済み Claim を要求するには，`verified_claims` 要素を `claims` パラメータの `userinfo` または `id_token` 要素に追加する．
 
-Since `verified_claims` contains the effective Claims about the End-User in a nested `claims` element, the syntax is extended to include expressions on nested elements as follows. The `verified_claims` element includes a `claims` element, which in turn includes the desired Claims as keys. For each claim, the value is either `null` (default), or an object. The object may contain restrictions using `value` or `values` as defined in [@!OpenID] and/or the `essential` or `purpose` keys as described below. An example is shown in the following:
+<!-- Since `verified_claims` contains the effective Claims about the End-User in a nested `claims` element, the syntax is extended to include expressions on nested elements as follows. The `verified_claims` element includes a `claims` element, which in turn includes the desired Claims as keys. For each claim, the value is either `null` (default), or an object. The object may contain restrictions using `value` or `values` as defined in [@!OpenID] and/or the `essential` or `purpose` keys as described below. An example is shown in the following: -->
+`verified_claims` にはネストされた `claims` 要素の中に End-User についての有効な Claims が含まれるため, syntax は次のようにネストされた要素の式を含むように拡張される. The `verified_claims` element includes a `claims` element, which in turn includes the desired Claims as keys. For each claim, the value is either `null` (default), or an object. The object may contain restrictions using `value` or `values` as defined in [@!OpenID] and/or the `essential` or `purpose` keys as described below. 以下に例を示す.
 
 <{{examples/request/claims.json}}
 
-Use of the `claims` parameter allows the RP to exactly select the Claims about the End-User needed for its use case. This extension therefore allows RPs to fulfill the requirement for data minimization.
+<!-- Use of the `claims` parameter allows the RP to exactly select the Claims about the End-User needed for its use case. This extension therefore allows RPs to fulfill the requirement for data minimization. -->
+`claims` パラメータを使用すると, RP はユースケースに必要な End-User に関する Claims を正確に選択できる. したがって, この拡張は RPs はデータ最小化の要件を満たすことができる.
 
 RPs MAY use the `essential` field as defined in Section 5.5.1 of the OpenID Connect specification [@!OpenID]. The following example shows this for the family and given names.
 
 <{{examples/request/essential.json}}
 
-This specification introduces the additional field `purpose` to allow an RP
+<!-- This specification introduces the additional field `purpose` to allow an RP
 to state the purpose for the transfer of a certain End-User Claim it is asking for.
 The field `purpose` can be a member value of each individually requested
-Claim, but a Claim cannot have more than one associated purpose.
+Claim, but a Claim cannot have more than one associated purpose. -->
+この仕様では, RP が要求する特定の End-User Claim の移転の目的を説明できるようにするために, 追加のフィールド `purpose` を導入する.
+`purpose` フィールドは, 個々に要求された各 Claim のメンバー値にすることができるが, 1つの Claim には複数の関連する目的を含めることはできない.
 
-`purpose`: OPTIONAL. String describing the purpose for obtaining a certain End-User Claim from the OP. The purpose MUST NOT be shorter than 3 characters or
+<!-- `purpose`: OPTIONAL. String describing the purpose for obtaining a certain End-User Claim from the OP. The purpose MUST NOT be shorter than 3 characters or
 longer than 300 characters. If this rule is violated, the authentication
 request MUST fail and the OP return an error `invalid_request` to the RP.
 The OP MUST display this purpose in the respective End-User consent screen(s)
@@ -575,39 +813,54 @@ in order to inform the End-User about the designated use of the data to be
 transferred or the authorization to be approved. If the parameter `purpose`
 is not present in the request, the OP MAY display a
 value that was pre-configured for the respective RP. For details on UI
-localization, see (#purpose).
+localization, see (#purpose). -->
+`purpose` OPTIONAL. OP から特定の End-User Claim を取得する目的を説明する文字列. `purpose` は 3 文字未満か 300 文字以上となってはならない (MUST NOT).
+もしこのルールに違反した場合, authentication request は失敗し, OP は `invalid_request` エラーを RP にに返さなければならない (MUST).
+移転されるデータの利用目的や承認しようとしている認可内容をエンドユーザーに明示するため, OP は各同意画面にこの purpose を表示しなければならない (MUST).
+`purpose` パラメーターがリクエストに存在しない場合, OP は RP ごとに事前設定された値を表示できる (MAY).
+UI ローカリゼーションの詳細については, (#purpose) 参照.
 
-Example:
+<!-- Example: -->
+例:
 
 <{{examples/request/purpose.json}}
 
 ## Requesting Verification Data {#req_verification}
 
-RPs request verification data in the same way they request Claims about the End-User. The syntax is based on the rules given in (#req_claims) and extends them for navigation into the structure of the `verification` element.
+<!-- RPs request verification data in the same way they request Claims about the End-User. The syntax is based on the rules given in (#req_claims) and extends them for navigation into the structure of the `verification` element. -->
+RP はエンドユーザーに関する Claim を要求するのと同じ方法で検証データを要求する．構文は (#req_claims) で指定したルールに基づき，`verification` 要素の構造にナビゲーションするためにそれらを拡張する．
 
-Elements within `verification` are requested by adding the respective element as shown in the following example:
+<!-- Elements within `verification` are requested by adding the respective element as shown in the following example: -->
+次の例に示すように，`verification` 内の要素は，それぞれの要素を追加することによって要求される
 
 <{{examples/request/verification.json}}
 
-It requests the trust framework the OP complies with and the date of the verification of the End-User Claims.
+<!-- It requests the trust framework the OP complies with and the date of the verification of the End-User Claims. -->
+それは OP の準拠するトラストフレームワークとエンドユーザー Claim の検証日を要求する．
 
-The RP MUST explicitly request any data it wants the OP to add to the `verification` element.
+<!-- The RP MUST explicitly request any data it wants the OP to add to the `verification` element. -->
+RP は OP  が `verification` 要素に追加するデータを明示的に要求しなければならない (MUST).
 
-Therefore, the RP MUST set fields one step deeper into the structure if it wants to obtain evidence. One or more entries in the `evidence` array are used as filter criteria and templates for all entries in the result array. The following examples shows a request asking for evidence of type `document`.
+<!-- Therefore, the RP MUST set fields one step deeper into the structure if it wants to obtain evidence. One or more entries in the `evidence` array are used as filter criteria and templates for all entries in the result array. The following examples shows a request asking for evidence of type `document`. -->
+従って，RP はエビデンスを取得する場合，構造の1ステップ深くフィールドを設定しなければならない (MUST)．`evidence` 配列の1つ以上のエントリは，result 配列のすべてのエントリのフィルタ基準とテンプレートとして使用される．次の例は，`document` タイプのエビデンスを要求するリクエストを示す．
 
 <{{examples/request/verification_deeper.json}}
 
-The example also requests the OP to add the respective `method` and the `document` elements (including data about the document type) for every evidence to the resulting `verified_claims` Claim.
+<!-- The example also requests the OP to add the respective `method` and the `document` elements (including data about the document type) for every evidence to the resulting `verified_claims` Claim. -->
+この例では，OP に対して すべてのエビデンスのそれぞれの `method` と `document` 要素 (ドキュメントタイプに関するデータを含む) を，結果の `verified_claims` Claim に含むように要求している．
 
-A single entry in the `evidence` array represents a filter over elements of a certain evidence type. The RP therefore MUST specify this type by including the `type` field including a suitable `value` sub-element value. The `values` sub-element MUST NOT be used for the `evidence/type` field.
+<!-- A single entry in the `evidence` array represents a filter over elements of a certain evidence type. The RP therefore MUST specify this type by including the `type` field including a suitable `value` sub-element value. The `values` sub-element MUST NOT be used for the `evidence/type` field. -->
+`evidence` 配列の単一エントリは，特定のエビデンスタイプの要素に対するフィルターを洗わず．従って，RP は適切な `value` サブ要素値を含む `type` フィールドを含めることによって，このタイプを指定しなければならない (MUST)．`values` サブ要素を `evidence/type` フィールドに使用してはならない (MUST NOT)．
 
-If multiple entries are present in `evidence`, these filters are linked by a logical OR.
+<!-- If multiple entries are present in `evidence`, these filters are linked by a logical OR. -->
+`evidence` に複数のエンドリが存在する場合，これらのフィルターは論理和によって紐付けられる．
 
 `check_details` is an array of the processes that have been applied to the `evidence`. An RP MAY filter `check_details` by requesting a particular value for one or more of its sub-elements. If multiple entries for the same sub-element are present this acts as a logical OR between them.
 
 `assurance_details` is an array representing how the `evidence` and `check_details` meets the requirements of the `trust_framework`. RP SHOULD only request this where they need to know this information. Where `assurance_details` have been requested by an RP the OP MUST return the `assurance_details` element along with all sub-elements that it has. If an RP wants to filter what types of `evidence` and `check_methods` they MUST use those methods to do so, e.g. requesting an `assurance_type` should have no filtering effect.
 
-The RP MAY also request certain data within the `document` element to be present. This again follows the syntax rules used above:
+<!-- The RP MAY also request certain data within the `document` element to be present. This again follows the syntax rules used above: -->
+RP は `document`要素ないの特定のデータの存在を要求するかもしれない (MAY)．これも上記で使用した構文規則に従う:
 
 <{{examples/request/verification_document.json}}
 
