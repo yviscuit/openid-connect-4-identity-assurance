@@ -145,7 +145,7 @@ RP は，必要最小限のデータセットの要求 (data minimization) と�
 
 <!-- This extension is intended to be truly international and support identity assurance across different jurisdictions. The extension is therefore extensible to support various trust frameworks, identity evidence and assurance processes. -->
 本拡張は，真に国際的で異なる管轄区域を跨いで identity assurance をサポートすることを意図している．
-本拡張は従って，様々なトラストフレームワーク，identity エビデンス，バリデーションや検証プロセスをサポートするために拡張可能である．
+本拡張は従って，様々なトラストフレームワーク，identity エビデンス，バリデーションや保証プロセスをサポートするために拡張可能である．
 
 <!-- In order to give implementors as much flexibility as possible, this extension can be used in conjunction with existing OpenID Connect Claims and other extensions within the same OpenID Connect assertion (e.g., ID Token or UserInfo response) utilized to convey Claims about End-Users. -->
 実装者に可能な限りの柔軟性を与えるために, この拡張は既存の OpenID Connect の Claim および同じ OpenID Connect のアサーション(例えば, ID Token や UserInfo)内の他の拡張と組み合わせて使うことができる.
@@ -262,11 +262,13 @@ RP はこの Claim を `claims` パラメータを介して, または scope 値
 * `claims`: 必須 (REQUIRED). エンドユーザに関するの検証済 Claim のためのコンテナであるオブジェクト.
 
 <!-- Note: Implementations MUST ignore any sub-element not defined in this specification or extensions of this specification. Extensions to this specification that specify additional sub-elements under the `verified_claims` element MAY be created by the OpenID Foundation, ecosystem or scheme operators or indeed singular OpenID Connect for IDA implementers. -->
-注: 実装は, この仕様またはこの仕様の拡張で定義されていないサブ要素を無視しなければならない (MUST). Extensions to this specification that specify additional sub-elements under the `verified_claims` element MAY be created by the OpenID Foundation, ecosystem or scheme operators or indeed singular OpenID Connect for IDA implementers.
+注: 実装は, この仕様またはこの仕様の拡張で定義されていないサブ要素を無視しなければならない (MUST). `verified_claims` 要素の下に追加のサブ要素を指定するこの仕様の拡張は，OpenID Foundation, エコシステムまたはスキーマのオペレータ，それどころかIDA実装者にとっての唯一OpenID Connectによって作成されてもよい (MAY)．
 
-A machine-readable syntax definition of `verified_claims` is given as JSON schema in [@verified_claims.json], it can be used to automatically validate JSON documents containing a `verified_claims` element. The provided JSON schema files are a non-normative implementation of this specification and any discrepancies that exist are either implementation bugs or interpretations. 
+<!-- A machine-readable syntax definition of `verified_claims` is given as JSON schema in [@verified_claims.json], it can be used to automatically validate JSON documents containing a `verified_claims` element. The provided JSON schema files are a non-normative implementation of this specification and any discrepancies that exist are either implementation bugs or interpretations. -->
+`verified_claims` の機械可読な構文定義は [@verified_claims.json] で JSON スキーマとして提供され，これは `verified_claims` 要素を含む JSON ドキュメントを自動的に検証するために使用できる．提供される JSON スキーマファイルは本仕様の標準ではない実装であり，存在する矛盾は実装のバグか，解釈のいずれかである．
 
-Extensions of this specification, including trust framework definitions, can define further constraints on the data structure.
+<!-- Extensions of this specification, including trust framework definitions, can define further constraints on the data structure. -->
+トラストフレームワークの定義を含む本仕様の拡張は，データ構造に対するさらなる制約を定義できる．
 
 ## verification Element {#verification}
 
@@ -297,7 +299,8 @@ RPs は理解できないトラストフレームワーク識別子を含む `ve
 <!-- For information on predefined trust framework and assurance level values see [@!predefined_values] -->
 事前定義されたトラストフレームワークと assurance level については [@!predefined_values] を参照すること. 
 
-`assurance_process`: OPTIONAL. JSON object representing the assurance process that was followed. This reflects how the evidence meets the requirements of the `trust_framework` and `assurance_level`. The factual record of the evidence and the procedures followed are recorded in the `evidence` element, this element is used to cross reference the `evidence` to the `assurance_process` followed. This has one or more of the following sub-elements:
+<!-- `assurance_process`: OPTIONAL. JSON object representing the assurance process that was followed. This reflects how the evidence meets the requirements of the `trust_framework` and `assurance_level`. The factual record of the evidence and the procedures followed are recorded in the `evidence` element, this element is used to cross reference the `evidence` to the `assurance_process` followed. This has one or more of the following sub-elements: -->
+`assurance_process`: OPTIONAL. 実行された保証プロセスを表す JSON オブジェクト．これはエビデンスが `trust_framework` and `assurance_level`の要件をどのように満たしているかを反映する．エビデンスの事実記録と従った手順は `evidence` 要素に記録され，この要素は `evidence` と `assurance_process` を相互参照するために利用される．これには次の1つ以上のサブ要素がある:
 
 <!--
   * `policy`: OPTIONAL. String representing the standard or policy that was followed.
@@ -355,7 +358,8 @@ RPs は理解できないトラストフレームワーク識別子を含む `ve
 * `utility_bill`: 公共料金に基づく検証 (これは将来のリリースで非推奨になるため，実装者は代わりに `document` タイプを使うことを推奨する).
 * `electronic_signature`: 電子署名に基づく検証．
 
-Note: `id_document` is an alias for `document` for backward compatibility purposes but will be deprecated in future releases, implementers are recommended to use `document`.
+<!-- Note: `id_document` is an alias for `document` for backward compatibility purposes but will be deprecated in future releases, implementers are recommended to use `document`. -->
+注: `id_document` は後方互換性を目的とした `document` のエイリアスであるが，将来のリリースでは非推奨となるため，実装者は `document` を利用することを推奨する．
 
 <!-- Depending on the evidence type additional elements are defined, as described in the following. -->
 エビデンスの種類に応じて，以下で説明するように追加の要素が定義される．
@@ -368,16 +372,25 @@ Note: `id_document` is an alias for `document` for backward compatibility purpos
 <!-- `type`: REQUIRED. Value MUST be set to `document`. -->
 `type`: REQUIRED. 値は `document` に設定しなければならない (MUST).
 
-`check_details`: OPTIONAL. JSON array representing the checks done in relation to the `evidence`. When present this array MUST have at least one member.
+<!-- `check_details`: OPTIONAL. JSON array representing the checks done in relation to the `evidence`. When present this array MUST have at least one member. -->
+`check_details`: OPTIONAL. `evidence` に関連して行われたチェックを表す JSON 配列．この配列が存在する場合，少なくとも1つのメンバがなければならない (MUST)．
 
+<!--
   * `check_method`: REQUIRED. String representing the check done, this includes processes such as checking the authenticity of the document, or verifying the user's biometric against an identity document. For information on predefined `check_details` values see [@!predefined_values].
   * `organization`: OPTIONAL. String denoting the legal entity that performed the check. This  SHOULD be included if the OP did not perform the check itself.
   * `txn`: OPTIONAL. Identifier referring to the identity verification transaction. The OP MUST ensure that this is present when `evidence_ref` element is used. The OP MUST ensure that the transaction identifier can be resolved into transaction details during an audit.
   * `time`: OPTIONAL. Time stamp in ISO 8601 [@!ISO8601] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date when the check was completed.
+-->
+  * `check_method`: REQUIRED. 完了したチェックを表す文字列で，これにはドキュメントの信頼性の確認や，ユーザーの生体認証を identity document と照合するなどのプロセスが含まれる．事前定義された `check_details` 値の詳細については，[@!predefined_values] 参照．
+  * `organization`: OPTIONAL. チェックを実行した法人を示す文字列．OP 自身がチェックを実行していない場合，これを含むべきである (SHOULD)．
+  * `txn`: OPTIONAL. identity verification トランザクションを参照する識別子．OP は `evidence_ref` 要素が使用されるときにこれが存在することを保証しなければならない (MUST)．OP は監査中にトランザクション識別子をトランザクションの詳細に解決できることを確認しなければならない (MUST)．
+  * `time`: OPTIONAL. チェックが完了した日付を表す ISO 8601 [@!ISO8601] `YYYY-MM-DDThh:mm[:ss]TZD` フォーマットのタイムスタンプ．
 
-`method`: OPTIONAL. The method used to validate the document and verify the person is the owner of it. In practice this is a combination of a several instances `check_details`, implementers are recommended to use the `check_details` type and deprecate the use of this option unless methods are defined by the trust framework. For information on predefined method values see [@!predefined_values].
+<!-- `method`: OPTIONAL. The method used to validate the document and verify the person is the owner of it. In practice this is a combination of a several instances `check_details`, implementers are recommended to use the `check_details` type and deprecate the use of this option unless methods are defined by the trust framework. For information on predefined method values see [@!predefined_values]. -->
+`method`: OPTIONAL. ドキュメントを検証し，その人物がその所有者であることを確認するために使用した方法．実際にはこれはいくつかの `check_details` インスタンスの組み合わせで，実装者は `check_details` タイプを使用することを推奨し，トラストフレームワークによって方法が定義されていない限り，本オプションの利用は非推奨である．事前定義された値は [@!predefined_values] 参照．
 
-`verifier`: OPTIONAL. JSON object denoting the legal entity that performed the identity verification. This object SHOULD be included if the OP did not perform the identity verification itself. This object is retained for backward compatibility, implementers are recommended to use `check_details` & `organization` instead. This object consists of the following properties:
+<!-- `verifier`: OPTIONAL. JSON object denoting the legal entity that performed the identity verification. This object SHOULD be included if the OP did not perform the identity verification itself. This object is retained for backward compatibility, implementers are recommended to use `check_details` & `organization` instead. This object consists of the following properties: -->
+`verifier`: OPTIONAL. identity verification を実行した法人を示す JSON オブジェクト．OP 自身が identity verification を実行していない場合，このオブジェクトを含むべきである (SHOULD)．このオブジェクトは後方互換性のために保持されており，実装者は代わりに `check_details` & `organization` を使用することを推奨する．このオブジェクトは以下の要素で構成される:
 
 <!--
 * `organization`: REQUIRED. String denoting the organization which performed the verification on behalf of the OP.
@@ -425,12 +438,19 @@ Note: `id_document` is an alias for `document` for backward compatibility purpos
 <!-- `type`: REQUIRED. Value MUST be set to `electronic_record`. -->
 `type`: REQUIRED. 値は `electronic_record` に設定しなければならない (MUST).
 
-`check_details`: OPTIONAL. JSON array representing the checks done in relation to the `evidence`.
+<!-- `check_details`: OPTIONAL. JSON array representing the checks done in relation to the `evidence`. -->
+`check_details`: OPTIONAL. `evidence` に関連して行われたチェックを表す JSON 配列．
 
+<!--
   * `check_method`: REQUIRED. String representing the check done. For information on predefined `check_method` values see [@!predefined_values].
   * `organization`: OPTIONAL. String denoting the legal entity that performed the check. This  SHOULD be included if the OP did not perform the check itself.
   * `txn`: OPTIONAL. Identifier referring to the identity verification transaction. The OP MUST ensure that this is present when `evidence_ref` element is used. The OP MUST ensure that the transaction identifier can be resolved into transaction details during an audit.
   * `time`: OPTIONAL. Time stamp in ISO 8601 [@!ISO8601] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date when the check was completed.  
+-->
+  * `check_method`: REQUIRED. 完了したチェックを表す文字列．事前定義された `check_method` 値については [@!predefined_values] 参照．
+  * `organization`: OPTIONAL. チェックを実行した法人を示す文字列．OP 自身がチェックを実行していない場合，これを含むべきである (SHOULD)．
+  * `txn`: OPTIONAL. identity verification トランザクションを参照する識別子．OP は `evidence_ref` 要素が使用されるときにこれが存在することを保証しなければならない (MUST)．OP は監査中にトランザクション識別子をトランザクションの詳細に解決できることを確認しなければならない (MUST)．
+  * `time`: OPTIONAL. チェックが完了した日付を表す ISO 8601 [@!ISO8601] `YYYY-MM-DDThh:mm[:ss]TZD` フォーマットのタイムスタンプ．
 
 <!-- `time`: OPTIONAL. Time stamp in ISO 8601 [@!ISO8601] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date when this record was verified. -->
 `time`: OPTIONAL. レコードが検証された日付を表す ISO 8601 [@!ISO8601] `YYYY-MM-DDThh:mm[:ss]TZD` フォーマットのタイムスタンプ．
@@ -454,7 +474,7 @@ Note: `id_document` is an alias for `document` for backward compatibility purpos
 * `created_at`: OPTIONAL. ISO 8601 [@!ISO8601] `YYYY-MM-DDThh:mm[:ss]TZD` 形式で表す，レコードの作成された日付.
 * `date_of_expiry`: OPTIONAL. ISO 8601 [@!ISO8601] `YYYY-MM-DDThh:mm[:ss]TZD` 形式で表す，ドキュメントの有効期限の日付.
 * `source`: OPTIONAL. レコードのソースに関する情報を含む JSON オブジェクト．このオブジェクトは下記のプロパティで構成される:
-    * `name`: OPTIONAL. Designation of the source of the electronic_record.
+    * `name`: OPTIONAL. electronic_record のソースの指定.
     * OpenID Connect `address` Claim (see [@!OpenID]) のすべての要素: OPTIONAL.
     * `country_code`: OPTIONAL. "USA" や "JPN" のような ISO 3166/ICAO 3-letter codes [@!ICAO-Doc9303] で，エビデンスを発行した国や超国家組織を表す文字列．状況によっては，互換性の理由から 2-letter ICAO codes が使用されるかもしれない (MAY)．
     * `jurisdiction`: OPTIONAL. ソースが管轄する地域/州/件/市町村の名前を含む文字列 (それ一般的な知識でないか，住所から導き出せない場合)．
@@ -467,12 +487,19 @@ Note: `id_document` is an alias for `document` for backward compatibility purpos
 <!-- `type`: REQUIRED. Value MUST be set to `vouch`. -->
 `type`: REQUIRED. 値は `vouch` に設定しなければならない (MUST).
 
-`check_details`: OPTIONAL. JSON array representing the checks done in relation to the `vouch`.
+<!-- `check_details`: OPTIONAL. JSON array representing the checks done in relation to the `vouch`. -->
+`check_details`: OPTIONAL. `vouch` に関連して行われたチェックを表す JSON 配列．
 
+<!--
   * `check_method`: REQUIRED. String representing the check done, this includes processes such as checking the authenticity of the vouch, or verifing the user as the person referenced in the vouch. For information on predefined `check_method` values see [@!predefined_values].
   * `organization`: OPTIONAL. String denoting the legal entity that performed the check. This  SHOULD be included if the OP did not perform the check itself.
   * `txn`: OPTIONAL. Identifier referring to the identity verification transaction. The OP MUST ensure that this is present when `evidence_ref` element is used. The OP MUST ensure that the transaction identifier can be resolved into transaction details during an audit.
   * `time`: OPTIONAL. Time stamp in ISO 8601 [@!ISO8601] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date when the check was completed.  
+-->
+  * `check_method`: REQUIRED. 完了したチェックを表す文字列で，これには vouch の信頼性の確認や，ユーザーが vouch で参照されている自分つであるかどうかの確認などのプロセスが含まれる．事前定義された `check_details` 値の詳細については，[@!predefined_values] 参照．
+  * `organization`: OPTIONAL. チェックを実行した法人を示す文字列．OP 自身がチェックを実行していない場合，これを含むべきである (SHOULD)．
+  * `txn`: OPTIONAL. identity verification トランザクションを参照する識別子．OP は `evidence_ref` 要素が使用されるときにこれが存在することを保証しなければならない (MUST)．OP は監査中にトランザクション識別子をトランザクションの詳細に解決できることを確認しなければならない (MUST)．
+  * `time`: OPTIONAL. チェックが完了した日付を表す ISO 8601 [@!ISO8601] `YYYY-MM-DDThh:mm[:ss]TZD` フォーマットのタイムスタンプ．
 
 <!-- `time`: OPTIONAL. Time stamp in ISO 8601 [@!ISO8601] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date when this vouch was verified. -->
 `time`: OPTIONAL. 証拠が検証された日付を表す ISO 8601 [@!ISO8601] `YYYY-MM-DDThh:mm[:ss]TZD` フォーマットのタイムスタンプ．
@@ -497,13 +524,13 @@ Note: `id_document` is an alias for `document` for backward compatibility purpos
 * `type`: REQUIRED. 証拠のタイプを表す文字列．事前定義された証拠値については [@!predefined_values] 参照. OP は RP がアサーションを処理できないか，監査目的でこの値を保存するか，特注のビジネスロジックを適用する場合，事前定義された値以外を使用してもよい (MAY).
 * `reference_number`: OPTIONAL. エンドユーザーについて与えられた証拠を一意に識別する識別子/番号を表す文字列．
 * `personal_number`: OPTIONAL. 国民識別番号，個人識別番号，市民番号，社会保障番号，運転免許証番号，口座番号，顧客番号，ライセンシー番号のような，エンドユーザーに割り当てられ，1つのドキュメントで使用されることに限定されない識別子を表す文字列．
-* `date_of_issuance`: OPTIONAL. The date the vouch was made as ISO 8601 [@!ISO8601] `YYYY-MM-DD` format.
+* `date_of_issuance`: OPTIONAL. ISO 8601 [@!ISO8601] `YYYY-MM-DD` 形式で表す，vouch が作成されたされた日付.
 * `date_of_expiry`: OPTIONAL. ISO 8601 [@!ISO8601] `YYYY-MM-DD` 形式で表す，エビデンスの有効期限の日付.
 * `voucher`: OPTIONAL. 証拠を提供するエンティティに関する情報を含む JSON オブジェクト．このオブジェクトは下記のプロパティで構成される:
     * `name`: OPTIONAL. OpenID Connect 仕様の Section 5.1 で定義されているのと同じ形式で，エンドユーザー Claim の証拠/参照を提供する人の名前を含む文字列．
     * `birthdate`: OPTIONAL. OpenID Connect 仕様の Section 5.1 で定義されているのと同じ形式で，エンドユーザー Claim の証拠/参照を提供する人の誕生日を含む文字列．
     * OpenID Connect `address` Claim (see [@!OpenID]) のすべての要素: OPTIONAL.
-    * `country_code`: OPTIONAL. String denoting the country or supranational organization that issued the evidence as ISO 3166/ICAO 3-letter codes [@!ICAO-Doc9303], e.g., "USA" or "JPN". 2-letter ICAO codes MAY be used in some circumstances for compatibility reasons.
+    * `country_code`: OPTIONAL. "USA" や "JPN" のような ISO 3166/ICAO 3-letter codes [@!ICAO-Doc9303] で，エビデンスを発行した国や超国家組織を表す文字列．状況によっては，互換性の理由から 2-letter ICAO codes が使用されるかもしれない (MAY)．
     * `occupation`: OPTIONAL. 証拠/参照を与える人の職業または他の権限を含む文字列 .
     * `organization`: OPTIONAL. voucher が表す組織の名前を含む文字列．
 
@@ -528,7 +555,7 @@ Note: `id_document` is an alias for `document` for backward compatibility purpos
 -->
 * `name`: REQUIRED. プロバイダーを指定する文字列.
 * OpenID Connect `address` Claim (see [@!OpenID]) のすべての要素．
-* `country_code`: OPTIONAL. String denoting the country or supranational organization that issued the evidence as ISO 3166/ICAO 3-letter codes [@!ICAO-Doc9303], e.g., "USA" or "JPN". 2-letter ICAO codes MAY be used in some circumstances for compatibility reasons.
+* `country_code`: OPTIONAL. "USA" や "JPN" のような ISO 3166/ICAO 3-letter codes [@!ICAO-Doc9303] で，エビデンスを発行した国や超国家組織を表す文字列．状況によっては，互換性の理由から 2-letter ICAO codes が使用されるかもしれない (MAY)．
 
 <!-- `date`: OPTIONAL. String in ISO 8601 [@!ISO8601] `YYYY-MM-DD` format containing the date when this bill was issued. -->
 `date`: OPTIONAL. 請求書が発行された日付を含む ISO 8601 [@!ISO8601] `YYYY-MM-DD` 形式の文字列.
@@ -595,7 +622,8 @@ RP から要求された場合，RP が検証済み Claim 情報とともにこ�
 <!-- `content`: REQUIRED. Base64 encoded representation of the document content. -->
 `content`: REQUIRED. ドキュメントコンテンツの Base64 エンコード表現.
 
-`txn`: OPTIONAL. Identifier referring to the transaction. The OP SHOULD ensure this matches a `txn` contained within `check_method` when `check_method` needs to reference the embedded attachment.
+<!-- `txn`: OPTIONAL. Identifier referring to the transaction. The OP SHOULD ensure this matches a `txn` contained within `check_method` when `check_method` needs to reference the embedded attachment. -->
+`txn`: OPTIONAL. トランザクションを参照する識別子．OP は `check_method` が埋め込み添付ファイルを参照する必要がある場合，これが `check_method` 内に含まれる `txn` と一致することを確認しなければならない (SHOULD)．
 
 <!-- The following example shows embedded attachments. The actual contents of the documents are truncated: -->
 以下の例は，埋め込まれた添付ファイルを示す．ドキュメントの実際の内容は切り捨てられている:
@@ -631,12 +659,14 @@ External attachments は分散 Claim と似ている．外部ドキュメント�
 * `alg`: REQUIRED. 暗号化ハッシュの計算に使用されるアルゴリズムを指定する．アルゴリズムは，Client の登録または管理の間に RP と OP の間で事前にネゴシエートされている．
 * `value`: REQUIRED. 暗号化ハッシュの Base64 エンコード表現．
 
-`txn`: OPTIONAL. Identifier referring to the transaction. The OP SHOULD ensure this matches a `txn` contained within `check_method` when `check_method` needs to reference the embedded attachment.
+<!-- `txn`: OPTIONAL. Identifier referring to the transaction. The OP SHOULD ensure this matches a `txn` contained within `check_method` when `check_method` needs to reference the embedded attachment. -->
+`txn`: OPTIONAL. トランザクションを参照する識別子．OP は `check_method` が埋め込み添付ファイルを参照する必要がある場合，これが `check_method` 内に含まれる `txn` と一致することを確認しなければならない (SHOULD)．
 
 <!-- External attachments are suitable when embedding Verified Claims in Tokens. However, the `verified_claims` element is not self-contained. The documents need to be retrieved separately, and the digest values MUST be calculated and validated to ensure integrity. -->
 External attachments は検証済み Claim を Token に埋め込む場合に適している．だがしかし，`verified_claims` 要素は自己完結型ではない．ドキュメントは個別に取得しなければならず，整合性を確保するためにダイジェスト値を計算し，検証しなければならない (MUST)．
 
-It is RECOMMENDED that access tokens for external attachments have a binding to the specific resource being requested so that the access token may not be used to retrieve additional external attachments or resources. For example, the value of `url` could be tied to the access token as audience. This enhances security by enabling the resource server to check whether the audience of a presented access token matches the accessed URL and reject the access when they do not match. The same idea is described in Resource Indicators for OAuth 2.0 [@RFC8707], which defines the `resource` request parameter whereby to specify one or more resources which should be tied to an access token being issued.
+<!-- It is RECOMMENDED that access tokens for external attachments have a binding to the specific resource being requested so that the access token may not be used to retrieve additional external attachments or resources. For example, the value of `url` could be tied to the access token as audience. This enhances security by enabling the resource server to check whether the audience of a presented access token matches the accessed URL and reject the access when they do not match. The same idea is described in Resource Indicators for OAuth 2.0 [@RFC8707], which defines the `resource` request parameter whereby to specify one or more resources which should be tied to an access token being issued. -->
+追加の外部添付ファイルやリソースを取得するためにアクセストークンが使用されないために，外部添付ファイルのアクセストークンは要求されている特定のリソースへバインディングすべきである (RECOMMENDED)．例えば，`url` の値を audience としてアクセストークンと関連付けることができる．これにより，リソースサーバーは提示されたアクセストークンの audience がアクセスされた URL と一致するかを確認し，一致しない場合にアクセスを拒否することで，セキュリティを強化する．同じアイデアが Resource Indicators for OAuth 2.0 [@RFC8707] で説明されており，発行されるアクセストークンに関連付けられる1つ以上のリソースを指定するための `resource` リクエストパラメーターを定義している．
 
 <!-- The following example shows external attachments: -->
 以下の例は external attachments を示す:
@@ -683,7 +713,8 @@ OP は様々な方法で `verified_claims` を配信できる．
 <!-- OAuth Authorization Servers can add `verified_claims` to Access Tokens in JWT format or Token Introspection responses, either in plain JSON or JWT-protected format. -->
 OAuth Authorization Server は，JWT 形式のアクセストークンや Token Introspection のレスポンスに，プレーン JSON または JWT-protected な形式で `verified_claims` を追加することができる．
 
-Here is an example of the payload of an Access Token in JWT format including Verified Claims:
+<!-- Here is an example of the payload of an Access Token in JWT format including Verified Claims: -->
+以下は，Verified Claims を含む JWT 形式のアクセストークンのペイロードの例である:
 
 ```json
 {
@@ -704,9 +735,11 @@ Here is an example of the payload of an Access Token in JWT format including Ver
 }
 ```
 
-An OP or AS MAY also include `verified_claims` in the above assertions, whether they are Access Tokens or in Token Introspection responses, as aggregated or distributed claims (see Section 5.6.2 of the OpenID Connect specification [@!OpenID]).
+<!-- An OP or AS MAY also include `verified_claims` in the above assertions, whether they are Access Tokens or in Token Introspection responses, as aggregated or distributed claims (see Section 5.6.2 of the OpenID Connect specification [@!OpenID]). -->
+OP または AS は，アクセストークンか Token Introspection レスポンスであるかに関係なく，集約または分散クレーム (OpenID Connect 仕様 [@!OpenID] の Section 5.6.2 参照) として，上記のアサーションに  `verified_claims` を含めることもできる．
 
-For aggregated or distributed claims, every assertion provided by the external Claims source MUST contain:
+<!-- For aggregated or distributed claims, every assertion provided by the external Claims source MUST contain: -->
+集約または分散クレームの場合，外部クレームソースによって提供されるすべてのアサーションは次を含まなければならない (MUST):
 
 <!--
 * an `iss` Claim identifying the claims source,
@@ -717,7 +750,8 @@ For aggregated or distributed claims, every assertion provided by the external C
 * Claim ソース のコンテキストでエンドユーザーを識別する `sub` Claim，
 * 1つ以上の `verified_claims` オブジェクトを含む `verified_claims` 要素．
 
-The `verified_claims` element in an aggregated or distributed claims object MUST have one of the following forms:
+<!-- The `verified_claims` element in an aggregated or distributed claims object MUST have one of the following forms: -->
+集約または分散クレームオブジェクトの `verified_claims` 要素は，次のいずれかの形式でなければならない (MUST):
 
 <!--
 * a JSON string referring to a certain claim source (as defined in [@!OpenID])
@@ -726,7 +760,7 @@ The `verified_claims` element in an aggregated or distributed claims object MUST
 -->
 * 特定の Claim ソース ([@!OpenID] で定義) を参照する JSON 文字列
 * 様々な Claim ソースを参照する文字列の JSON 配列
-* a JSON object composed of sub-elements formatted with the syntax as defined for requesting `verified_claims` where the name of each object is a name for the respective claim source. Every such named object contains sub-objects called  `claims` and `verification` expressing data provided by the respective claims source. This allows the RP to look ahead before it actually requests distributed Claims in order to prevent extra time, cost, data collisions, etc. caused by these requests.
+* 各オブジェクトの名前は，それぞれのクレームソースの名前である，`verified_claims` をリクエストするために定義された構文でフォーマットされたサブ要素で構成される JSON オブジェクト．すべてのこのような名前付きオブジェクトには，それぞれのクレームソースによって提供されるデータを表す `claim` と `verification` と呼ばれるサブオブジェクトが含まれる．これにより，これらのリクエストによって生じる余分な時間，コスト，データ衝突などを防ぐために，RP は分散クレームを実際にリクエストする前に先読みすることが可能になる．
 
 <!-- Note: The two later forms extend the syntax as defined in Section 5.6.2 of the OpenID Connect specification [@!OpenID]) in order to accommodate the specific use cases for `verified_claims`. -->
 注: あとの2つの形式は，`verified_claims` の特定のユースケースに対応するために OpenID Connect 仕様 [@!OpenID] の Section 5.6.2 で定義されている構文を拡張する．
