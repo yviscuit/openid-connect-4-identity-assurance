@@ -37,7 +37,7 @@ The `txn` Claim as defined in [@!RFC8417] is used in the context of this extensi
 
 # txn request
 
-The RP requests this Claim like any other Claim via the `claims` parameter or as part of a default claim set identified by a scope value, for example:
+RPは, Claimと同様に`claims`パラメータを介するか, あるいはスコープ値によって特定されるデフォルトのクレームセットの一部として, このClaimを要求する. 例えば:
 
 ```
 "txn": null
@@ -45,7 +45,7 @@ The RP requests this Claim like any other Claim via the `claims` parameter or as
 
 # txn issuance, response and processing
 
-The OP generates txn claim as a unique identifier, for example:
+OPは`txn` Claimをユニークな識別子として生成する. 例えば:
 
 ```
 {
