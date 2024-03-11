@@ -63,24 +63,27 @@ organization="KDDI Corporation"
 %%%
 
 .# Abstract
-
-この仕様では, エンドユーザーに関する新しいJWTクレームを登録するためのOpenID Connectの拡張機能を定義する. この拡張は, 元々はOpenID Connect for Identity Assuranceの以前のドラフトで定義されていた, 自然人のアイデンティティに関連する新しいクレームを定義している. この取り組み及び以前のドラフトは, OpenID FoundationのeKYC & IDA ワーキンググループの取り組みである.
+<!-- This specification defines an extension of OpenID Connect that registers new JWT claims about End-Users. This extension defines new claims relating to the identity of a natural person that were originally defined within earlier drafts of OpenID Connect for Identity Assurance. The work and the preceding drafts are the work of the eKYC and Identity Assurance working group of the OpenID Foundation. -->
+この仕様では, End-User に関する新しい JWTクレーム を登録するための OpenID Connect の拡張機能を定義する. この拡張は, 元々 OpenID Connect for Identity Assurance の以前のドラフトで定義されていた, 自然人のアイデンティティに関連する新しい Claim を定義している. この取り組み及び以前のドラフトは, OpenID Foundation の eKYC & IDA ワーキンググループの取り組みである.
 
 {mainmatter}
 
 # Introduction {#Introduction}
 
-この仕様では, 自然人に関する追加のJWTクレームを定義する. この定義されたクレームは`id_token`を含む様々なコンテキストで使用できる. (MAY)
+<!-- This specification defines additional JWT claims about the natural person.  The claims defined MAY be used in various contexts including an id_token. -->
+この仕様では, 自然人に関する追加の JWT クレームを定義する. この定義されたクレームは `id_token` を含む様々なコンテキストで使用できる. (MAY)
 
 # Scope
 
-この仕様では, [@!RFC7519]によって定義され, IANAによって管理される"JSON Web Token Claims Registry"のみを定義している. これらのクレームは, [@RFC7519]に従いJWTでエンドユーザーの特性を記述する必要があるあらゆるコンテキストで使われるべきである. (SHOULD)
+<!-- This specification only defines claims to be maintained in the IANA "JSON Web Token Claims Registry" established by [@!RFC7519].  These claims SHOULD be used in any context that needs to describe these characteristics of the end-user in a JWT as per [@RFC7519]. -->
+この仕様では, [@!RFC7519] によって定義され, IANA によって管理される "JSON Web Token Claims Registry" のみを定義している. これらの Claim は, [@RFC7519] に従い JWT で End-User の特性を記述する必要があるあらゆるコンテキストで使われるべきである. (SHOULD)
 
 # Claims {#claims}
 
 ## Additional Claims about End-Users {#userclaims}
 
-この仕様は, ([@RFC7519]に従う)JWTを利用できるあらゆるコンテキストにおいて, OpenID Connectの仕様[@!OpenID]及びOpenID Connect for Identity Assuranceの仕様[@!OpenID4IDA]で定義されるClaimsに加えて, エンドユーザーのデータを伝達するための次のClaimsを定義している.
+<!-- This specification defines the following Claims for conveying End-User data in addition to the Claims defined in the OpenID Connect specification [@!OpenID] and the OpenID Connect for Identity Assurance specification [@!OpenID4IDA] and in any other context that a JWT (as per [@RFC7519]) may be used: -->
+この仕様は, OpenID Connect 仕様[@!OpenID]及び OpenID Connect for Identity Assurance の仕様[@!OpenID4IDA]で定義される Claim に加えて, ([@RFC7519]に従う) JWT が使われるかもしれないあらゆるコンテキストにおいて, End-User データを伝達するための次の Claim を定義している.
 
 <!--
 | Claim | Type | Description |
@@ -124,7 +127,8 @@ organization="KDDI Corporation"
 
 ## Examples
 
-このセクションには, このドキュメントで説明されるエンドユーザーのクレームの例を示す, JSONスニペットが含まれている.
+<!-- This section contains JSON snippets showing examples of end-user claims described in this document. -->
+このセクションには, このドキュメントで説明される End-User Claim の例を示す, JSON スニペットが含まれている.
 
 ```
 {
@@ -288,7 +292,8 @@ organization="KDDI Corporation"
 
 ## JSON Web Token Claims Registration
 
-この仕様は[@!RFC7519] によって確立された IANAにおける"JSON Web Token Claims Registry"に次の値を登録することを要求している.
+<!-- This specification requests registration of the following value in the IANA "JSON Web Token Claims Registry" established by [@!RFC7519]. -->
+この仕様は [@!RFC7519] によって確立された IANA における "JSON Web Token Claims Registry" に次の値を登録することを要求している.
 
 ### Registry Contents
 
@@ -298,13 +303,15 @@ Claim Name:
 : `place_of_birth`
 
 Claim Description:
-: エンドユーザーの出生地を表現する構造化Claim
+<!-- : A structured Claim representing the End-User’s place of birth. -->
+: End-User の出生地を表現する構造化 Claim
 
 Change Controller:
 : eKYC and Identity Assurance Working Group - openid-specs-ekyc-ida@lists.openid.net
 
 Specification Document(s):
-: このドキュメントのセクション[Claims](#claims)
+<!-- : Section [Claims](#claims) of this document -->
+: このドキュメントの [Claims](#claims) セクション
 
 #### Claim `nationalities`
 
@@ -312,13 +319,15 @@ Claim Name:
 : `nationalities`
 
 Claim Description:
-: エンドユーザーの国籍を表現する文字列配列
+<!-- : String array representing the End-User’s nationalities. -->
+: End-User の国籍を表現する文字列配列
 
 Change Controller:
 : eKYC and Identity Assurance Working Group - openid-specs-ekyc-ida@lists.openid.net
 
 Specification Document(s):
-: このドキュメントのセクション[Claims](#claims)
+<!-- : Section [Claims](#claims) of this document -->
+: このドキュメントの [Claims](#claims) セクション
 
 #### Claim `birth_family_name`
 
@@ -326,13 +335,15 @@ Claim Name:
 : `birth_family_name`
 
 Claim Description:
+<!-- : Family name(s) someone has when they were born, or at least from the time they were a child. This term can be used by a person who changes the family name(s) later in life for any reason. Note that in some cultures, people can have multiple family names or no family name; all can be present, with the names being separated by space characters. -->
 : 誰かがが生まれたとき, あるいは少なくとも子供の時から持っている姓. この用語は人生の途中に何らかの理由で姓を変更した人が利用できる. 一部の文化では，人々は複数の姓を持つことも，姓を持たないこともあることに注意すること．全ての名前はスペース文字で区切って存在する．
 
 Change Controller:
 : eKYC and Identity Assurance Working Group - openid-specs-ekyc-ida@lists.openid.net
 
 Specification Document(s):
-: このドキュメントのセクション[Claims](#claims)
+<!-- : Section [Claims](#claims) of this document -->
+: このドキュメントの [Claims](#claims) セクション
 
 #### Claim `birth_given_name`
 
@@ -340,13 +351,15 @@ Claim Name:
 : `birth_given_name`
 
 Claim Description:
+<!-- : Given name(s) someone has when they were born, or at least from the time they were a child. This term can be used by a person who changes the given name later in life for any reason. Note that in some cultures, people can have multiple given names; all can be present, with the names being separated by space characters. -->
 : 誰かが生まれたとき, あるいは少なくとも子供の時から持っている名前. この用語は人生の途中に何らかの理由で名前を変更した人が利用できる．一部の文化では，人々は複数の名を持つことに注意すること．全ての名前はスペース文字で区切って存在する．
 
 Change Controller:
 : eKYC and Identity Assurance Working Group - openid-specs-ekyc-ida@lists.openid.net
 
 Specification Document(s):
-: このドキュメントのセクション[Claims](#claims)
+<!-- : Section [Claims](#claims) of this document -->
+: このドキュメントの [Claims](#claims) セクション
 
 #### Claim `birth_middle_name`
 
@@ -354,14 +367,15 @@ Claim Name:
 : `birth_middle_name`
 
 Claim Description:
-: Middle name(s) someone has when they were born, or at least from the time they were a child. This term can be used by a person who changes the middle name later in life for any reason. Note that in some cultures, people can have multiple middle names; all can be present, with the names being separated by space characters. Also note that in some cultures, middle names are not used.
+<!-- : Middle name(s) someone has when they were born, or at least from the time they were a child. This term can be used by a person who changes the middle name later in life for any reason. Note that in some cultures, people can have multiple middle names; all can be present, with the names being separated by space characters. Also note that in some cultures, middle names are not used. -->
 : 誰かが生まれたとき, あるいは少なくとも子供の時から持っているミドルネーム. この用語は人生の途中に何らかの理由でミドルネームを変更した人が利用できる.一部の文化では，人々は複数のミドルネームを持つことができることに注意すること．全ての名前はスペース文字で区切って存在する．また，一部の文化ではミドルネームが使用されていないことにも注意すること．
 
 Change Controller:
 : eKYC and Identity Assurance Working Group - openid-specs-ekyc-ida@lists.openid.net
 
 Specification Document(s):
-: このドキュメントのセクション[Claims](#claims)
+<!-- : Section [Claims](#claims) of this document -->
+: このドキュメントの [Claims](#claims) セクション
 
 #### Claim `salutation`
 
@@ -369,13 +383,15 @@ Claim Name:
 : `salutation`
 
 Claim Description:
-: エンドユーザーの敬称, 例えば, "Mr."
+<!-- : End-User’s salutation, e.g., “Mr.” -->
+: End-User の敬称, 例えば, "Mr."
 
 Change Controller:
 : eKYC and Identity Assurance Working Group - openid-specs-ekyc-ida@lists.openid.net
 
 Specification Document(s):
-: このドキュメントのセクション[Claims](#claims)
+<!-- : Section [Claims](#claims) of this document -->
+: このドキュメントの [Claims](#claims) セクション
 
 #### Claim `title`
 
@@ -383,13 +399,15 @@ Claim Name:
 : `title`
 
 Claim Description:
-: エンドユーザーの肩書, 例えば, "Dr."
+<!-- : End-User’s title, e.g., “Dr.” -->
+: End-User の肩書, 例えば, "Dr."
 
 Change Controller:
 : eKYC and Identity Assurance Working Group - openid-specs-ekyc-ida@lists.openid.net
 
 Specification Document(s):
-: このドキュメントのセクション[Claims](#claims)
+<!-- : Section [Claims](#claims) of this document -->
+: このドキュメントの [Claims](#claims) セクション
 
 #### Claim `msisdn`
 
@@ -397,13 +415,15 @@ Claim Name:
 : `msisdn`
 
 Claim Description:
-: ITU-T勧告[@!E.164]に従ってフォーマットされたエンドユーザーの電話番号.
+<!-- : End-User’s mobile phone number formatted according to ITU-T recommendation [@!E.164] -->
+: ITU-T勧告[@!E.164] に従ってフォーマットされた End-User の電話番号.
 
 Change Controller:
 : eKYC and Identity Assurance Working Group - openid-specs-ekyc-ida@lists.openid.net
 
 Specification Document(s):
-: このドキュメントのセクション[Claims](#claims)
+<!-- : Section [Claims](#claims) of this document -->
+: このドキュメントの [Claims](#claims) セクション
 
 #### Claim `also_known_as`
 
@@ -411,20 +431,23 @@ Claim Name:
 : `also_known_as`
 
 Claim Description:
+<!-- : Stage name, religious name or any other type of alias/pseudonym with which a person is known in a specific context besides its legal name. -->
 : 芸名, 宗教名, または実名以外の特定の文脈で人が知られているその他の種類の別名/仮名.
 
 Change Controller:
 : eKYC and Identity Assurance Working Group - openid-specs-ekyc-ida@lists.openid.net
 
 Specification Document(s):
-: このドキュメントのセクション[Claims](#claims)
+<!-- : Section [Claims](#claims) of this document -->
+: このドキュメントの [Claims](#claims) セクション
 
 # Acknowledgements {#Acknowledgements}
 
-The following people at yes.com and partner companies contributed to the concept described in the initial contribution to this specification: Karsten Buch, Lukas Stiebig, Sven Manz, Waldemar Zimpfer, Willi Wiedergold, Fabian Hoffmann, Daniel Keijsers, Ralf Wagner, Sebastian Ebling, Peter Eisenhofer.
-この仕様に対する初期の寄稿で説明されている概念は, yes.comとパートナー企業の次の人々の貢献によるものである: Karsten Buch, Lukas Stiebig, Sven Manz, Waldemar Zimpfer, Willi Wiedergold, Fabian Hoffmann, Daniel Keijsers, Ralf Wagner, Sebastian Ebling, Peter Eisenhofer.
+<!-- The following people at yes.com and partner companies contributed to the concept described in the initial contribution to this specification: Karsten Buch, Lukas Stiebig, Sven Manz, Waldemar Zimpfer, Willi Wiedergold, Fabian Hoffmann, Daniel Keijsers, Ralf Wagner, Sebastian Ebling, Peter Eisenhofer. -->
+この仕様に対する初期の寄稿で説明されている概念は, yes.com とパートナー企業の次の人々の貢献によるものである: Karsten Buch, Lukas Stiebig, Sven Manz, Waldemar Zimpfer, Willi Wiedergold, Fabian Hoffmann, Daniel Keijsers, Ralf Wagner, Sebastian Ebling, Peter Eisenhofer.
 
-我々は, この仕様を進化させる助けとなる, 価値あるフィードバックを与えて貢献してくれたJulian White, Bjorn Hjelm, Stephane Mouy, Alberto Pulido, Joseph Heenan, Vladimir Dzhuvinov, Azusa Kikuchi, Naohiro Fujie, Takahiko Kawasaki, Sebastian Ebling, Marcos Sanz, Tom Jones, Mike Pegman, Michael B. Jones, Jeff Lombardo, Taylor Ongaro, Peter Bainbridge-Clayton, Adrian Field, George Fletcher, Tim Cappalli, Michael Palage, Sascha Preibisch, Giuseppe De Marco, Nick Mothershaw, Hodari McClain, Nat Sakimuraに感謝する.
+<!-- We would like to thank Julian White, Bjorn Hjelm, Stephane Mouy, Alberto Pulido, Joseph Heenan, Vladimir Dzhuvinov, Azusa Kikuchi, Naohiro Fujie, Takahiko Kawasaki, Sebastian Ebling, Marcos Sanz, Tom Jones, Mike Pegman, Michael B. Jones, Jeff Lombardo, Taylor Ongaro, Peter Bainbridge-Clayton, Adrian Field, George Fletcher, Tim Cappalli, Michael Palage, Sascha Preibisch, Giuseppe De Marco, Nick Mothershaw, Hodari McClain, and Nat Sakimura for their valuable feedback and contributions that helped to evolve this specification. -->
+我々は, この仕様を進化させる助けとなる, 価値あるフィードバックを与えて貢献してくれた Julian White, Bjorn Hjelm, Stephane Mouy, Alberto Pulido, Joseph Heenan, Vladimir Dzhuvinov, Azusa Kikuchi, Naohiro Fujie, Takahiko Kawasaki, Sebastian Ebling, Marcos Sanz, Tom Jones, Mike Pegman, Michael B. Jones, Jeff Lombardo, Taylor Ongaro, Peter Bainbridge-Clayton, Adrian Field, George Fletcher, Tim Cappalli, Michael Palage, Sascha Preibisch, Giuseppe De Marco, Nick Mothershaw, Hodari McClain, Nat Sakimura に感謝する.
 
 # Notices
 
