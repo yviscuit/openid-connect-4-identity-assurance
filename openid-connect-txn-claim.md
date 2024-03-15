@@ -24,7 +24,8 @@ organization="ConnectID"
 
 .# Abstract
 
-This specification defines an extension of OpenID Connect that defines a use of txn claim.
+<!-- This specification defines an extension of OpenID Connect that defines a use of txn claim. -->
+この仕様では, `txn` claim の利用を定義している OpenID の拡張について定義する.
 
 {mainmatter}
 
@@ -36,8 +37,8 @@ The `txn` Claim as defined in [@!RFC8417] is used in the context of this extensi
 [@!RFC8417] で定義されている `txn` Claim はこの拡張のコンテキストで使用され, OpenID Connect トランザクションに関わるの関係者全体の監査証跡を構築する.
 
 # txn request
-
-The RP requests this Claim like any other Claim via the `claims` parameter or as part of a default claim set identified by a scope value, for example:
+<!-- The RP requests this Claim like any other Claim via the `claims` parameter or as part of a default claim set identified by a scope value, for example: -->
+RPは, Claimと同様に`claims`パラメータを介するか, あるいはスコープ値によって特定されるデフォルトのクレームセットの一部として, このClaimを要求する. 例えば:
 
 ```
 "txn": null
@@ -45,7 +46,8 @@ The RP requests this Claim like any other Claim via the `claims` parameter or as
 
 # txn issuance, response and processing
 
-The OP generates txn claim as a unique identifier, for example:
+<!-- The OP generates txn claim as a unique identifier, for example: -->
+OPは`txn` Claimをユニークな識別子として生成する. 例えば:
 
 ```
 {
@@ -104,7 +106,8 @@ OP が `txn` を発行する場合, 対応する監査証跡を維持する必�
 
 # Acknowledgements {#Acknowledgements}
 
-We would like to thank Mark Haine, Andres Uribe for their valuable feedback and contributions that helped to evolve this specification.
+<!-- We would like to thank Mark Haine, Andres Uribe for their valuable feedback and contributions that helped to evolve this specification. -->
+我々は, この仕様を進化させる助けとなる, 価値あるフィードバックを与えて貢献してくれた Mark Haine と Andres Uribe に感謝する.
 
 # Notices
 
