@@ -82,6 +82,8 @@ organization="KDDI Corporation"
 
 # Scope
 
+<!-- This specification defines the schema of JSON objects used to describe identity assurance relating to a natural person.  It consists of the definition of a new claim called `verified_claims` that will be registered with the IANA "JSON Web Token Claims Registry" established by [@!RFC7519].  As part of the definition of the `verified_claims` claim there is also be an element defined called `verification` that provides a flexible container for identity assurance metadata. It is anticipated that the `verification` element may be used by other spec authors and implementers where the verification metadata is needed independantly of the end-user verified Claims. -->
+
 本仕様では, 自然人に関連するidentity assurance を記述するために使用されるJSON オブジェクトのスキーマを定義している. これは[@!RFC7519]で確立されたIANA の"JSON Web Token Claims Registry"に登録される予定である, `verified_claims` と呼ばれる新しいクレームの定義を構成している. `verified_claims` クレームの定義の一部として, identity assurance メタデータのための柔軟なコンテナを提供する, `verification` と呼ばれる要素も定義されている. `verification` 要素は End-User が検証した Claim に依存しないverification メタデータが必要とされる場合に, 他の仕様の著者や実装者によって使用されるかもしれないことが予期される.
 
 ## Terminology
@@ -333,9 +335,9 @@ Claims Recipients は理解できないトラストフレームワーク識別�
     * Claim names MAY be annotated with language tags as specified in Section 5.2 of the OpenID Connect specification [@!OpenID].
     * When it is present the `derived_claims` element MUST NOT be empty. -->
  
-* `derived_claims`: OPTIONAL. JSON オブジェクトは, その一要素であるエビデンスの配列要素として記述された, 本ドキュメントから派生した End-User に関する Claim を含んでいる. `derived_claims` 要素を使用する場合, 次の条件が存在する:
+* `derived_claims`: OPTIONAL. evidence 配列のメンバーの一部として記述された, ドキュメントに由来する End-User に関する Claim を含む JSON オブジェクト. `derived_claims` 要素を使用する場合, 次の条件が存在する:
     * `derived_claims` 要素は, OpenID Connect の仕様 [@!OpenID] または [@OpenID4IDAClaims] で定義される Claim のいずれかを含めることができる(MAY).
-    * `derived_claims` 要素は, その一部であるエビデンスの配列要素に記載されているドキュメントから派生した他の(OpenID Connect の仕様[@!OpenID] でも[@OpenID4IDAClaims] でも定義されていない) End-User Claim を含めることもできる(MAY).
+    * `derived_claims` 要素は, evidence 配列のメンバーの一部として記述された, ドキュメントに由来する (OpenID Connect の仕様[@!OpenID] でも[@OpenID4IDAClaims] でも定義されていない) 他の End-User に関する Claim を含めることもできる(MAY).
     * `derived_claims` 要素に含まれるEnd-User Claim は, `verified_claims` の `claims` 要素に対応する Claim を持たなければならない(MUST).
     * `derived_claims` 要素が使用される場合, `evidence` 配列の全ての要素が存在している必要があり, `verified_claims` の`claims` 要素の下にあるすべての Claim は少なくとも一つの `derived_claims` に対応する Claim を持っている必要がある (SHOULD).
     * Claim 名には, OpenID Connect の仕様 [@!OpenID] のセクション5.2で指定されているように, 言語タグの注釈をつけることができる(MAY).
@@ -389,9 +391,9 @@ Claims Recipients は理解できないトラストフレームワーク識別�
     * OpenID Connect `address` Claim (see [@!OpenID]) のすべての要素: OPTIONAL.
     * `country_code`: OPTIONAL. "USA" や "JPN" のような ISO 3166/ICAO 3-letter codes [@!ICAO-Doc9303] で，エビデンスを発行した国や超国家組織を表す文字列．状況によっては，互換性の理由から 2-letter ICAO codes が使用されるかもしれない (MAY)．
     * `jurisdiction`: OPTIONAL. ソースが管轄する地域/州/件/市町村の名前を含む文字列 (一般的な知識でないか，住所から導き出せない場合)．
-* `derived_claims`: OPTIONAL. エンドユーザーについてのClaim を含むJSON オブジェクト. これは, その一部になるエビデンス配列の要素に記載されている保証から派生したものである (例は本ドキュメントの後半で提示される).
+* `derived_claims`: OPTIONAL. evidence 配列のメンバーの一部として記述された, 電子記録に由来する End-User に関する Claim を含む JSON オブジェクト.
     * `derived_claims` 要素は, OpenID Connect の仕様[@!OpenID] または[@OpenID4IDAClaims] で定義されるClaim のいずれかを含めることができる(MAY).
-    * `derived_claims` 要素は, その一部であるエビデンスの配列要素に記載されている電子記録から派生した他のエンドユーザーの(OpenID Connect の仕様[@!OpenID] でも[@OpenID4IDAClaims] でも定義されていない) Claim も含めることもできる(MAY).
+    * `derived_claims` 要素は, evidence 配列のメンバーの一部として記述された, 電子記録に由来する (OpenID Connect の仕様[@!OpenID] でも[@OpenID4IDAClaims] でも定義されていない) 他の End-User に関する Claim を含めることができる (MAY).
     * Claim 名には, OpenID Connect の仕様[@!OpenID] のセクション5.2で指定されているように, 言語タグの注釈をつけることができる(MAY).
     * `derived_claims` 要素が存在する場合, 空欄になってはならない(MUST).
 
@@ -449,9 +451,9 @@ Claims Recipients は理解できないトラストフレームワーク識別�
     * `country_code`: OPTIONAL. "USA" や "JPN" のような ISO 3166/ICAO 3-letter codes [@!ICAO-Doc9303] で，エビデンスを発行した国や超国家組織を表す文字列．状況によっては，互換性の理由から 2-letter ICAO codes が使用されるかもしれない (MAY)．
     * `occupation`: OPTIONAL. 証拠/参照を与える人の職業または他の権限を含む文字列 .
     * `organization`: OPTIONAL. voucher が表す組織の名前を含む文字列．
-* `derived_claims`: OPTIONAL. JSON オブジェクトは, その一要素であるエビデンスの配列要素として記述された, 本ドキュメントから派生した End-User に関する Claim を含んでいる. `derived_claims` 要素を使用する場合, 次の条件が存在する:
+* `derived_claims`: OPTIONAL. evidence 配列のメンバーの一部として記述された, vouch に由来する End-User に関する Claim を含む JSON オブジェクト. `derived_claims` 要素を使用する場合, 次の条件が存在する:
     * `derived_claims` 要素は OpenID Connectの仕様 [@!OpenID] のセクション5.1及び[@OpenID4IDAClaims] で定義されたClaim のいずれかを含むことができる(MAY).
-    * `derived_claims` 要素は, その一部であるエビデンスの配列要素に記載されている保証から派生した他の(OpenID Connect の仕様[@!OpenID] でも[@OpenID4IDAClaims] でも定義されていない) End-User Claim も含めることができる(MAY).
+    * `derived_claims` 要素は, evidence 配列のメンバーの一部として記述された, vouch に由来する (OpenID Connect の仕様[@!OpenID] でも[@OpenID4IDAClaims] でも定義されていない) 他の End-User に関する Claim も含めることができる(MAY).
     * Claim 名には, OpenID Connect の仕様 [@!OpenID] のセクション5.2で指定されているように, 言語タグの注釈をつけることができる(MAY).
     * `derived_claims` 要素が存在する場合, 空欄になってはならない(MUST).
 
@@ -477,9 +479,9 @@ Claims Recipients は理解できないトラストフレームワーク識別�
 * `issuer`: REQUIRED. 署名者の証明書を発行した認証局を表す文字列.
 * `serial_number`: REQUIRED. 署名に使用される証明書のシリアル番号を表す文字列.
 * `created_at`: OPTIONAL. ISO 8601 [@!ISO8601] `YYYY-MM-DDThh:mm[:ss]TZD` 形式で表す，署名の作成された日付.
-* `derived_claims`: OPTIONAL. JSON オブジェクトは, その一要素であるエビデンスの配列要素として記述された, 本ドキュメントから派生した End-User に関する Claim を含んでいる. `derived_claims` 要素を使用する場合, 次の条件が存在する:
+* `derived_claims`: OPTIONAL. evidence 配列のメンバーの一部として記述された, 電子署名に由来する End-User に関する Claim を含む JSON オブジェクト. `derived_claims` 要素を使用する場合, 次の条件が存在する:
     * `derived_claims` 要素は OpenID Connect の仕様 [@!OpenID] のセクション5.1及び[@OpenID4IDAClaims] で定義された Claim のいずれかを含むことができる(MAY).
-    * `derived_claims` 要素は署名者に対して署名されたオブジェクトを一意に紐づけるために使用される eIDAS で説明される高度電子署名の要素などの, その一部となるエビデンス配列の要素に記載されているオブジェクトから派生した他の End-User Claim も含めることができる(MAY).
+    * `derived_claims` 要素は署名者に対して署名されたオブジェクトを一意に紐づけるために使用される eIDAS で説明される高度電子署名の要素などの, evidence 配列のメンバーの一部として記述された, 電子的に署名されたオブジェクトに由来する他の End-User に関する Claim も含めることができる(MAY).
     * Claim 名には, OpenID Connect の仕様 [@!OpenID] のセクション5.2で指定されているように, 言語タグの注釈をつけることができる(MAY).
     * `derived_claims` 要素が存在する場合, 空欄になってはならない(MUST).
 
