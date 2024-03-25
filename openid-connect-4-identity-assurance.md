@@ -167,12 +167,12 @@ Verified Claim を表す場合でも，本拡張は可能かつ妥当であれ�
 ## Additional Claims about End-Users {#userclaims}
 
 <!-- In order to fulfill the requirements of some jurisdictions on identity assurance, the OpenID Connect for IDA claims [@OpenID4IDAClaims] specification defines the a number of Claims for conveying End-User data in addition to the Claims defined in the OpenID Connect specification [@!OpenID]. -->
-identity assurance に関する一部の権限の要件を満たすために, the OpenID Connect for IDA claims [@OpenID4IDAClaims] specification defines the a number of Claims for conveying End-User data in addition to the Claims defined in the OpenID Connect specification [@!OpenID].
+identity assurance に関する一部の権限の要件を満たすために, OpenID Connect for IDA claims [@OpenID4IDAClaims] 仕様では OpenID Connect [@!OpenID] 仕様で定義されている CLaims に加えて，End-User のデータを伝達するための多数の Claims が定義されている．
 
 # Verified Claims {#verified_claims}
 
 <!-- This specification uses the [!@IDA-verified-claims] document as the definition of the schema for representation of assured digital identity attributes and identity assurance metadata. The basic idea is to use a container element, called `verified_claims`, to provide the RP with a set of Claims along with the respective metadata and verification evidence related to the verification of these Claims. This way, it is explicit which Claims are verified, reducing the risk of RPs accidentally processing unverified Claims as Verified Claims. -->
-This specification uses the [!@IDA-verified-claims] document as the definition of the schema for representation of assured digital identity attributes and identity assurance metadata. 基本的な考え方は `verified_claims` と呼ばれるコンテナ要素を使用し，RP に一連の Claim と，これらの Claim の検証に関連するそれぞれのメタデータ及び検証のエビデンスを提供することである． This way, it is explicit which Claims are verified, reducing the risk of RPs accidentally processing unverified Claims as Verified Claims.
+本仕様は，保証された digital identity 属性と identity assurance メタデータを表現するためのスキーマの定義として [!@IDA-verified-claims] ドキュメントを利用する．基本的な考え方は `verified_claims` と呼ばれるコンテナ要素を使用し，RP に一連の Claim と，これらの Claim の検証に関連するそれぞれのメタデータ及び検証のエビデンスを提供することである．これにより，どの Claims が検証されたかが明確になり，RP が未検証の Claims を Verified Claims として誤って処理してしまうリスクが軽減される．．
 
 <!-- The following example would assert to the RP that the OP has verified the Claims provided (`given_name` and `family_name`) according to an example trust framework `trust_framework_example`: -->
 次の例では，トラストフレームワーク `trust_framework_example` の例に従って，OP が提供された Claim (`given_name` and `family_name`) を検証したことを RP に表明する:
@@ -214,7 +214,8 @@ OAuth Authorization Server は，JWT 形式のアクセストークンや Token 
 }
 ```
 
-An OP or AS can also include aggregated or distributed `verified_claims` in the above assertions (see (#aggregated_distributed_claims) for more details).
+<!-- An OP or AS can also include aggregated or distributed `verified_claims` in the above assertions (see (#aggregated_distributed_claims) for more details). -->
+OP または AS は上記のアサーションに集約または分散された `verified_claims` を含めることも出来る (詳細は (#aggregated_distributed_claims) 参照)．
 
 ## Requesting End-User Claims {#req_claims}
 
@@ -222,20 +223,21 @@ An OP or AS can also include aggregated or distributed `verified_claims` in the 
 Verified Claims は OpenID Connect specification [@!OpenID] の Section 5.5 に定義されている `claims` parameter を利用することで, End-User について 個々の Claims のレベルで要求できる.
 
 <!-- Note: A machine-readable definition of the syntax to be used to request `verified_claims` is given as JSON schema in [@verified_claims_request.json], it can be used to automatically validate `claims` request parameters. The provided JSON schema files are a non-normative implementation of this specification and any discrepancies that exist are either implementation bugs or interpretations. -->
-注: `verified_claims` をリクエストするために使用される機械可読な構文定義は [@verified_claims_request.json] で JSON スキーマとして提供され，これは `claims` リクエストパラメータを自動的に検証するために使用できる．The provided JSON schema files are a non-normative implementation of this specification and any discrepancies that exist are either implementation bugs or interpretations.
+注: `verified_claims` をリクエストするために使用される機械可読な構文定義は [@verified_claims_request.json] で JSON スキーマとして提供され，これは `claims` リクエストパラメータを自動的に検証するために使用できる．提供されている JSON スキーマファイルは本仕様の no-normative な実装であり，存在する何らかの矛盾は実装のバグあるいは解釈のいずれかです．
 
-To request Verified Claims, the `verified_claims` element is added to the `userinfo` or the `id_token` element of the `claims` parameter.
+<!-- To request Verified Claims, the `verified_claims` element is added to the `userinfo` or the `id_token` element of the `claims` parameter. -->
 検証済み Claim を要求するには，`verified_claims` 要素を `claims` パラメータの `userinfo` または `id_token` 要素に追加する．
 
 <!-- Since `verified_claims` contains the effective Claims about the End-User in a nested `claims` element, the syntax is extended to include expressions on nested elements as follows. The `verified_claims` element includes a `claims` element, which in turn includes the desired Claims as keys. For each claim, the value is either `null` (default), or an object. The object may contain restrictions using `value` or `values` as defined in [@!OpenID] and/or the `essential` or `purpose` keys as described below. An example is shown in the following: -->
-`verified_claims` にはネストされた `claims` 要素の中に End-User についての有効な Claims が含まれるため, syntax は次のようにネストされた要素の式を含むように拡張される. The `verified_claims` element includes a `claims` element, which in turn includes the desired Claims as keys. For each claim, the value is either `null` (default), or an object. The object may contain restrictions using `value` or `values` as defined in [@!OpenID] and/or the `essential` or `purpose` keys as described below. 以下に例を示す.
+`verified_claims` にはネストされた `claims` 要素の中に End-User についての有効な Claims が含まれるため, syntax は次のようにネストされた要素の式を含むように拡張される. `verified_claims` 要素には `claims` 要素が含まれ，この要素には目的の Claims がキーとして含まれる．各 claim について，値は `null` (デフォルト)，またはオブジェクトのいずれかである．オブジェクトは [@!OpenID] で定義された `value` または `values` 及び/または以下で説明する `essential` または `purpose` キーを使用した制限が含まれるかもしれない．以下に例を示す.
 
 <{{examples/request/claims.json}}
 
-<!-- Use of the `claims` parameter allows the RP to request specified Claims about the End-User needed for its use case. This extension therefore allows RPs to fulfill the requirement for data minimization. -->
-`claims` パラメータを使用すると, RP はそのユースケースに必要な End-User に関する指定した Claims を要求できるようになる. This allows RPs to fulfill the requirements for data minimization by requesting only Claims needed for its use case. Note: it is not possible to request sub-claims (for example the ‘country’ subclaim of the ‘address’ claim) using mechanisms from OpenID Connect Core or this draft.
+<!-- Use of the `claims` parameter allows the RP to request specified Claims about the End-User needed for its use case. This allows RPs to fulfill the requirements for data minimization by requesting only Claims needed for its use case. Note: it is not possible to request sub-claims (for example the ‘country’ subclaim of the ‘address’ claim) using mechanisms from OpenID Connect Core or this draft. -->
+`claims` パラメータを使用すると, RP はそのユースケースに必要な End-User に関する指定した Claims を要求できるようになる. これにより RPs はそのユースケースに必要な Claims のみをリクエストするすることでデータ最小化の要件を満たすことができる．注: OpenID Connect Core またはこのドラフトのメカニズムを利用して，サブクレーム（例えば 'address' クレームの 'country' サブクレーム） を要求することは出来ない．
 
-RPs can use the `essential` field as defined in Section 5.5.1 of the OpenID Connect specification [@!OpenID]. The following example shows this for the family and given names.
+<!-- RPs can use the `essential` field as defined in Section 5.5.1 of the OpenID Connect specification [@!OpenID]. The following example shows this for the family and given names. -->
+RPs は OpenID Connect 仕様 [@!OpenID] の Section 5.5.1 に定義された `essential` フィールドを使うことが出来る．次の例は，姓名についてこれを示す．
 
 <{{examples/request/essential.json}}
 
@@ -267,11 +269,13 @@ RP は OP  が `verification` 要素に追加するデータを明示的に要�
 `evidence` 配列の単一エントリは，特定のエビデンスタイプの要素に対するフィルターを洗わず．従って，RP は適切な `value` サブ要素値を含む `type` フィールドを含めることによって，このタイプを指定しなければならない (MUST)．`values` サブ要素を `evidence/type` フィールドに使用してはならない (MUST NOT)．
 
 <!-- If multiple entries are present in `evidence`, these filters are linked by a logical OR. -->
-`evidence` に複数のエンドリが存在する場合，これらのフィルターは論理和によって紐付けられる．
+`evidence` に複数のエントリが存在する場合，これらのフィルターは論理和によって紐付けられる．
 
-`check_details` is an array of the processes that have been applied to the `evidence`. An RP can filter `check_details` by requesting a particular value for one or more of its sub-elements. If multiple entries for the same sub-element are present this acts as a logical OR between them.
+<!-- `check_details` is an array of the processes that have been applied to the `evidence`. An RP can filter `check_details` by requesting a particular value for one or more of its sub-elements. If multiple entries for the same sub-element are present this acts as a logical OR between them. -->
+`check_details` は `evidence` に適用されるプロセスの配列である．RP は1つ以上のサブ要素に特定の値を要求することでｍ`check_details` をフィルタリング出来る．同じサブ要素に複数のエントリーがある場合，これはそれらの間の論理 OR として機能する．
 
-`assurance_details` is an array representing how the `evidence` and `check_details` meets the requirements of the `trust_framework`. RP SHOULD only request this where they need to know this information. Where `assurance_details` have been requested by an RP the OP MUST return the `assurance_details` element along with all sub-elements that it has. If an RP wants to filter what types of `evidence` and `check_methods` they MUST use those methods to do so, e.g. requesting an `assurance_type` SHOULD have no filtering effect.
+<!-- `assurance_details` is an array representing how the `evidence` and `check_details` meets the requirements of the `trust_framework`. RP SHOULD only request this where they need to know this information. Where `assurance_details` have been requested by an RP the OP MUST return the `assurance_details` element along with all sub-elements that it has. If an RP wants to filter what types of `evidence` and `check_methods` they MUST use those methods to do so, e.g. requesting an `assurance_type` SHOULD have no filtering effect. -->
+`assurance_details` は `evidence` と `check_details` が `trust_framework` の要件をどのように満たしているかを表す配列である． RP はこの情報を知る必要がある場合のみこれを要求しなければならない (SHOULD)．`assurance_details` が RP によって要求された場合，OP は `assurance_details` 要素とそれが持つすべてのサブ要素を返却しなければならない (MUST)．RP が `evidence` や `check_methods` のタイプをフィルターしたい場合，そのためにそれらのメソッドを使用しなければならない (MUST)，例えば `assurance_type` をリクエストしても，フィルタリングの効果はない (SHOULD)．
 
 <!-- The RP can also request certain data within the `document` element to be present. This again follows the syntax rules used above: -->
 RP は `document`要素内の特定のデータの存在を要求するも出来る．これも上記で使用した構文規則に従う:
