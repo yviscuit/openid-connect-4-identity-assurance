@@ -307,15 +307,20 @@ OP は可能な値のクエリ制約の一部または全部を無視しては�
 
 ### max_age
 
-The RP can also express a requirement regarding the age of certain data, like the time elapsed since the issuance/expiry of certain evidence types or since the verification process asserted in the `verification` element took place. Section 5.5.1 of the OpenID Connect specification [@!OpenID] defines a query syntax that allows for new special query members to be defined. This specification introduces a new such member `max_age`, which is applicable to the possible values of any elements containing dates or timestamps (e.g., `time`, `date_of_issuance` and `date_of_expiry` elements of evidence of type `document`).
+<!-- The RP can also express a requirement regarding the age of certain data, like the time elapsed since the issuance/expiry of certain evidence types or since the verification process asserted in the `verification` element took place. Section 5.5.1 of the OpenID Connect specification [@!OpenID] defines a query syntax that allows for new special query members to be defined. This specification introduces a new such member `max_age`, which is applicable to the possible values of any elements containing dates or timestamps (e.g., `time`, `date_of_issuance` and `date_of_expiry` elements of evidence of type `document`). -->
+RP は特定のエビデンスタイプの発行/執行からの経過時間や，`verification` 要素でアサートされた検証プロセスが行われてからの経過時間のような，特定のデータの経過時間に関する要件を表現することもできる．OpenID Connect 仕様 [@!OpenID] の Section 5.5.1 では新しい特別なクエリメンバーを定義できるクエリ構文を定義している．この仕様では，日付またはタイムスタンプを含む要素 (例えば，タイプ `document` のエビデンスの `time`，`date_of_issuance` 及び `date_of_expiry` 要素) の取り得る値に適用される新しいメンバー `max_age` を導入する．
 
-`max_age`: OPTIONAL. JSON number value only applicable to Claims that contain dates or timestamps. It defines the maximum time (in seconds) to be allowed to elapse since the value of the date/timestamp up to the point in time of the request. The OP SHOULD make the calculation of elapsed time starting from the last valid second of the date value.
+<!-- `max_age`: OPTIONAL. JSON number value only applicable to Claims that contain dates or timestamps. It defines the maximum time (in seconds) to be allowed to elapse since the value of the date/timestamp up to the point in time of the request. The OP SHOULD make the calculation of elapsed time starting from the last valid second of the date value. -->
+`max_age`: OPTIONAL. 日付またはタイムスタンプを含む Claims にのみ適用可能な JSON number 値．日付/タイムスタンプの値からリクエストの時点までに許容される最大経過時間(秒)を定義する．OP は日付値の最後の有効な秒から開始して経過時間を計算しなければならない (SHOULD)．
 
+<!-- The following is an example of a request for Claims where the verification process of the data is not allowed to be older than 63113852 seconds: -->
 The following is an example of a request for Claims where the verification process of the data is not allowed to be older than 63113852 seconds:
+次の例は，データの犬種おプロセスが 63113852 秒より古いことが許容されていない Claims の要求例である:
 
 <{{examples/request/verification_max_age.json}}
 
-The OP SHOULD try to fulfill this requirement. If the verification data of the End-User is older than the requested `max_age`, the OP can attempt to refresh the End-User’s verification by sending them through an online identity verification process, e.g., by utilizing an electronic ID card or a video identification approach.
+<!-- The OP SHOULD try to fulfill this requirement. If the verification data of the End-User is older than the requested `max_age`, the OP can attempt to refresh the End-User’s verification by sending them through an online identity verification process, e.g., by utilizing an electronic ID card or a video identification approach. -->
+OP は子の要件を満たすよう務めるべきである (SHOULD)．もし End-User の検証データが要求された `max_age` より古い場合，OP は例えば electronic ID card や video identification approach を利用するなど，オンラインの identity verification process を通じて End-User のverification を送信することで，End-User の verification の更新を試みることが出来る．
 
 ## Requesting Claims sets with different verification requirements
 
