@@ -144,7 +144,7 @@ External attachments は [@OpenID] で定義されている分散 Claim と似�
 `url`: REQUIRED. 添付ファイルを取得できるOAuth 2.0リソースエンドポイント．プロバイダーは，このエンドポイントを保護し，権限のない者が添付ファイルを取得できないようにする必要がある (MUST) (通常は，以下で説明するようにアクセストークンを要求する) ．エンドポイントURLは，暗号化ハッシュが`digest`要素で与えられた値と一致する添付ファイルを返さなければならない (MUST)．添付ファイルのコンテンツMIMEタイプは， [@!RFC6838] に従って，content-type HTTPレスポンスヘッダーで示されなければならない (MUST)．マルチパートまたはメッセージメディアタイプは，使用しないものとする (SHALL NOT)．
 
 <!-- `access_token`: OPTIONAL. Access Token as type `string` enabling retrieval of the attachment from the given `url`. The attachment MUST be requested using the OAuth 2.0 Bearer Token Usage [@!RFC6750] protocol and the OP MUST support this method, unless another Token Type or method has been negotiated with the Client. Use of other Token Types is outside the scope of this specification. If the `access_token` element is not available, RPs MUST use the Access Token issued by the OP in the Token response and when requesting the attachment the RP MUST use the same method as when accessing the UserInfo endpoint. If the value of this element is `null`, no Access Token is used to request the attachment and the RP MUST NOT use the Access Token issued by the Token response. In this case the OP MUST incorporate other effective methods to protect the attachment and inform/instruct the RP accordingly. -->
-`access_token`: OPTIONAL. 与えられた `url` から添付ファイルを取得できるようにする `string` タイプの Access Token．添付ファイルは OAuth 2.0 Bearer Token Usage [@!RFC6750] プロトコルを使用してリクエストしなければならず (MUST)， 別のトークンタイプまたはメソッドが Client とネゴシエートされていない限り，OP はメソッドをサポートしなければならない (MUST)．他のトークンタイプの仕様は本仕様の範囲外である．`access_token` 要素が利用できない場合，RP は Token Response で OP によって発行された Access Token を利用しなければならず (MUST)，添付ファイルを要求する時，RP は UserInfo エンドポイントにアクセスするときと同じ方法を使用しなければならない (MUST)．この要素の値が `null` の場合，添付ファイルを要求するために Access Token は使用されず，RP は Token Response によって発行された Access Token を使用してはならない (MUST NOT)．この場合，OP は添付ファイルを保護するための他の有効な方法を組み込み，それに応じて RP に通知/指示しなければならない (MUST)．
+`access_token`: OPTIONAL. 与えられた `url` から添付ファイルを取得できるようにする `string` タイプの Access Token．別のトークンタイプまたはメソッドが Client とネゴシエートされていない限り，添付ファイルは OAuth 2.0 Bearer Token Usage [@!RFC6750] プロトコルを使用してリクエストしなければならず (MUST)， OP はこのメソッドをサポートしなければならない (MUST)．他のトークンタイプの仕様は本仕様の範囲外である．`access_token` 要素が利用できない場合，RP は Token Response で OP によって発行された Access Token を利用しなければならず (MUST)，添付ファイルを要求する時，RP は UserInfo エンドポイントにアクセスするときと同じ方法を使用しなければならない (MUST)．この要素の値が `null` の場合，添付ファイルを要求するために Access Token は使用されず，RP は Token Response によって発行された Access Token を使用してはならない (MUST NOT)．この場合，OP は添付ファイルを保護するための他の有効な方法を組み込み，それに応じて RP に通知/指示しなければならない (MUST)．
 
 <!-- `exp`: OPTIONAL. The "exp" (expiration time) claim identifies the expiration time on or after which the External Attachment will not be available from the resource endpoint defined in the `url` element (e.g. the `access_token` may expire or the document may be removed at that time). Implementers MAY provide for some small leeway, usually no more than a few minutes, to account for clock skew.  Its value MUST be a number containing a NumericDate value as per as per [@!RFC7519]. -->
 `exp`: OPTIONAL. "exp" (有効期限) クレームは，`url`要素で定義されている，リソースエンドポイントから外部添付ファイルを使用できなくなる有効期限を識別する(たとえば，`access_token`が期限切れになるか，その時点でドキュメントが削除される可能性がある．)．実装者は，クロックスキューを考慮するために，通常は数分以下の小さな余裕を提供してもよい (MAY)．その値は，[@!RFC7519] に従ってNumericDateの値を含む数値でなければならない (MUST)．
@@ -203,7 +203,7 @@ External attachments は [@OpenID] で定義されている分散 Claim と似�
 # Client Registration and Management
 
 <!-- During Client Registration (see [@!OpenID-Registration]) as well as during Client Management [@RFC7592] the following additional properties are available: -->
-Client Registration(参照 [@!OpenID-Registration])とClient Management [@RFC7592] では，次の追加プロパティを使用できる．
+Client Registration ([@!OpenID-Registration] 参照) とClient Management [@RFC7592] では，次の追加プロパティを使用できる．
 
 <!-- `digest_algorithm`: String value representing the chosen digest algorithm (for external attachments). The value MUST be one of the digest algorithms supported by the OP as advertised in the [OP metadata](#opmetadata). If this property is not set, `sha-256` will be used by default. -->
 `digest_algorithm`: 選択されたダイジェストアルゴリズムを表す文字列値 (外部添付ファイル用) ．値は [OP metadata](#opmetadata)で公表されているように，OP によってサポートされるダイジェスト アルゴリズムの 1 つでなければならない (MUST)．このプロパティが設定されていない場合，デフォルトで`sha-256`が使用される．
@@ -220,7 +220,7 @@ Client Registration(参照 [@!OpenID-Registration])とClient Management [@RFC759
 `digest_algorithms_supported`: OP が外部添付ファイルをサポートする場合は必須．外部添付ファイルのダイジェスト オブジェクト内で `alg` プロパティとして使用できる，サポートされているすべてのダイジェストアルゴリズムを含む JSON 配列．OPが外部添付ファイルをサポートする場合，少なくともアルゴリズム`sha-256`もOPによってサポートされなければならない (MUST)．指定可能なダイジェスト/ハッシュ アルゴリズム名のリストは，IANAの [@!hash_name_registry] (established by [@RFC6920]) で管理されている．
 
 <!-- This is an example openid-configuration snippet: -->
-以下は"openid-configuration"の部分的な例:
+以下は "openid-configuration" の部分的な例である:
 
 ```json
 {
@@ -239,7 +239,7 @@ Client Registration(参照 [@!OpenID-Registration])とClient Management [@RFC759
 # Examples
 
 <!-- This section contains JSON snippets showing examples of evidences and attachments described in this document. -->
-このセクションには，この仕様で説明内容の根拠と添付ファイルの例を示す，JSONの断片的な例が含まれる．
+このセクションには，このドキュメントで説明されているエビデンスと添付ファイルの例を示す JSON スニペットが含まれる．
 
 ## Example Requests
 <!-- This section shows examples of requests for `verified_claims`. -->
@@ -251,13 +251,13 @@ Client Registration(参照 [@!OpenID-Registration])とClient Management [@RFC759
 
 #### Attachments
 
-<!-- RPs can explicitly request to receive attachments along with the Verified Claims:
-RPは，Verified Claimとともに添付ファイルの受信を明示的にリクエストできる:
+<!-- RPs can explicitly request to receive attachments along with the Verified Claims: -->
+RPは，Verified Claims とともに添付ファイルの受信を明示的にリクエストできる:
 
 <{{examples/request/verification_with_attachments.json}}
 
 <!-- As with other Claims, the attachment Claim can be marked as `essential` in the request as well. -->
-他のクレームと同様に，添付ファイルのクレームもリクエスト内で `essential` としてマークすることができる．
+他の Claims と同様に，添付ファイルの Claim もリクエスト内で `essential` としてマークすることができる．
 
 ## Example Responses
 
