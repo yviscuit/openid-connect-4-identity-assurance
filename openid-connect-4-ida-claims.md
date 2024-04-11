@@ -16,7 +16,7 @@ status = "standard"
 initials="T."
 surname="Lodderstedt"
 fullname="Torsten Lodderstedt"
-organization="yes.com"
+organization="sprind.org"
     [author.address]
     email = "torsten@lodderstedt.net"
 
@@ -63,42 +63,90 @@ organization="KDDI Corporation"
 %%%
 
 .# Abstract
-<!-- This specification defines an extension of OpenID Connect that registers new JWT claims about End-Users. This extension defines new claims relating to the identity of a natural person that were originally defined within earlier drafts of OpenID Connect for Identity Assurance. The work and the preceding drafts are the work of the eKYC and Identity Assurance working group of the OpenID Foundation. -->
-この仕様では, End-User に関する新しい JWTクレーム を登録するための OpenID Connect の拡張機能を定義する. この拡張は, 元々 OpenID Connect for Identity Assurance の以前のドラフトで定義されていた, 自然人のアイデンティティに関連する新しい Claim を定義している. この取り組み及び以前のドラフトは, OpenID Foundation の eKYC & IDA ワーキンググループの取り組みである.
+
+<!-- This specification defines an extension of OpenID Connect that registers new JWT claims about end-users. This extension defines new claims relating to the identity of a natural person that were originally defined within earlier drafts of OpenID Connect for Identity Assurance. The work and the preceding drafts are the work of the eKYC and Identity Assurance working group of the OpenID Foundation. -->
+この仕様では, エンドユーザーに関する新しい JWT クレーム を登録するための OpenID Connect の拡張機能を定義する. この拡張は, 元々 OpenID Connect for Identity Assurance の以前のドラフトで定義されていた, 自然人のアイデンティティに関連する新しいクレームを定義している. この取り組み及び以前のドラフトは, OpenID Foundation の eKYC & IDA ワーキンググループの取り組みである.
+
+.# Foreword
+
+The OpenID Foundation (OIDF) promotes, protects and nurtures the OpenID community and technologies. As a non-profit international standardizing body, it is comprised by over 160 participating entities (workgroup participant). The work of preparing implementer drafts and final international standards is carried out through OIDF workgroups in accordance with the OpenID Process. Participants interested in a subject for which a workgroup has been established have the right to be represented in that workgroup. International organizations, governmental and non-governmental, in liaison with OIDF, also take part in the work. OIDF collaborates closely with other standardizing bodies in the related fields.
+
+Final drafts adopted by the Workgroup through consensus are circulated publicly for the public review for 60 days and for the OIDF members for voting. Publication as an OIDF Standard requires approval by at least 50% of the members casting a vote. There is a possibility that some of the elements of this document may be subject to patent rights. OIDF shall not be held responsible for identifying any or all such patent rights.
+
+.# Introduction {#Introduction}
+
+<!-- This specification defines additional JWT claims about the natural person.  The claims defined MAY be used in various contexts including an ID Token. -->
+この仕様では, 自然人に関する追加の JWT クレームを定義する. この定義されたクレームは ID Token を含む様々なコンテキストで使用できる. (MAY)
+
+.# Warning
+This document is not an OIDF International Standard. It is distributed for
+review and comment. It is subject to change without notice and may not be
+referred to as an International Standard.
+Recipients of this draft are invited to submit, with their comments,
+notification of any relevant patent rights of which they are aware and to
+provide supporting documentation.
+
+.# Notational conventions
+
+The keywords "shall", "shall not", "should", "should not", "may", and "can" in
+this document are to be interpreted as described in ISO Directive Part 2
+[@!ISODIR2]. These keywords are not used as dictionary terms such that any
+occurrence of them shall be interpreted as keywords and are not to be
+interpreted with their natural language meanings.
 
 {mainmatter}
 
-# Introduction {#Introduction}
-
-<!-- This specification defines additional JWT claims about the natural person.  The claims defined MAY be used in various contexts including an id_token. -->
-この仕様では, 自然人に関する追加の JWT クレームを定義する. この定義されたクレームは `id_token` を含む様々なコンテキストで使用できる. (MAY)
-
 # Scope
 
-<!-- This specification only defines claims to be maintained in the IANA "JSON Web Token Claims Registry" established by [@!RFC7519].  These claims SHOULD be used in any context that needs to describe these characteristics of the end-user in a JWT as per [@RFC7519]. -->
-この仕様では, [@!RFC7519] によって定義され, IANA によって管理される "JSON Web Token Claims Registry" のみを定義している. これらの Claim は, [@RFC7519] に従い JWT で End-User の特性を記述する必要があるあらゆるコンテキストで使われるべきである. (SHOULD)
+<!-- This specification only defines claims to be maintained in the IANA "JSON Web Token Claims Registry" established by [@!RFC7519].  These claims should be used in any context that needs to describe these characteristics of the end-user in a JWT as per [@RFC7519]. -->
+この仕様では, [@!RFC7519] によって定義され, IANA によって管理される "JSON Web Token Claims Registry" のみを定義している. これらのクレームは, [@RFC7519] に従い JWT でエンドユーザーの特性を記述する必要があるあらゆるコンテキストで使われるべきである. (SHOULD)
+
+# Normative references
+
+See section 5 for normative references.
+
+# Terms and definitions
+
+For the purposes of this document, the following terms and definitions apply.
+
+## claim
+piece of information asserted about an entity
+
+[SOURCE: [@!OpenID], 1.2]
+
+## identity proofing
+process in which an end-user provides evidence to an OP or claim provider reliably identifying themselves, thereby allowing the OP or claim provider to assert that identification at a useful assurance level
+
+## identity verification
+process conducted by the OP or a claim provider to verify the end-user's identity
+
+## identity assurance
+process in which the OP or a claim provider asserts identity data of a certain end-user with a certain assurance towards an RP, typically expressed by way of an assurance level. Depending on legal requirements, the OP can be required to provide evidence of the identity verification process to the RP
+
+## verified claims
+claims about an end-user, typically a natural person, whose binding to a particular end-user account was verified in the course of an identity verification process
 
 # Claims {#claims}
 
-## Additional Claims about End-Users {#userclaims}
+## Additional claims about end-users {#userclaims}
 
-<!-- This specification defines the following Claims for conveying End-User data in addition to the Claims defined in the OpenID Connect specification [@!OpenID] and the OpenID Connect for Identity Assurance specification [@!OpenID4IDA] and in any other context that a JWT (as per [@RFC7519]) may be used: -->
-この仕様は, OpenID Connect 仕様[@!OpenID]及び OpenID Connect for Identity Assurance の仕様[@!OpenID4IDA]で定義される Claim に加えて, ([@RFC7519]に従う) JWT が使われるかもしれないあらゆるコンテキストにおいて, End-User データを伝達するための次の Claim を定義している.
+<!-- This specification defines the following claims for conveying end-user data in addition to the claims defined in the OpenID Connect specification [@!OpenID] and the OpenID Connect for Identity Assurance specification [@!OpenID4IDA] and in any other context that a JWT (as per [@RFC7519]) may be used: -->
+この仕様は, OpenID Connect 仕様[@!OpenID]及び OpenID Connect for Identity Assurance の仕様[@!OpenID4IDA]で定義される Claim に加えて, ([@RFC7519]に従う) JWT が使われるかもしれないあらゆるコンテキストにおいて, エンドユーザーデータを伝達するための次の Claim を定義している.
 
 <!--
 | Claim | Type | Description |
 |:------|:-----|:------------|
-|`place_of_birth`| JSON object | End-User’s place of birth. The value of this member is a JSON structure containing some or all of the following members:|
+|`place_of_birth`| JSON object | End-user’s place of birth. The value of this member is a JSON structure containing some or all of the following members:|
 | | |`country`: String representing country in [@!ISO3166-1] Alpha-2  or [@!ISO3166-3] syntax.|
 | | |`region`: String representing state, province, prefecture, or region component. This field might be required in some jurisdictions.|
 | | |`locality`: String representing city or locality component.|
-|`nationalities`| array | End-User’s nationalities using ICAO 3-letter codes [@!ICAO-Doc9303], 2-letter ICAO codes MAY be used in some circumstances for compatibility reasons.|
-|`birth_family_name`| string | End-User’s family name(s) when they were born, or at least from the time they were a child. This term can be used by a person who changes the family name later in life for any reason. Note that in some cultures, people can have multiple family names or no family name; all can be present, with the names being separated by space characters.|
-|`birth_given_name`| string | End-User’s given name(s) when they were born, or at least from the time they were a child. This term can be used by a person who changes the given name later in life for any reason. Note that in some cultures, people can have multiple given names; all can be present, with the names being separated by space characters.|
-|`birth_middle_name`| string | End-User’s middle name(s) when they were born, or at least from the time they were a child. This term can be used by a person who changes the middle name later in life for any reason. Note that in some cultures, people can have multiple middle names; all can be present, with the names being separated by space characters. Also note that in some cultures, middle names are not used.|
-|`salutation`| string | End-User’s salutation|
-|`title`| string | End-User’s title|
-|`msisdn`| string | End-User’s mobile phone number formatted according to ITU-T recommendation [@!E.164]|
+|`nationalities`| array | End-user’s nationalities using ICAO 3-letter codes [@!ICAO-Doc9303], 2-letter ICAO codes may be used in some circumstances for compatibility reasons. |
+|`birth_family_name`| string | End-user’s family name(s) when they were born, or at least from the time they were a child. This term can be used by a person who changes the family name later in life for any reason. Note that in some cultures, people can have multiple family names or no family name; all can be present, with the names being separated by space characters.|
+|`birth_given_name`| string | End-user’s given name(s) when they were born, or at least from the time they were a child. This term can be used by a person who changes the given name later in life for any reason. Note that in some cultures, people can have multiple given names; all can be present, with the names being separated by space characters.|
+|`birth_middle_name`| string | End-user’s middle name(s) when they were born, or at least from the time they were a child. This term can be used by a person who changes the middle name later in life for any reason. Note that in some cultures, people can have multiple middle names; all can be present, with the names being separated by space characters. Also note that in some cultures, middle names are not used.|
+|`salutation`| string | End-user’s salutation|
+|`title`| string | End-user’s title|
+|`msisdn`| string | End-user’s mobile phone number formatted according to ITU-T recommendation [@!E.164] |
 |`also_known_as`| string | Stage name, religious name or any other type of alias/pseudonym with which a person is known in a specific context besides their legal name.|
 -->
 
@@ -108,7 +156,7 @@ organization="KDDI Corporation"
 | | |`country`: [@!ISO3166-1] Alpha-2 または [@!ISO3166-3] 構文で国を表す文字列. |
 | | |`region`: State, province, prefecture, または他の地域コンポーネントを表す文字列. 一部の管轄区域ではこのフィールドは必須かもしれない.|
 | | |`locality`: city, または別の地域を表す文字列.|
-|`nationalities`| array | ICAO 3-letter codes [@!ICAO-Doc9303] を用いてエンドユーザーの国籍を表す. 互換性の理由から，状況によっては 2-letter ICAO codes が使われるかもしれない (MAY).|
+|`nationalities`| array | ICAO 3-letter codes [@!ICAO-Doc9303] を用いてエンドユーザーの国籍を表す. 互換性の理由から，状況によっては 2-letter ICAO codes が使われるかもしれない.|
 |`birth_family_name`| string | エンドユーザーが生まれたとき, あるいは少なくとも子供の時から持っている姓. この用語は人生の途中に何らかの理由で姓を変更した人が利用できる. 一部の文化では，人々は複数の姓を持つことも，姓を持たないこともあることに注意すること．全ての名前はスペース文字で区切って存在する．|
 |`birth_given_name`| string | エンドユーザーが生まれたとき, あるいは少なくとも子供の時から持っている名前. この用語は人生の途中に何らかの理由で名前を変更した人が利用できる．一部の文化では，人々は複数の名を持つことに注意すること．全ての名前はスペース文字で区切って存在する．|
 |`birth_middle_name`| string | エンドユーザーが生まれたとき, あるいは少なくとも子供の時から持っているミドルネーム. この用語は人生の途中に何らかの理由でミドルネームを変更した人が利用できる.一部の文化では，人々は複数のミドルネームを持つことができることに注意すること．全ての名前はスペース文字で区切って存在する．また，一部の文化ではミドルネームが使用されていないことにも注意すること． |
@@ -117,13 +165,13 @@ organization="KDDI Corporation"
 |`msisdn`| string | ITU-T recommendation [@!E.164] に従って表現されたエンドユーザーの携帯電話番号．|
 |`also_known_as`| string | 芸名，宗教名，または実名以外の特定の文脈で人が知られているその他の種類の別名/仮名． |
 
-## Extended address Claim
+## Extended address claim
 
-<!-- This specification extends the `address` Claim as defined in [@!OpenID] by another sub field containing the country as ISO code. -->
-この仕様は，[@!OpenID] で定義されている `address`クレームを，国を ISO コードとして含む別のサブフィールドによって拡張する．
+<!-- This specification extends the `address` claim as defined in [@!OpenID] by another sub field containing the country as ISO code. -->
+この仕様は，[@!OpenID] で定義されている `address` クレームを，国を ISO コードとして含む別のサブフィールドによって拡張する．
 
-<!-- `country_code`: OPTIONAL. country part of an address represented using an ISO 3-letter code [@!ISO3166-3], e.g., "USA" or "JPN". 2-letter ISO codes [@!ISO3166-1] MAY be used for compatibility reasons. `country_code` MAY be used as alternative to the existing `country` field. -->
-`country_code`: OPTIONAL. ISO 3-letter code [@!ISO3166-3]  (例: "USA" や "JPN") を使用して表される住所の国部分．2-letter ISO codes [@!ISO3166-1] は，互換性の理由から使用されるかもしれない (NAY)．`country_code` は，既存の` country` フィールドの代わりに使用してもよい (MAY)．
+<!-- `country_code`: Optional. country part of an address represented using an ISO 3-letter code [@!ISO3166-3], e.g., "USA" or "JPN". 2-letter ISO codes [@!ISO3166-1] MAY be used for compatibility reasons. `country_code` MAY be used as alternative to the existing `country` field. -->
+`country_code`: Optional. ISO 3-letter code [@!ISO3166-3]  (例: "USA" や "JPN") を使用して表される住所の国部分．2-letter ISO codes [@!ISO3166-1] は，互換性の理由から使用されるかもしれない (NAY)．`country_code` は，既存の` country` フィールドの代わりに使用してもよい (MAY)．
 
 ## Examples
 
@@ -199,7 +247,16 @@ organization="KDDI Corporation"
 
 {backmatter}
 
-<reference anchor="OpenID" target="http://openid.net/specs/openid-connect-core-1_0.html">
+<reference anchor="ISODIR2" target="https://www.iso.org/sites/directives/current/part2/index.xhtml">
+<front>
+<title>ISO/IEC Directives Part 2 - </title>
+    <author fullname="International Organization for Standardization">
+      <organization></organization>
+    </author>
+</front>
+</reference>
+
+<reference anchor="OpenID" target="https://openid.net/specs/openid-connect-core-1_0.html">
   <front>
     <title>OpenID Connect Core 1.0 incorporating errata set 1</title>
     <author initials="N." surname="Sakimura" fullname="Nat Sakimura">
@@ -221,11 +278,11 @@ organization="KDDI Corporation"
   </front>
 </reference>
 
-<reference anchor="OpenID4IDA" target="http://openid.net/specs/openid-connect-4-identity-assurance-1_0.html">
+<reference anchor="OpenID4IDA" target="https://openid.net/specs/openid-connect-4-identity-assurance-1_0.html">
   <front>
     <title>OpenID Connect for Identity Assurance 1.0</title>
     <author initials="T." surname="Lodderstedt" fullname="Torsten Lodderstedt">
-      <organization>yes.com</organization>
+      <organization>sprind.org</organization>
     </author>
     <author initials="D." surname="Fett" fullname="Daniel Fett">
       <organization>Authlete</organization>
@@ -288,14 +345,14 @@ organization="KDDI Corporation"
   </front>
 </reference>
 
-# IANA Considerations
+# IANA considerations
 
-## JSON Web Token Claims Registration
+## JSON Web Token claims registration
 
 <!-- This specification requests registration of the following value in the IANA "JSON Web Token Claims Registry" established by [@!RFC7519]. -->
 この仕様は [@!RFC7519] によって確立された IANA における "JSON Web Token Claims Registry" に次の値を登録することを要求している.
 
-### Registry Contents
+### Registry contents
 
 #### Claim `place_of_birth`
 
@@ -303,8 +360,8 @@ Claim Name:
 : `place_of_birth`
 
 Claim Description:
-<!-- : A structured Claim representing the End-User’s place of birth. -->
-: End-User の出生地を表現する構造化 Claim
+<!-- : A structured claim representing the end-user’s place of birth. -->
+: エンドユーザーの出生地を表現する構造化クレーム
 
 Change Controller:
 : eKYC and Identity Assurance Working Group - openid-specs-ekyc-ida@lists.openid.net
@@ -319,8 +376,8 @@ Claim Name:
 : `nationalities`
 
 Claim Description:
-<!-- : String array representing the End-User’s nationalities. -->
-: End-User の国籍を表現する文字列配列
+<!-- : String array representing the end-user’s nationalities. -->
+: エンドユーザーの国籍を表現する文字列配列
 
 Change Controller:
 : eKYC and Identity Assurance Working Group - openid-specs-ekyc-ida@lists.openid.net
@@ -383,8 +440,8 @@ Claim Name:
 : `salutation`
 
 Claim Description:
-<!-- : End-User’s salutation, e.g., “Mr.” -->
-: End-User の敬称, 例えば, "Mr."
+<!-- : End-user’s salutation, e.g., “Mr.” -->
+: エンドユーザーの敬称, 例えば, "Mr."
 
 Change Controller:
 : eKYC and Identity Assurance Working Group - openid-specs-ekyc-ida@lists.openid.net
@@ -399,8 +456,8 @@ Claim Name:
 : `title`
 
 Claim Description:
-<!-- : End-User’s title, e.g., “Dr.” -->
-: End-User の肩書, 例えば, "Dr."
+<!-- : End-user’s title, e.g., “Dr.” -->
+: エンドユーザーの肩書, 例えば, "Dr."
 
 Change Controller:
 : eKYC and Identity Assurance Working Group - openid-specs-ekyc-ida@lists.openid.net
@@ -415,8 +472,8 @@ Claim Name:
 : `msisdn`
 
 Claim Description:
-<!-- : End-User’s mobile phone number formatted according to ITU-T recommendation [@!E.164] -->
-: ITU-T勧告[@!E.164] に従ってフォーマットされた End-User の電話番号.
+<!-- : End-user’s mobile phone number formatted according to ITU-T recommendation [@!E.164] -->
+: ITU-T勧告[@!E.164] に従ってフォーマットされたエンドユーザーの電話番号.
 
 Change Controller:
 : eKYC and Identity Assurance Working Group - openid-specs-ekyc-ida@lists.openid.net
@@ -451,13 +508,13 @@ Specification Document(s):
 
 # Notices
 
-Copyright (c) 2023 The OpenID Foundation.
+Copyright (c) 2024 The OpenID Foundation.
 
 The OpenID Foundation (OIDF) grants to any Contributor, developer, implementer, or other interested party a non-exclusive, royalty free, worldwide copyright license to reproduce, prepare derivative works from, distribute, perform and display, this Implementers Draft or Final Specification solely for the purposes of (i) developing specifications, and (ii) implementing Implementers Drafts and Final Specifications based on such documents, provided that attribution be made to the OIDF as the source of the material, but that such attribution does not indicate an endorsement by the OIDF.
 
 The technology described in this specification was made available from contributions from various sources, including members of the OpenID Foundation and others. Although the OpenID Foundation has taken steps to help ensure that the technology is available for distribution, it takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this specification or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any independent effort to identify any such rights. The OpenID Foundation and the contributors to this specification make no (and hereby expressly disclaim any) warranties (express, implied, or otherwise), including implied warranties of merchantability, non-infringement, fitness for a particular purpose, or title, related to this specification, and the entire risk as to implementing this specification is assumed by the implementer. The OpenID Intellectual Property Rights policy requires contributors to offer a patent promise not to assert certain patent claims against other contributors and against implementers. The OpenID Foundation invites any interested party to bring to its attention any copyrights, patents, patent applications, or other proprietary rights that may cover technology that may be required to practice this specification.
 
-# Document History
+# Document history
 
    [[ To be removed from the final specification ]]
 
