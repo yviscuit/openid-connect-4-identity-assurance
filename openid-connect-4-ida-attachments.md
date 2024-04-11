@@ -424,3 +424,4 @@ The technology described in this specification was made available from contribut
 * Muneomi Sakuta (SoftBank Corp.)
 * Yuu Kikuchi (OPTiM Corp.)
 * Nov Matake (YAuth.jp)
+* Kiyoshi Okuda (Fujitsu Ltd.)

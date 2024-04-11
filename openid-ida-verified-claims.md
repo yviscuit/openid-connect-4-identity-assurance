@@ -782,3 +782,6 @@ The technology described in this specification was made available from contribut
 * Muneomi Sakuta (SoftBank Corp.)
 * Yuu Kikuchi (OPTiM Corp.)
 * Nov Matake (YAuth.jp)
+* Hitoshi Sakurada (Deloitte Tohmatsu Cyber LLC)
+* Shigetatsu Kashiwai (Deloitte Tohmatsu Cyber LLC)
+* Takaaki Miyazaki (Deloitte Tohmatsu Cyber LLC)
