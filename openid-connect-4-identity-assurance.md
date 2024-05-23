@@ -354,19 +354,24 @@ OP は子の要件を満たすよう務めるべきである (SHOULD)．もし E
 
 ## Requesting claims sets with different verification requirements
 
-It is also possible to request different trust frameworks, assurance levels, and methods for different claim sets. This requires the RP to send an array of `verified_claims` objects instead of passing a single object.
+<!-- It is also possible to request different trust frameworks, assurance levels, and methods for different claim sets. This requires the RP to send an array of `verified_claims` objects instead of passing a single object. -->
+異なった Claim Sets に対して，異なったトラストフレームワーク， assurance レベルや方法を要求することが出来る．これは RP が単一オブジェクトを渡すのではなく，`verified_claims` オブジェクトの配列を送信することを要求する．
 
-The following example illustrates this functionality.
+<!-- The following example illustrates this functionality. -->
+次の例はこの機能を示す．
 
 <{{examples/request/verification_claims_by_trust_frameworks.json}}
 
-When the RP requests multiple verifications as described above, the OP will process each element in the array independently. The OP will provide `verified_claims` response elements for every `verified_claims` request element whose requirements it is able to fulfill. This also means if multiple `verified_claims` elements contain the same end-user claim(s), the OP delivers the claim in as many verified claims response objects it can fulfil. For example, if the trust framework the OP uses is compatible with multiple of the requested trust frameworks, it provides a `verified_claims` element for each of them.
+<!-- When the RP requests multiple verifications as described above, the OP will process each element in the array independently. The OP will provide `verified_claims` response elements for every `verified_claims` request element whose requirements it is able to fulfill. This also means if multiple `verified_claims` elements contain the same end-user claim(s), the OP delivers the claim in as many verified claims response objects it can fulfil. For example, if the trust framework the OP uses is compatible with multiple of the requested trust frameworks, it provides a `verified_claims` element for each of them. -->
+RP が上記に従って複数の検証を要求すると，OP は配列内の各要素を個別に処理する．OP は要件を満たすことの出来るすべての `verified_claims` 要求要素に対して，`verified_claims` レスポンス要素を提供する．これは複数の `verified_claims` 要素に同じエンドユーザーの claim が含まれている場合，OP は満たせるだけ多くの verfied claims レスポンスオブジェクトで claim を配信することも意味する．例えば，OP が使用するトラストフレームワークが要求された複数のトラストフレームワークと互換性がある場合，それらのそれぞれに `verified_claims` 要素が提供される．
 
-The RP can combine multiple `verified_claims` claims in the request with multiple `trust_framework` and/or `assurance_level` values using the `values` element. In that case, the rules given above for processing `values` are applied for the particular `verified_claims` request object.
+<!-- The RP can combine multiple `verified_claims` claims in the request with multiple `trust_framework` and/or `assurance_level` values using the `values` element. In that case, the rules given above for processing `values` are applied for the particular `verified_claims` request object.-->
+RP は `values` 要素を利用して，リクエスト中の複数の `verified_claims` claims を複数の `trust_framework` 及び/または `assurance_level` 値と組み合わせることが出来る．このケースにおいて，`values` を処理するための上記のルールが特定の `verified_claims` リクエストオブジェクトに適用される．
 
 <{{examples/request/verification_claims_by_trust_frameworks_same_claims.json}}
 
-In the above example, the RP asks for family and given name either under trust framework `gold` with an evidence of type `document` or under trust framework `silver` or `bronze` but with an evidence `electronic_record`.
+<!-- <@-- In the above example, the RP asks for family and given name either under trust framework `gold` with an evidence of type `document` or under trust framework `silver` or `bronze` but with an evidence `electronic_record`. -->
+上記の例では，RP は エビデンスタイプ `document` を持つトラストフレームワーク `gold` もしくは エビデンスタイプ `electronic_record` を持つトラストフレームワーク `silver` または `bronze` に基づいて，姓と名を要求する．
 
 ## Returning less data than requested
 
