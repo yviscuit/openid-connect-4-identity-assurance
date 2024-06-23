@@ -815,6 +815,7 @@ Claim Name:
 Claim Description:
 : A structured claim containing end-user claims and the details of how those end-user claims were assured.
 -->
+
 Claim Description:
 : End-User Claim とそれらの Claim がどのように保証されているかの詳細を含む構造化された Claim.
 
@@ -825,6 +826,7 @@ Change Controller:
 Specification Document(s):
 : Section [Claims](#claims) of this document
 -->
+
 Specification Document(s):
 : 本ドキュメントの [Claims](#claims) セクション
 
