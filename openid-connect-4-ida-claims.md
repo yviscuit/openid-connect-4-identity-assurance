@@ -103,35 +103,42 @@ interpreted with their natural language meanings.
 
 # Normative references
 
-See section 5 for normative references.
+<!-- See section 5 for normative references. -->
+Normative References については Section 5 参照．
 
 # Terms and definitions
 
-For the purposes of this document, the following terms and definitions apply.
+<!-- For the purposes of this document, the following terms and definitions apply. -->
+このドキュメントでは，以下の用語と定義を適用する．
 
 ## claim
-piece of information asserted about an entity
+<!-- piece of information asserted about an entity -->
+Entity に関する情報の部分集合.
 
 [SOURCE: [@!OpenID], 1.2]
 
 ## identity proofing
-process in which an end-user provides evidence to an OP or claim provider reliably identifying themselves, thereby allowing the OP or claim provider to assert that identification at a useful assurance level
+<!-- process in which an end-user provides evidence to an OP or claim provider reliably identifying themselves, thereby allowing the OP or claim provider to assert that identification at a useful assurance level -->
+エンドユーザーが OP または claim provider に自分自身を確実に識別できるエビデンスを提供し，それによって OP または claim provider が有用な assurance level でその識別を主張出来るようにするプロセス
 
 ## identity verification
-process conducted by the OP or a claim provider to verify the end-user's identity
+<!-- process conducted by the OP or a claim provider to verify the end-user's identity -->
+エンドユーザーの identity を確認するために，OP または claim provider が実施するプロセス
 
 ## identity assurance
-process in which the OP or a claim provider asserts identity data of a certain end-user with a certain assurance towards an RP, typically expressed by way of an assurance level. Depending on legal requirements, the OP can be required to provide evidence of the identity verification process to the RP
+<!-- process in which the OP or a claim provider asserts identity data of a certain end-user with a certain assurance towards an RP, typically expressed by way of an assurance level. Depending on legal requirements, the OP can be required to provide evidence of the identity verification process to the RP -->
+通常は assurance level によって表現される，OP または claim provider が特定のエンドユーザーのアイデンティティデータを RP に対して一定の保証付きで主張するプロセス．法的要件に応じて，OP は identity verification プロセスのエビデンスを RP に提供することが要求される場合がある．
 
 ## verified claims
-claims about an end-user, typically a natural person, whose binding to a particular end-user account was verified in the course of an identity verification process
+<!-- claims about an end-user, typically a natural person, whose binding to a particular end-user account was verified in the course of an identity verification process -->
+identity verification プロセスの過程で，特定のエンドユーザーアカウントとの binding が確認されたエンドユーザー，一般的には自然人，に関する claim
 
 # Claims {#claims}
 
 ## Additional claims about end-users {#userclaims}
 
 <!-- This specification defines the following claims for conveying end-user data in addition to the claims defined in the OpenID Connect specification [@!OpenID] and the OpenID Connect for Identity Assurance specification [@!OpenID4IDA] and in any other context that a JWT (as per [@RFC7519]) may be used: -->
-この仕様は, OpenID Connect 仕様[@!OpenID]及び OpenID Connect for Identity Assurance の仕様[@!OpenID4IDA]で定義される Claim に加えて, ([@RFC7519]に従う) JWT が使われるかもしれないあらゆるコンテキストにおいて, エンドユーザーデータを伝達するための次の Claim を定義している.
+この仕様は, OpenID Connect 仕様 [@!OpenID] 及び OpenID Connect for Identity Assurance 仕様 [@!OpenID4IDA] で定義される Claim に加えて, ([@RFC7519]に従う) JWT が使われるかもしれないあらゆるコンテキストにおいて, エンドユーザーデータを伝達するための次の Claim を定義している.
 
 <!--
 | Claim | Type | Description |
@@ -171,7 +178,7 @@ claims about an end-user, typically a natural person, whose binding to a particu
 この仕様は，[@!OpenID] で定義されている `address` クレームを，国を ISO コードとして含む別のサブフィールドによって拡張する．
 
 <!-- `country_code`: Optional. country part of an address represented using an ISO 3-letter code [@!ISO3166-3], e.g., "USA" or "JPN". 2-letter ISO codes [@!ISO3166-1] may be used for compatibility reasons. `country_code` may be used as alternative to the existing `country` field. -->
-`country_code`: Optional. ISO 3-letter code [@!ISO3166-3]  (例: "USA" や "JPN") を使用して表される住所の国部分．2-letter ISO codes [@!ISO3166-1] は，互換性の理由から使用されるかもしれない (NAY)．`country_code` は，既存の` country` フィールドの代わりに使用してもよい (MAY)．
+`country_code`: Optional. ISO 3-letter code [@!ISO3166-3]  (例: "USA" や "JPN") を使用して表される住所の国部分．2-letter ISO codes [@!ISO3166-1] は，互換性の理由から使用されるかもしれない (NAY)．`country_code` は，既存の `country` フィールドの代わりに使用してもよい (MAY)．
 
 ## Examples
 
@@ -473,7 +480,7 @@ Claim Name:
 
 Claim Description:
 <!-- : End-user’s mobile phone number formatted according to ITU-T recommendation [@!E.164] -->
-: ITU-T勧告[@!E.164] に従ってフォーマットされたエンドユーザーの電話番号.
+: ITU-T勧告 [@!E.164] に従ってフォーマットされたエンドユーザーの電話番号.
 
 Change Controller:
 : eKYC and Identity Assurance Working Group - openid-specs-ekyc-ida@lists.openid.net
