@@ -80,7 +80,7 @@ Final drafts adopted by the Workgroup through consensus are circulated publicly 
 OpenID Connect の本拡張機能は，Relying Party が追加の保証メタデータを使用してアイデンティティ情報を要求および受信する方法を標準化する．この仕様は，たとえば，マネーロンダリング防止法や健康データへのアクセス，リスクの軽減，不正防止などの規制要件に準拠するような，強力な保証を必要とするユースケースを可能にすることを目的としている．
 
 <!-- In such use cases, the relying party (RP) needs to understand the trustworthiness or assurance level of the  claims about the end-user that the OpenID provider (OP) is willing to communicate, along with process-related information and evidence used to verify the end-user claims. -->
-そのようなユースケースでは, 依拠当事者 (RP) は, OpenID プロバイダー (OP) の伝達するプロセス関連情報とエンドユーザーの Claim の検証に利用したエビデンスと一緒に，エンドユーザーに関する Claim の信頼性または保証レベルを知る必要がある.
+そのようなユースケースでは, 依拠当事者 (RP) は, OpenID プロバイダー (OP) の伝達するプロセス関連情報とエンドユーザーの Claim の検証に利用したエビデンスと一緒に，エンドユーザーに関する Claim の信頼性または assurance level を知る必要がある.
 
 <!-- The `acr` claim, as defined in section 2 of the OpenID Connect specification [@!OpenID], is suited to assure information about the authentication performed in an OpenID Connect transaction. Identity assurance, however, requires a different representation. While authentication is an aspect of an OpenID Connect transaction, assurance and associated verification and validation details, are properties of a certain claim or a group of claims. Several of them will typically be conveyed to the RP as the result of an OpenID Connect transaction. -->
 OpenID Connect 仕様 [@!OpenID] の Section 2 で定義されている `acr` Claim は, OpenID Connect トランザクションで実行される認証に関する情報を証明するのに適している. ただし, identity assurance には異なる表現が必要である. 認証は OpenID Connect トランザクションの側面であり, 保証と関連する検証の詳細は，特定の Claim または Claim のグループのプロパティである．それらのいくつかは通常, OpenID Connect トランザクションの結果として RP に伝えられる.
@@ -164,7 +164,7 @@ RP は，必要最小限のデータセットの要求 (data minimization) と�
 この拡張機能は、eIDAS などの identity assurance に関連する特定の規制の下で動作する OP はもちろん，そのような規制なしで動作する他の OP でも使用できる．
 
 <!-- It is assumed that OPs operating under a suitable regulation can assure identity data without the need to provide further evidence since they are approved to operate according to well-defined rules with clearly defined liability. For example in the case of eIDAS, the peer review ensures eIDAS compliance and the respective member state assumes the liability for the identities asserted by its notified eID system. -->
-適切な規制の下で運用されている OP は，明確に定義された責任を伴う明確に定義されたルールに従って運用することが承認されているため，追加のエビデンスを提供する必要なしに identity data を保証できると想定されている．例えば eIDAS の場合，ピアレビューは eIDAS コンプライアンスを保証し，それぞれの加盟国は、通知されたeID システムによって主張された identity に対する責任を負う．
+適切な規制の下で運用されている OP は，明確に定義された責任を伴う明確に定義されたルールに従って運用することが承認されているため，追加のエビデンスを提供する必要なしに identity data を保証できると想定されている．例えば eIDAS の場合，ピアレビューは eIDAS コンプライアンスを保証し，それぞれの加盟国は、通知された eID システムによって主張された identity に対する責任を負う．
 
 <!-- Every other OP not operating under such well-defined conditions could receive a request to provide the RP data about the identity verification process along with identity evidence to allow the RP to conduct their own risk assessment and to map the data obtained from the OP to other laws. For example, if an OP verifies and maintains identity data in accordance with an anti-money laundering law, an RP might choose to use the identity attributes in a different regulatory context, such as eHealth or the previously mentioned eIDAS. -->
 そのような明確な条件下で動作していない他のすべての OP は，RP が独自のリスクアセスメントを行い，OP から入手したデータを他の法律にマッピングできるように，identity evidence に加えて identity verification プロセスに関する RP data の提供要求を受け取るかもしれない．
@@ -177,7 +177,7 @@ RP は，必要最小限のデータセットの要求 (data minimization) と�
 技術的な観点から，これは本仕様は OP が信頼するトラストフレームワークに関する情報とともに Verified Claim を提供できるようにするだけでなく，identity verificatoin process に関する情報の外部化もサポートすることを意味する．
 
 <!-- The representation defined in this document can be used to provide RPs with verified claims about the end-user via any appropriate channel. In the context of OpenID Connect, verified claims can be provided in ID Tokens or as part of the UserInfo response. It is also possible to utilize the format described here in OAuth access tokens or token introspection responses to provide resource servers with verified claims. -->
-本仕様で定義される表現は，いずれかの適切なチャネルを介してエンドユーザーに関する Verified Claim を RP に提供できる．OpenID Connect のコンテキストにおいて，Verified Claim はID Token またはUserInfoレスポンスの一部として提供できる．OAuth Access Token または Token Introspection レスポンスで記述される形式を用いてリソースサーバーに Verified Claim を提供することもできる．
+本仕様で定義される表現は，いずれかの適切なチャネルを介してエンドユーザーに関する Verified Claim を RP に提供できる．OpenID Connect のコンテキストにおいて，Verified Claim はID Token または UserInfo レスポンスの一部として提供できる．OAuth Access Token または Token Introspection レスポンスで記述される形式を用いてリソースサーバーに Verified Claim を提供することもできる．
 
 <!-- This extension is intended to be truly international and support identity assurance across different jurisdictions. The extension is therefore extensible to support various trust frameworks, identity evidence and assurance processes. -->
 本拡張は，真に国際的で異なる管轄区域を跨いで identity assurance をサポートすることを意図している．
@@ -187,7 +187,7 @@ RP は，必要最小限のデータセットの要求 (data minimization) と�
 実装者に可能な限りの柔軟性を与えるために, この拡張は既存の OpenID Connect の Claim および同じ OpenID Connect のアサーション(例えば, ID Token や UserInfo)内の他の拡張と組み合わせて使うことができる.
 
 <!-- For example, OpenID Connect [@!OpenID] defines claims for representing family name and given name of an end-user without a verification status. These claims can be used in the same OpenID Connect assertion beside verified claims represented according to this extension. -->
-例えば，OpenID Connect [@!OpenID] は検証ステータスのないエンドユーザーの性と名を表す Claim を定義している．これらの Claim は本拡張に従って表現される Verified Claim とともに同じ OpenID Connect のアサーションで使うことができる．
+例えば，OpenID Connect [@!OpenID] は検証ステータスのないエンドユーザーの姓と名を表す Claim を定義している．これらの Claim は本拡張に従って表現される Verified Claim とともに同じ OpenID Connect のアサーションで使うことができる．
 
 <!-- In the same way, existing claims to inform the RP of the verification status of the `phone_number` and `email` claims can be used together with this extension. -->
 同じように，`phone_number` と `email` Claim の検証ステータスを RP に通知する既存 Claim も本拡張とともに使うことができる．
@@ -201,18 +201,20 @@ identity assurance に関する一部の権限の要件を満たすために, Op
 # Verified claims {#verified_claims}
 
 <!-- The basic idea is to use a container element, called `verified_claims`, to provide the RP with a set of claims along with the respective metadata and verification evidence related to the verification of these claims. This way, it is explicit which claims are verified, reducing the risk of RPs accidentally processing unverified claims as verified claims. -->
-基本的な考え方は `verified_claims` と呼ばれるコンテナ要素を使用し，RP に一連の Claim と，これらの Claim の検証に関連するそれぞれのメタデータ及び検証のエビデンスを提供することである． This way, it is explicit which Claims are verified, reducing the risk of RPs accidentally processing unverified Claims as Verified Claims.
+基本的な考え方は `verified_claims` と呼ばれるコンテナ要素を使用し，RP に一連の Claim と，これらの Claim の検証に関連するそれぞれのメタデータ及び検証のエビデンスを提供することである．この方法は，検証されている claims が明確になり，RPs が誤って検証されていない claims を verified claims として処理するリスクが軽減される
 
 ## Verified claims schema
 
-This document uses the [!@IDA-verified-claims] document as the definition of the schema for representation of assured digital identity attributes and identity assurance metadata. 
+<!-- This document uses the [!@IDA-verified-claims] document as the definition of the schema for representation of assured digital identity attributes and identity assurance metadata.  -->
+このドキュメントでは，保証された digital identity 属性と identity assurance メタデータを表現するスキーマの定義として [!@IDA-verified-claims] ドキュメントを使用する．
 
 <!-- The following example would assert to the RP that the OP has verified the claims provided (`given_name` and `family_name`) according to an example trust framework `trust_framework_example`: -->
 次の例では，トラストフレームワーク `trust_framework_example` の例に従って，OP が提供された Claim (`given_name` and `family_name`) を検証したことを RP に表明する:
 
 <{{examples/response/verified_claims_simple.json}}
 
-This document requires that RPs use the schema defined in [@!IDA-verified-claims]. There are places in the JSON structure where that schema can be extended by implementers but deviation from the schema as defined would not be correct use of this document.
+<!-- This document requires that RPs use the schema defined in [@!IDA-verified-claims]. There are places in the JSON structure where that schema can be extended by implementers but deviation from the schema as defined would not be correct use of this document. -->
+このドキュメントは，RP が [@!IDA-verified-claims] で定義されたスキーマを利用することを要求する．JSON 構造には実装者がスキーマを拡張できる箇所があるが，定義されたスキーマから逸脱することはこのドキュメントの正しい使用方法ではない．
 
 ## verified claims delivery {#verified_claims_delivery}
 
@@ -241,7 +243,8 @@ This document requires that RPs use the schema defined in [@!IDA-verified-claims
 }
 ```
 
-An OP or Authorization Server (AS) can also include aggregated or distributed `verified_claims` in the above assertions (see (#aggregated_distributed_claims) for more details).
+<!-- An OP or Authorization Server (AS) can also include aggregated or distributed `verified_claims` in the above assertions (see (#aggregated_distributed_claims) for more details). -->
+OP または Authorization Server (AS) は上記の assertions に集約または分散された `verified_claims` を含めることも出来る (詳細は (#aggregated_distributed_claims) 参照)．
 
 ## Requesting end-user claims {#req_claims}
 
@@ -249,23 +252,24 @@ An OP or Authorization Server (AS) can also include aggregated or distributed `v
 Verified Claims は OpenID Connect specification [@!OpenID] の Section 5.5 に定義されている `claims` parameter を利用することで, End-User について 個々の Claims のレベルで要求できる.
 
 <!-- Note: A machine-readable definition of the syntax to be used to request `verified_claims` is given as JSON schema in [@verified_claims_request.json], which can be used to automatically validate `claims` request parameters. The provided JSON schema files are a non-normative implementation of this document and any discrepancies that exist are either implementation bugs or interpretations. -->
-注: `verified_claims` をリクエストするために使用される機械可読な構文定義は [@verified_claims_request.json] で JSON スキーマとして提供され，これを利用して `claims` リクエストパラメータを自動的に検証することができる．The provided JSON schema files are a non-normative implementation of this document and any discrepancies that exist are either implementation bugs or interpretations.
+注: `verified_claims` をリクエストするために使用される機械可読な構文定義は [@verified_claims_request.json] で JSON スキーマとして提供され，これを利用して `claims` リクエストパラメータを自動的に検証することができる．提供される JSON スキーマファイルは本ドキュメントの標準ではない実装であり，存在する矛盾は実装のバグか，解釈のいずれかである．
 
 <!-- To request verified claims, the `verified_claims` element is added to the `userinfo` or the `id_token` element of the `claims` parameter. -->
 検証済み Claim を要求するには，`verified_claims` 要素を `claims` パラメータの `userinfo` または `id_token` 要素に追加する．
 
 <!-- Since `verified_claims` contains the effective claims about the end-user in a nested `claims` element, the syntax is extended to include expressions on nested elements as follows. The `verified_claims` element includes a `claims` element, which in turn includes the desired claims as keys. For each claim, the value is either `null` (default), or an object. The object may contain restrictions using `value` or `values` as defined in [@!OpenID] and/or the `essential` or `purpose` keys as described below. An example is shown in the following: -->
-`verified_claims` にはネストされた `claims` 要素の中に End-User についての有効な Claims が含まれるため, syntax は次のようにネストされた要素の式を含むように拡張される. The `verified_claims` element includes a `claims` element, which in turn includes the desired Claims as keys. For each claim, the value is either `null` (default), or an object. The object may contain restrictions using `value` or `values` as defined in [@!OpenID] and/or the `essential` or `purpose` keys as described below. 以下に例を示す.
+`verified_claims` にはネストされた `claims` 要素の中に End-User についての有効な Claims が含まれるため, syntax は次のようにネストされた要素の式を含むように拡張される，`verified_claims` 要素は `claims` 要素を含み，必要な Claims がキーとして含まれる．各 claim の値は `null` (デフォルト), または object のいずれかである．Object には [@!OpenID] にて定義される `value` または `values`，及び/または以下で説明する `essential` または `purpose` キーを使用する制限が含まれるかもしれない (MAY)．以下に例を示す.
 
 <{{examples/request/claims.json}}
 
 <!-- Use of the `claims` parameter allows the RP to request specified claims about the end-user needed for its use case. This allows RPs to fulfill the requirements for data minimization by requesting only claims needed for its use case. -->
-`claims` パラメータを使用すると, RP はそのユースケースに必要な End-User に関する指定した Claims を要求できるようになる. This allows RPs to fulfill the requirements for data minimization by requesting only claims needed for its use case.  
+`claims` パラメータを使用すると, RP はそのユースケースに必要な End-User に関する指定した Claims を要求できるようになる. これにより RPs はユースケースに必要な claims のみを要求することで， データ最小化の要件を満たすことが出来る．
 
-Note: it is not possible to request sub-claims (for example the `country` subclaim of the `address` claim) using mechanisms from OpenID Connect Core or this document.
+<!-- Note: it is not possible to request sub-claims (for example the `country` subclaim of the `address` claim) using mechanisms from OpenID Connect Core or this document. -->
+Note: OpenID Connect Core または本ドキュメントのメカニズムを使用して，sub-claims (例えば，`address` claim の `country` subclaim) を要求することは出来ない．
 
 <!-- RPs can use the `essential` field as defined in section 5.5.1 of the OpenID Connect specification [@!OpenID]. The following example shows this for the family and given names. -->
-RPs は OpenID Connect 仕様 [@!OpenID] の Section 5.5.1 に定義された `essential` フィールドを使うことが出来る．次の例は，姓名についてこれを示す．
+RPs は OpenID Connect [@!OpenID]  仕様の Section 5.5.1 に定義された `essential` フィールドを使うことが出来る．次の例は，姓と名についてこれを示す．
 
 <{{examples/request/essential.json}}
 
@@ -275,7 +279,7 @@ RPs は OpenID Connect 仕様 [@!OpenID] の Section 5.5.1 に定義された `e
 RP はエンドユーザーに関する Claim を要求するのと同じ方法で検証データを要求する．claims request parameter が利用されている場合，構文は (#req_claims) で指定したルールに基づき，`verification` 要素の構造にナビゲーションするためにそれらを拡張する．
 
 <!-- Elements within `verification` are requested by adding the respective element as shown in the following example: -->
-次の例に示すように，`verification` 内の要素は，それぞれの要素を追加することによって要求される
+次の例に示すように，`verification` 内の要素は，それぞれの要素を追加することによって要求される:
 
 <{{examples/request/verification.json}}
 
@@ -302,7 +306,8 @@ RP は OP  が `verification` 要素に追加するデータを明示的に要�
 <!-- `check_details` is an array of the processes that have been applied to the `evidence`. An RP can filter `check_details` by requesting a particular value for one or more of its sub-elements. If multiple entries for the same sub-element are present this acts as a logical OR between them. -->
 `check_details` は `evidence` に適用されるプロセスの配列である．RP は1つ以上のサブ要素に特定の値を要求することでｍ`check_details` をフィルタリング出来る．同じサブ要素に複数のエントリーがある場合，これはそれらの間の論理 OR として機能する．
 
-`assurance_details` is an array representing how the `evidence` and `check_details` fulfill the requirements of the `trust_framework`. RP should only request this where they need to know this information. Where `assurance_details` has been requested by an RP the OP shall return the `assurance_details` element along with all sub-elements that it has. If an RP wants to filter what types of `evidence` and `check_methods` they shall use those methods to do so, e.g. requesting an `assurance_type` should have no filtering effect.
+<!-- `assurance_details` is an array representing how the `evidence` and `check_details` fulfill the requirements of the `trust_framework`. RP should only request this where they need to know this information. Where `assurance_details` has been requested by an RP the OP shall return the `assurance_details` element along with all sub-elements that it has. If an RP wants to filter what types of `evidence` and `check_methods` they shall use those methods to do so, e.g. requesting an `assurance_type` should have no filtering effect. -->
+`assurance_details` は `evidence` と `check_details` がどのように `trust_framework` の要件を満たしているかを示す配列である．RP はこの情報を知る必要がある場合のみ要求しなければならない (SHOULD)．`assurance_details`  が RP によって要求された場合，OP は `assurance_details` 要素と，それが持つ全てのサブ要素を一緒に返すべきである（SHALL）．RP が `evidence` と `check_methods` のタイプをフィルタしたい場合，それらのメソッドを使用しなければならない (SHOULD)．例えば，`assurance_type` を要求しても，フィルタリング効果はない．
 
 <!-- The RP can also request certain data within the `document` element to be present. This again follows the syntax rules used above: -->
 RP は `document`要素内の特定のデータの存在を要求するも出来る．これも上記で使用した構文規則に従う:
@@ -340,7 +345,7 @@ RP は特定のエビデンスタイプの発行/失効からの経過時間や�
 <!-- `max_age`: Optional. JSON number value only applicable to claims that contain dates or timestamps. It defines the maximum time (in seconds) to be allowed to elapse since the value of the date/timestamp up to the point in time of the request. The OP should make the calculation of elapsed time starting from the last valid second of the date value. -->
 `max_age`: OPTIONAL. 日付またはタイムスタンプを含む Claims にのみ適用可能な JSON number 値．日付/タイムスタンプの値からリクエストの時点までに許容される最大経過時間(秒)を定義する．OP は日付値の最後の有効な秒から開始して経過時間を計算しなければならない (SHOULD)．
 
-!<-- The following is an example of a request for claims where the verification process of the data is not allowed to be older than 63113852 seconds: -->
+<!-- The following is an example of a request for claims where the verification process of the data is not allowed to be older than 63113852 seconds: -->
 次の例は，データの検証プロセスが 63113852 秒より古いことが許容されていない Claims の要求例である:
 
 <{{examples/request/verification_max_age.json}}
@@ -371,54 +376,78 @@ RP は `values` 要素を利用して，リクエスト中の複数の `verified
 
 ## Returning less data than requested
 
-As stated in section 3.3.3.6 of [@!OpenID], "the OP may choose to return fewer claims about the end-user from the authorization endpoint".  This document makes no change to that provision.  The OP may also choose to return a subset of the `verification` element of any `verified_claims` providing it remains compliant with the `verified_claims` JSON schema defined in [@!OpenID4IDAClaims].
+<!-- As stated in section 3.3.3.6 of [@!OpenID], "the OP may choose to return fewer claims about the end-user from the authorization endpoint".  This document makes no change to that provision.  The OP may also choose to return a subset of the `verification` element of any `verified_claims` providing it remains compliant with the `verified_claims` JSON schema defined in [@!OpenID4IDAClaims]. -->
+[@!OpenID] の section 3.3.3.6 に記載されているように，"OP は authorization endpoint からエンドユーザーに関する claim を少なく返すことを選択できる"．このドキュメントではその規定を変更しない．OP は [@!OpenID4IDAClaims] で定義された `verified_claims` JSON スキーマに準拠している限り，任意の `verified_claims` の `verification` 要素のサブセットを返すことも出来る．
 
-In some cases, OPs cannot deliver the requested data to an RP, for example, because the data is not available or does not match the RP's requirements. The rules for handling these cases are described in the following.
+<!-- In some cases, OPs cannot deliver the requested data to an RP, for example, because the data is not available or does not match the RP's requirements. The rules for handling these cases are described in the following. -->
+例えばデータが利用できない，または RP の要件に一致しないなど，OPs は RP に要求されたデータを配信出来ない場合がある．これらのケースをハンドリングするルールを以下で説明する．
 
-Extensions of this document can define additional rules or override these rules, for example
+<!-- Extensions of this document can define additional rules or override these rules, for example -->
+このドキュメントの拡張は追加のルール定義やルールの上書きが出来る，例えば
 
+<!-- 
 * to allow or disallow the use of claims depending on scheme-specific checks,
 * to enable a finer-grained control of the RP over the behavior of the OP when data is unavailable or does not match the criteria, or
 * to abort transactions (return error codes) in cases where requests cannot be fulfilled.
+-->
 
-Important: The behavior described below is independent from the use of `essential` (as defined in section 5.5.1 of [@!OpenID]).
+* スキーム固有のチェックに応じて claims の仕様を許可または禁止する，
+* データが利用できない，または基準に一致しない場合，OP の動作に対する RP のよりきめ細かい制御を有効にする，または
+* 要求を満たすことが出来ない場合に，トランザクションを中断する (エラーコードを返す)．
+
+<!-- Important: The behavior described below is independent from the use of `essential` (as defined in section 5.5.1 of [@!OpenID]). -->
+Important: 以下で説明する振舞いは，`essential` ([@!OpenID] の section 5.5.1 で定義) の使用とは独立している．
 
 ### Unavailable data
 
-If the OP does not have data about a certain claim, does not understand/support the respective claim, OPs shall omit the respective claim from any corresponding ID Token or UserInfo response.
+<!-- If the OP does not have data about a certain claim, does not understand/support the respective claim, OPs shall omit the respective claim from any corresponding ID Token or UserInfo response. -->
+OP が特定の claim に関するデータを持っていない場合，それぞれの claim を理解/サポートしていない場合，OPs は対応する ID Token または UserInfo レスポンスからぞれぞれの claim を省略しなければならない (SHALL)．
 
 ### Non-consented data
 
-When relying on end-user consent to determine the specific data to be shared the end-user may make a choice to release only a subset of the data requested. In this case the OP shall omit from any corresponding ID Token or UserInfo response data that has not had end-user consent for sharing.
+<!-- When relying on end-user consent to determine the specific data to be shared the end-user may make a choice to release only a subset of the data requested. In this case the OP shall omit from any corresponding ID Token or UserInfo response data that has not had end-user consent for sharing. -->
+エンドユーザーの同意に基づいて共通する特定のデータを決定する場合，エンドユーザーは要求されたデータのサブセットのみを開示することを選択できる．この場合，OP は共有についてエンドユーザーの同意を得ていない，対応する ID Token または UserInfo レスポンスデータを省略しなければならない (SHALL)．
 
-Alternatively, when relying on end-user consent to determine the specific data to be shared the end-user may choose to release none of the data requested.  In this case standard OpenID Connect authentication error response logic applies, as defined in section 3.1.2.6 of [@!OpenID].
+<!-- Alternatively, when relying on end-user consent to determine the specific data to be shared the end-user may choose to release none of the data requested.  In this case standard OpenID Connect authentication error response logic applies, as defined in section 3.1.2.6 of [@!OpenID]. -->
+または，エンドユーザーの同意に基づいて共有する特定のデータを決定する場合，エンドユーザーは要求されたデータを開示しないことを選択できる．この場合，[@!OpenID] の section 3.1.2.6 で定義された 標準の OpenID Connect エラーレスポンスロジックが適用される．
 
 ### Data not matching requirements
-When the available data does not fulfill the requirements of the RP expressed through `value`, `values`, or `max_age`, the following logic applies:
+<!-- When the available data does not fulfill the requirements of the RP expressed through `value`, `values`, or `max_age`, the following logic applies: -->
+利用可能なデータが `value`, `values`, または `max_age` で表現された RP の要件を満たさない場合，以下のロジックが適用される:
 
+<!--
  * If the respective requirement was expressed for a claim within `verified_claims/verification`, the OP shall omit the whole `verified_claims` element.
  * Otherwise, the OP shall omit the respective claim from the response.
+-->
+ * それぞれの要件が `verified_claims/verification` 内の claim に対して表現された場合，OP は `verified_claims` 要素全体を省略しなければならない (SHALL)．
+ * それ以外の場合，OP は それぞれの claim をレスポンスから省略しなければならない (SHALL)．
 
-In both cases, the OP shall not return an error to the RP.
+<!-- In both cases, the OP shall not return an error to the RP. -->
+いずれの場合も，OP はRP に対してエラーを返してならない (SHALL)．
 
 ### Omitting elements
 
-If an element is to be omitted according to the rules above, but is a requirement for a valid response, the OP shall omit its parent element as well. This OP shall repeat this process until the response is valid.
+<!-- If an element is to be omitted according to the rules above, but is a requirement for a valid response, the OP shall omit its parent element as well. This OP shall repeat this process until the response is valid. -->
+上記のルールに従って省略するべきであるが，有効なレスポンスの要件である要素の場合，OP はその親要素も省略しなければならない (SHALL)．この OP はレスポンスが有効になるまでこのプロセスを繰り返さなければならない (SHALL)．
 
 ### Error handling
 
-If the OP encounters an error, standard OpenID Connect authentication error response logic applies, as defined in section 3.1.2.6 of [@!OpenID].
+<!-- If the OP encounters an error, standard OpenID Connect authentication error response logic applies, as defined in section 3.1.2.6 of [@!OpenID]. -->
+OP でエラーに遭遇した場合，[@!OpenID] の section 3.1.2.6 で定義された 標準の OpenID Connect エラーレスポンスロジックが適用される．
 
 ## Requesting sets of claims by scope {#req_scope}
 
-Verified claims about the end-user can be requested as part of a pre-defined set by utilizing the `scope` parameter as defined in section 5.4 of the OpenID Connect specification [@!OpenID].
+<!-- Verified claims about the end-user can be requested as part of a pre-defined set by utilizing the `scope` parameter as defined in section 5.4 of the OpenID Connect specification [@!OpenID]. -->
+エンドユーザーに関する Verified claims は OpenID Connect 仕様 [@!OpenID] の section 5.4 で定義された `scope` パラメータを利用して事前定義されたセットの一部として要求することが出来る．
 
-When using this approach the claims associated with a `scope` value are administratively defined at the OP.  The OP configuration and RP request parameters will determine whether the claims are returned via the ID Token or UserInfo endpoint as defined in section 5.3.2 of the OpenID Connect specification [@!OpenID].
+<!-- When using this approach the claims associated with a `scope` value are administratively defined at the OP.  The OP configuration and RP request parameters will determine whether the claims are returned via the ID Token or UserInfo endpoint as defined in section 5.3.2 of the OpenID Connect specification [@!OpenID]. -->
+このアプローチを使用する場合，`scope` 値に関連付けられた claims は OP で管理的に定義される．OP 構成と RP の request parameters によって，claim が ID Token 経由または OpenID Connect 仕様 [@!OpenID] の section 5.3.2 で定義された UserInfo endpoint 経由で返却されるかが決定する．
 
 # Aggregated and distributed claims {#aggregated_distributed_claims}
 ## Aggregated and distributed claims assertions
 
-When distributed claims are used the URL that is the value of the `endpoint` element in any distributed `_claim_source` sub-element shall use the https URI scheme and the JWT returned should not be accessible via any other URI scheme.
+<!-- When distributed claims are used the URL that is the value of the `endpoint` element in any distributed `_claim_source` sub-element shall use the https URI scheme and the JWT returned should not be accessible via any other URI scheme. -->
+分散クレームが使用される場合，分散された `_claim_source` サブ要素内の `endpoint` 要素の値である URL は，https URI スキームを使用しなければならず (SHALL)，返却される JWT はその他の URI スキーム経由ではアクセスできてはならない (SHALL)． 
 
 <!-- For aggregated or distributed claims, every assertion provided by the external claims source shall contain: -->
 集約または分散クレームの場合，外部クレームソースによって提供されるすべてのアサーションは次を含まなければならない (SHALL):
@@ -429,15 +458,20 @@ When distributed claims are used the URL that is the value of the `endpoint` ele
 * a `sub` claim identifying the end-user in the context of the claim source, and
 * a `verified_claims` element containing one or more `verified_claims` objects.
 -->
-* a `typ` header parameter with the value `provided-claims+jwt`,
+* 値 `provided-claims+jwt` を持つ `typ` ヘッダーパラメーター
 * Claim ソース を特定する `iss` Claim，
 * Claim ソース のコンテキストでエンドユーザーを識別する `sub` Claim, および
 * 1つ以上の `verified_claims` オブジェクトを含む `verified_claims` 要素．
 
-To ensure that assertions cannot be confused with OpenID Connect ID Tokens, assertions shall not contain:
+<!-- To ensure that assertions cannot be confused with OpenID Connect ID Tokens, assertions shall not contain: -->
+アサーションが OpenID Connect ID Tokens と混同されないようにするため，アサーションは下記を含んではならない (SHALL NOT):
 
+<!-- 
  * an `exp` claim, or
  * an `aud` claim.
+-->
+ * `exp` claim, または
+ * `aud` claim.
 
 <!-- The `verified_claims` element in an aggregated or distributed claims object shall have one of the following forms: -->
 集約または分散クレームオブジェクトの `verified_claims` 要素は，次のいずれかの形式でなければならない (SHALL):
@@ -477,7 +511,8 @@ To ensure that assertions cannot be confused with OpenID Connect ID Tokens, asse
 <!-- Claim sources should sign the assertions containing `verified_claims` in order to demonstrate authenticity and provide for non-repudiation. -->
 Claim ソースは，信頼性の実証と否認防止を提供するために `verified_claims` を含むアサーションを署名しなければならない (SHOULD)．
 
-RP should determine the key material used for validation of the signed assertions is via the claim source's public keys. These keys should be available in the JSON web key set available in the `jwks_uri` metadata value in the `openid-configuration` metadata document. This document can be discovered using the `iss` claim of the particular JWT.
+<!-- RP should determine the key material used for validation of the signed assertions is via the claim source's public keys. These keys should be available in the JSON web key set available in the `jwks_uri` metadata value in the `openid-configuration` metadata document. This document can be discovered using the `iss` claim of the particular JWT. -->
+RP は署名されたアサーションの検証に使用されるキーマテリアルが，claim source の公開鍵を介しているかを判断しなければならない (SHOULD)．これらのキーは `openid-configuration` メタデータドキュメント中の `jwks_uri` メタデータ値で利用可能な JSON web key set で利用できなければならない (SHOULD)．このドキュメントは特定の JWT の `iss` クレームを用いて検出できる．
 
 <!-- The OP can combine aggregated and distributed claims with `verified_claims` provided by itself (see (#op_attested_and_external_claims)). -->
 OP は集約および分散 Claim を，それ自身が提供する `verified_claims` と組み合わせることが出来る ((#op_attested_and_external_claims) 参照).
@@ -490,8 +525,10 @@ ID トークンや埋め込まれた集約 Claim のように `verified_claims` 
 
 ## Aggregated and distributed claims validation
 
-Clients shall validate any aggregated and distributed `verified_claims` they wish to rely on in the following manner:
+<!-- Clients shall validate any aggregated and distributed `verified_claims` they wish to rely on in the following manner: -->
+クライアントは，依存する集約及び分散した `verified_claims` を以下の方法で検証しなければならない (SHALL):
 
+<!-- 
 1. Ensure that both the `_claim_names` and `_claim_sources` are present in the response.
 2. Ensure that there is a `verified_claims` element present in the `_claim_names` member of the response.
 3. Ensure that the `verified_claims` element contains a value that is one of the following:
@@ -500,23 +537,47 @@ Clients shall validate any aggregated and distributed `verified_claims` they wis
     c. a JSON object containing elements that all exist as key names in the `_claim_sources` element of the response and each element is formatted with the syntax as defined for requesting `verified_claims`.
 4. Ensure that the `_claim_sources` element is a JSON structured object that has one or more sub-elements.
 5. Ensure that the sub-elements of the `_claim_sources` element have matching values in the `_claim_names` element of the response.
+-->
+1. `_claim_names` と `_claim_sources` の両方がレスポンスに存在することを確認する．
+2. レスポンスの `_claim_names` メンバーに `verified_claims` 要素が存在することを確認する．
+3. `verified_claims` 要素に次のいずれの値が含まれていることを確認する:
+    a. レスポンスの `_claim_sources` 要素内にキー名として存在する文字列．
+    b. レスポンスの `_claim_sources` 要素内にキー名として存在する全てのメンバーを含む JSON 配列．
+    c. レスポンスの `_claim_sources` 要素内にキー名として存在するすべての要素を含む JSON オブジェクトで，各要素は `verified_claims` を要求するために定義された構文でフォーマットされている．
+4. `_claim_sources` 要素が 1つ以上のサブ要素を持つ JSON 構造化オブジェクトであることを確認する．
+5. `_claim_sources` 要素のサブ要素が，レスポンスの`_claim_names`要素と一致する値を持つことを確認する．
 
-When `verified_claims` are delivered as distributed claims, i.e., when a sub-element of the `_claim_sources` contains the `endpoint` claim, clients shall also:
+<!-- When `verified_claims` are delivered as distributed claims, i.e., when a sub-element of the `_claim_sources` contains the `endpoint` claim, clients shall also: -->
+`verified_claims` が分散クレームとして配信される場合，すなわち `_claim_sources` のサブ要素に `endpoint` クレームが含まれる場合, クライアントは次のことを行わなければならない (SHALL) :
 
+<!-- 
 1. Ensure that the `endpoint` element defined in any distributed `_claim_sources` uses the https URI scheme.
 2. Retrieve the distributed claims object from the `endpoint` element defined in any distributed `_claim_sources`.
 3. Ensure that the object returned from the `endpoint` is a JWT as per [@RFC7519].
+-->
+1. 分散された `_claim_sources` で定義された `endpoint` 要素が https URI スキームを使用していることを確認する．
+2. 分散された `_claim_sources` で定義された `endpoint` 要素から分散クレームオブジェクトを取得する．
+3. `endpoint` から返却されたオブジェクトが [@RFC7519] に従った JWT であることを確認する．
 
-When `verified_claims` are delivered as aggregated claims, i.e., when a sub-element of the `_claim_sources` contains the `JWT` claim, clients shall also:
+<!-- When `verified_claims` are delivered as aggregated claims, i.e., when a sub-element of the `_claim_sources` contains the `JWT` claim, clients shall also: -->
+`verified_claims` が集約クレームとして配信される場合，すなわち `_claim_sources` のサブ要素に `JWT` クレームが含まれる場合，クライアントは次のことを行わなければならない (SHALL) :
 
-1. Ensure that the value in the `JWT` claim is a valid JWT as per [@RFC7519].
+<!-- 1. Ensure that the value in the `JWT` claim is a valid JWT as per [@RFC7519]. -->
+1. `JWT` クレームの値が [@RFC7519]　に従って有効な JWT であることを確認する．
 
-Once the JWT has been delivered either via distributed or aggregated mechanism the client shall:
+<!-- Once the JWT has been delivered either via distributed or aggregated mechanism the client shall: -->
+JWT が分散または集約メカニズムを介して配信されると，クライアントは次のことを行わなければならない (SHALL) :
 
+<!-- 
 1. Verify the signature of the returned JWT.
 2. Ensure that the JWT includes the `typ`, `iss`, `sub`, and `verified_claims` elements; and that their values are not null or empty.
 3. Ensure that the JWT does not contain either an `exp` claim or an `aud` claim.
 4. Ensure that the value of the `typ` header parameter in the JWT is `provided-claims+jwt`.
+-->
+1. 返却された JWT の署名を検証する．
+2. JWT に `typ`, `iss`, `sub`, 及び `verified_claims` 要素が含まれること，及びそれらの値が null または空でないことを確認する．
+3. JWT に `exp` クレームまたは `aud` クレームが含まれていないことを確認する．
+4. JWT 中の `typ` ヘッダーパラメーターの値が `provided-claims+jwt` であることを確認する．
 
 # Requesting verified claims
 
