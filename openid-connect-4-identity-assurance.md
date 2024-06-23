@@ -16,7 +16,7 @@ status = "standard"
 initials="T."
 surname="Lodderstedt"
 fullname="Torsten Lodderstedt"
-organization="yes.com"
+organization="sprind.org"
     [author.address]
     email = "torsten@lodderstedt.net"
 
@@ -64,8 +64,8 @@ organization="KDDI Corporation"
 
 .# Abstract
 
-<!-- This specification defines an extension of OpenID Connect for providing relying parties with verified claims about end-users. This extension facilitates the verification of the identity of a natural person. -->
-この仕様では，エンドユーザーに関する検証済みクレームを Relying Parties に提供するための OpenID Connect の拡張機能を定義する．この拡張は，自然人の身元検証を容易にする．
+<!-- This document defines an extension of OpenID Connect protocol for providing relying parties with claims about end-users that have a certain level of verification and/or additional metadata about the claim or the process of verification for access control, entitlement decisions or input to further verification processes. -->
+このドキュメントは，アクセスコントロール，資格決定やさらなる検証プロセスへの入力のための Claim または検証プロセス に関する，特定の検証レベル及び/または追加のメタデータを持つエンドユーザーに関する検証済みクレームを Relying Parties に提供するための OpenID Connect の拡張機能を定義する．
 
 .# Foreword
 
@@ -75,24 +75,21 @@ Final drafts adopted by the Workgroup through consensus are circulated publicly 
 
 .# Introduction {#Introduction}
 
-<!-- This specification defines an extension to OpenID Connect [@!OpenID] for providing relying parties with identity information, i.e., verified claims, along with an explicit statement about the verification status of these  claims (what, how, when, according to what rules, using what evidence). This specification is aimed at enabling use cases requiring strong assurance, for example, to comply with regulatory requirements such as anti-money laundering laws or access to health data, risk mitigation, or fraud prevention. -->
-この仕様では，Relying Party に identity 情報，すなわち検証済みクレーム提供するための OpenID Connect [@!OpenID] の拡張と，これらのクレームの検証ステータスに関する明示的なステートメント（何を、どのように、いつ、どのルールに従って、 どのようなエビデンスを使用して）を定義する．
-この仕様は，たとえば，マネーロンダリング防止法や健康データへのアクセス，リスクの軽減，不正防止などの規制要件に準拠するような，強力な保証を必要とするユースケースを可能にすることを目的としている．
+<!-- This extension to OpenID Connect standardizes how relying parties request and receive identity information with additional assurance metadata. This document is aimed at enabling use cases requiring strong assurance, for example, to comply with regulatory requirements such as anti-money laundering laws or access to health data, risk mitigation, or fraud prevention. -->
 
-<!-- In such use cases, the relying party (RP) needs to understand the trustworthiness or assurance level of the  claims about the end-user that the OpenID Connect provider (OP) is willing to communicate, along with process-related information and evidence used to verify the end-user claims. -->
-そのようなユースケースでは, 依拠当事者 (RP) は, OpenID Connect プロバイダー (OP) の伝達するプロセス関連情報とエンドユーザーの Claim の検証に利用したエビデンスと一緒に，エンドユーザーに関する Claim の信頼性または保証レベルを知る必要がある.
+OpenID Connect の本拡張機能は，Relying Party が追加の保証メタデータを使用してアイデンティティ情報を要求および受信する方法を標準化する．この仕様は，たとえば，マネーロンダリング防止法や健康データへのアクセス，リスクの軽減，不正防止などの規制要件に準拠するような，強力な保証を必要とするユースケースを可能にすることを目的としている．
 
-<!-- The `acr` Claim, as defined in Section 2 of the OpenID Connect specification [@!OpenID], is suited to assure information about the authentication performed in an OpenID Connect transaction. Identity assurance, however, requires a different representation. While authentication is an aspect of an OpenID Connect transaction, assurance is a property of a certain claim or a group of claims. Several of them will typically be conveyed to the RP as the result of an OpenID Connect transaction. -->
-OpenID Connect 仕様 [@!OpenID] の Section 2 で定義されている `acr` Claim は, OpenID Connect トランザクションで実行される認証に関する情報を証明するのに適している. ただし, identity assurance には異なる表現が必要である: 認証は OpenID Connect トランザクションの側面であり, assurance は特定の Claim または Claim のグループのプロパティである．それらのいくつかは通常, OpenID Connect トランザクションの結果として RP に伝えられる.
+<!-- In such use cases, the relying party (RP) needs to understand the trustworthiness or assurance level of the  claims about the end-user that the OpenID provider (OP) is willing to communicate, along with process-related information and evidence used to verify the end-user claims. -->
+そのようなユースケースでは, 依拠当事者 (RP) は, OpenID プロバイダー (OP) の伝達するプロセス関連情報とエンドユーザーの Claim の検証に利用したエビデンスと一緒に，エンドユーザーに関する Claim の信頼性または保証レベルを知る必要がある.
 
-<!-- For example, the assurance an OP typically will be able to give for an e-mail address will be “self-asserted” or “verified by opt-in or similar mechanism”. The family name of an end-user, in contrast, might have been verified in accordance with the respective anti-money laundering law by showing an ID card to a trained employee of the OP operator. -->
-たとえば, 通常 OP が電子メールアドレスに与えることができる保証は「自己表明」または「オプトインまたは同様のメカニズムによって検証」される. 対照的にエンドユーザーの姓は, OP オペレーターの訓練を受けた従業員に ID カードを提示することにより, それぞれのマネーロンダリング防止法に従って検証された可能性がある.
+<!-- The `acr` claim, as defined in section 2 of the OpenID Connect specification [@!OpenID], is suited to assure information about the authentication performed in an OpenID Connect transaction. Identity assurance, however, requires a different representation. While authentication is an aspect of an OpenID Connect transaction, assurance and associated verification and validation details, are properties of a certain claim or a group of claims. Several of them will typically be conveyed to the RP as the result of an OpenID Connect transaction. -->
+OpenID Connect 仕様 [@!OpenID] の Section 2 で定義されている `acr` Claim は, OpenID Connect トランザクションで実行される認証に関する情報を証明するのに適している. ただし, identity assurance には異なる表現が必要である. 認証は OpenID Connect トランザクションの側面であり, 保証と関連する検証の詳細は，特定の Claim または Claim のグループのプロパティである．それらのいくつかは通常, OpenID Connect トランザクションの結果として RP に伝えられる.
 
-<!-- Identity assurance therefore requires a way to convey assurance data along with and coupled to the respective claims about the end-user. This specification defines a suitable representation and mechanisms the RP will utilize to request verified claims about an end-user along with assurance data and for the OP to represent these verified claims and accompanying assurance data. -->
-したがって, identity assurance には, エンドユーザーに関する各 Claim とともに保証データを伝達する方法が必要である. この仕様は, RP がエンドユーザーに関する検証済み Claim を 保証データとともに要求し, OP がこれらの検証済み Claim と付随する保証データを表すために利用する適切な表現とメカニズムを定義する.
+<!-- For example, the assurance an OP typically will be able to give for an e-mail address will be “self-asserted” or "verified". The family name of an end-user, in contrast, might have been verified in accordance with the respective anti-money laundering law by showing an ID card to a trained employee of the OP operator. -->
+たとえば, 通常 OP が電子メールアドレスに与えることができる保証は「自己表明」または「検証済み」である. 対照的にエンドユーザーの姓は, OP オペレーターの訓練を受けた従業員に ID カードを提示することにより, それぞれのマネーロンダリング防止法に従って検証された可能性がある.
 
-<!-- Note: This specifications fulfills the criteria for portability and interoperability mechanisms of Digital ID systems as defined in [@FATF-Digital-Identity]. -->
-Note: この仕様は [@FATF-Digital-Identity]　で定義されているデジタル ID システムのポータビリティと相互運用性メカニズムの基準を満たしている．
+<!-- Identity assurance requires a way to convey assurance data along with and coupled to the respective claims about the end-user. This document defines a suitable representation and mechanisms the RP will utilize to request verified claims about an end-user along with assurance data and for the OP to represent these verified claims and accompanying assurance data. -->
+Identity assurance には, エンドユーザーに関する各 Claim とともに保証データを伝達する方法が必要である. このドキュメントは, RP がエンドユーザーに関する検証済み Claim を 保証データとともに要求し, OP がこれらの検証済み Claim と付随する保証データを表すために利用する適切な表現とメカニズムを定義する.
 
 .# Warning
 
@@ -116,14 +113,14 @@ interpreted with their natural language meanings.
 
 # Scope
 
-<!-- This specification defines the technical mechanisms to allow relying parties to request verified claims and to enable OpenID providers to provide relying parties with verified claims ("the tools"). -->
-本仕様は，Relying Party が検証済み Claim を要求できるようにし，OpenID Provider が Relying Party に検証済み Claim を提供できるようにするためのテクニカルメカニズムを定義する．("ツール")
+<!-- This document is a definition of the technical mechanism to allow a relying party to request one or more verified claim about the end-user and to enable an OpenID provider to provide a relying party with a verified claim ("the tools"). -->
+本ドキュメントは，Relying Party がエンドユーザーに関する1つ以上の検証済み Claim を要求できるようにし，OpenID Provider が Relying Party に検証済み Claim を提供できるようにするための技術的メカニズムの定義である．("ツール")
 
-<!-- Additional facets needed to deploy a complete solution for identity assurance, such as legal aspects (including liability), trust frameworks, or commercial agreements are out of scope. It is up to the particular deployment to complement the technical solution based on this specification with the respective definitions ("the rules"). -->
-法的側面(責任を含む)，トラストフレームワーク，商取引契約など，identity assurance の完全なソリューションを展開するために必要な追加の側面は範囲外である．本仕様に基づくテクニカルソリューションをそれぞれの定義で補完するのは，個別の展開次第である．("ルール")
+<!-- Additional facets needed to deploy a complete solution for identity assurance, such as legal aspects (including liability), trust frameworks, or commercial agreements are out of scope. It is up to the particular deployment to complement the technical solution based on this document with the respective definitions ("the rules"). -->
+法的側面(責任を含む)，トラストフレームワーク，商取引契約など，identity assurance の完全なソリューションを展開するために必要な追加の側面は範囲外である．本ドキュメントに基づくテクニカルソリューションをそれぞれの定義で補完するのは，個別の展開次第である．("ルール")
 
-<!-- Note: Although such aspects are out of scope, the aim of the specification is to enable implementations of the technical mechanism to be flexible enough to fulfill different legal and commercial requirements in jurisdictions around the world. Consequently, such requirements will be discussed in this specification as examples. -->
-Note: そのような側面は範囲外であるが，仕様の目的は，世界中の管轄区域における異なる法律および商業的要件を満たすのに十分な柔軟性を備えたテクニカルメカニズムの実装を可能にすることである．従って，そのような要件は本仕様で例として検討する．
+<!-- Note: Although such aspects are out of scope, the aim of the specification is to enable implementations of the technical mechanism to be flexible enough to fulfill different legal and commercial requirements in jurisdictions around the world. Consequently, such requirements will be discussed in this document as examples. -->
+Note: そのような側面は範囲外であるが，仕様の目的は，世界中の管轄区域における異なる法律および商業的要件を満たすのに十分な柔軟性を備えたテクニカルメカニズムの実装を可能にすることである．従って，そのような要件は本ドキュメントで例として検討する．
 
 # Normative references
 
@@ -135,11 +132,9 @@ For the purposes of this document, the following terms and definitions apply.
 ## claim
 piece of information asserted about an entity
 
-[SOURCE: [@!OpenID], 1.2]
-
 ## identity proofing
-<!-- process in which an end-user provides evidence to an OP or claim provider reliably identifying themselves, thereby allowing the OP or claim provider to assert that identification at a useful assurance level -->
-エンドユーザーが OP または自分自身を確実に識別する Claim プロバイダーにエビデンスを提供することにより, OP または Claim provider が有用な assurance レベルで識別できるようにするプロセス
+<!-- process in which an end-user provides evidence to an OpenID Connect provider (OP) or claim provider reliably identifying themselves, thereby allowing the OP or claim provider to assert that identification at a useful assurance level -->
+エンドユーザーが OP または自分自身を確実に識別する Claim プロバイダーにエビデンスを提供することにより, OpenID Connect provider (OP) または Claim provider が有用な assurance レベルで識別できるようにするプロセス
 
 ## identity verification
 <!-- process conducted by the OP or a claim provider to verify the end-user's identity -->
@@ -150,8 +145,12 @@ piece of information asserted about an entity
 OP または Claim プロバイダーが, RP に対してある一定の確からしさをもって特定のエンドユーザーの Identity データを主張するプロセスで，通常は assurance レベルで表される. 法的要件に応じて, OP は identity verification プロセスのエビデンスを RP に提供するよう要求される場合もある.
 
 ## verified claim
-<!-- claims about an end-user, typically a natural person, whose binding to a particular end-user account was verified in the course of an identity verification process -->
+<!-- claim about an end-user, typically a natural person, whose binding to a particular end-user account was verified in the course of an identity verification process -->
 特定のエンドユーザーアカウントへのバインドが identity verification プロセスの過程で検証されたエンドユーザー (通常は自然人) に関する Claim.
+
+## claim provider
+<!-- server that can provide claim information about a entity; synonomous with "claims provider" in OpenID Connect core -->
+エンティティに関する Claim 情報を提供できるサーバー; OpenID Connect Core の "claims provider" と同義.
 
 # Requirements
 
@@ -161,27 +160,27 @@ RP は，必要最小限のデータセットの要求 (data minimization) と�
 <!-- This extension will be usable by OPs operating under a certain regulation related to identity assurance, such as eIDAS, as well as other OPs operating without such a regulation. -->
 この拡張機能は、eIDAS などの identity assurance に関連する特定の規制の下で動作する OP はもちろん，そのような規制なしで動作する他の OP でも使用できる．
 
-<!-- It is assumed that OPs operating under a suitable regulation can assure identity data without the need to provide further evidence since they are approved to operate according to well-defined rules with clearly defined liability. For example in the case of eIDAS, the peer review ensures eIDAS compliance and the respective member state assumes the liability for the identities asserted by its notified eID systems. -->
+<!-- It is assumed that OPs operating under a suitable regulation can assure identity data without the need to provide further evidence since they are approved to operate according to well-defined rules with clearly defined liability. For example in the case of eIDAS, the peer review ensures eIDAS compliance and the respective member state assumes the liability for the identities asserted by its notified eID system. -->
 適切な規制の下で運用されている OP は，明確に定義された責任を伴う明確に定義されたルールに従って運用することが承認されているため，追加のエビデンスを提供する必要なしに identity data を保証できると想定されている．例えば eIDAS の場合，ピアレビューは eIDAS コンプライアンスを保証し，それぞれの加盟国は、通知されたeID システムによって主張された identity に対する責任を負う．
 
-<!-- Every other OP not operating under such well-defined conditions could receive a request to provide the RP data about the identity verification process along with identity evidence to allow the RP to conduct their own risk assessment and to map the data obtained from the OP to other laws. For example, if an OP verifies and maintains identity data in accordance with an anti-money laundering law, it shall be possible for an RP to use the respective identity in a different regulatory context, such as eHealth or the previously mentioned eIDAS. -->
+<!-- Every other OP not operating under such well-defined conditions could receive a request to provide the RP data about the identity verification process along with identity evidence to allow the RP to conduct their own risk assessment and to map the data obtained from the OP to other laws. For example, if an OP verifies and maintains identity data in accordance with an anti-money laundering law, an RP might choose to use the identity attributes in a different regulatory context, such as eHealth or the previously mentioned eIDAS. -->
 そのような明確な条件下で動作していない他のすべての OP は，RP が独自のリスクアセスメントを行い，OP から入手したデータを他の法律にマッピングできるように，identity evidence に加えて identity verification プロセスに関する RP data の提供要求を受け取るかもしれない．
-例えば，もし OP がマネーロンダリング防止法に従って identity data を検証及び維持する場合，RP がeHealth や前述の eIDAS のような異なる規制のコンテキストでそれぞれの identity を利用できるようにすべきである．
+例えば，もし OP がマネーロンダリング防止法に従って identity data を検証及び維持する場合，RP は eHealth や前述の eIDAS のような異なる規制のコンテキストでそれぞれのアイデンティティ属性を利用することを選択できる．
 
-<!-- The concept of this specification is that the OP can provide identity data along with metadata about the identity assurance process. It is the responsibility of the RP to assess this data and map it into its own legal context. -->
-本仕様のコンセプトは，OP が identity assurance プロセスに関するメタデータとともに，identity data を提供できることである．このデータを評価し，それを独自の法的コンテキストにマッピングするのは RP の責任である．
+<!-- The concept of this document is that the OP can provide identity data along with metadata about the identity assurance process. It is the responsibility of the RP to assess this data and map it into its own legal context. -->
+本ドキュメントのコンセプトは，OP が identity assurance プロセスに関するメタデータとともに，identity data を提供できることである．このデータを評価し，それを独自の法的コンテキストにマッピングするのは RP の責任である．
 
-<!-- From a technical perspective, this means this specification allows the OP to provide Verified claims along with information about the respective trust framework, but also supports the externalization of information about the identity verification process. -->
+<!-- From a technical perspective, this means this document allows the OP to provide verified claims along with information about the respective trust framework, but also supports the externalization of information about the identity verification process. -->
 技術的な観点から，これは本仕様は OP が信頼するトラストフレームワークに関する情報とともに Verified Claim を提供できるようにするだけでなく，identity verificatoin process に関する情報の外部化もサポートすることを意味する．
 
-<!-- The representation defined in this specification can be used to provide RPs with verified claims about the end-user via any appropriate channel. In the context of OpenID Connect, verified claims can be provided in ID Tokens or as part of the UserInfo response. It is also possible to utilize the format described here in OAuth access tokens or token introspection responses to provide resource servers with verified claims. -->
+<!-- The representation defined in this document can be used to provide RPs with verified claims about the end-user via any appropriate channel. In the context of OpenID Connect, verified claims can be provided in ID Tokens or as part of the UserInfo response. It is also possible to utilize the format described here in OAuth access tokens or token introspection responses to provide resource servers with verified claims. -->
 本仕様で定義される表現は，いずれかの適切なチャネルを介してエンドユーザーに関する Verified Claim を RP に提供できる．OpenID Connect のコンテキストにおいて，Verified Claim はID Token またはUserInfoレスポンスの一部として提供できる．OAuth Access Token または Token Introspection レスポンスで記述される形式を用いてリソースサーバーに Verified Claim を提供することもできる．
 
 <!-- This extension is intended to be truly international and support identity assurance across different jurisdictions. The extension is therefore extensible to support various trust frameworks, identity evidence and assurance processes. -->
 本拡張は，真に国際的で異なる管轄区域を跨いで identity assurance をサポートすることを意図している．
 本拡張は従って，様々なトラストフレームワーク，identity エビデンス，バリデーションや保証プロセスをサポートするために拡張可能である．
 
-<!-- In order to give implementors as much flexibility as possible, this extension can be used in conjunction with existing OpenID Connect claims and other extensions within the same OpenID Connect assertion (e.g., ID Token or UserInfo response) utilized to convey claims about end-users. -->
+<!-- In order to give implementers as much flexibility as possible, this extension can be used in conjunction with existing OpenID Connect claims and other extensions within the same OpenID Connect assertion (e.g., ID Token or UserInfo response) utilized to convey claims about end-users. -->
 実装者に可能な限りの柔軟性を与えるために, この拡張は既存の OpenID Connect の Claim および同じ OpenID Connect のアサーション(例えば, ID Token や UserInfo)内の他の拡張と組み合わせて使うことができる.
 
 <!-- For example, OpenID Connect [@!OpenID] defines claims for representing family name and given name of an end-user without a verification status. These claims can be used in the same OpenID Connect assertion beside verified claims represented according to this extension. -->
@@ -193,7 +192,7 @@ RP は，必要最小限のデータセットの要求 (data minimization) と�
 <!-- Even for representing verified claims, this extension utilizes existing OpenID Connect claims if possible and reasonable. The extension will, however, ensure RPs cannot (accidentally) interpret unverified claims as verified claims. -->
 Verified Claim を表す場合でも，本拡張は可能かつ妥当であれば，既存の OpenID Connect の Claim を利用する．しかしながら，拡張は RP が未検証 Claim を Verified Claim として (誤って) 解釈できないようにする．
 
-<!-- In order to fulfill the requirements of some jurisdictions on identity assurance, the OpenID Connect for IDA claims [@OpenID4IDAClaims] specification defines the a number of claims for conveying end-user data in addition to the claims defined in the OpenID Connect specification [@!OpenID]. -->
+<!-- In order to fulfill the requirements of some jurisdictions on identity assurance, the OpenID Connect for IDA claims [@OpenID4IDAClaims] specification defines a number of claims for conveying end-user data in addition to the claims defined in the OpenID Connect specification [@!OpenID]. -->
 identity assurance に関する一部の権限の要件を満たすために, the OpenID Connect for IDA claims [@OpenID4IDAClaims] specification defines the a number of Claims for conveying End-User data in addition to the Claims defined in the OpenID Connect specification [@!OpenID].
 
 # Verified claims {#verified_claims}
@@ -203,28 +202,22 @@ identity assurance に関する一部の権限の要件を満たすために, th
 
 ## Verified claims schema
 
-This specification uses the [!@IDA-verified-claims] document as the definition of the schema for representation of assured digital identity attributes and identity assurance metadata. 
+This document uses the [!@IDA-verified-claims] document as the definition of the schema for representation of assured digital identity attributes and identity assurance metadata. 
 
 <!-- The following example would assert to the RP that the OP has verified the claims provided (`given_name` and `family_name`) according to an example trust framework `trust_framework_example`: -->
 次の例では，トラストフレームワーク `trust_framework_example` の例に従って，OP が提供された Claim (`given_name` and `family_name`) を検証したことを RP に表明する:
 
 <{{examples/response/verified_claims_simple.json}}
 
-This specification requires that the schema defined in [@!IDA-verified-claims] shall be used.  There are places in the JSON structure where that schema can be extended by implementers but deviation from the schema as defined would not be correct use of this specification.
+This document requires that RPs use the schema defined in [@!IDA-verified-claims]. There are places in the JSON structure where that schema can be extended by implementers but deviation from the schema as defined would not be correct use of this document.
 
-## verified_claims delivery {#verified_claims_delivery}
+## verified claims delivery {#verified_claims_delivery}
 
-<!-- OPs can deliver `verified_claims` in various ways. -->
-OP は様々な方法で `verified_claims` を配信できる．
+<!-- A `verified_claims` element can be added to an OpenID Connect UserInfo response and/or an ID Token. -->
+`verified_claims` 要素は OpenID Connect UserInfo レスポンス，及び/または ID Token に追加することができる．
 
-<!-- A `verified_claims` element can be added to an OpenID Connect UserInfo response or an ID Token. -->
-`verified_claims` 要素は OpenID Connect UserInfo レスポンス，または ID Token に追加することができる．
-
-<!-- OAuth authorization servers can add `verified_claims` to access tokens in JWT format or token introspection responses, either in plain JSON or JWT-protected format. -->
-OAuth Authorization Server は，JWT 形式のアクセストークンや Token Introspection のレスポンスに，プレーン JSON または JWT-protected な形式で `verified_claims` を追加することができる．
-
-<!-- Here is an example of the payload of an access token in JWT format including verified claims: -->
-以下は，Verified Claims を含む JWT 形式のアクセストークンのペイロードの例である:
+<!-- Here is an example of the payload of an ID token including verified claims: -->
+以下は，Verified Claims を含む ID トークンのペイロードの例である:
 
 ```json
 {
@@ -245,15 +238,15 @@ OAuth Authorization Server は，JWT 形式のアクセストークンや Token 
 }
 ```
 
-An OP or AS can also include aggregated or distributed `verified_claims` in the above assertions (see (#aggregated_distributed_claims) for more details).
+An OP or Authorization Server (AS) can also include aggregated or distributed `verified_claims` in the above assertions (see (#aggregated_distributed_claims) for more details).
 
 ## Requesting end-user claims {#req_claims}
 
 <!-- Verified claims can be requested on the level of individual claims about the end-user by utilizing the `claims` parameter as defined in section 5.5 of the OpenID Connect specification [@!OpenID]. -->
 Verified Claims は OpenID Connect specification [@!OpenID] の Section 5.5 に定義されている `claims` parameter を利用することで, End-User について 個々の Claims のレベルで要求できる.
 
-<!-- Note: A machine-readable definition of the syntax to be used to request `verified_claims` is given as JSON schema in [@verified_claims_request.json], it can be used to automatically validate `claims` request parameters. The provided JSON schema files are a non-normative implementation of this specification and any discrepancies that exist are either implementation bugs or interpretations. -->
-注: `verified_claims` をリクエストするために使用される機械可読な構文定義は [@verified_claims_request.json] で JSON スキーマとして提供され，これは `claims` リクエストパラメータを自動的に検証するために使用できる．The provided JSON schema files are a non-normative implementation of this specification and any discrepancies that exist are either implementation bugs or interpretations.
+<!-- Note: A machine-readable definition of the syntax to be used to request `verified_claims` is given as JSON schema in [@verified_claims_request.json], which can be used to automatically validate `claims` request parameters. The provided JSON schema files are a non-normative implementation of this document and any discrepancies that exist are either implementation bugs or interpretations. -->
+注: `verified_claims` をリクエストするために使用される機械可読な構文定義は [@verified_claims_request.json] で JSON スキーマとして提供され，これを利用して `claims` リクエストパラメータを自動的に検証することができる．The provided JSON schema files are a non-normative implementation of this document and any discrepancies that exist are either implementation bugs or interpretations.
 
 <!-- To request verified claims, the `verified_claims` element is added to the `userinfo` or the `id_token` element of the `claims` parameter. -->
 検証済み Claim を要求するには，`verified_claims` 要素を `claims` パラメータの `userinfo` または `id_token` 要素に追加する．
@@ -263,8 +256,10 @@ Verified Claims は OpenID Connect specification [@!OpenID] の Section 5.5 に�
 
 <{{examples/request/claims.json}}
 
-<!-- Use of the `claims` parameter allows the RP to request specified claims about the end-user needed for its use case. This allows RPs to fulfill the requirements for data minimization by requesting only claims needed for its use case. Note: it is not possible to request sub-claims (for example the ‘country’ subclaim of the ‘address’ claim) using mechanisms from OpenID Connect Core or this draft. -->
-`claims` パラメータを使用すると, RP はそのユースケースに必要な End-User に関する指定した Claims を要求できるようになる. This allows RPs to fulfill the requirements for data minimization by requesting only claims needed for its use case. Note: it is not possible to request sub-claims (for example the ‘country’ subclaim of the ‘address’ claim) using mechanisms from OpenID Connect Core or this draft.
+<!-- Use of the `claims` parameter allows the RP to request specified claims about the end-user needed for its use case. This allows RPs to fulfill the requirements for data minimization by requesting only claims needed for its use case. -->
+`claims` パラメータを使用すると, RP はそのユースケースに必要な End-User に関する指定した Claims を要求できるようになる. This allows RPs to fulfill the requirements for data minimization by requesting only claims needed for its use case.  
+
+Note: it is not possible to request sub-claims (for example the `country` subclaim of the `address` claim) using mechanisms from OpenID Connect Core or this document.
 
 RPs can use the `essential` field as defined in section 5.5.1 of the OpenID Connect specification [@!OpenID]. The following example shows this for the family and given names.
 
@@ -302,7 +297,7 @@ RP は OP  が `verification` 要素に追加するデータを明示的に要�
 
 `check_details` is an array of the processes that have been applied to the `evidence`. An RP can filter `check_details` by requesting a particular value for one or more of its sub-elements. If multiple entries for the same sub-element are present this acts as a logical OR between them.
 
-`assurance_details` is an array representing how the `evidence` and `check_details` meets the requirements of the `trust_framework`. RP should only request this where they need to know this information. Where `assurance_details` have been requested by an RP the OP shall return the `assurance_details` element along with all sub-elements that it has. If an RP wants to filter what types of `evidence` and `check_methods` they shall use those methods to do so, e.g. requesting an `assurance_type` should have no filtering effect.
+`assurance_details` is an array representing how the `evidence` and `check_details` fulfill the requirements of the `trust_framework`. RP should only request this where they need to know this information. Where `assurance_details` has been requested by an RP the OP shall return the `assurance_details` element along with all sub-elements that it has. If an RP wants to filter what types of `evidence` and `check_methods` they shall use those methods to do so, e.g. requesting an `assurance_type` should have no filtering effect.
 
 <!-- The RP can also request certain data within the `document` element to be present. This again follows the syntax rules used above: -->
 RP は `document`要素内の特定のデータの存在を要求するも出来る．これも上記で使用した構文規則に従う:
@@ -329,7 +324,7 @@ The OP shall not ignore some or all of the query restrictions on possible values
 
 ### max_age
 
-The RP can also express a requirement regarding the age of certain data, like the time elapsed since the issuance/expiry of certain evidence types or since the verification process asserted in the `verification` element took place. section 5.5.1 of the OpenID Connect specification [@!OpenID] defines a query syntax that allows for new special query members to be defined. This specification introduces a new such member `max_age`, which is applicable to the possible values of any elements containing dates or timestamps (e.g., `time`, `date_of_issuance` and `date_of_expiry` elements of evidence of type `document`).
+The RP can also express a requirement regarding the age of certain data, like the time elapsed since the issuance/expiry of certain evidence types or since the verification process asserted in the `verification` element took place. Section 5.5.1 of the OpenID Connect specification [@!OpenID] defines a query syntax that allows for new special query members to be defined. This document introduces a new such member `max_age`, which is applicable to the possible values of any elements containing dates or timestamps (e.g., `time`, `date_of_issuance` and `date_of_expiry` elements of evidence of type `document`).
 
 `max_age`: Optional. JSON number value only applicable to claims that contain dates or timestamps. It defines the maximum time (in seconds) to be allowed to elapse since the value of the date/timestamp up to the point in time of the request. The OP should make the calculation of elapsed time starting from the last valid second of the date value.
 
@@ -347,7 +342,7 @@ The following example illustrates this functionality.
 
 <{{examples/request/verification_claims_by_trust_frameworks.json}}
 
-When the RP requests multiple verifications as described above, the OP will process each element in the array independently. The OP will provide `verified_claims` response elements for every `verified_claims` request element whose requirements it is able to fulfill. This also means if multiple `verified_claims` elements contain the same end-user claim(s), the OP delivers the claim in as many verified claims response objects it can fulfil. For example, if the trust framework the OP uses is compatible with multiple of the requested trust frameworks, it provides a `verified_claims` element for each of them.
+When the RP requests multiple verifications as described above, the OP will process each element in the array independently. The OP will provide `verified_claims` response elements for every `verified_claims` request element whose requirements it is able to fulfill. This also means if multiple `verified_claims` elements contain the same end-user claim(s), the OP delivers the claim in as many verified claims response objects it can fulfill. For example, if the trust framework the OP uses is compatible with multiple of the requested trust frameworks, it provides a `verified_claims` element for each of them.
 
 The RP can combine multiple `verified_claims` claims in the request with multiple `trust_framework` and/or `assurance_level` values using the `values` element. In that case, the rules given above for processing `values` are applied for the particular `verified_claims` request object.
 
@@ -357,39 +352,39 @@ In the above example, the RP asks for family and given name either under trust f
 
 ## Returning less data than requested
 
-As stated in section 3.3.6 of [@!OpenID], "the OP may choose to return fewer claims about the end-user from the authorization endpoint".  This document makes no change to that provision.  The OP may also choose to return a subset of the `verification` element of any `verified_claims` providing it remains compliant with the `verified_claims` JSON schema defined in [@!OpenID4IDAClaims].
+As stated in section 3.3.3.6 of [@!OpenID], "the OP may choose to return fewer claims about the end-user from the authorization endpoint".  This document makes no change to that provision.  The OP may also choose to return a subset of the `verification` element of any `verified_claims` providing it remains compliant with the `verified_claims` JSON schema defined in [@!OpenID4IDAClaims].
 
 In some cases, OPs cannot deliver the requested data to an RP, for example, because the data is not available or does not match the RP's requirements. The rules for handling these cases are described in the following.
 
-Extensions of this specification can define additional rules or override these rules, for example
+Extensions of this document can define additional rules or override these rules, for example
 
 * to allow or disallow the use of claims depending on scheme-specific checks,
 * to enable a finer-grained control of the RP over the behavior of the OP when data is unavailable or does not match the criteria, or
 * to abort transactions (return error codes) in cases where requests cannot be fulfilled.
 
-Important: The behavior described below is independent from the use of `essential` (as defined in section 5.5 of [@!OpenID]).
+Important: The behavior described below is independent from the use of `essential` (as defined in section 5.5.1 of [@!OpenID]).
 
 ### Unavailable data
 
-If the OP does not have data about a certain claim, does not understand/support the respective claim, the respective claim shall be omitted from any corresponding id_token or Userinfo response.
+If the OP does not have data about a certain claim, does not understand/support the respective claim, OPs shall omit the respective claim from any corresponding ID Token or UserInfo response.
 
 ### Non-consented data
 
-When relying on end-user consent to determine the specific data to be shared the end-user may make a choice to release only a subset of the data requested. In this case data that has not had end-user consent for sharing shall be omitted from any corresponding id_token or Userinfo response.
+When relying on end-user consent to determine the specific data to be shared the end-user may make a choice to release only a subset of the data requested. In this case the OP shall omit from any corresponding ID Token or UserInfo response data that has not had end-user consent for sharing.
 
 Alternatively, when relying on end-user consent to determine the specific data to be shared the end-user may choose to release none of the data requested.  In this case standard OpenID Connect authentication error response logic applies, as defined in section 3.1.2.6 of [@!OpenID].
 
 ### Data not matching requirements
 When the available data does not fulfill the requirements of the RP expressed through `value`, `values`, or `max_age`, the following logic applies:
 
- * If the respective requirement was expressed for a claim within `verified_claims/verification`, the whole `verified_claims` element shall be omitted.
- * Otherwise, the respective claim shall be omitted from the response.
+ * If the respective requirement was expressed for a claim within `verified_claims/verification`, the OP shall omit the whole `verified_claims` element.
+ * Otherwise, the OP shall omit the respective claim from the response.
 
 In both cases, the OP shall not return an error to the RP.
 
 ### Omitting elements
 
-If an element is to be omitted according to the rules above, but is a requirement for a valid response, its parent element shall be omitted as well. This process shall be repeated until the response is valid.
+If an element is to be omitted according to the rules above, but is a requirement for a valid response, the OP shall omit its parent element as well. This OP shall repeat this process until the response is valid.
 
 ### Error handling
 
@@ -399,7 +394,7 @@ If the OP encounters an error, standard OpenID Connect authentication error resp
 
 Verified claims about the end-user can be requested as part of a pre-defined set by utilizing the `scope` parameter as defined in section 5.4 of the OpenID Connect specification [@!OpenID].
 
-When using this approach the claims associated with a `scope` are administratively defined at the OP.  The OP configuration and RP request parameters will determine whether the claims are returned via the ID Token or UserInfo endpoint as defined in section 5.3.2 of the OpenID Connect specification [@!OpenID].
+When using this approach the claims associated with a `scope` value are administratively defined at the OP.  The OP configuration and RP request parameters will determine whether the claims are returned via the ID Token or UserInfo endpoint as defined in section 5.3.2 of the OpenID Connect specification [@!OpenID].
 
 # Aggregated and distributed claims {#aggregated_distributed_claims}
 ## Aggregated and distributed claims assertions
@@ -425,7 +420,7 @@ To ensure that assertions cannot be confused with OpenID Connect ID Tokens, asse
  * an `exp` claim, or
  * an `aud` claim.
 
-<!-- The `verified_claims` element in an aggregated or distributed claims object MUST have one of the following forms: -->
+<!-- The `verified_claims` element in an aggregated or distributed claims object shall have one of the following forms: -->
 集約または分散クレームオブジェクトの `verified_claims` 要素は，次のいずれかの形式でなければならない (SHALL):
 
 <!--
@@ -460,9 +455,9 @@ To ensure that assertions cannot be confused with OpenID Connect ID Tokens, asse
 
 <{{examples/response/multiple_external_claims_sources_with_lookahead.json}}
 
-<!-- Claim sources should sign the assertions containing `verified_claims` in order to demonstrate authenticity and provide for non-repudiation.
-RP should determine the key material used for validation of the signed assertions is via the claim source's public keys. These keys should be available in the JSON web key set available in the `jwks_uri` metadata value in the `openid-configuration` metadata document. This document can be discovered using the `iss` claim of the particular JWT. -->
+<!-- Claim sources should sign the assertions containing `verified_claims` in order to demonstrate authenticity and provide for non-repudiation. -->
 Claim ソースは，信頼性の実証と否認防止を提供するために `verified_claims` を含むアサーションを署名しなければならない (SHOULD)．
+
 RP should determine the key material used for validation of the signed assertions is via the claim source's public keys. These keys should be available in the JSON web key set available in the `jwks_uri` metadata value in the `openid-configuration` metadata document. This document can be discovered using the `iss` claim of the particular JWT.
 
 <!-- The OP can combine aggregated and distributed claims with `verified_claims` provided by itself (see (#op_attested_and_external_claims)). -->
@@ -471,21 +466,21 @@ OP は集約および分散 Claim を，それ自身が提供する `verified_cl
 <!-- If `verified_claims` elements are contained in multiple places of a response, e.g., in the ID Token and an embedded aggregated claim, the RP shall preserve the claims source as context of the particular `verified_claims` element. -->
 ID トークンや埋め込まれた集約 Claim のように `verified_claims` 要素が応答の複数の場所に含まれている場合，RP は　特定の `verified_claims` 要素のコンテキストとして Claim ソースを保持しなければならない (SHALL)．
 
-<!-- Note: Any assertion provided by an OP or AS including aggregated or distributed claims can contain multiple instances of the same end-user Claim. It is up to the RP to decide how to process these different instances. -->
+<!-- Note: Any assertion provided by an OP or AS including aggregated or distributed claims can contain multiple instances of the same end-user claim. It is up to the RP to decide how to process these different instances. -->
 注: 集約または分散 Claim を含む OP または AS によって提供されるアサーションには，同じエンドユーザー Claim の複数インスタンスを含むことが出来る．これらの様々なインスタンスを処理する方法を決定するのは RP 次第である．
 
 ## Aggregated and distributed claims validation
 
 Clients shall validate any aggregated and distributed `verified_claims` they wish to rely on in the following manner:
 
-1. Ensure that both the `_claim_names` and `_claim_sources` are present in the response
-2. Ensure that there is a `verified_claims` element present in the `_claim_names` member of the response
+1. Ensure that both the `_claim_names` and `_claim_sources` are present in the response.
+2. Ensure that there is a `verified_claims` element present in the `_claim_names` member of the response.
 3. Ensure that the `verified_claims` element contains a value that is one of the following:
     a. a string that exists as a key name in the `_claim_sources` element of the response.
     b. a JSON array containing members that all exist as key names in the `_claim_sources` element of the response.
     c. a JSON object containing elements that all exist as key names in the `_claim_sources` element of the response and each element is formatted with the syntax as defined for requesting `verified_claims`.
-4. Ensure that the `_claim_sources` element is a JSON structured object that has one or more sub-elements
-5. Ensure that the sub-elements of the `_claim_sources` element have matching values in the `_claim_names` element of the response
+4. Ensure that the `_claim_sources` element is a JSON structured object that has one or more sub-elements.
+5. Ensure that the sub-elements of the `_claim_sources` element have matching values in the `_claim_names` element of the response.
 
 When `verified_claims` are delivered as distributed claims, i.e., when a sub-element of the `_claim_sources` contains the `endpoint` claim, clients shall also:
 
@@ -546,15 +541,15 @@ The OP advertises its capabilities with respect to verified claims in its openid
 
 `claims_in_verified_claims_supported`: Required. JSON array containing all claims supported within `verified_claims`. claims that are not present in this array shall not be returned within the `verified_claims` object. This array shall have at least one member.
 
-`evidence_supported`: Required when one or more type of evidence is supported. JSON array containing all types of identity evidence the OP uses. This array shall have at least one member. Members of this array should only be the types of evidence supported by the OP in the evidence element (see section 4.2.2 of [@!IDA-verified-claims]).
+`evidence_supported`: Required when one or more type of evidence is supported. JSON array containing all types of identity evidence the OP uses. This array shall have at least one member. Members of this array should only be the types of evidence supported by the OP in the `evidence` element (see section 5.4.4 of [@!IDA-verified-claims]).
 
 `documents_supported`: Required when `evidence_supported` contains "document". JSON array containing all identity document types utilized by the OP for identity verification. This array shall have at least one member.
 
-`documents_methods_supported`: Optional. JSON array containing the verification methods the OP supports for evidences of type "document" (see @!predefined_values). When present this array shall have at least one member.
+`documents_methods_supported`: Optional. JSON array containing the verification methods the OP supports for evidences of type "document" (see [@!predefined_values_page]). When present this array shall have at least one member.
 
-`documents_check_methods_supported`: Optional. JSON array containing the check methods the OP supports for evidences of type "document" (see [@!predefined_values]). When present this array shall have at least one member.
+`documents_check_methods_supported`: Optional. JSON array containing the check methods the OP supports for evidences of type "document" (see [@!predefined_values_page]). When present this array shall have at least one member.
 
-`electronic_records_supported`: Required when `evidence_supported` contains "electronic\_record". JSON array containing all electronic record types the OP supports (see [@!predefined_values]). When present this array shall have at least one member.
+`electronic_records_supported`: Required when `evidence_supported` contains "electronic\_record". JSON array containing all electronic record types the OP supports (see [@!predefined_values_page]). When present this array shall have at least one member.
 
 This is an example openid-configuration snippet:
 
@@ -607,10 +602,10 @@ Timestamps with a time zone component can potentially reveal the person’s loca
 
 # Security considerations {#Security}
 
-This specification focuses on mechanisms to carry end-user claims and accompanying metadata in JSON objects and JSON web tokens, typically as part of an OpenID Connect protocol exchange. Since such an exchange is supposed to take place in security sensitive use cases, implementers shall:
+This document focuses on mechanisms to carry end-user claims and accompanying metadata in JSON objects and JSON Web Tokens, typically as part of an OpenID Connect protocol exchange. Since such an exchange is supposed to take place in security sensitive use cases, implementers shall:
 
 * ensure end-users are authenticated using appropriately strong authentication methods, and
-* combine this specification with an appropriate security profile for OpenID Connect.
+* combine this document with an appropriate security profile for OpenID Connect.
 
 ## End-user authentication
 
@@ -618,23 +613,23 @@ Secure identification of end-users not only depends on the identity verification
 
 ## Security profile
 
-This specification does not define or require a particular security profile since there are several security
+This document does not define or require a particular security profile since there are several security
 profiles and new security profiles under development.  Implementers have the flexibility to select the security profile that best suits
-their needs. Implementers might consider [@FAPI-1-RW] or [@FAPI-2-BL].
+their needs. Implementers might consider [@FAPI-1-SP] or [@FAPI-2-SP].
 
 Implementers should select a security profile that has a certification program or other resources that allow both OpenID providers and relying parties to ensure they have complied with the profile’s security and interoperability requirements, such as the OpenID Foundation Certification Program, https://openid.net/certification/.
 
-The integrity and authenticity of the issued assertions shall be ensured in order to prevent identity spoofing.
+Receiving parties shall ensure the integrity and authenticity of the issued assertions in order to prevent identity spoofing.
 
-The confidentiality of all end-user data exchanged between the protocol parties shall be ensured using suitable methods at transport or application layer.
+Receiving parties shall ensure the confidentiality of all end-user data exchanged between the protocol parties using suitable methods at transport or application layer.
 
 # Implementation and interoperability {#Interoperability}
 
-To achieve the full security and interoperability benefits, it is important the implementation of this specification, and the underlying OpenID Connect and OAuth specifications, and selected security profile, are complete and correct. The OpenID Foundation provides tools that should be used to confirm that deployments behave as described in the specifications, with information available at: https://openid.net/certification/.
+To achieve the full security and interoperability benefits, it is important the implementation of this document, and the underlying OpenID Connect and OAuth specifications, and selected security profile, are complete and correct. The OpenID Foundation provides tools that should be used to confirm that deployments behave as described in the specifications, with information available at: https://openid.net/certification/.
 
 # Predefined values {#predefined_values}
 
-This specification focuses on the technical mechanisms to convey verified claims and thus does not define any identifiers for trust frameworks, documents, methods, check methods. This is left to adopters of the technical specification, e.g., implementers, identity schemes, or jurisdictions.
+This document focuses on the technical mechanisms to convey verified claims and thus does not define any identifiers for trust frameworks, documents, methods, check methods. This is left to adopters of the technical specification, e.g., implementers, identity schemes, or jurisdictions.
 
 Each party defining such identifiers shall ensure the collision resistance of these identifiers. This is achieved by including a domain name under the control of this party into the identifier name, e.g., `https://mycompany.com/identifiers/cool_check_method`.
 
@@ -644,16 +639,16 @@ The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefine
 
 <reference anchor="ISODIR2" target="https://www.iso.org/sites/directives/current/part2/index.xhtml">
 <front>
-<title>ISO/IEC Directives Part 2 - </title>
-    <author fullname="International Organization for Standardization">
-      <organization></organization>
+<title>ISO/IEC Directives, Part 2 - Principles and rules for the structure and drafting of ISO and IEC documents</title>
+    <author fullname="ISO/IEC">
+      <organization>ISO/IEC</organization>
     </author>
 </front>
 </reference>
 
-<reference anchor="OpenID" target="http://openid.net/specs/openid-connect-core-1_0.html">
+<reference anchor="OpenID" target="https://openid.net/specs/openid-connect-core-1_0.html">
   <front>
-    <title>OpenID Connect Core 1.0 incorporating errata set 1</title>
+    <title>OpenID Connect Core 1.0 incorporating errata set 2</title>
     <author initials="N." surname="Sakimura" fullname="Nat Sakimura">
       <organization>NRI</organization>
     </author>
@@ -675,7 +670,7 @@ The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefine
 
 <reference anchor="OpenID-Discovery" target="https://openid.net/specs/openid-connect-discovery-1_0.html">
   <front>
-    <title>OpenID Connect Discovery 1.0 incorporating errata set 1</title>
+    <title>OpenID Connect Discovery 1.0 incorporating errata set 2</title>
     <author initials="N." surname="Sakimura" fullname="Nat Sakimura">
       <organization>NRI</organization>
     </author>
@@ -692,31 +687,43 @@ The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefine
   </front>
 </reference>
 
-<reference anchor="FAPI-1-RW" target="https://bitbucket.org/openid/fapi/src/master/Financial_API_WD_002.md">
+<reference anchor="FAPI-1-SP" target="https://openid.net/specs/openid-financial-api-part-2-1_0.html">
   <front>
-    <title>Financial-grade API - Part 2: Read and Write API Security Profile</title>
-    <author initials="" surname="OpenID Foundation's Financial API (FAPI) Working Group">
-      <organization>OpenID Foundation's Financial API (FAPI) Working Group</organization>
+    <title>Financial-grade API (FAPI) Security Profile 1.0 - Part 2: Advanced</title>
+    <author initials="N." surname="Sakimura" fullname="Nat Sakimura">
+      <organization>Nat.Consulting</organization>
+   </author>
+    <author initials="J." surname="Bradley" fullname="John Bradley">
+      <organization>Yubico</organization>
     </author>
-   <date day="9" month="Sep" year="2020"/>
+    <author initials="E." surname="Jay" fullname="Edmund Jay">
+      <organization>Illumila</organization>
+    </author>
+   <date day="12" month="Mar" year="2021"/>
   </front>
 </reference>
 
-<reference anchor="FAPI-2-BL" target="https://bitbucket.org/openid/fapi/src/master/FAPI_2_0_Baseline_Profile.md">
+<reference anchor="FAPI-2-SP" target="https://openid.bitbucket.io/fapi/fapi-2_0-security-profile.html">
   <front>
-    <title>FAPI 2.0 Baseline Profile </title>
-    <author initials="" surname="OpenID Foundation's Financial API (FAPI) Working Group">
-      <organization>OpenID Foundation's Financial API (FAPI) Working Group</organization>
+    <title>FAPI 2.0 Security Profile - draft</title>
+    <author initials="D." surname="Fett" fullname="Daniel Fett">
+      <organization>Authlete</organization>
     </author>
-   <date day="9" month="Sep" year="2020"/>
+    <author initials="D." surname="Tonge" fullname="Dave Tonge">
+      <organization>Moneyhub Financial Technology</organization>
+    </author>
+    <author initials="J." surname="Heenan" fullname="Joseph Heenan">
+      <organization>Authlete</organization>
+    </author>
+   <date day="3" month="Apr" year="2024"/>
   </front>
 </reference>
 
-<reference anchor="OpenID4IDAClaims" target="http://openid.net/specs/openid-connect-4-ida-claims-1_0.html">
+<reference anchor="OpenID4IDAClaims" target="https://openid.net/specs/openid-connect-4-ida-claims-1_0.html">
   <front>
     <title>OpenID Connect for Identity Assurance Claims Registration 1.0</title>
     <author initials="T." surname="Lodderstedt" fullname="Torsten Lodderstedt">
-      <organization>yes.com</organization>
+      <organization>sprind.org</organization>
     </author>
     <author initials="D." surname="Fett" fullname="Daniel Fett">
       <organization>Authlete</organization>
@@ -741,7 +748,7 @@ The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefine
   <front>
     <title>OpenID Identity Assurance schema definition</title>
     <author initials="T." surname="Lodderstedt" fullname="Torsten Lodderstedt">
-      <organization>yes.com</organization>
+      <organization>sprind.org</organization>
     </author>
     <author initials="D." surname="Fett" fullname="Daniel Fett">
       <organization>Authlete</organization>
@@ -762,34 +769,6 @@ The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefine
   </front>
 </reference>
 
-<reference anchor="NIST-SP-800-63a" target="https://doi.org/10.6028/NIST.SP.800-63a">
-  <front>
-    <title>NIST Special Publication 800-63A, Digital Identity Guidelines, Enrollment and Identity Proofing Requirements</title>
-    <author initials="Paul. A." surname="Grassi" fullname="Paul A. Grassi">
-      <organization>NIST</organization>
-    </author>
-    <author initials="James L." surname="Fentony" fullname="James L. Fentony">
-      <organization>Altmode Networks</organization>
-    </author>
-    <author initials="Naomi B." surname="Lefkovitz" fullname="Naomi B. Lefkovitz">
-      <organization>NIST</organization>
-    </author>
-    <author initials="Jamie M." surname="Danker" fullname="Jamie M. Danker">
-      <organization>Department of Homeland Security</organization>
-    </author>
-    <author initials="Yee-Yin" surname="Choong" fullname="Yee-Yin Choong">
-      <organization>NIST</organization>
-    </author>
-    <author initials="Kristen K." surname="Greene" fullname="Kristen K. Greene">
-      <organization>NIST</organization>
-    </author>
-    <author initials="Mary F." surname="Theofanos" fullname="Mary F. Theofanos">
-      <organization>NIST</organization>
-    </author>
-   <date month="June" year="2017"/>
-  </front>
-</reference>
-
 <reference anchor="eIDAS" target="https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32014R0910">
   <front>
     <title>REGULATION (EU) No 910/2014 OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL on electronic identification and trust services for electronic transactions in the internal market and repealing Directive 1999/93/EC</title>
@@ -797,16 +776,6 @@ The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefine
       <organization>European Parliament</organization>
     </author>
    <date day="23" month="July" year="2014"/>
-  </front>
-</reference>
-
-<reference anchor="FATF-Digital-Identity" target="https://www.fatf-gafi.org/media/fatf/documents/recommendations/Guidance-on-Digital-Identity.pdf">
-  <front>
-    <title>Guidance on Digital Identity</title>
-    <author initials="" surname="FATF">
-      <organization>Financial Action Task Force (FATF)</organization>
-    </author>
-   <date month="March" year="2020"/>
   </front>
 </reference>
 
@@ -851,7 +820,7 @@ The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefine
 
 ## JSON Web Token Claims registration
 
-This specification requests registration of the following value in the IANA "JSON Web Token Claims Registry" established by [@!RFC7519].
+This document requests registration of the following value in the IANA "JSON Web Token Claims Registry" established by [@!RFC7519].
 
 ### Registry contents
 
@@ -901,9 +870,9 @@ This section shows examples of requests for `verified_claims`.
 
 <{{examples/request/verification_deeper.json}}
 
-Note that, as shown in the above example, this specification requires that implementations receiving requests are able to distinguish between JSON objects where a key is not present versus where a key is present with a null value.
+Note that, as shown in the above example, this document requires that implementations receiving requests are able to distinguish between JSON objects where a key is not present versus where a key is present with a null value.
 
-Support for these null value requests is mandatory for identity providers, so implementors are encouraged to test this behaviour early in their development process. In some programming languages many JSON libraries or HTTP frameworks will, at least by default, ignore null values and omit the relevant key when parsing the JSON.
+Support for these null value requests is mandatory for identity providers, so implementers are encouraged to test this behaviour early in their development process. In some programming languages many JSON libraries or HTTP frameworks will, at least by default, ignore null values and omit the relevant key when parsing the JSON.
 
 ## Verification of claims by trust framework and evidence types
 
@@ -966,15 +935,15 @@ external sources in a single ID Token.
 
 <{{examples/response/all_in_one.json}}
 
-## Self-Issued OpenID Connect provider and external claims
+## Self-Issued OpenID provider and external claims
 
-This example shows how a Self-Issued OpenID Connect provider (SIOP)
+This example shows how a Self-Issued OpenID provider (SIOP)
 may include verified claims obtained from different external claim
-sources into a ID Token.
+sources into an ID Token.
 
 <{{examples/response/siop_aggregated_and_distributed_claims.json}}
 
-# Example requests and Responses
+# Example requests and responses
 
 This section shows examples of pairs of requests and responses containing `verified_claims`.
 
@@ -1014,9 +983,9 @@ The decoded body of the respective ID Token could be
 
 # Acknowledgements {#Acknowledgements}
 
-The following people at yes.com and partner companies contributed to the concept described in the initial contribution to this specification: Karsten Buch, Lukas Stiebig, Sven Manz, Waldemar Zimpfer, Willi Wiedergold, Fabian Hoffmann, Daniel Keijsers, Ralf Wagner, Sebastian Ebling, Peter Eisenhofer.
+The following people at yes.com and partner companies contributed to the concept described in the initial contribution to this document: Karsten Buch, Lukas Stiebig, Sven Manz, Waldemar Zimpfer, Willi Wiedergold, Fabian Hoffmann, Daniel Keijsers, Ralf Wagner, Sebastian Ebling, Peter Eisenhofer.
 
-We would like to thank Julian White, Bjorn Hjelm, Stephane Mouy, Alberto Pulido, Joseph Heenan, Vladimir Dzhuvinov, Azusa Kikuchi, Naohiro Fujie, Takahiko Kawasaki, Sebastian Ebling, Marcos Sanz, Tom Jones, Mike Pegman, Michael B. Jones, Jeff Lombardo, Taylor Ongaro, Peter Bainbridge-Clayton, Adrian Field, George Fletcher, Tim Cappalli, Michael Palage, Sascha Preibisch, Giuseppe De Marco, Nick Mothershaw, Dima Postnikov and Nat Sakimura for their valuable feedback and contributions that helped to evolve this specification.
+We would like to thank Julian White, Bjorn Hjelm, Stephane Mouy, Alberto Pulido, Joseph Heenan, Vladimir Dzhuvinov, Azusa Kikuchi, Naohiro Fujie, Takahiko Kawasaki, Sebastian Ebling, Marcos Sanz, Tom Jones, Mike Pegman, Michael B. Jones, Jeff Lombardo, Taylor Ongaro, Peter Bainbridge-Clayton, Adrian Field, George Fletcher, Tim Cappalli, Michael Palage, Sascha Preibisch, Giuseppe De Marco, Nick Mothershaw, Hodari McClain, Dima Postnikov and Nat Sakimura for their valuable feedback and contributions that helped to evolve this document.
 
 # Notices
 
@@ -1024,7 +993,7 @@ Copyright (c) 2024 The OpenID Foundation.
 
 The OpenID Foundation (OIDF) grants to any Contributor, developer, implementer, or other interested party a non-exclusive, royalty free, worldwide copyright license to reproduce, prepare derivative works from, distribute, perform and display, this Implementers Draft or Final Specification solely for the purposes of (i) developing specifications, and (ii) implementing Implementers Drafts and Final Specifications based on such documents, provided that attribution be made to the OIDF as the source of the material, but that such attribution does not indicate an endorsement by the OIDF.
 
-The technology described in this specification was made available from contributions from various sources, including members of the OpenID Foundation and others. Although the OpenID Foundation has taken steps to help ensure that the technology is available for distribution, it takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this specification or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any independent effort to identify any such rights. The OpenID Foundation and the contributors to this specification make no (and hereby expressly disclaim any) warranties (express, implied, or otherwise), including implied warranties of merchantability, non-infringement, fitness for a particular purpose, or title, related to this specification, and the entire risk as to implementing this specification is assumed by the implementer. The OpenID Intellectual Property Rights policy requires contributors to offer a patent promise not to assert certain patent claims against other contributors and against implementers. The OpenID Foundation invites any interested party to bring to its attention any copyrights, patents, patent applications, or other proprietary rights that may cover technology that may be required to practice this specification.
+The technology described in this document was made available from contributions from various sources, including members of the OpenID Foundation and others. Although the OpenID Foundation has taken steps to help ensure that the technology is available for distribution, it takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this document or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any independent effort to identify any such rights. The OpenID Foundation and the contributors to this document make no (and hereby expressly disclaim any) warranties (express, implied, or otherwise), including implied warranties of merchantability, non-infringement, fitness for a particular purpose, or title, related to this document to offer a patent promise not to assert certain patent claims against other contributors and against implementers. The OpenID Foundation invites any interested party to bring to its attention any copyrights, patents, patent applications, or other proprietary rights that may cover technology that may be required to practice this document.
 
 # Document history
 
