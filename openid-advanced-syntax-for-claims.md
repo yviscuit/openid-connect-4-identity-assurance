@@ -60,13 +60,16 @@ Relying Parties and includes examples of how both features may be used.
 
 # Normative references
 
-See section 13 for normative references.
+<!-- See section 13 for normative references. -->
+Normative References については Section 13 参照．
 
 # Terms and definitions
-For the purposes of this document, the following terms and definitions apply.
+<!-- For the purposes of this document, the following terms and definitions apply. -->
+このドキュメントでは，以下の用語と定義を適用する．
 
 ## claim
-piece of information asserted about an entity
+<!-- piece of information asserted about an entity -->
+Entity に関する情報の部分集合.
 
 [SOURCE: [@!OpenID], 1.2]
 

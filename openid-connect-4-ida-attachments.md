@@ -107,10 +107,12 @@ interpreted with their natural language meanings.
 
 # Normative references
 
-See section 9 for normative references.
+<!-- See section 9 for normative references. -->
+Normative References については Section 9 参照．
 
 # Terms and definitions
-No terms and definitions are listed in this document.
+<!-- No terms and definitions are listed in this document. -->
+このドキュメントでは，用語と定義は記載されていない．
 
 # Attachments {#attachments}
 

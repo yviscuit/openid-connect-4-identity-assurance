@@ -108,23 +108,27 @@ interpreted with their natural language meanings.
 
 <!-- This specification defines the schema of JSON objects used to describe identity assurance relating to a natural person.  It consists of the definition of a new claim called `verified_claims` that will be registered with the IANA "JSON Web Token Claims Registry" established by [@!RFC7519].  As part of the definition of the `verified_claims` claim there is also be an element defined called `verification` that provides a flexible container for identity assurance metadata. It is anticipated that the `verification` element may be used by other spec authors and implementers where the verification metadata is needed independently of the end-user verified claims. -->
 
-本仕様では, 自然人に関連するidentity assurance を記述するために使用されるJSON オブジェクトのスキーマを定義している. これは[@!RFC7519]で確立されたIANA の"JSON Web Token Claims Registry"に登録される予定である, `verified_claims` と呼ばれる新しいクレームの定義を構成している. `verified_claims` クレームの定義の一部として, identity assurance メタデータのための柔軟なコンテナを提供する, `verification` と呼ばれる要素も定義されている. `verification` 要素は End-User が検証した Claim に依存しないverification メタデータが必要とされる場合に, 他の仕様の著者や実装者によって使用されるかもしれないことが予期される.
+本仕様では, 自然人に関連するidentity assurance を記述するために使用されるJSON オブジェクトのスキーマを定義している. これは [@!RFC7519] で確立されたIANA の "JSON Web Token Claims Registry" に登録される予定である, `verified_claims` と呼ばれる新しいクレームの定義を構成している. `verified_claims` クレームの定義の一部として, identity assurance メタデータのための柔軟なコンテナを提供する, `verification` と呼ばれる要素も定義されている. `verification` 要素は End-User が検証した Claim に依存しない verification メタデータが必要とされる場合に, 他の仕様の著者や実装者によって使用されるかもしれないことが予期される.
 
 # Normative references
 
-See section 6 for normative references.
+<!-- See section 6 for normative references. -->
+Normative References については Section 6 参照．
 
 # Terms and definitions
 
-For the purposes of this document, the following terms and definitions apply.
+<!-- For the purposes of this document, the following terms and definitions apply. -->
+このドキュメントでは，以下の用語と定義を適用する．
 
 ## claim
-piece of information asserted about an entity
+<!-- piece of information asserted about an entity -->
+Entity に関する情報の部分集合.
 
 [SOURCE: [@!OpenID], 1.2]
 
 ## claim provider
-server that can return claims and verified claims about an entity
+<!-- server that can return claims and verified claims about an entity -->
+エンティティに関する claim と verified claims を返却できるサーバー
 
 <!-- Note 1 to entry : A claim provider could be an OpenID Connect provider, a verifiable claim issuer or other application component that provides verified claims. -->
 Note 1 to entry : claim provider は, OpenID Connect Provider, Verifiable Claims Issuer または検証済みクレームを提供する他のアプリケーションコンポーネントである可能性がある.
@@ -137,11 +141,11 @@ Claims Provider からクレームを受け取るアプリケーション
 
 ## identity proofing
 <!-- process in which an end-user provides evidence to a provider reliably identifying themselves, thereby allowing the provider to assert that identification at a useful assurance level. -->
-End-User が自分自身を確実に識別できるエビデンスをプロバイダーに提供することにより, プロバイダーが有用な保証レベルで識別できるようにするプロセス.
+エンドユーザーが provider に自分自身を確実に識別できるエビデンスを提供し，それによって provider が有用な assurance level でその識別をアサート出来るようにするプロセス
 
 ## identity verification
 <!-- process conducted by the provider to verify the end-user's identity. -->
-End-User identity を verifiacation するためにプロバイダーによって実行されるプロセス
+エンドユーザーの identity を確認するために，provider が実施するプロセス
 
 ## identity assurance
 <!-- process in which the provider asserts identity data of a certain end-user with a certain assurance towards another consuming entity (such as a relying party or verifier as described in [@W3C_VCDM]), typically expressed by way of an assurance level -->
@@ -152,7 +156,7 @@ Note 1 to entry: 法的要件に応じて,プロバイダーは identity verific
 
 ## verified claims
 <!-- claims about an end-user, typically a natural person, whose binding to a particular end-user account was verified in the course of an identity verification process. -->
-特定のエンドユーザーアカウントへのバインドが identity verification プロセスの過程で検証された End-User (通常は自然人) に関する Claim.
+特定のエンドユーザーアカウントへの binding が identity verification プロセスの過程で検証されたエンドユーザー (通常は自然人) に関する claim
 
 # Requirements
 
@@ -811,23 +815,15 @@ Claim Provider によってサポートされ，Claim Recipient から要求さ�
 Claim Name:
 : `verified_claims`
 
-<!--
 Claim Description:
-: A structured claim containing end-user claims and the details of how those end-user claims were assured.
--->
-
-Claim Description:
+<!-- : A structured claim containing end-user claims and the details of how those end-user claims were assured. -->
 : End-User Claim とそれらの Claim がどのように保証されているかの詳細を含む構造化された Claim.
 
 Change Controller:
 : eKYC and Identity Assurance Working Group - openid-specs-ekyc-ida@lists.openid.net
 
-<!--
 Specification Document(s):
-: Section [Claims](#claims) of this document
--->
-
-Specification Document(s):
+<!-- : Section [Claims](#claims) of this document -->
 : 本ドキュメントの [Claims](#claims) セクション
 
 

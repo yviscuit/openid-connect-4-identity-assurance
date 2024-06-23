@@ -119,7 +119,7 @@ Entity に関する情報の部分集合.
 
 ## identity proofing
 <!-- process in which an end-user provides evidence to an OP or claim provider reliably identifying themselves, thereby allowing the OP or claim provider to assert that identification at a useful assurance level -->
-エンドユーザーが OP または claim provider に自分自身を確実に識別できるエビデンスを提供し，それによって OP または claim provider が有用な assurance level でその識別を主張出来るようにするプロセス
+エンドユーザーが OP または claim provider に自分自身を確実に識別できるエビデンスを提供し，それによって OpenID Connect provider (OP) または claim provider が有用な assurance level でその識別をアサート出来るようにするプロセス
 
 ## identity verification
 <!-- process conducted by the OP or a claim provider to verify the end-user's identity -->
@@ -127,11 +127,11 @@ Entity に関する情報の部分集合.
 
 ## identity assurance
 <!-- process in which the OP or a claim provider asserts identity data of a certain end-user with a certain assurance towards an RP, typically expressed by way of an assurance level. Depending on legal requirements, the OP can be required to provide evidence of the identity verification process to the RP -->
-通常は assurance level によって表現される，OP または claim provider が特定のエンドユーザーのアイデンティティデータを RP に対して一定の保証付きで主張するプロセス．法的要件に応じて，OP は identity verification プロセスのエビデンスを RP に提供することが要求される場合がある．
+OP または claim provider が, RP に対してある一定の確からしさをもって特定のエンドユーザーの identity データを主張するプロセスで，通常は assurance level で表される. 法的要件に応じて, OP は identity verification プロセスのエビデンスを RP に提供するよう要求される場合もある.
 
 ## verified claims
 <!-- claims about an end-user, typically a natural person, whose binding to a particular end-user account was verified in the course of an identity verification process -->
-identity verification プロセスの過程で，特定のエンドユーザーアカウントとの binding が確認されたエンドユーザー，一般的には自然人，に関する claim
+特定のエンドユーザーアカウントへの binding が identity verification プロセスの過程で検証されたエンドユーザー (通常は自然人) に関する Claim
 
 # Claims {#claims}
 
