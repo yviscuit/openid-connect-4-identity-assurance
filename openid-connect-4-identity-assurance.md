@@ -617,23 +617,32 @@ OpenID Connect 仕様 [@!OpenID] の Section 5.5 で定義されている `claim
 
 # OP metadata {#opmetadata}
 
-The OP advertises its capabilities with respect to verified claims in its openid-configuration (see [@!OpenID-Discovery]) using the following new elements:
+<!-- The OP advertises its capabilities with respect to verified claims in its openid-configuration (see [@!OpenID-Discovery]) using the following new elements: -->
+OP は openid-configuration ([@!OpenID-Discovery] 参照) において，次の新しい要素を使用して verified claims に関する能力を告知する:
 
-`trust_frameworks_supported`: Required. JSON array containing all supported trust frameworks. This array shall have at least one member.
+<!-- `trust_frameworks_supported`: Required. JSON array containing all supported trust frameworks. This array shall have at least one member. -->
+`trust_frameworks_supported`: Required. サポートする全てのトラストフレームワークを含む JSON 配列．この配列は少なくとも1つ以上のメンバーを持たなければならない (SHALL)．
 
-`claims_in_verified_claims_supported`: Required. JSON array containing all claims supported within `verified_claims`. claims that are not present in this array shall not be returned within the `verified_claims` object. This array shall have at least one member.
+<!-- `claims_in_verified_claims_supported`: Required. JSON array containing all claims supported within `verified_claims`. claims that are not present in this array shall not be returned within the `verified_claims` object. This array shall have at least one member. -->
+`claims_in_verified_claims_supported`: Required. `verified_claims` 内でサポートする全ての claims を含む JSON 配列．この配列内に現れない claim は `verified_claims` オブジェクト内で返却してはならない (SHALL NOT)．この配列は少なくとも1つ以上のメンバーを持たなければならない (SHALL)．
 
-`evidence_supported`: Required when one or more type of evidence is supported. JSON array containing all types of identity evidence the OP uses. This array shall have at least one member. Members of this array should only be the types of evidence supported by the OP in the `evidence` element (see section 5.4.4 of [@!IDA-verified-claims]).
+<!-- `evidence_supported`: Required when one or more type of evidence is supported. JSON array containing all types of identity evidence the OP uses. This array shall have at least one member. Members of this array should only be the types of evidence supported by the OP in the `evidence` element (see section 5.4.4 of [@!IDA-verified-claims]). -->
+`evidence_supported`: 1つ以上のタイプのエビデンスがサポートされている場合，必須 (Required)． OP が使用する全ての identity evidence タイプを含む JSON 配列．この配列は少なくとも1つ以上のメンバーを持たなければならない (SHALL)．この配列のメンバーは，`evidence` 要素 ([@!IDA-verified-claims] の section 5.4.4 参照) で OP がサポートするエビデンスのタイプのみでなければならない（SHOULD）．
 
-`documents_supported`: Required when `evidence_supported` contains "document". JSON array containing all identity document types utilized by the OP for identity verification. This array shall have at least one member.
+<!-- `documents_supported`: Required when `evidence_supported` contains "document". JSON array containing all identity document types utilized by the OP for identity verification. This array shall have at least one member. -->
+`documents_supported`: `evidence_supported` に "document" を含む場合に必須 (Required). OP が identity verification に使用する全ての identity document タイプを含む JSON 配列．この配列は少なくとも1つ以上のメンバーを持たなければならない (SHALL)．
 
-`documents_methods_supported`: Optional. JSON array containing the verification methods the OP supports for evidences of type "document" (see [@!predefined_values_page]). When present this array shall have at least one member.
+<!-- `documents_methods_supported`: Optional. JSON array containing the verification methods the OP supports for evidences of type "document" (see [@!predefined_values_page]). When present this array shall have at least one member. -->
+`documents_methods_supported`: Optional. OP が "document" タイプ ([@!predefined_values_page] 参照) のエビデンスに対してサポートする検証方法を含む JSON 配列．この配列は少なくとも1つ以上のメンバーを持たなければならない (SHALL)．
 
-`documents_check_methods_supported`: Optional. JSON array containing the check methods the OP supports for evidences of type "document" (see [@!predefined_values_page]). When present this array shall have at least one member.
+<!-- `documents_check_methods_supported`: Optional. JSON array containing the check methods the OP supports for evidences of type "document" (see [@!predefined_values_page]). When present this array shall have at least one member. -->
+`documents_check_methods_supported`: Optional. OP が "document" タイプ ([@!predefined_values_page] 参照) のエビデンスに対してサポートするチェック方法を含む JSON 配列．この配列は少なくとも1つ以上のメンバーを持たなければならない (SHALL)．
 
-`electronic_records_supported`: Required when `evidence_supported` contains "electronic\_record". JSON array containing all electronic record types the OP supports (see [@!predefined_values_page]). When present this array shall have at least one member.
+<!-- `electronic_records_supported`: Required when `evidence_supported` contains "electronic\_record". JSON array containing all electronic record types the OP supports (see [@!predefined_values_page]). When present this array shall have at least one member. -->
+`electronic_records_supported`: `evidence_supported` に "electronic\_record" を含む場合に必須 (Required). OP のサポートする全ての electronic record タイプ ([@!predefined_values_page] 参照) を含む JSON 配列．この配列は少なくとも1つ以上のメンバーを持たなければならない (SHALL)．
 
-This is an example openid-configuration snippet:
+<!-- This is an example openid-configuration snippet: -->
+以下は openid-configuration スニペットの例である:
 
 ```json
 {
@@ -672,9 +681,11 @@ This is an example openid-configuration snippet:
 }
 ```
 
-If the OP supports the `claims` parameter as defined in section 5.5 of the OpenID Connect specification [@!OpenID], the OP shall advertise this in its OP metadata using the `claims_parameter_supported` element.
+<!-- If the OP supports the `claims` parameter as defined in section 5.5 of the OpenID Connect specification [@!OpenID], the OP shall advertise this in its OP metadata using the `claims_parameter_supported` element. -->
+OP が  OpenID Connect 仕様 [@!OpenID] の section 5.5 で定義される `claims` parameter をサポートする場合，OP は `claims_parameter_supported` 要素を使用して OP メタデータでこれを告知しなければならない (SHALL)．
 
-If the OP supports distributed and/or aggregated claim types, as defined in section 5.6.2 of the OpenID Connect specification [@!OpenID], in `verified_claims`, the OP shall advertise this in its metadata using the `claim_types_supported` element.
+<!-- If the OP supports distributed and/or aggregated claim types, as defined in section 5.6.2 of the OpenID Connect specification [@!OpenID], in `verified_claims`, the OP shall advertise this in its metadata using the `claim_types_supported` element. -->
+OP が `verified_claims` 内において OpenID Connect 仕様 [@!OpenID] の section 5.6.2 で定義される分散及び/または集約クレームタイプをサポートしている場合，OP は `claim_types_supported` 要素を使用して，そのメタデータでこれを告知しなければならない (SHALL)．
 
 # Privacy consideration {#Privacy}
 
