@@ -739,11 +739,14 @@ their needs. Implementers might consider [@FAPI-1-SP] or [@FAPI-2-SP]. -->
 
 # Predefined values {#predefined_values}
 
-This document focuses on the technical mechanisms to convey verified claims and thus does not define any identifiers for trust frameworks, documents, methods, check methods. This is left to adopters of the technical specification, e.g., implementers, identity schemes, or jurisdictions.
+<!-- This document focuses on the technical mechanisms to convey verified claims and thus does not define any identifiers for trust frameworks, documents, methods, check methods. This is left to adopters of the technical specification, e.g., implementers, identity schemes, or jurisdictions. -->
+このドキュメントは verified claims を伝達する技術的なメカニズムにフォーカスしているため，trust frameworks, documents, methods, check methods の identifiers は定義していない．これは，例えば実装者，アイデンティティスキーム，または管轄区域など，技術仕様の採用者に委ねられている．
 
-Each party defining such identifiers shall ensure the collision resistance of these identifiers. This is achieved by including a domain name under the control of this party into the identifier name, e.g., `https://mycompany.com/identifiers/cool_check_method`.
+<!-- Each party defining such identifiers shall ensure the collision resistance of these identifiers. This is achieved by including a domain name under the control of this party into the identifier name, e.g., `https://mycompany.com/identifiers/cool_check_method`. -->
+このような identifiers を定義する各当事者は，これらの identifiers の衝突安全性を確保しなければならない (SHALL)．これは，`https://mycompany.com/identifiers/cool_check_method` のように，この当事者の管理下にあるドメイン名を identifier 名に含めることで実現される．
 
-The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefined_values_page] that can be utilized to share predefined values with other parties.
+<!-- The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefined_values_page] that can be utilized to share predefined values with other parties. -->
+eKYC and Identity Assurance Working Group は，他の当事者と定義済みの値を京湯するために使用できる wiki ページ [@!predefined_values_page] を管理している．
 
 {backmatter}
 
