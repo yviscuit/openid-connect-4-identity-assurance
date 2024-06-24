@@ -209,7 +209,7 @@ identity assurance に関する一部の権限の要件を満たすために, Op
 このドキュメントでは，保証された digital identity 属性と identity assurance メタデータを表現するスキーマの定義として [!@IDA-verified-claims] ドキュメントを使用する．
 
 <!-- The following example would assert to the RP that the OP has verified the claims provided (`given_name` and `family_name`) according to an example trust framework `trust_framework_example`: -->
-次の例では，トラストフレームワーク `trust_framework_example` の例に従って，OP が提供された Claim (`given_name` and `family_name`) を検証したことを RP に表明する:
+次の例では，トラストフレームワーク `trust_framework_example` の例に従って，OP が提供された Claim (`given_name` と `family_name`) を検証したことを RP に表明する:
 
 <{{examples/response/verified_claims_simple.json}}
 
@@ -249,7 +249,7 @@ OP または Authorization Server (AS) は上記の assertions に集約また�
 ## Requesting end-user claims {#req_claims}
 
 <!-- Verified claims can be requested on the level of individual claims about the end-user by utilizing the `claims` parameter as defined in section 5.5 of the OpenID Connect specification [@!OpenID]. -->
-Verified Claims は OpenID Connect specification [@!OpenID] の Section 5.5 に定義されている `claims` parameter を利用することで, End-User について 個々の Claims のレベルで要求できる.
+Verified Claims は OpenID Connect specification [@!OpenID] の Section 5.5 に定義されている `claims` パラメータを利用することで, End-User について 個々の Claims のレベルで要求できる.
 
 <!-- Note: A machine-readable definition of the syntax to be used to request `verified_claims` is given as JSON schema in [@verified_claims_request.json], which can be used to automatically validate `claims` request parameters. The provided JSON schema files are a non-normative implementation of this document and any discrepancies that exist are either implementation bugs or interpretations. -->
 注: `verified_claims` をリクエストするために使用される機械可読な構文定義は [@verified_claims_request.json] で JSON スキーマとして提供され，これを利用して `claims` リクエストパラメータを自動的に検証することができる．提供される JSON スキーマファイルは本ドキュメントの標準ではない実装であり，存在する矛盾は実装のバグか，解釈のいずれかである．
@@ -298,13 +298,13 @@ RP は OP  が `verification` 要素に追加するデータを明示的に要�
 この例では OP に対して，エビデンス配列メンバーごとに，それぞれの `method` と `document` 要素 (ドキュメントタイプに関するデータを含む) を，結果の `verified_claims` Claim に含むように要求している．
 
 <!-- A single entry in the `evidence` array represents a filter over elements of a certain evidence type. The RP therefore shall specify this type by including the `type` field including a suitable `value` sub-element value. The `values` sub-element shall not be used for the `evidence/type` field. -->
-`evidence` 配列の単一エントリは，特定のエビデンスタイプの要素に対するフィルターを洗わず．従って，RP は適切な `value` サブ要素値を含む `type` フィールドを含めることによって，このタイプを指定しなければならない (SHALL)．`values` サブ要素を `evidence/type` フィールドに使用してはならない (SHALL NOT)．
+`evidence` 配列の単一エントリは，特定の evidence タイプの要素に対するフィルターを表す．従って，RP は適切な `value` サブ要素値を含む `type` フィールドを含めることによって，このタイプを指定しなければならない (SHALL)．`values` サブ要素を `evidence/type` フィールドに使用してはならない (SHALL NOT)．
 
 <!-- If multiple entries are present in `evidence`, these filters are linked by a logical OR. -->
 `evidence` に複数のエントリが存在する場合，これらのフィルターは論理和によって紐付けられる．
 
 <!-- `check_details` is an array of the processes that have been applied to the `evidence`. An RP can filter `check_details` by requesting a particular value for one or more of its sub-elements. If multiple entries for the same sub-element are present this acts as a logical OR between them. -->
-`check_details` は `evidence` に適用されるプロセスの配列である．RP は1つ以上のサブ要素に特定の値を要求することでｍ`check_details` をフィルタリング出来る．同じサブ要素に複数のエントリーがある場合，これはそれらの間の論理 OR として機能する．
+`check_details` は `evidence` に適用されるプロセスの配列である．RP は1つ以上のサブ要素に特定の値を要求することで `check_details` をフィルタリング出来る．同じサブ要素に複数のエントリがある場合，これはそれらの間の論理 OR として機能する．
 
 <!-- `assurance_details` is an array representing how the `evidence` and `check_details` fulfill the requirements of the `trust_framework`. RP should only request this where they need to know this information. Where `assurance_details` has been requested by an RP the OP shall return the `assurance_details` element along with all sub-elements that it has. If an RP wants to filter what types of `evidence` and `check_methods` they shall use those methods to do so, e.g. requesting an `assurance_type` should have no filtering effect. -->
 `assurance_details` は `evidence` と `check_details` がどのように `trust_framework` の要件を満たしているかを示す配列である．RP はこの情報を知る必要がある場合のみ要求しなければならない (SHOULD)．`assurance_details`  が RP によって要求された場合，OP は `assurance_details` 要素と，それが持つ全てのサブ要素を一緒に返すべきである（SHALL）．RP が `evidence` と `check_methods` のタイプをフィルタしたい場合，それらのメソッドを使用しなければならない (SHOULD)．例えば，`assurance_type` を要求しても，フィルタリング効果はない．
@@ -340,7 +340,7 @@ OP は可能な値のクエリ制約の一部または全部を無視しては�
 ### max_age
 
 <!-- The RP can also express a requirement regarding the age of certain data, like the time elapsed since the issuance/expiry of certain evidence types or since the verification process asserted in the `verification` element took place. Section 5.5.1 of the OpenID Connect specification [@!OpenID] defines a query syntax that allows for new special query members to be defined. This document introduces a new such member `max_age`, which is applicable to the possible values of any elements containing dates or timestamps (e.g., `time`, `date_of_issuance` and `date_of_expiry` elements of evidence of type `document`). -->
-RP は特定のエビデンスタイプの発行/失効からの経過時間や，`verification` 要素でアサートされた検証プロセスが行われてからの経過時間のような，特定のデータの経過時間に関する要件を表現することもできる．OpenID Connect 仕様 [@!OpenID] の Section 5.5.1 では新しい特別なクエリメンバーを定義できるクエリ構文を定義している．このドキュメントでは，日付またはタイムスタンプを含む要素 (例えば，タイプ `document` のエビデンスの `time`，`date_of_issuance` 及び `date_of_expiry` 要素) の取り得る値に適用される新しいメンバー `max_age` を導入する．
+RP は特定のエビデンスタイプの発行/失効からの経過時間や，`verification` 要素でアサートされた検証プロセスが行われてからの経過時間のような，特定のデータの経過時間に関する要件を表現することもできる．OpenID Connect 仕様 [@!OpenID] の Section 5.5.1 では新しい特別なクエリメンバーを定義できるクエリ構文を定義している．このドキュメントでは，日付またはタイムスタンプを含む要素 (例えば，`document` タイプのエビデンスの `time`，`date_of_issuance` 及び `date_of_expiry` 要素) の取り得る値に適用される新しいメンバー `max_age` を導入する．
 
 <!-- `max_age`: Optional. JSON number value only applicable to claims that contain dates or timestamps. It defines the maximum time (in seconds) to be allowed to elapse since the value of the date/timestamp up to the point in time of the request. The OP should make the calculation of elapsed time starting from the last valid second of the date value. -->
 `max_age`: OPTIONAL. 日付またはタイムスタンプを含む Claims にのみ適用可能な JSON number 値．日付/タイムスタンプの値からリクエストの時点までに許容される最大経過時間(秒)を定義する．OP は日付値の最後の有効な秒から開始して経過時間を計算しなければならない (SHOULD)．
@@ -351,7 +351,7 @@ RP は特定のエビデンスタイプの発行/失効からの経過時間や�
 <{{examples/request/verification_max_age.json}}
 
 <!-- The OP should try to fulfill this requirement. If the verification data of the end-user is older than the requested `max_age`, the OP can attempt to refresh the end-user’s verification by sending them through an online identity verification process, e.g., by utilizing an electronic ID card or a video identification approach. -->
-OP は子の要件を満たすよう務めるべきである (SHOULD)．もし End-User の検証データが要求された `max_age` より古い場合，OP は例えば electronic ID card や video identification approach を利用するなど，オンラインの identity verification process を通じて End-User のverification を送信することで，End-User の verification の更新を試みることが出来る．
+OP はこの要件を満たすよう務めるべきである (SHOULD)．もし End-User の検証データが要求された `max_age` より古い場合，OP は例えば electronic ID card や video identification approach を利用するなど，オンラインの identity verification process を通じて End-User のverification を送信することで，End-User の verification の更新を試みることが出来る．
 
 ## Requesting claims sets with different verification requirements
 
@@ -391,7 +391,7 @@ RP は `values` 要素を利用して，リクエスト中の複数の `verified
 * to abort transactions (return error codes) in cases where requests cannot be fulfilled.
 -->
 
-* スキーム固有のチェックに応じて claims の仕様を許可または禁止する，
+* スキーム固有のチェックに応じて claims の使用を許可または禁止する，
 * データが利用できない，または基準に一致しない場合，OP の動作に対する RP のよりきめ細かい制御を有効にする，または
 * 要求を満たすことが出来ない場合に，トランザクションを中断する (エラーコードを返す)．
 
@@ -401,7 +401,7 @@ Important: 以下で説明する振舞いは，`essential` ([@!OpenID] の secti
 ### Unavailable data
 
 <!-- If the OP does not have data about a certain claim, does not understand/support the respective claim, OPs shall omit the respective claim from any corresponding ID Token or UserInfo response. -->
-OP が特定の claim に関するデータを持っていない場合，それぞれの claim を理解/サポートしていない場合，OPs は対応する ID Token または UserInfo レスポンスからぞれぞれの claim を省略しなければならない (SHALL)．
+OP が特定の claim に関するデータを持っていない場合，それぞれの claim を理解/サポートしていない場合，OPs は対応する ID Token または UserInfo レスポンスからそれぞれの claim を省略しなければならない (SHALL)．
 
 ### Non-consented data
 
@@ -682,7 +682,7 @@ OP は openid-configuration ([@!OpenID-Discovery] 参照) において，次の�
 ```
 
 <!-- If the OP supports the `claims` parameter as defined in section 5.5 of the OpenID Connect specification [@!OpenID], the OP shall advertise this in its OP metadata using the `claims_parameter_supported` element. -->
-OP が  OpenID Connect 仕様 [@!OpenID] の section 5.5 で定義される `claims` parameter をサポートする場合，OP は `claims_parameter_supported` 要素を使用して OP メタデータでこれを告知しなければならない (SHALL)．
+OP が  OpenID Connect 仕様 [@!OpenID] の section 5.5 で定義される `claims` パラメータをサポートする場合，OP は `claims_parameter_supported` 要素を使用して OP メタデータでこれを告知しなければならない (SHALL)．
 
 <!-- If the OP supports distributed and/or aggregated claim types, as defined in section 5.6.2 of the OpenID Connect specification [@!OpenID], in `verified_claims`, the OP shall advertise this in its metadata using the `claim_types_supported` element. -->
 OP が `verified_claims` 内において OpenID Connect 仕様 [@!OpenID] の section 5.6.2 で定義される分散及び/または集約クレームタイプをサポートしている場合，OP は `claim_types_supported` 要素を使用して，そのメタデータでこれを告知しなければならない (SHALL)．
@@ -721,7 +721,7 @@ profiles and new security profiles under development.  Implementers have the fle
 their needs. Implementers might consider [@FAPI-1-SP] or [@FAPI-2-SP]. -->
 複数のセキュリティプロファイルと新しいセキュリティプロファイルが開発中であるため，このドキュメントは特定のセキュリティプロファイルを定義または要求しない．
 実装者はニーズに最適なセキュリティプロファイルを柔軟に選択できる．
-実装者は [@FAPI-1-SP] または [@FAPI-2-SP] を選検討することが望ましい (MAY)．
+実装者は [@FAPI-1-SP] または [@FAPI-2-SP] を検討することが望ましい (MAY)．
 
 <!-- Implementers should select a security profile that has a certification program or other resources that allow both OpenID providers and relying parties to ensure they have complied with the profile’s security and interoperability requirements, such as the OpenID Foundation Certification Program, https://openid.net/certification/. -->
 実装者は，OpenID Foundation Certification Program (https://openid.net/certification/) のような，OpenID プロバイダーと Relying Parties の両方がプロファイルのセキュリティと相互運用性の要件に準拠していることを確認できる certification program またはその他のリソースを持つセキュリティプロファイルを選択すべきである (SHOULD)．
@@ -746,7 +746,7 @@ their needs. Implementers might consider [@FAPI-1-SP] or [@FAPI-2-SP]. -->
 このような identifiers を定義する各当事者は，これらの identifiers の衝突安全性を確保しなければならない (SHALL)．これは，`https://mycompany.com/identifiers/cool_check_method` のように，この当事者の管理下にあるドメイン名を identifier 名に含めることで実現される．
 
 <!-- The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefined_values_page] that can be utilized to share predefined values with other parties. -->
-eKYC and Identity Assurance Working Group は，他の当事者と定義済みの値を京湯するために使用できる wiki ページ [@!predefined_values_page] を管理している．
+eKYC and Identity Assurance Working Group は，他の当事者と定義済みの値を共有するために使用できる wiki ページ [@!predefined_values_page] を管理している．
 
 {backmatter}
 
