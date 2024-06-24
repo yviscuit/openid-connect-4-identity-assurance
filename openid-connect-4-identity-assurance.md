@@ -590,11 +590,13 @@ OpenID Connect 仕様 [@!OpenID] の Section 5.5 で定義されている `claim
 <!-- Note: The OP shall not provide the RP with any data it did not request. However, the OP may at its discretion omit claims from the response. -->
 注: OP は，要求しなかったデータを RP に提供してはならない (SHALL NOT)．ただし，OP はその裁量によりレスポンスから Claim を省略してもよい．
 
-The example authorize call in this section will use the following unencoded example claims request parameter:
+<!-- The example authorize call in this section will use the following unencoded example claims request parameter: -->
+このセクションの authorize 呼び出しの例では，次のエンコードされていない claims request パラメータの例を使用する:
 
 <{{examples/request/simple_id_token.json}}
 
-The following is the non-normative example request that would be sent by the user agent to the authorization server in response to the HTTP 302 redirect from the client initiating the authorization code flow (with line wraps within values for display purposes only):
+<!-- The following is the non-normative example request that would be sent by the user agent to the authorization server in response to the HTTP 302 redirect from the client initiating the authorization code flow (with line wraps within values for display purposes only): -->
+以下は，ユーザーエージェントから authorization server に対して，クライアントの authorization code flow 開始に対する HTTP 302 リダイレクトレスポンスとして送信される non-normative な例である (改行は掲載上の都合による):
 
 ```
   GET /authorize?
