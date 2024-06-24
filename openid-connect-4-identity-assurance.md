@@ -689,36 +689,53 @@ OP が `verified_claims` 内において OpenID Connect 仕様 [@!OpenID] の se
 
 # Privacy consideration {#Privacy}
 
-The use of scopes is a potential shortcut to request a pre-defined set of claims, however, the use of scopes might result in more data being returned to the RP than is strictly necessary and not achieving the goal of data minimization. The RP should only request end-user claims and metadata it requires.
+<!-- The use of scopes is a potential shortcut to request a pre-defined set of claims, however, the use of scopes might result in more data being returned to the RP than is strictly necessary and not achieving the goal of data minimization. The RP should only request end-user claims and metadata it requires. -->
+scopes の利用は定義済みのクレームセットを要求するための潜在的なショートカットであるが，scopes を利用すると RP に返却されるデータが厳密に必要な量より多くなり，データミニマイゼーションの目標が達成されないかもしれない．RP は必要なエンドユーザーの claim とメタデータのみを要求すべきである (SHOULD)．
 
-Timestamps with a time zone component can potentially reveal the person’s location. To preserve the person’s privacy, timestamps within the verification element and verified claims that represent times should be represented in Coordinated Universal Time (UTC), unless there is a specific reason to include the time zone, such as the time zone being an essential part of a consented time related claim in verified data.
+<!-- Timestamps with a time zone component can potentially reveal the person’s location. To preserve the person’s privacy, timestamps within the verification element and verified claims that represent times should be represented in Coordinated Universal Time (UTC), unless there is a specific reason to include the time zone, such as the time zone being an essential part of a consented time related claim in verified data. -->
+タイムゾーンコンポーネントを含むタイムスタンプは，人物のロケーションを明らかにするかもしれない．人物のプライバシーを保護するため，verification element 中のタイムスタンプと時間を表す verified claims は，タイムゾーンが検証済みデータ内の同意された時間に関連する claim の重要な部分であるなど，タイムゾーンを含める特別な理由がない限り，協定世界時 (UTC) で表さなければならない (SHOULD)．
 
 # Security considerations {#Security}
 
-This document focuses on mechanisms to carry end-user claims and accompanying metadata in JSON objects and JSON Web Tokens, typically as part of an OpenID Connect protocol exchange. Since such an exchange is supposed to take place in security sensitive use cases, implementers shall:
+<!-- This document focuses on mechanisms to carry end-user claims and accompanying metadata in JSON objects and JSON Web Tokens, typically as part of an OpenID Connect protocol exchange. Since such an exchange is supposed to take place in security sensitive use cases, implementers shall: -->
+このドキュメントはエンドユーザーのクレームと付随するメタデータを JSON オブジェクトと JSON Web Token で運ぶメカニズムにフォーカスしており，通常これは OpenID Connect プロトコル交換の一部として行われる．このような交換はセキュリティにセンシティブなユースケースで行われるため，実装者は次のことを行わなければならない (SHALL):
 
+<!-- 
 * ensure end-users are authenticated using appropriately strong authentication methods, and
 * combine this document with an appropriate security profile for OpenID Connect.
+-->
+
+* エンドユーザーが強力な認証方法を使用して認証されていることを確認すること，また，
+* OpenID Connect の適切なセキュリティプロファイルをこのドキュメントと組み合わせること．
 
 ## End-user authentication
 
-Secure identification of end-users not only depends on the identity verification at the OP but also on the strength of the user authentication at the OP. Combining a strong identification with weak authentication creates a false impression of security while being open to attacks. For example if an OP uses a simple PIN login, an attacker could guess the PIN of another user and identify himself as the other user at an RP with a high identity assurance level. To prevent this kind of attack, RPs should request the OP to authenticate the user at a reasonable level, typically using multi-factor authentication, when requesting verified end-user claims. OpenID Connect supports this by way of the `acr_values` request parameter.
+<!-- Secure identification of end-users not only depends on the identity verification at the OP but also on the strength of the user authentication at the OP. Combining a strong identification with weak authentication creates a false impression of security while being open to attacks. For example if an OP uses a simple PIN login, an attacker could guess the PIN of another user and identify himself as the other user at an RP with a high identity assurance level. To prevent this kind of attack, RPs should request the OP to authenticate the user at a reasonable level, typically using multi-factor authentication, when requesting verified end-user claims. OpenID Connect supports this by way of the `acr_values` request parameter. -->
+
+エンドユーザーのセキュアな識別は，OP での identity verification だけでなく，OP でのユーザー認証の強度にも依存する．強力な識別と弱い認証を組み合わせると，セキュリティの間違った印象と同時に攻撃の余地を与える．例えば OP が単純な PIN ログインを使用する場合，攻撃者は他のユーザーの PIN を推測し，高い identity assurance レベルを持つ RP で自身を他のユーザーとして識別できる．この種の攻撃を防ぐため，エンドユーザーの検証済みクレームを要求するときに，RPs は OP に対して通常は多要素認証を利用するといった適正なレベルでユーザーを認証することを要求すべきである (SHOULD)．OpenID Connect は `acr_values` リクエストパラメータによってこれをサポートする．
 
 ## Security profile
 
-This document does not define or require a particular security profile since there are several security
+<!-- This document does not define or require a particular security profile since there are several security
 profiles and new security profiles under development.  Implementers have the flexibility to select the security profile that best suits
-their needs. Implementers might consider [@FAPI-1-SP] or [@FAPI-2-SP].
+their needs. Implementers might consider [@FAPI-1-SP] or [@FAPI-2-SP]. -->
+複数のセキュリティプロファイルと新しいセキュリティプロファイルが開発中であるため，このドキュメントは特定のセキュリティプロファイルを定義または要求しない．
+実装者はニーズに最適なセキュリティプロファイルを柔軟に選択できる．
+実装者は [@FAPI-1-SP] または [@FAPI-2-SP] を選検討することが望ましい (MAY)．
 
-Implementers should select a security profile that has a certification program or other resources that allow both OpenID providers and relying parties to ensure they have complied with the profile’s security and interoperability requirements, such as the OpenID Foundation Certification Program, https://openid.net/certification/.
+<!-- Implementers should select a security profile that has a certification program or other resources that allow both OpenID providers and relying parties to ensure they have complied with the profile’s security and interoperability requirements, such as the OpenID Foundation Certification Program, https://openid.net/certification/. -->
+実装者は，OpenID Foundation Certification Program (https://openid.net/certification/) のような，OpenID プロバイダーと Relying Parties の両方がプロファイルのセキュリティと相互運用性の要件に準拠していることを確認できる certification program またはその他のリソースを持つセキュリティプロファイルを選択すべきである (SHOULD)．
 
-Receiving parties shall ensure the integrity and authenticity of the issued assertions in order to prevent identity spoofing.
+<!-- Receiving parties shall ensure the integrity and authenticity of the issued assertions in order to prevent identity spoofing. -->
+受信側は identity spoofing を防ぐため，発行されたアサーションの整合性と信頼性を確保しなければならない (SHALL)．
 
-Receiving parties shall ensure the confidentiality of all end-user data exchanged between the protocol parties using suitable methods at transport or application layer.
+<!-- Receiving parties shall ensure the confidentiality of all end-user data exchanged between the protocol parties using suitable methods at transport or application layer. -->
+受信側はトランスポートまたはアプリケーション層で適切な方法を使用し，プロトコル当事者間で交換される全てのエンドユーザーデータの機密性を確保しなければならない (SHALL)．
 
 # Implementation and interoperability {#Interoperability}
 
-To achieve the full security and interoperability benefits, it is important the implementation of this document, and the underlying OpenID Connect and OAuth specifications, and selected security profile, are complete and correct. The OpenID Foundation provides tools that should be used to confirm that deployments behave as described in the specifications, with information available at: https://openid.net/certification/.
+<!-- To achieve the full security and interoperability benefits, it is important the implementation of this document, and the underlying OpenID Connect and OAuth specifications, and selected security profile, are complete and correct. The OpenID Foundation provides tools that should be used to confirm that deployments behave as described in the specifications, with information available at: https://openid.net/certification/. -->
+セキュリティと相互運用性のベネフィットを最大限得るためには，このドキュメント，基盤となる OpenID Connect と OAuth 仕様，及び選択したセキュリティプロファイルの実装が完全かつ正確であることが重要である．OpenID Foundation は，デプロイメントが仕様通りに動作することを確認するために使用することが出来るツールを提供している．情報は https://openid.net/certification/ で入手できる.
 
 # Predefined values {#predefined_values}
 
