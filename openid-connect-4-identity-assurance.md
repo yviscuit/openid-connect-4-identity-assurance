@@ -77,13 +77,13 @@ Final drafts adopted by the Workgroup through consensus are circulated publicly 
 
 <!-- This extension to OpenID Connect standardizes how relying parties request and receive identity information with additional assurance metadata. This document is aimed at enabling use cases requiring strong assurance, for example, to comply with regulatory requirements such as anti-money laundering laws or access to health data, risk mitigation, or fraud prevention. -->
 
-OpenID Connect の本拡張機能は，Relying Party が追加の保証メタデータを使用してアイデンティティ情報を要求および受信する方法を標準化する．この仕様は，たとえば，マネーロンダリング防止法や健康データへのアクセス，リスクの軽減，不正防止などの規制要件に準拠するような，強力な保証を必要とするユースケースを可能にすることを目的としている．
+OpenID Connect の本拡張機能は，Relying Party が追加の保証メタデータを使用してアイデンティティ情報を要求および受信する方法を標準化する．この仕様は，たとえば，マネーロンダリング防止法や健康データへのアクセスのような規制要件への準拠，リスクの軽減，不正防止のような，強力な保証を必要とするユースケースを可能にすることを目的としている．
 
 <!-- In such use cases, the relying party (RP) needs to understand the trustworthiness or assurance level of the  claims about the end-user that the OpenID provider (OP) is willing to communicate, along with process-related information and evidence used to verify the end-user claims. -->
-そのようなユースケースでは, 依拠当事者 (RP) は, OpenID プロバイダー (OP) の伝達するプロセス関連情報とエンドユーザーの Claim の検証に利用したエビデンスと一緒に，エンドユーザーに関する Claim の信頼性または assurance level を知る必要がある.
+そのようなユースケースでは, 依拠当事者 (RP) は, OpenID プロバイダー (OP) が伝達するエンドユーザーに関する Claim の信頼性または assurance level を，その検証に利用したプロセス関連情報やエビデンスと一緒に，知る必要がある. 
 
 <!-- The `acr` claim, as defined in section 2 of the OpenID Connect specification [@!OpenID], is suited to assure information about the authentication performed in an OpenID Connect transaction. Identity assurance, however, requires a different representation. While authentication is an aspect of an OpenID Connect transaction, assurance and associated verification and validation details, are properties of a certain claim or a group of claims. Several of them will typically be conveyed to the RP as the result of an OpenID Connect transaction. -->
-OpenID Connect 仕様 [@!OpenID] の Section 2 で定義されている `acr` Claim は, OpenID Connect トランザクションで実行される認証に関する情報を証明するのに適している. ただし, identity assurance には異なる表現が必要である. 認証は OpenID Connect トランザクションの側面であり, 保証と関連する検証の詳細は，特定の Claim または Claim のグループのプロパティである．それらのいくつかは通常, OpenID Connect トランザクションの結果として RP に伝えられる.
+OpenID Connect 仕様 [@!OpenID] の Section 2 で定義されている `acr` Claim は, OpenID Connect トランザクションで実行される認証に関する情報を証明するのに適している. しかし, identity assurance には異なる表現が必要である. 認証は OpenID Connect トランザクションの一面である一方, 保証と関連する検証の詳細は，特定の Claim または Claim のグループに対するプロパティである．それらは通常, OpenID Connect トランザクションの結果として RP に伝えられるようになる.
 
 <!-- For example, the assurance an OP typically will be able to give for an e-mail address will be “self-asserted” or "verified". The family name of an end-user, in contrast, might have been verified in accordance with the respective anti-money laundering law by showing an ID card to a trained employee of the OP operator. -->
 たとえば, 通常 OP が電子メールアドレスに与えることができる保証は「自己表明」または「検証済み」である. 対照的にエンドユーザーの姓は, OP オペレーターの訓練を受けた従業員に ID カードを提示することにより, それぞれのマネーロンダリング防止法に従って検証された可能性がある.
@@ -167,7 +167,7 @@ RP は，必要最小限のデータセットの要求 (data minimization) と�
 適切な規制の下で運用されている OP は，明確に定義された責任を伴う明確に定義されたルールに従って運用することが承認されているため，追加のエビデンスを提供する必要なしに identity data を保証できると想定されている．例えば eIDAS の場合，ピアレビューは eIDAS コンプライアンスを保証し，それぞれの加盟国は、通知された eID システムによって主張された identity に対する責任を負う．
 
 <!-- Every other OP not operating under such well-defined conditions could receive a request to provide the RP data about the identity verification process along with identity evidence to allow the RP to conduct their own risk assessment and to map the data obtained from the OP to other laws. For example, if an OP verifies and maintains identity data in accordance with an anti-money laundering law, an RP might choose to use the identity attributes in a different regulatory context, such as eHealth or the previously mentioned eIDAS. -->
-そのような明確な条件下で動作していない他のすべての OP は，RP が独自のリスクアセスメントを行い，OP から入手したデータを他の法律にマッピングできるように，identity evidence に加えて identity verification プロセスに関する RP data の提供要求を受け取るかもしれない．
+そのような明確な条件下で動作していない他のすべての OP は，RP が独自のリスクアセスメントを行い，OP から入手したデータを他の法律にマッピングできるように，identity evidence に加えて identity verification プロセスに関する data の提供要求を受け取るかもしれない．
 例えば，もし OP がマネーロンダリング防止法に従って identity data を検証及び維持する場合，RP は eHealth や前述の eIDAS のような異なる規制のコンテキストでそれぞれのアイデンティティ属性を利用することを選択できる．
 
 <!-- The concept of this document is that the OP can provide identity data along with metadata about the identity assurance process. It is the responsibility of the RP to assess this data and map it into its own legal context. -->
@@ -181,7 +181,7 @@ RP は，必要最小限のデータセットの要求 (data minimization) と�
 
 <!-- This extension is intended to be truly international and support identity assurance across different jurisdictions. The extension is therefore extensible to support various trust frameworks, identity evidence and assurance processes. -->
 本拡張は，真に国際的で異なる管轄区域を跨いで identity assurance をサポートすることを意図している．
-本拡張は従って，様々なトラストフレームワーク，identity エビデンス，バリデーションや保証プロセスをサポートするために拡張可能である．
+本拡張は従って，様々なトラストフレームワーク，identity エビデンスや保証プロセスをサポートするために拡張可能である．
 
 <!-- In order to give implementers as much flexibility as possible, this extension can be used in conjunction with existing OpenID Connect claims and other extensions within the same OpenID Connect assertion (e.g., ID Token or UserInfo response) utilized to convey claims about end-users. -->
 実装者に可能な限りの柔軟性を与えるために, この拡張は既存の OpenID Connect の Claim および同じ OpenID Connect のアサーション(例えば, ID Token や UserInfo)内の他の拡張と組み合わせて使うことができる.
@@ -196,12 +196,12 @@ RP は，必要最小限のデータセットの要求 (data minimization) と�
 Verified Claim を表す場合でも，本拡張は可能かつ妥当であれば，既存の OpenID Connect の Claim を利用する．しかしながら，拡張は RP が未検証 Claim を Verified Claim として (誤って) 解釈できないようにする．
 
 <!-- In order to fulfill the requirements of some jurisdictions on identity assurance, the OpenID Connect for IDA claims [@OpenID4IDAClaims] specification defines a number of claims for conveying end-user data in addition to the claims defined in the OpenID Connect specification [@!OpenID]. -->
-identity assurance に関する一部の権限の要件を満たすために, OpenID Connect for IDA claims [@OpenID4IDAClaims] 仕様では OpenID Connect [@!OpenID] 仕様で定義されている Claims に加えて，End-User のデータを伝達するための多数の Claims が定義されている．
+identity assurance に関する一部の管轄区域の要件を満たすために, OpenID Connect for IDA claims [@OpenID4IDAClaims] 仕様では OpenID Connect [@!OpenID] 仕様で定義されている Claims に加えて，End-User のデータを伝達するための多数の Claims が定義されている．
 
 # Verified claims {#verified_claims}
 
 <!-- The basic idea is to use a container element, called `verified_claims`, to provide the RP with a set of claims along with the respective metadata and verification evidence related to the verification of these claims. This way, it is explicit which claims are verified, reducing the risk of RPs accidentally processing unverified claims as verified claims. -->
-基本的な考え方は `verified_claims` と呼ばれるコンテナ要素を使用し，RP に一連の Claim と，これらの Claim の検証に関連するそれぞれのメタデータ及び検証のエビデンスを提供することである．この方法は，検証されている claims が明確になり，RPs が誤って検証されていない claims を verified claims として処理するリスクが軽減される
+基本的な考え方は `verified_claims` と呼ばれるコンテナ要素を使用し，RP に一連の Claim と，これらの Claim の検証に関連するそれぞれのメタデータ及び検証のエビデンスを提供することである．この方法は，検証されている claims が明確になり，RPs が誤って検証されていない claims を 検証済み として処理するリスクが軽減される
 
 ## Verified claims schema
 
@@ -209,12 +209,13 @@ identity assurance に関する一部の権限の要件を満たすために, Op
 このドキュメントでは，保証された digital identity 属性と identity assurance メタデータを表現するスキーマの定義として [!@IDA-verified-claims] ドキュメントを使用する．
 
 <!-- The following example would assert to the RP that the OP has verified the claims provided (`given_name` and `family_name`) according to an example trust framework `trust_framework_example`: -->
-次の例では，トラストフレームワーク `trust_framework_example` の例に従って，OP が提供された Claim (`given_name` と `family_name`) を検証したことを RP に表明する:
+次の例では，トラストフレームワーク `trust_framework_example` に従って，OP が提供された Claim (`given_name` と `family_name`) を検証したことを RP に表明する:
 
 <{{examples/response/verified_claims_simple.json}}
 
 <!-- This document requires that RPs use the schema defined in [@!IDA-verified-claims]. There are places in the JSON structure where that schema can be extended by implementers but deviation from the schema as defined would not be correct use of this document. -->
-このドキュメントは，RP が [@!IDA-verified-claims] で定義されたスキーマを利用することを要求する．JSON 構造には実装者がスキーマを拡張できる箇所があるが，定義されたスキーマから逸脱することはこのドキュメントの正しい使用方法ではない．
+このドキュメントは，RP が [@!IDA-verified-claims] で定義されたスキーマを利用することを要求する．JSON Schema には実装者がスキーマを拡張できる箇所があるが，定義されたスキーマから逸脱することはこのドキュメントの正しい使用方法ではない．
+(訳注: 当文書内の JSON Schema はあくまで利便性のためであり，仕様を完全再現した物ではないため，仮に JSON Schema 上は拡張可能であっても，拡張を行うことで当文章準拠と言えなくなる場合がある点に注意すること．)
 
 ## verified claims delivery {#verified_claims_delivery}
 
@@ -258,12 +259,12 @@ Verified Claims は OpenID Connect specification [@!OpenID] の Section 5.5 に�
 検証済み Claim を要求するには，`verified_claims` 要素を `claims` パラメータの `userinfo` または `id_token` 要素に追加する．
 
 <!-- Since `verified_claims` contains the effective claims about the end-user in a nested `claims` element, the syntax is extended to include expressions on nested elements as follows. The `verified_claims` element includes a `claims` element, which in turn includes the desired claims as keys. For each claim, the value is either `null` (default), or an object. The object may contain restrictions using `value` or `values` as defined in [@!OpenID] and/or the `essential` or `purpose` keys as described below. An example is shown in the following: -->
-`verified_claims` にはネストされた `claims` 要素の中に End-User についての有効な Claims が含まれるため, syntax は次のようにネストされた要素の式を含むように拡張される，`verified_claims` 要素は `claims` 要素を含み，必要な Claims がキーとして含まれる．各 claim の値は `null` (デフォルト), または object のいずれかである．Object には [@!OpenID] にて定義される `value` または `values`，及び/または以下で説明する `essential` または `purpose` キーを使用する制限が含まれるかもしれない (MAY)．以下に例を示す.
+`verified_claims` にはネストされた `claims` 要素の中に End-User についての有効な Claims が含まれるため, syntax は次のようにネストされた要素の式を含むように拡張される，`verified_claims` 要素は `claims` 要素を含み，必要な Claims がキーとして含まれる．各 claim の値は `null` (デフォルト), または object のいずれかである．Object には [@!OpenID] にて定義される `value` または `values`，及び/または以下で説明する `essential` または `purpose` キーを使用する制限を含めてもよい (MAY)．以下に例を示す.
 
 <{{examples/request/claims.json}}
 
 <!-- Use of the `claims` parameter allows the RP to request specified claims about the end-user needed for its use case. This allows RPs to fulfill the requirements for data minimization by requesting only claims needed for its use case. -->
-`claims` パラメータを使用すると, RP はそのユースケースに必要な End-User に関する指定した Claims を要求できるようになる. これにより RPs はユースケースに必要な claims のみを要求することで， データ最小化の要件を満たすことが出来る．
+`claims` パラメータを使用すると, RP はそのユースケースに必要な End-User に関する指定した Claims を要求できるようになる. これにより RP はユースケースに必要な claims のみを要求することで， データ最小化の要件を満たすことが出来る．
 
 <!-- Note: it is not possible to request sub-claims (for example the `country` subclaim of the `address` claim) using mechanisms from OpenID Connect Core or this document. -->
 Note: OpenID Connect Core または本ドキュメントのメカニズムを使用して，sub-claims (例えば，`address` claim の `country` subclaim) を要求することは出来ない．
@@ -310,7 +311,7 @@ RP は OP  が `verification` 要素に追加するデータを明示的に要�
 `assurance_details` は `evidence` と `check_details` がどのように `trust_framework` の要件を満たしているかを示す配列である．RP はこの情報を知る必要がある場合のみ要求しなければならない (SHOULD)．`assurance_details`  が RP によって要求された場合，OP は `assurance_details` 要素と，それが持つ全てのサブ要素を一緒に返すべきである（SHALL）．RP が `evidence` と `check_methods` のタイプをフィルタしたい場合，それらのメソッドを使用しなければならない (SHOULD)．例えば，`assurance_type` を要求しても，フィルタリング効果はない．
 
 <!-- The RP can also request certain data within the `document` element to be present. This again follows the syntax rules used above: -->
-RP は `document`要素内の特定のデータの存在を要求するも出来る．これも上記で使用した構文規則に従う:
+RP は `document`要素内の特定のデータの存在を要求することも出来る．これも上記で使用した構文規則に従う:
 
 <{{examples/request/verification_document.json}}
 
@@ -359,7 +360,7 @@ OP はこの要件を満たすよう務めるべきである (SHOULD)．もし E
 異なった Claim Sets に対して，異なったトラストフレームワーク， assurance レベルや方法を要求することが出来る．これは RP が単一オブジェクトを渡すのではなく，`verified_claims` オブジェクトの配列を送信することを要求する．
 
 <!-- The following example illustrates this functionality. -->
-次の例はこの機能を示す．
+次の例はこの機能の利用例である．
 
 <{{examples/request/verification_claims_by_trust_frameworks.json}}
 
@@ -406,10 +407,10 @@ OP が特定の claim に関するデータを持っていない場合，それ�
 ### Non-consented data
 
 <!-- When relying on end-user consent to determine the specific data to be shared the end-user may make a choice to release only a subset of the data requested. In this case the OP shall omit from any corresponding ID Token or UserInfo response data that has not had end-user consent for sharing. -->
-エンドユーザーの同意に基づいて共通する特定のデータを決定する場合，エンドユーザーは要求されたデータのサブセットのみを開示することを選択できる．この場合，OP は共有についてエンドユーザーの同意を得ていない，対応する ID Token または UserInfo レスポンスデータを省略しなければならない (SHALL)．
+エンドユーザーの同意に基づいて共有する特定のデータを決定する場合，エンドユーザーは要求されたデータのサブセットのみを開示することを選択できる．この場合，OP は共有についてエンドユーザーの同意を得ていない，対応する ID Token または UserInfo レスポンスデータを省略しなければならない (SHALL)．
 
 <!-- Alternatively, when relying on end-user consent to determine the specific data to be shared the end-user may choose to release none of the data requested.  In this case standard OpenID Connect authentication error response logic applies, as defined in section 3.1.2.6 of [@!OpenID]. -->
-または，エンドユーザーの同意に基づいて共有する特定のデータを決定する場合，エンドユーザーは要求されたデータを開示しないことを選択できる．この場合，[@!OpenID] の section 3.1.2.6 で定義された 標準の OpenID Connect エラーレスポンスロジックが適用される．
+または，エンドユーザーの同意に基づいて共有する特定のデータを決定する場合，エンドユーザーは要求されたデータを何も開示しないことを選択できる．この場合，[@!OpenID] の section 3.1.2.6 で定義された 標準の OpenID Connect エラーレスポンスロジックが適用される．
 
 ### Data not matching requirements
 <!-- When the available data does not fulfill the requirements of the RP expressed through `value`, `values`, or `max_age`, the following logic applies: -->
@@ -420,7 +421,7 @@ OP が特定の claim に関するデータを持っていない場合，それ�
  * Otherwise, the OP shall omit the respective claim from the response.
 -->
  * それぞれの要件が `verified_claims/verification` 内の claim に対して表現された場合，OP は `verified_claims` 要素全体を省略しなければならない (SHALL)．
- * それ以外の場合，OP は それぞれの claim をレスポンスから省略しなければならない (SHALL)．
+ * それ以外の場合，OP は 該当する各 claim をレスポンスから省略しなければならない (SHALL)．
 
 <!-- In both cases, the OP shall not return an error to the RP. -->
 いずれの場合も，OP はRP に対してエラーを返してならない (SHALL)．
@@ -428,7 +429,7 @@ OP が特定の claim に関するデータを持っていない場合，それ�
 ### Omitting elements
 
 <!-- If an element is to be omitted according to the rules above, but is a requirement for a valid response, the OP shall omit its parent element as well. This OP shall repeat this process until the response is valid. -->
-上記のルールに従って省略するべきであるが，有効なレスポンスの要件である要素の場合，OP はその親要素も省略しなければならない (SHALL)．この OP はレスポンスが有効になるまでこのプロセスを繰り返さなければならない (SHALL)．
+上記のルールに従って有効なレスポンスの要件である要素を省略する場合，OP はその親要素も省略しなければならない (SHALL)．この OP はレスポンスが有効になるまでこのプロセスを繰り返さなければならない (SHALL)．
 
 ### Error handling
 
