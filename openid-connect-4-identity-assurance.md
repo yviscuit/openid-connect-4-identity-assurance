@@ -308,7 +308,7 @@ RP は OP  が `verification` 要素に追加するデータを明示的に要�
 `check_details` は `evidence` に適用されるプロセスの配列である．RP は1つ以上のサブ要素に特定の値を要求することで `check_details` をフィルタリング出来る．同じサブ要素に複数のエントリがある場合，これはそれらの間の論理 OR として機能する．
 
 <!-- `assurance_details` is an array representing how the `evidence` and `check_details` fulfill the requirements of the `trust_framework`. RP should only request this where they need to know this information. Where `assurance_details` has been requested by an RP the OP shall return the `assurance_details` element along with all sub-elements that it has. If an RP wants to filter what types of `evidence` and `check_methods` they shall use those methods to do so, e.g. requesting an `assurance_type` should have no filtering effect. -->
-`assurance_details` は `evidence` と `check_details` がどのように `trust_framework` の要件を満たしているかを示す配列である．RP はこの情報を知る必要がある場合のみ要求しなければならない (SHOULD)．`assurance_details`  が RP によって要求された場合，OP は `assurance_details` 要素と，それが持つ全てのサブ要素を一緒に返すべきである（SHALL）．RP が `evidence` と `check_methods` のタイプをフィルタしたい場合，それらのメソッドを使用しなければならない (SHOULD)．例えば，`assurance_type` を要求しても，フィルタリング効果はない．
+`assurance_details` は `evidence` と `check_details` がどのように `trust_framework` の要件を満たしているかを示す配列である．RP はこの情報を知る必要がある場合のみ要求することが望ましい (SHOULD)．`assurance_details`  が RP によって要求された場合，OP は `assurance_details` 要素と，それが持つ全てのサブ要素を一緒に返さなければならない（SHALL）．RP が `evidence` と `check_methods` のタイプをフィルタしたい場合，それらのメソッドを使用しなければならない (SHALL)．例えば，`assurance_type` を要求しても，フィルタリング効果はないほうがよい (SHOULD)．
 
 <!-- The RP can also request certain data within the `document` element to be present. This again follows the syntax rules used above: -->
 RP は `document`要素内の特定のデータの存在を要求することも出来る．これも上記で使用した構文規則に従う:
@@ -344,7 +344,7 @@ OP は可能な値のクエリ制約の一部または全部を無視しては�
 RP は特定のエビデンスタイプの発行/失効からの経過時間や，`verification` 要素でアサートされた検証プロセスが行われてからの経過時間のような，特定のデータの経過時間に関する要件を表現することもできる．OpenID Connect 仕様 [@!OpenID] の Section 5.5.1 では新しい特別なクエリメンバーを定義できるクエリ構文を定義している．このドキュメントでは，日付またはタイムスタンプを含む要素 (例えば，`document` タイプのエビデンスの `time`，`date_of_issuance` 及び `date_of_expiry` 要素) の取り得る値に適用される新しいメンバー `max_age` を導入する．
 
 <!-- `max_age`: Optional. JSON number value only applicable to claims that contain dates or timestamps. It defines the maximum time (in seconds) to be allowed to elapse since the value of the date/timestamp up to the point in time of the request. The OP should make the calculation of elapsed time starting from the last valid second of the date value. -->
-`max_age`: OPTIONAL. 日付またはタイムスタンプを含む Claims にのみ適用可能な JSON number 値．日付/タイムスタンプの値からリクエストの時点までに許容される最大経過時間(秒)を定義する．OP は日付値の最後の有効な秒から開始して経過時間を計算しなければならない (SHOULD)．
+`max_age`: OPTIONAL. 日付またはタイムスタンプを含む Claims にのみ適用可能な JSON number 値．日付/タイムスタンプの値からリクエストの時点までに許容される最大経過時間(秒)を定義する．OP は日付値の最後の有効な秒から開始して経過時間を計算することが望ましい (SHOULD)．
 
 <!-- The following is an example of a request for claims where the verification process of the data is not allowed to be older than 63113852 seconds: -->
 次の例は，データの検証プロセスが 63113852 秒より古いことが許容されていない Claims の要求例である:
@@ -352,7 +352,7 @@ RP は特定のエビデンスタイプの発行/失効からの経過時間や�
 <{{examples/request/verification_max_age.json}}
 
 <!-- The OP should try to fulfill this requirement. If the verification data of the end-user is older than the requested `max_age`, the OP can attempt to refresh the end-user’s verification by sending them through an online identity verification process, e.g., by utilizing an electronic ID card or a video identification approach. -->
-OP はこの要件を満たすよう務めるべきである (SHOULD)．もし End-User の検証データが要求された `max_age` より古い場合，OP は例えば electronic ID card や video identification approach を利用するなど，オンラインの identity verification process を通じて End-User のverification を送信することで，End-User の verification の更新を試みることが出来る．
+OP はこの要件を満たすよう務めることが望ましい (SHOULD)．もし End-User の検証データが要求された `max_age` より古い場合，OP は例えば electronic ID card や video identification approach を利用するなど，オンラインの identity verification process を通じて End-User のverification を送信することで，End-User の verification の更新を試みることが出来る．
 
 ## Requesting claims sets with different verification requirements
 
@@ -378,7 +378,7 @@ RP は `values` 要素を利用して，リクエスト中の複数の `verified
 ## Returning less data than requested
 
 <!-- As stated in section 3.3.3.6 of [@!OpenID], "the OP may choose to return fewer claims about the end-user from the authorization endpoint".  This document makes no change to that provision.  The OP may also choose to return a subset of the `verification` element of any `verified_claims` providing it remains compliant with the `verified_claims` JSON schema defined in [@!OpenID4IDAClaims]. -->
-[@!OpenID] の section 3.3.3.6 に記載されているように，"OP は authorization endpoint からエンドユーザーに関する claim を少なく返すことを選択できる"．このドキュメントではその規定を変更しない．OP は [@!OpenID4IDAClaims] で定義された `verified_claims` JSON スキーマに準拠している限り，任意の `verified_claims` の `verification` 要素のサブセットを返すことも出来る．
+[@!OpenID] の section 3.3.3.6 に記載されているように，"OP は authorization endpoint からエンドユーザーに関する claim を少なく返すことを選択できる (MAY)"．このドキュメントではその規定を変更しない．OP は [@!OpenID4IDAClaims] で定義された `verified_claims` JSON スキーマに準拠している限り，任意の `verified_claims` の `verification` 要素のサブセットを返すことも出来る (MAY)．
 
 <!-- In some cases, OPs cannot deliver the requested data to an RP, for example, because the data is not available or does not match the RP's requirements. The rules for handling these cases are described in the following. -->
 例えばデータが利用できない，または RP の要件に一致しないなど，OPs は RP に要求されたデータを配信出来ない場合がある．これらのケースをハンドリングするルールを以下で説明する．
@@ -407,10 +407,10 @@ OP が特定の claim に関するデータを持っていない場合，それ�
 ### Non-consented data
 
 <!-- When relying on end-user consent to determine the specific data to be shared the end-user may make a choice to release only a subset of the data requested. In this case the OP shall omit from any corresponding ID Token or UserInfo response data that has not had end-user consent for sharing. -->
-エンドユーザーの同意に基づいて共有する特定のデータを決定する場合，エンドユーザーは要求されたデータのサブセットのみを開示することを選択できる．この場合，OP は共有についてエンドユーザーの同意を得ていない，対応する ID Token または UserInfo レスポンスデータを省略しなければならない (SHALL)．
+エンドユーザーの同意に基づいて共有する特定のデータを決定する場合，エンドユーザーは要求されたデータのサブセットのみを開示することを選択できる (MAY)．この場合，OP は共有についてエンドユーザーの同意を得ていない，対応する ID Token または UserInfo レスポンスデータを省略しなければならない (SHALL)．
 
 <!-- Alternatively, when relying on end-user consent to determine the specific data to be shared the end-user may choose to release none of the data requested.  In this case standard OpenID Connect authentication error response logic applies, as defined in section 3.1.2.6 of [@!OpenID]. -->
-または，エンドユーザーの同意に基づいて共有する特定のデータを決定する場合，エンドユーザーは要求されたデータを何も開示しないことを選択できる．この場合，[@!OpenID] の section 3.1.2.6 で定義された 標準の OpenID Connect エラーレスポンスロジックが適用される．
+または，エンドユーザーの同意に基づいて共有する特定のデータを決定する場合，エンドユーザーは要求されたデータを何も開示しないことを選択できる (MAY)．この場合，[@!OpenID] の section 3.1.2.6 で定義された 標準の OpenID Connect エラーレスポンスロジックが適用される．
 
 ### Data not matching requirements
 <!-- When the available data does not fulfill the requirements of the RP expressed through `value`, `values`, or `max_age`, the following logic applies: -->
@@ -448,7 +448,7 @@ OP でエラーに遭遇した場合，[@!OpenID] の section 3.1.2.6 で定義�
 ## Aggregated and distributed claims assertions
 
 <!-- When distributed claims are used the URL that is the value of the `endpoint` element in any distributed `_claim_source` sub-element shall use the https URI scheme and the JWT returned should not be accessible via any other URI scheme. -->
-分散クレームが使用される場合，分散された `_claim_source` サブ要素内の `endpoint` 要素の値である URL は，https URI スキームを使用しなければならず (SHALL)，返却される JWT はその他の URI スキーム経由ではアクセスできてはならない (SHALL)． 
+分散クレームが使用される場合，分散された `_claim_source` サブ要素内の `endpoint` 要素の値である URL は，https URI スキームを使用しなければならず (SHALL)，返却される JWT はその他の URI スキーム経由ではアクセス出来ないことが望ましい (SHOULD NOT)． 
 
 <!-- For aggregated or distributed claims, every assertion provided by the external claims source shall contain: -->
 集約または分散クレームの場合，外部クレームソースによって提供されるすべてのアサーションは次を含まなければならない (SHALL):
@@ -510,10 +510,10 @@ OP でエラーに遭遇した場合，[@!OpenID] の section 3.1.2.6 で定義�
 <{{examples/response/multiple_external_claims_sources_with_lookahead.json}}
 
 <!-- Claim sources should sign the assertions containing `verified_claims` in order to demonstrate authenticity and provide for non-repudiation. -->
-Claim ソースは，信頼性の実証と否認防止を提供するために `verified_claims` を含むアサーションを署名しなければならない (SHOULD)．
+Claim ソースは，信頼性の実証と否認防止を提供するために `verified_claims` を含むアサーションを署名することが望ましい (SHOULD)．
 
 <!-- RP should determine the key material used for validation of the signed assertions is via the claim source's public keys. These keys should be available in the JSON web key set available in the `jwks_uri` metadata value in the `openid-configuration` metadata document. This document can be discovered using the `iss` claim of the particular JWT. -->
-RP は署名されたアサーションの検証に使用されるキーマテリアルが，claim source の公開鍵を介しているかを判断しなければならない (SHOULD)．これらのキーは `openid-configuration` メタデータドキュメント中の `jwks_uri` メタデータ値で利用可能な JSON web key set で利用できなければならない (SHOULD)．このドキュメントは特定の JWT の `iss` クレームを用いて検出できる．
+RP は署名されたアサーションの検証に使用されるキーマテリアルが，claim source の公開鍵を介しているかを判断することが望ましい (SHOULD)．これらのキーは `openid-configuration` メタデータドキュメント中の `jwks_uri` メタデータ値で利用可能な JSON web key set で利用できることが望ましい (SHOULD)．このドキュメントは特定の JWT の `iss` クレームを用いて検出できる．
 
 <!-- The OP can combine aggregated and distributed claims with `verified_claims` provided by itself (see (#op_attested_and_external_claims)). -->
 OP は集約および分散 Claim を，それ自身が提供する `verified_claims` と組み合わせることが出来る ((#op_attested_and_external_claims) 参照).
@@ -589,7 +589,7 @@ OpenID Connect 仕様 [@!OpenID] の Section 5.5 で定義されている `claim
 `scope` を使用して，OpenID Connect 仕様 [@!OpenID] の Section 5.4 で定義されている1つ以上の特定の事前定義された Claim セットを要求することもできる．
 
 <!-- Note: The OP shall not provide the RP with any data it did not request. However, the OP may at its discretion omit claims from the response. -->
-注: OP は，要求しなかったデータを RP に提供してはならない (SHALL NOT)．ただし，OP はその裁量によりレスポンスから Claim を省略してもよい．
+注: OP は，要求しなかったデータを RP に提供してはならない (SHALL NOT)．ただし，OP はその裁量によりレスポンスから Claim を省略してもよい (MAY)．
 
 <!-- The example authorize call in this section will use the following unencoded example claims request parameter: -->
 このセクションの authorize 呼び出しの例では，次のエンコードされていない claims request パラメータの例を使用する:
@@ -628,7 +628,7 @@ OP は openid-configuration ([@!OpenID-Discovery] 参照) において，次の�
 `claims_in_verified_claims_supported`: Required. `verified_claims` 内でサポートする全ての claims を含む JSON 配列．この配列内に現れない claim は `verified_claims` オブジェクト内で返却してはならない (SHALL NOT)．この配列は少なくとも1つ以上のメンバーを持たなければならない (SHALL)．
 
 <!-- `evidence_supported`: Required when one or more type of evidence is supported. JSON array containing all types of identity evidence the OP uses. This array shall have at least one member. Members of this array should only be the types of evidence supported by the OP in the `evidence` element (see section 5.4.4 of [@!IDA-verified-claims]). -->
-`evidence_supported`: 1つ以上のタイプのエビデンスがサポートされている場合，必須 (Required)． OP が使用する全ての identity evidence タイプを含む JSON 配列．この配列は少なくとも1つ以上のメンバーを持たなければならない (SHALL)．この配列のメンバーは，`evidence` 要素 ([@!IDA-verified-claims] の section 5.4.4 参照) で OP がサポートするエビデンスのタイプのみでなければならない（SHOULD）．
+`evidence_supported`: 1つ以上のタイプのエビデンスがサポートされている場合，必須 (Required)． OP が使用する全ての identity evidence タイプを含む JSON 配列．この配列は少なくとも1つ以上のメンバーを持たなければならない (SHALL)．この配列のメンバーは，`evidence` 要素 ([@!IDA-verified-claims] の section 5.4.4 参照) で OP がサポートするエビデンスのタイプのみであることが望ましい（SHOULD）．
 
 <!-- `documents_supported`: Required when `evidence_supported` contains "document". JSON array containing all identity document types utilized by the OP for identity verification. This array shall have at least one member. -->
 `documents_supported`: `evidence_supported` に "document" を含む場合に必須 (Required). OP が identity verification に使用する全ての identity document タイプを含む JSON 配列．この配列は少なくとも1つ以上のメンバーを持たなければならない (SHALL)．
@@ -691,10 +691,10 @@ OP が `verified_claims` 内において OpenID Connect 仕様 [@!OpenID] の se
 # Privacy consideration {#Privacy}
 
 <!-- The use of scopes is a potential shortcut to request a pre-defined set of claims, however, the use of scopes might result in more data being returned to the RP than is strictly necessary and not achieving the goal of data minimization. The RP should only request end-user claims and metadata it requires. -->
-scopes の利用は定義済みのクレームセットを要求するための潜在的なショートカットであるが，scopes を利用すると RP に返却されるデータが厳密に必要な量より多くなり，データミニマイゼーションの目標が達成されないかもしれない．RP は必要なエンドユーザーの claim とメタデータのみを要求すべきである (SHOULD)．
+scopes の利用は定義済みのクレームセットを要求するための潜在的なショートカットであるが，scopes を利用すると RP に返却されるデータが厳密に必要な量より多くなり，データミニマイゼーションの目標が達成されないかもしれない．RP は必要なエンドユーザーの claim とメタデータのみを要求することが望ましい (SHOULD)．
 
 <!-- Timestamps with a time zone component can potentially reveal the person’s location. To preserve the person’s privacy, timestamps within the verification element and verified claims that represent times should be represented in Coordinated Universal Time (UTC), unless there is a specific reason to include the time zone, such as the time zone being an essential part of a consented time related claim in verified data. -->
-タイムゾーンコンポーネントを含むタイムスタンプは，人物のロケーションを明らかにするかもしれない．人物のプライバシーを保護するため，verification element 中のタイムスタンプと時間を表す verified claims は，タイムゾーンが検証済みデータ内の同意された時間に関連する claim の重要な部分であるなど，タイムゾーンを含める特別な理由がない限り，協定世界時 (UTC) で表さなければならない (SHOULD)．
+タイムゾーンコンポーネントを含むタイムスタンプは，人物のロケーションを明らかにするかもしれない．人物のプライバシーを保護するため，verification element 中のタイムスタンプと時間を表す verified claims は，タイムゾーンが検証済みデータ内の同意された時間に関連する claim の重要な部分であるなど，タイムゾーンを含める特別な理由がない限り，協定世界時 (UTC) で表すことが望ましい (SHOULD)．
 
 # Security considerations {#Security}
 
@@ -713,7 +713,7 @@ scopes の利用は定義済みのクレームセットを要求するための�
 
 <!-- Secure identification of end-users not only depends on the identity verification at the OP but also on the strength of the user authentication at the OP. Combining a strong identification with weak authentication creates a false impression of security while being open to attacks. For example if an OP uses a simple PIN login, an attacker could guess the PIN of another user and identify himself as the other user at an RP with a high identity assurance level. To prevent this kind of attack, RPs should request the OP to authenticate the user at a reasonable level, typically using multi-factor authentication, when requesting verified end-user claims. OpenID Connect supports this by way of the `acr_values` request parameter. -->
 
-エンドユーザーのセキュアな識別は，OP での identity verification だけでなく，OP でのユーザー認証の強度にも依存する．強力な識別と弱い認証を組み合わせると，セキュリティの間違った印象と同時に攻撃の余地を与える．例えば OP が単純な PIN ログインを使用する場合，攻撃者は他のユーザーの PIN を推測し，高い identity assurance レベルを持つ RP で自身を他のユーザーとして識別できる．この種の攻撃を防ぐため，エンドユーザーの検証済みクレームを要求するときに，RPs は OP に対して通常は多要素認証を利用するといった適正なレベルでユーザーを認証することを要求すべきである (SHOULD)．OpenID Connect は `acr_values` リクエストパラメータによってこれをサポートする．
+エンドユーザーのセキュアな識別は，OP での identity verification だけでなく，OP でのユーザー認証の強度にも依存する．強力な識別と弱い認証を組み合わせると，セキュリティの間違った印象と同時に攻撃の余地を与える．例えば OP が単純な PIN ログインを使用する場合，攻撃者は他のユーザーの PIN を推測し，高い identity assurance レベルを持つ RP で自身を他のユーザーとして識別できる．この種の攻撃を防ぐため，エンドユーザーの検証済みクレームを要求するときに，RPs は OP に対して通常は多要素認証を利用するといった適正なレベルでユーザーを認証することを要求することが望ましい (SHOULD)．OpenID Connect は `acr_values` リクエストパラメータによってこれをサポートする．
 
 ## Security profile
 
@@ -722,10 +722,10 @@ profiles and new security profiles under development.  Implementers have the fle
 their needs. Implementers might consider [@FAPI-1-SP] or [@FAPI-2-SP]. -->
 複数のセキュリティプロファイルと新しいセキュリティプロファイルが開発中であるため，このドキュメントは特定のセキュリティプロファイルを定義または要求しない．
 実装者はニーズに最適なセキュリティプロファイルを柔軟に選択できる．
-実装者は [@FAPI-1-SP] または [@FAPI-2-SP] を検討することが望ましい (MAY)．
+実装者は [@FAPI-1-SP] または [@FAPI-2-SP] を検討することが望ましい．
 
 <!-- Implementers should select a security profile that has a certification program or other resources that allow both OpenID providers and relying parties to ensure they have complied with the profile’s security and interoperability requirements, such as the OpenID Foundation Certification Program, https://openid.net/certification/. -->
-実装者は，OpenID Foundation Certification Program (https://openid.net/certification/) のような，OpenID プロバイダーと Relying Parties の両方がプロファイルのセキュリティと相互運用性の要件に準拠していることを確認できる certification program またはその他のリソースを持つセキュリティプロファイルを選択すべきである (SHOULD)．
+実装者は，OpenID Foundation Certification Program (https://openid.net/certification/) のような，OpenID プロバイダーと Relying Parties の両方がプロファイルのセキュリティと相互運用性の要件に準拠していることを確認できる certification program またはその他のリソースを持つセキュリティプロファイルを選択することが望ましい (SHOULD)．
 
 <!-- Receiving parties shall ensure the integrity and authenticity of the issued assertions in order to prevent identity spoofing. -->
 受信側は identity spoofing を防ぐため，発行されたアサーションの整合性と信頼性を確保しなければならない (SHALL)．

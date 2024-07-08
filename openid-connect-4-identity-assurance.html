@@ -1823,7 +1823,7 @@ interpreted with their natural language meanings.<a href="#section-note.4-1" cla
 <p id="section-5.4-9"><code>evidence</code> 配列の単一エントリは，特定の evidence タイプの要素に対するフィルターを表す．従って，RP は適切な <code>value</code> サブ要素値を含む <code>type</code> フィールドを含めることによって，このタイプを指定しなければならない (SHALL)．<code>values</code> サブ要素を <code>evidence/type</code> フィールドに使用してはならない (SHALL NOT)．<a href="#section-5.4-9" class="pilcrow">¶</a></p>
 <p id="section-5.4-10"><code>evidence</code> に複数のエントリが存在する場合，これらのフィルターは論理和によって紐付けられる．<a href="#section-5.4-10" class="pilcrow">¶</a></p>
 <p id="section-5.4-11"><code>check_details</code> は <code>evidence</code> に適用されるプロセスの配列である．RP は1つ以上のサブ要素に特定の値を要求することで <code>check_details</code> をフィルタリング出来る．同じサブ要素に複数のエントリがある場合，これはそれらの間の論理 OR として機能する．<a href="#section-5.4-11" class="pilcrow">¶</a></p>
-<p id="section-5.4-12"><code>assurance_details</code> は <code>evidence</code> と <code>check_details</code> がどのように <code>trust_framework</code> の要件を満たしているかを示す配列である．RP はこの情報を知る必要がある場合のみ要求しなければならない (SHOULD)．<code>assurance_details</code>  が RP によって要求された場合，OP は <code>assurance_details</code> 要素と，それが持つ全てのサブ要素を一緒に返すべきである（SHALL）．RP が <code>evidence</code> と <code>check_methods</code> のタイプをフィルタしたい場合，それらのメソッドを使用しなければならない (SHOULD)．例えば，<code>assurance_type</code> を要求しても，フィルタリング効果はない．<a href="#section-5.4-12" class="pilcrow">¶</a></p>
+<p id="section-5.4-12"><code>assurance_details</code> は <code>evidence</code> と <code>check_details</code> がどのように <code>trust_framework</code> の要件を満たしているかを示す配列である．RP はこの情報を知る必要がある場合のみ要求することが望ましい (SHOULD)．<code>assurance_details</code>  が RP によって要求された場合，OP は <code>assurance_details</code> 要素と，それが持つ全てのサブ要素を一緒に返さなければならない（SHALL）．RP が <code>evidence</code> と <code>check_methods</code> のタイプをフィルタしたい場合，それらのメソッドを使用しなければならない (SHALL)．例えば，<code>assurance_type</code> を要求しても，フィルタリング効果はないほうがよい (SHOULD)．<a href="#section-5.4-12" class="pilcrow">¶</a></p>
 <p id="section-5.4-13">RP は <code>document</code>要素内の特定のデータの存在を要求することも出来る．これも上記で使用した構文規則に従う:<a href="#section-5.4-13" class="pilcrow">¶</a></p>
 <div class="lang-json sourcecode" id="section-5.4-14">
 <pre>{
@@ -1943,7 +1943,7 @@ interpreted with their natural language meanings.<a href="#section-note.4-1" cla
 <a href="#section-5.5.2" class="section-number selfRef">5.5.2. </a><a href="#name-max_age" class="section-name selfRef">max_age</a>
           </h4>
 <p id="section-5.5.2-1">RP は特定のエビデンスタイプの発行/失効からの経過時間や，<code>verification</code> 要素でアサートされた検証プロセスが行われてからの経過時間のような，特定のデータの経過時間に関する要件を表現することもできる．OpenID Connect 仕様 <span>[<a href="#OpenID" class="cite xref">OpenID</a>]</span> の Section 5.5.1 では新しい特別なクエリメンバーを定義できるクエリ構文を定義している．このドキュメントでは，日付またはタイムスタンプを含む要素 (例えば，<code>document</code> タイプのエビデンスの <code>time</code>，<code>date_of_issuance</code> 及び <code>date_of_expiry</code> 要素) の取り得る値に適用される新しいメンバー <code>max_age</code> を導入する．<a href="#section-5.5.2-1" class="pilcrow">¶</a></p>
-<p id="section-5.5.2-2"><code>max_age</code>: OPTIONAL. 日付またはタイムスタンプを含む Claims にのみ適用可能な JSON number 値．日付/タイムスタンプの値からリクエストの時点までに許容される最大経過時間(秒)を定義する．OP は日付値の最後の有効な秒から開始して経過時間を計算しなければならない (SHOULD)．<a href="#section-5.5.2-2" class="pilcrow">¶</a></p>
+<p id="section-5.5.2-2"><code>max_age</code>: OPTIONAL. 日付またはタイムスタンプを含む Claims にのみ適用可能な JSON number 値．日付/タイムスタンプの値からリクエストの時点までに許容される最大経過時間(秒)を定義する．OP は日付値の最後の有効な秒から開始して経過時間を計算することが望ましい (SHOULD)．<a href="#section-5.5.2-2" class="pilcrow">¶</a></p>
 <p id="section-5.5.2-3">次の例は，データの検証プロセスが 63113852 秒より古いことが許容されていない Claims の要求例である:<a href="#section-5.5.2-3" class="pilcrow">¶</a></p>
 <div class="lang-json sourcecode" id="section-5.5.2-4">
 <pre>{
@@ -1967,7 +1967,7 @@ interpreted with their natural language meanings.<a href="#section-note.4-1" cla
 }
 </pre><a href="#section-5.5.2-4" class="pilcrow">¶</a>
 </div>
-<p id="section-5.5.2-5">OP はこの要件を満たすよう務めるべきである (SHOULD)．もし End-User の検証データが要求された <code>max_age</code> より古い場合，OP は例えば electronic ID card や video identification approach を利用するなど，オンラインの identity verification process を通じて End-User のverification を送信することで，End-User の verification の更新を試みることが出来る．<a href="#section-5.5.2-5" class="pilcrow">¶</a></p>
+<p id="section-5.5.2-5">OP はこの要件を満たすよう務めることが望ましい (SHOULD)．もし End-User の検証データが要求された <code>max_age</code> より古い場合，OP は例えば electronic ID card や video identification approach を利用するなど，オンラインの identity verification process を通じて End-User のverification を送信することで，End-User の verification の更新を試みることが出来る．<a href="#section-5.5.2-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -2076,7 +2076,7 @@ interpreted with their natural language meanings.<a href="#section-note.4-1" cla
         <h3 id="name-returning-less-data-than-re">
 <a href="#section-5.7" class="section-number selfRef">5.7. </a><a href="#name-returning-less-data-than-re" class="section-name selfRef">Returning less data than requested</a>
         </h3>
-<p id="section-5.7-1"><span>[<a href="#OpenID" class="cite xref">OpenID</a>]</span> の section 3.3.3.6 に記載されているように，"OP は authorization endpoint からエンドユーザーに関する claim を少なく返すことを選択できる"．このドキュメントではその規定を変更しない．OP は <span>[<a href="#OpenID4IDAClaims" class="cite xref">OpenID4IDAClaims</a>]</span> で定義された <code>verified_claims</code> JSON スキーマに準拠している限り，任意の <code>verified_claims</code> の <code>verification</code> 要素のサブセットを返すことも出来る．<a href="#section-5.7-1" class="pilcrow">¶</a></p>
+<p id="section-5.7-1"><span>[<a href="#OpenID" class="cite xref">OpenID</a>]</span> の section 3.3.3.6 に記載されているように，"OP は authorization endpoint からエンドユーザーに関する claim を少なく返すことを選択できる (MAY)"．このドキュメントではその規定を変更しない．OP は <span>[<a href="#OpenID4IDAClaims" class="cite xref">OpenID4IDAClaims</a>]</span> で定義された <code>verified_claims</code> JSON スキーマに準拠している限り，任意の <code>verified_claims</code> の <code>verification</code> 要素のサブセットを返すことも出来る (MAY)．<a href="#section-5.7-1" class="pilcrow">¶</a></p>
 <p id="section-5.7-2">例えばデータが利用できない，または RP の要件に一致しないなど，OPs は RP に要求されたデータを配信出来ない場合がある．これらのケースをハンドリングするルールを以下で説明する．<a href="#section-5.7-2" class="pilcrow">¶</a></p>
 <p id="section-5.7-3">このドキュメントの拡張は追加のルール定義やルールの上書きが出来る，例えば<a href="#section-5.7-3" class="pilcrow">¶</a></p>
 <ul class="compact">
@@ -2101,8 +2101,8 @@ interpreted with their natural language meanings.<a href="#section-note.4-1" cla
           <h4 id="name-non-consented-data">
 <a href="#section-5.7.2" class="section-number selfRef">5.7.2. </a><a href="#name-non-consented-data" class="section-name selfRef">Non-consented data</a>
           </h4>
-<p id="section-5.7.2-1">エンドユーザーの同意に基づいて共有する特定のデータを決定する場合，エンドユーザーは要求されたデータのサブセットのみを開示することを選択できる．この場合，OP は共有についてエンドユーザーの同意を得ていない，対応する ID Token または UserInfo レスポンスデータを省略しなければならない (SHALL)．<a href="#section-5.7.2-1" class="pilcrow">¶</a></p>
-<p id="section-5.7.2-2">または，エンドユーザーの同意に基づいて共有する特定のデータを決定する場合，エンドユーザーは要求されたデータを何も開示しないことを選択できる．この場合，<span>[<a href="#OpenID" class="cite xref">OpenID</a>]</span> の section 3.1.2.6 で定義された 標準の OpenID Connect エラーレスポンスロジックが適用される．<a href="#section-5.7.2-2" class="pilcrow">¶</a></p>
+<p id="section-5.7.2-1">エンドユーザーの同意に基づいて共有する特定のデータを決定する場合，エンドユーザーは要求されたデータのサブセットのみを開示することを選択できる (MAY)．この場合，OP は共有についてエンドユーザーの同意を得ていない，対応する ID Token または UserInfo レスポンスデータを省略しなければならない (SHALL)．<a href="#section-5.7.2-1" class="pilcrow">¶</a></p>
+<p id="section-5.7.2-2">または，エンドユーザーの同意に基づいて共有する特定のデータを決定する場合，エンドユーザーは要求されたデータを何も開示しないことを選択できる (MAY)．この場合，<span>[<a href="#OpenID" class="cite xref">OpenID</a>]</span> の section 3.1.2.6 で定義された 標準の OpenID Connect エラーレスポンスロジックが適用される．<a href="#section-5.7.2-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="data-not-matching-requirements">
@@ -2159,7 +2159,7 @@ interpreted with their natural language meanings.<a href="#section-note.4-1" cla
         <h3 id="name-aggregated-and-distributed-c">
 <a href="#section-6.1" class="section-number selfRef">6.1. </a><a href="#name-aggregated-and-distributed-c" class="section-name selfRef">Aggregated and distributed claims assertions</a>
         </h3>
-<p id="section-6.1-1">分散クレームが使用される場合，分散された <code>_claim_source</code> サブ要素内の <code>endpoint</code> 要素の値である URL は，https URI スキームを使用しなければならず (SHALL)，返却される JWT はその他の URI スキーム経由ではアクセスできてはならない (SHALL)．<a href="#section-6.1-1" class="pilcrow">¶</a></p>
+<p id="section-6.1-1">分散クレームが使用される場合，分散された <code>_claim_source</code> サブ要素内の <code>endpoint</code> 要素の値である URL は，https URI スキームを使用しなければならず (SHALL)，返却される JWT はその他の URI スキーム経由ではアクセス出来ないことが望ましい (SHOULD NOT)．<a href="#section-6.1-1" class="pilcrow">¶</a></p>
 <p id="section-6.1-2">集約または分散クレームの場合，外部クレームソースによって提供されるすべてのアサーションは次を含まなければならない (SHALL):<a href="#section-6.1-2" class="pilcrow">¶</a></p>
 <ul class="compact">
 <li class="compact" id="section-6.1-3.1">値 <code>provided-claims+jwt</code> を持つ <code>typ</code> ヘッダーパラメーター<a href="#section-6.1-3.1" class="pilcrow">¶</a>
@@ -2317,8 +2317,8 @@ interpreted with their natural language meanings.<a href="#section-note.4-1" cla
 }
 </pre><a href="#section-6.1-16" class="pilcrow">¶</a>
 </div>
-<p id="section-6.1-17">Claim ソースは，信頼性の実証と否認防止を提供するために <code>verified_claims</code> を含むアサーションを署名しなければならない (SHOULD)．<a href="#section-6.1-17" class="pilcrow">¶</a></p>
-<p id="section-6.1-18">RP は署名されたアサーションの検証に使用されるキーマテリアルが，claim source の公開鍵を介しているかを判断しなければならない (SHOULD)．これらのキーは <code>openid-configuration</code> メタデータドキュメント中の <code>jwks_uri</code> メタデータ値で利用可能な JSON web key set で利用できなければならない (SHOULD)．このドキュメントは特定の JWT の <code>iss</code> クレームを用いて検出できる．<a href="#section-6.1-18" class="pilcrow">¶</a></p>
+<p id="section-6.1-17">Claim ソースは，信頼性の実証と否認防止を提供するために <code>verified_claims</code> を含むアサーションを署名することが望ましい (SHOULD)．<a href="#section-6.1-17" class="pilcrow">¶</a></p>
+<p id="section-6.1-18">RP は署名されたアサーションの検証に使用されるキーマテリアルが，claim source の公開鍵を介しているかを判断することが望ましい (SHOULD)．これらのキーは <code>openid-configuration</code> メタデータドキュメント中の <code>jwks_uri</code> メタデータ値で利用可能な JSON web key set で利用できることが望ましい (SHOULD)．このドキュメントは特定の JWT の <code>iss</code> クレームを用いて検出できる．<a href="#section-6.1-18" class="pilcrow">¶</a></p>
 <p id="section-6.1-19">OP は集約および分散 Claim を，それ自身が提供する <code>verified_claims</code> と組み合わせることが出来る (<a href="#op_attested_and_external_claims" class="auto internal xref">Appendix C.8</a> 参照).<a href="#section-6.1-19" class="pilcrow">¶</a></p>
 <p id="section-6.1-20">ID トークンや埋め込まれた集約 Claim のように <code>verified_claims</code> 要素が応答の複数の場所に含まれている場合，RP は　特定の <code>verified_claims</code> 要素のコンテキストとして Claim ソースを保持しなければならない (SHALL)．<a href="#section-6.1-20" class="pilcrow">¶</a></p>
 <p id="section-6.1-21">注: 集約または分散 Claim を含む OP または AS によって提供されるアサーションには，同じエンドユーザー Claim の複数インスタンスを含むことが出来る．これらの様々なインスタンスを処理する方法を決定するのは RP 次第である．<a href="#section-6.1-21" class="pilcrow">¶</a></p>
@@ -2387,7 +2387,7 @@ c. レスポンスの <code>_claim_sources</code> 要素内にキー名として
       </h2>
 <p id="section-7-1">OpenID Connect 仕様 <span>[<a href="#OpenID" class="cite xref">OpenID</a>]</span> の Section 5.5 で定義されている <code>claims</code> パラメータを利用することで，検証済み Claim と関連する検証データのリクエストを個々のデータ要素レベルで明示的にリクエストできる．<a href="#section-7-1" class="pilcrow">¶</a></p>
 <p id="section-7-2"><code>scope</code> を使用して，OpenID Connect 仕様 <span>[<a href="#OpenID" class="cite xref">OpenID</a>]</span> の Section 5.4 で定義されている1つ以上の特定の事前定義された Claim セットを要求することもできる．<a href="#section-7-2" class="pilcrow">¶</a></p>
-<p id="section-7-3">注: OP は，要求しなかったデータを RP に提供してはならない (SHALL NOT)．ただし，OP はその裁量によりレスポンスから Claim を省略してもよい．<a href="#section-7-3" class="pilcrow">¶</a></p>
+<p id="section-7-3">注: OP は，要求しなかったデータを RP に提供してはならない (SHALL NOT)．ただし，OP はその裁量によりレスポンスから Claim を省略してもよい (MAY)．<a href="#section-7-3" class="pilcrow">¶</a></p>
 <p id="section-7-4">このセクションの authorize 呼び出しの例では，次のエンコードされていない claims request パラメータの例を使用する:<a href="#section-7-4" class="pilcrow">¶</a></p>
 <div class="lang-json sourcecode" id="section-7-5">
 <pre>{
@@ -2433,7 +2433,7 @@ c. レスポンスの <code>_claim_sources</code> 要素内にキー名として
 <p id="section-8-1">OP は openid-configuration (<span>[<a href="#OpenID-Discovery" class="cite xref">OpenID-Discovery</a>]</span> 参照) において，次の新しい要素を使用して verified claims に関する能力を告知する:<a href="#section-8-1" class="pilcrow">¶</a></p>
 <p id="section-8-2"><code>trust_frameworks_supported</code>: Required. サポートする全てのトラストフレームワークを含む JSON 配列．この配列は少なくとも1つ以上のメンバーを持たなければならない (SHALL)．<a href="#section-8-2" class="pilcrow">¶</a></p>
 <p id="section-8-3"><code>claims_in_verified_claims_supported</code>: Required. <code>verified_claims</code> 内でサポートする全ての claims を含む JSON 配列．この配列内に現れない claim は <code>verified_claims</code> オブジェクト内で返却してはならない (SHALL NOT)．この配列は少なくとも1つ以上のメンバーを持たなければならない (SHALL)．<a href="#section-8-3" class="pilcrow">¶</a></p>
-<p id="section-8-4"><code>evidence_supported</code>: 1つ以上のタイプのエビデンスがサポートされている場合，必須 (Required)． OP が使用する全ての identity evidence タイプを含む JSON 配列．この配列は少なくとも1つ以上のメンバーを持たなければならない (SHALL)．この配列のメンバーは，<code>evidence</code> 要素 (<span>[<a href="#IDA-verified-claims" class="cite xref">IDA-verified-claims</a>]</span> の section 5.4.4 参照) で OP がサポートするエビデンスのタイプのみでなければならない（SHOULD）．<a href="#section-8-4" class="pilcrow">¶</a></p>
+<p id="section-8-4"><code>evidence_supported</code>: 1つ以上のタイプのエビデンスがサポートされている場合，必須 (Required)． OP が使用する全ての identity evidence タイプを含む JSON 配列．この配列は少なくとも1つ以上のメンバーを持たなければならない (SHALL)．この配列のメンバーは，<code>evidence</code> 要素 (<span>[<a href="#IDA-verified-claims" class="cite xref">IDA-verified-claims</a>]</span> の section 5.4.4 参照) で OP がサポートするエビデンスのタイプのみであることが望ましい（SHOULD）．<a href="#section-8-4" class="pilcrow">¶</a></p>
 <p id="section-8-5"><code>documents_supported</code>: <code>evidence_supported</code> に "document" を含む場合に必須 (Required). OP が identity verification に使用する全ての identity document タイプを含む JSON 配列．この配列は少なくとも1つ以上のメンバーを持たなければならない (SHALL)．<a href="#section-8-5" class="pilcrow">¶</a></p>
 <p id="section-8-6"><code>documents_methods_supported</code>: Optional. OP が "document" タイプ (<span>[<a href="#predefined_values_page" class="cite xref">predefined_values_page</a>]</span> 参照) のエビデンスに対してサポートする検証方法を含む JSON 配列．この配列は少なくとも1つ以上のメンバーを持たなければならない (SHALL)．<a href="#section-8-6" class="pilcrow">¶</a></p>
 <p id="section-8-7"><code>documents_check_methods_supported</code>: Optional. OP が "document" タイプ (<span>[<a href="#predefined_values_page" class="cite xref">predefined_values_page</a>]</span> 参照) のエビデンスに対してサポートするチェック方法を含む JSON 配列．この配列は少なくとも1つ以上のメンバーを持たなければならない (SHALL)．<a href="#section-8-7" class="pilcrow">¶</a></p>
@@ -2485,8 +2485,8 @@ c. レスポンスの <code>_claim_sources</code> 要素内にキー名として
       <h2 id="name-privacy-consideration">
 <a href="#section-9" class="section-number selfRef">9. </a><a href="#name-privacy-consideration" class="section-name selfRef">Privacy consideration</a>
       </h2>
-<p id="section-9-1">scopes の利用は定義済みのクレームセットを要求するための潜在的なショートカットであるが，scopes を利用すると RP に返却されるデータが厳密に必要な量より多くなり，データミニマイゼーションの目標が達成されないかもしれない．RP は必要なエンドユーザーの claim とメタデータのみを要求すべきである (SHOULD)．<a href="#section-9-1" class="pilcrow">¶</a></p>
-<p id="section-9-2">タイムゾーンコンポーネントを含むタイムスタンプは，人物のロケーションを明らかにするかもしれない．人物のプライバシーを保護するため，verification element 中のタイムスタンプと時間を表す verified claims は，タイムゾーンが検証済みデータ内の同意された時間に関連する claim の重要な部分であるなど，タイムゾーンを含める特別な理由がない限り，協定世界時 (UTC) で表さなければならない (SHOULD)．<a href="#section-9-2" class="pilcrow">¶</a></p>
+<p id="section-9-1">scopes の利用は定義済みのクレームセットを要求するための潜在的なショートカットであるが，scopes を利用すると RP に返却されるデータが厳密に必要な量より多くなり，データミニマイゼーションの目標が達成されないかもしれない．RP は必要なエンドユーザーの claim とメタデータのみを要求することが望ましい (SHOULD)．<a href="#section-9-1" class="pilcrow">¶</a></p>
+<p id="section-9-2">タイムゾーンコンポーネントを含むタイムスタンプは，人物のロケーションを明らかにするかもしれない．人物のプライバシーを保護するため，verification element 中のタイムスタンプと時間を表す verified claims は，タイムゾーンが検証済みデータ内の同意された時間に関連する claim の重要な部分であるなど，タイムゾーンを含める特別な理由がない限り，協定世界時 (UTC) で表すことが望ましい (SHOULD)．<a href="#section-9-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="Security">
@@ -2506,7 +2506,7 @@ c. レスポンスの <code>_claim_sources</code> 要素内にキー名として
         <h3 id="name-end-user-authentication">
 <a href="#section-10.1" class="section-number selfRef">10.1. </a><a href="#name-end-user-authentication" class="section-name selfRef">End-user authentication</a>
         </h3>
-<p id="section-10.1-1">エンドユーザーのセキュアな識別は，OP での identity verification だけでなく，OP でのユーザー認証の強度にも依存する．強力な識別と弱い認証を組み合わせると，セキュリティの間違った印象と同時に攻撃の余地を与える．例えば OP が単純な PIN ログインを使用する場合，攻撃者は他のユーザーの PIN を推測し，高い identity assurance レベルを持つ RP で自身を他のユーザーとして識別できる．この種の攻撃を防ぐため，エンドユーザーの検証済みクレームを要求するときに，RPs は OP に対して通常は多要素認証を利用するといった適正なレベルでユーザーを認証することを要求すべきである (SHOULD)．OpenID Connect は <code>acr_values</code> リクエストパラメータによってこれをサポートする．<a href="#section-10.1-1" class="pilcrow">¶</a></p>
+<p id="section-10.1-1">エンドユーザーのセキュアな識別は，OP での identity verification だけでなく，OP でのユーザー認証の強度にも依存する．強力な識別と弱い認証を組み合わせると，セキュリティの間違った印象と同時に攻撃の余地を与える．例えば OP が単純な PIN ログインを使用する場合，攻撃者は他のユーザーの PIN を推測し，高い identity assurance レベルを持つ RP で自身を他のユーザーとして識別できる．この種の攻撃を防ぐため，エンドユーザーの検証済みクレームを要求するときに，RPs は OP に対して通常は多要素認証を利用するといった適正なレベルでユーザーを認証することを要求することが望ましい (SHOULD)．OpenID Connect は <code>acr_values</code> リクエストパラメータによってこれをサポートする．<a href="#section-10.1-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="security-profile">
@@ -2516,8 +2516,8 @@ c. レスポンスの <code>_claim_sources</code> 要素内にキー名として
         </h3>
 <p id="section-10.2-1">複数のセキュリティプロファイルと新しいセキュリティプロファイルが開発中であるため，このドキュメントは特定のセキュリティプロファイルを定義または要求しない．
 実装者はニーズに最適なセキュリティプロファイルを柔軟に選択できる．
-実装者は <span>[<a href="#FAPI-1-SP" class="cite xref">FAPI-1-SP</a>]</span> または <span>[<a href="#FAPI-2-SP" class="cite xref">FAPI-2-SP</a>]</span> を検討することが望ましい (MAY)．<a href="#section-10.2-1" class="pilcrow">¶</a></p>
-<p id="section-10.2-2">実装者は，OpenID Foundation Certification Program (<a href="https://openid.net/certification/">https://openid.net/certification/</a>) のような，OpenID プロバイダーと Relying Parties の両方がプロファイルのセキュリティと相互運用性の要件に準拠していることを確認できる certification program またはその他のリソースを持つセキュリティプロファイルを選択すべきである (SHOULD)．<a href="#section-10.2-2" class="pilcrow">¶</a></p>
+実装者は <span>[<a href="#FAPI-1-SP" class="cite xref">FAPI-1-SP</a>]</span> または <span>[<a href="#FAPI-2-SP" class="cite xref">FAPI-2-SP</a>]</span> を検討することが望ましい．<a href="#section-10.2-1" class="pilcrow">¶</a></p>
+<p id="section-10.2-2">実装者は，OpenID Foundation Certification Program (<a href="https://openid.net/certification/">https://openid.net/certification/</a>) のような，OpenID プロバイダーと Relying Parties の両方がプロファイルのセキュリティと相互運用性の要件に準拠していることを確認できる certification program またはその他のリソースを持つセキュリティプロファイルを選択することが望ましい (SHOULD)．<a href="#section-10.2-2" class="pilcrow">¶</a></p>
 <p id="section-10.2-3">受信側は identity spoofing を防ぐため，発行されたアサーションの整合性と信頼性を確保しなければならない (SHALL)．<a href="#section-10.2-3" class="pilcrow">¶</a></p>
 <p id="section-10.2-4">受信側はトランスポートまたはアプリケーション層で適切な方法を使用し，プロトコル当事者間で交換される全てのエンドユーザーデータの機密性を確保しなければならない (SHALL)．<a href="#section-10.2-4" class="pilcrow">¶</a></p>
 </section>
