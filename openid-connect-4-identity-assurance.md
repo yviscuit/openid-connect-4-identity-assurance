@@ -448,7 +448,7 @@ OP でエラーに遭遇した場合，[@!OpenID] の section 3.1.2.6 で定義�
 ## Aggregated and distributed claims assertions
 
 <!-- When distributed claims are used the URL that is the value of the `endpoint` element in any distributed `_claim_source` sub-element shall use the https URI scheme and the JWT returned should not be accessible via any other URI scheme. -->
-分散クレームが使用される場合，分散された `_claim_source` サブ要素内の `endpoint` 要素の値である URL は，https URI スキームを使用しなければならず (SHALL)，返却される JWT はその他の URI スキーム経由ではアクセス出来ないことが望ましい (SHOULD NOT)． 
+分散クレームが使用される場合，分散された `_claim_source` サブ要素内の `endpoint` 要素の値である URL は，https URI スキームを使用しなければならず (SHALL)，返却される JWT はその他の URI スキーム経由でアクセス出来ることは望ましくない (SHOULD NOT)．
 
 <!-- For aggregated or distributed claims, every assertion provided by the external claims source shall contain: -->
 集約または分散クレームの場合，外部クレームソースによって提供されるすべてのアサーションは次を含まなければならない (SHALL):

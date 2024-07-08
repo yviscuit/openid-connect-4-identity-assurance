@@ -2159,7 +2159,7 @@ interpreted with their natural language meanings.<a href="#section-note.4-1" cla
         <h3 id="name-aggregated-and-distributed-c">
 <a href="#section-6.1" class="section-number selfRef">6.1. </a><a href="#name-aggregated-and-distributed-c" class="section-name selfRef">Aggregated and distributed claims assertions</a>
         </h3>
-<p id="section-6.1-1">分散クレームが使用される場合，分散された <code>_claim_source</code> サブ要素内の <code>endpoint</code> 要素の値である URL は，https URI スキームを使用しなければならず (SHALL)，返却される JWT はその他の URI スキーム経由ではアクセス出来ないことが望ましい (SHOULD NOT)．<a href="#section-6.1-1" class="pilcrow">¶</a></p>
+<p id="section-6.1-1">分散クレームが使用される場合，分散された <code>_claim_source</code> サブ要素内の <code>endpoint</code> 要素の値である URL は，https URI スキームを使用しなければならず (SHALL)，返却される JWT はその他の URI スキーム経由でアクセス出来ることは望ましくない (SHOULD NOT)．<a href="#section-6.1-1" class="pilcrow">¶</a></p>
 <p id="section-6.1-2">集約または分散クレームの場合，外部クレームソースによって提供されるすべてのアサーションは次を含まなければならない (SHALL):<a href="#section-6.1-2" class="pilcrow">¶</a></p>
 <ul class="compact">
 <li class="compact" id="section-6.1-3.1">値 <code>provided-claims+jwt</code> を持つ <code>typ</code> ヘッダーパラメーター<a href="#section-6.1-3.1" class="pilcrow">¶</a>
