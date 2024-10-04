@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta content="Common,Han,Hiragana,Katakana,Latin" name="scripts">
 <meta content="initial-scale=1.0" name="viewport">
-<title>OpenID Connect for Identity Assurance Claims Registration 1.0 - draft 01</title>
+<title>OpenID Connect for Identity Assurance Claims Registration 1.0</title>
 <meta content="Torsten Lodderstedt" name="author">
 <meta content="Daniel Fett" name="author">
 <meta content="Mark Haine" name="author">
@@ -20,7 +20,7 @@
 <meta content="identity assurance" name="keyword">
 <meta content="ekyc" name="keyword">
 <meta content="claims" name="keyword">
-<meta content="openid-connect-4-ida-claims-1_0-01" name="ietf.draft">
+<meta content="openid-connect-4-ida-claims-1_0-02" name="ietf.draft">
 <!-- Generator version information:
   xml2rfc 3.20.0
     Python 3.10.12
@@ -1263,7 +1263,7 @@ li > p:last-of-type:only-child {
 </dd>
 </dl>
 </div>
-<h1 id="title">OpenID Connect for Identity Assurance Claims Registration 1.0 - draft 01</h1>
+<h1 id="title">OpenID Connect for Identity Assurance Claims Registration 1.0</h1>
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
 <p id="section-abstract-1">この仕様では, エンドユーザーに関する新しい JWT クレーム を登録するための OpenID Connect の拡張機能を定義する. この拡張は, 元々 OpenID Connect for Identity Assurance の以前のドラフトで定義されていた, 自然人のアイデンティティに関連する新しいクレームを定義している. この取り組み及び以前のドラフトは, OpenID Foundation の eKYC &amp; IDA ワーキンググループの取り組みである.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
@@ -1380,13 +1380,10 @@ interpreted with their natural language meanings.<a href="#section-note.4-1" cla
             <p id="section-toc.1-1.11.1"><a href="#appendix-C" class="auto internal xref">Appendix C</a>.  <a href="#name-notices" class="internal xref">Notices</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.12">
-            <p id="section-toc.1-1.12.1"><a href="#appendix-D" class="auto internal xref">Appendix D</a>.  <a href="#name-document-history" class="internal xref">Document history</a></p>
+            <p id="section-toc.1-1.12.1"><a href="#appendix-D" class="auto internal xref">Appendix D</a>.  <a href="#name-translator" class="internal xref">Translator</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.13">
-            <p id="section-toc.1-1.13.1"><a href="#appendix-E" class="auto internal xref">Appendix E</a>.  <a href="#name-translator" class="internal xref">Translator</a></p>
-</li>
-          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.14">
-            <p id="section-toc.1-1.14.1"><a href="#appendix-F" class="auto internal xref"></a><a href="#name-authors-addresses" class="internal xref">Authors' Addresses</a></p>
+            <p id="section-toc.1-1.13.1"><a href="#appendix-E" class="auto internal xref"></a><a href="#name-authors-addresses" class="internal xref">Authors' Addresses</a></p>
 </li>
         </ul>
 </nav>
@@ -2018,47 +2015,31 @@ interpreted with their natural language meanings.<a href="#section-note.4-1" cla
 <p id="appendix-C-3">The technology described in this specification was made available from contributions from various sources, including members of the OpenID Foundation and others. Although the OpenID Foundation has taken steps to help ensure that the technology is available for distribution, it takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this specification or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any independent effort to identify any such rights. The OpenID Foundation and the contributors to this specification make no (and hereby expressly disclaim any) warranties (express, implied, or otherwise), including implied warranties of merchantability, non-infringement, fitness for a particular purpose, or title, related to this specification, and the entire risk as to implementing this specification is assumed by the implementer. The OpenID Intellectual Property Rights policy requires contributors to offer a patent promise not to assert certain patent claims against other contributors and against implementers. The OpenID Foundation invites any interested party to bring to its attention any copyrights, patents, patent applications, or other proprietary rights that may cover technology that may be required to practice this specification.<a href="#appendix-C-3" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="document-history">
-<section id="appendix-D">
-      <h2 id="name-document-history">
-<a href="#appendix-D" class="section-number selfRef">Appendix D. </a><a href="#name-document-history" class="section-name selfRef">Document history</a>
-      </h2>
-<p id="appendix-D-1">[[ To be removed from the final specification ]]<a href="#appendix-D-1" class="pilcrow">¶</a></p>
-<p id="appendix-D-2">-01
-   fixed capitalization and added draft version number to title
-   editorial improvement to security considerations<a href="#appendix-D-2" class="pilcrow">¶</a></p>
-<p id="appendix-D-3">-00 (WG document)<a href="#appendix-D-3" class="pilcrow">¶</a></p>
-<ul class="compact">
-<li class="compact" id="appendix-D-4.1">Split this content from openid-connect-4-identity-assurance-1_0-13 WG document<a href="#appendix-D-4.1" class="pilcrow">¶</a>
-</li>
-      </ul>
-</section>
-</div>
 <div id="translator">
-<section id="appendix-E">
+<section id="appendix-D">
       <h2 id="name-translator">
-<a href="#appendix-E" class="section-number selfRef">Appendix E. </a><a href="#name-translator" class="section-name selfRef">Translator</a>
+<a href="#appendix-D" class="section-number selfRef">Appendix D. </a><a href="#name-translator" class="section-name selfRef">Translator</a>
       </h2>
-<p id="appendix-E-1">本仕様の翻訳は, OpenID ファウンデーションジャパン <span>[<a href="#oidfj" class="cite xref">oidfj</a>]</span> KYC ワーキンググループ <span>[<a href="#oidfj-kycwg" class="cite xref">oidfj-kycwg</a>]</span>, 翻訳・教育ワーキンググループ <span>[<a href="#oidfj-trans" class="cite xref">oidfj-trans</a>]</span> を主体として, 有志のメンバーによって行われました.
-質問や修正依頼などについては, Github レポジトリー <span>[<a href="#oidfj-github" class="cite xref">oidfj-github</a>]</span> にご連絡ください.<a href="#appendix-E-1" class="pilcrow">¶</a></p>
+<p id="appendix-D-1">本仕様の翻訳は, OpenID ファウンデーションジャパン <span>[<a href="#oidfj" class="cite xref">oidfj</a>]</span> KYC ワーキンググループ <span>[<a href="#oidfj-kycwg" class="cite xref">oidfj-kycwg</a>]</span>, 翻訳・教育ワーキンググループ <span>[<a href="#oidfj-trans" class="cite xref">oidfj-trans</a>]</span> を主体として, 有志のメンバーによって行われました.
+質問や修正依頼などについては, Github レポジトリー <span>[<a href="#oidfj-github" class="cite xref">oidfj-github</a>]</span> にご連絡ください.<a href="#appendix-D-1" class="pilcrow">¶</a></p>
 <ul class="compact">
-<li class="compact" id="appendix-E-2.1">Muneomi Sakuta (SoftBank Corp.)<a href="#appendix-E-2.1" class="pilcrow">¶</a>
+<li class="compact" id="appendix-D-2.1">Muneomi Sakuta (SoftBank Corp.)<a href="#appendix-D-2.1" class="pilcrow">¶</a>
 </li>
-        <li class="compact" id="appendix-E-2.2">Yuu Kikuchi (OPTiM Corp.)<a href="#appendix-E-2.2" class="pilcrow">¶</a>
+        <li class="compact" id="appendix-D-2.2">Yuu Kikuchi (OPTiM Corp.)<a href="#appendix-D-2.2" class="pilcrow">¶</a>
 </li>
-        <li class="compact" id="appendix-E-2.3">Nov Matake (YAuth.jp)<a href="#appendix-E-2.3" class="pilcrow">¶</a>
+        <li class="compact" id="appendix-D-2.3">Nov Matake (YAuth.jp)<a href="#appendix-D-2.3" class="pilcrow">¶</a>
 </li>
-        <li class="compact" id="appendix-E-2.4">Hitoshi Sakurada (Deloitte Tohmatsu Cyber LLC)<a href="#appendix-E-2.4" class="pilcrow">¶</a>
+        <li class="compact" id="appendix-D-2.4">Hitoshi Sakurada (Deloitte Tohmatsu Cyber LLC)<a href="#appendix-D-2.4" class="pilcrow">¶</a>
 </li>
-        <li class="compact" id="appendix-E-2.5">Shigetatsu Kashiwai (Deloitte Tohmatsu Cyber LLC)<a href="#appendix-E-2.5" class="pilcrow">¶</a>
+        <li class="compact" id="appendix-D-2.5">Shigetatsu Kashiwai (Deloitte Tohmatsu Cyber LLC)<a href="#appendix-D-2.5" class="pilcrow">¶</a>
 </li>
-        <li class="compact" id="appendix-E-2.6">Takaaki Miyazaki (Deloitte Tohmatsu Cyber LLC)<a href="#appendix-E-2.6" class="pilcrow">¶</a>
+        <li class="compact" id="appendix-D-2.6">Takaaki Miyazaki (Deloitte Tohmatsu Cyber LLC)<a href="#appendix-D-2.6" class="pilcrow">¶</a>
 </li>
       </ul>
 </section>
 </div>
 <div id="authors-addresses">
-<section id="appendix-F">
+<section id="appendix-E">
       <h2 id="name-authors-addresses">
 <a href="#name-authors-addresses" class="section-name selfRef">Authors' Addresses</a>
       </h2>

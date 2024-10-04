@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta content="Common,Han,Hiragana,Katakana,Latin" name="scripts">
 <meta content="initial-scale=1.0" name="viewport">
-<title>OpenID Connect for Identity Assurance 1.0 - draft 15</title>
+<title>OpenID Connect for Identity Assurance 1.0</title>
 <meta content="Torsten Lodderstedt" name="author">
 <meta content="Daniel Fett" name="author">
 <meta content="Mark Haine" name="author">
@@ -19,7 +19,7 @@
 <meta content="openid" name="keyword">
 <meta content="identity assurance" name="keyword">
 <meta content="ekyc" name="keyword">
-<meta content="openid-connect-4-identity-assurance-1_0-15" name="ietf.draft">
+<meta content="openid-connect-4-identity-assurance-1_0-16" name="ietf.draft">
 <!-- Generator version information:
   xml2rfc 3.20.0
     Python 3.10.12
@@ -1262,7 +1262,7 @@ li > p:last-of-type:only-child {
 </dd>
 </dl>
 </div>
-<h1 id="title">OpenID Connect for Identity Assurance 1.0 - draft 15</h1>
+<h1 id="title">OpenID Connect for Identity Assurance 1.0</h1>
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
 <p id="section-abstract-1">このドキュメントは，アクセスコントロール，資格決定やさらなる検証プロセスへの入力のための Claim または検証プロセス に関する，特定の検証レベル及び/または追加のメタデータを持つエンドユーザーに関する検証済みクレームを Relying Parties に提供するための OpenID Connect の拡張機能を定義する．<a href="#section-abstract-1" class="pilcrow">¶</a></p>
@@ -1350,7 +1350,7 @@ interpreted with their natural language meanings.<a href="#section-note.4-1" cla
                 <p id="section-toc.1-1.5.2.1.1"><a href="#section-5.1" class="auto internal xref">5.1</a>.  <a href="#name-verified-claims-schema" class="internal xref">Verified claims schema</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2">
-                <p id="section-toc.1-1.5.2.2.1"><a href="#section-5.2" class="auto internal xref">5.2</a>.  <a href="#name-verified-claims-delivery" class="internal xref">verified claims delivery</a></p>
+                <p id="section-toc.1-1.5.2.2.1"><a href="#section-5.2" class="auto internal xref">5.2</a>.  <a href="#name-verified-claims-delivery" class="internal xref">Verified claims delivery</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.3">
                 <p id="section-toc.1-1.5.2.3.1"><a href="#section-5.3" class="auto internal xref">5.3</a>.  <a href="#name-requesting-end-user-claims" class="internal xref">Requesting end-user claims</a></p>
@@ -1362,10 +1362,10 @@ interpreted with their natural language meanings.<a href="#section-note.4-1" cla
                 <p id="section-toc.1-1.5.2.5.1"><a href="#section-5.5" class="auto internal xref">5.5</a>.  <a href="#name-defining-further-constraint" class="internal xref">Defining further constraints on verification data</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.5.2.1">
-                    <p id="section-toc.1-1.5.2.5.2.1.1"><a href="#section-5.5.1" class="auto internal xref">5.5.1</a>.  <a href="#name-value-values" class="internal xref">value/values</a></p>
+                    <p id="section-toc.1-1.5.2.5.2.1.1"><a href="#section-5.5.1" class="auto internal xref">5.5.1</a>.  <a href="#name-value-values" class="internal xref">Value/values</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.5.2.2">
-                    <p id="section-toc.1-1.5.2.5.2.2.1"><a href="#section-5.5.2" class="auto internal xref">5.5.2</a>.  <a href="#name-max_age" class="internal xref">max_age</a></p>
+                    <p id="section-toc.1-1.5.2.5.2.2.1"><a href="#section-5.5.2" class="auto internal xref">5.5.2</a>.  <a href="#name-max_age" class="internal xref">Max_age</a></p>
 </li>
                 </ul>
 </li>
@@ -1537,13 +1537,10 @@ interpreted with their natural language meanings.<a href="#section-note.4-1" cla
             <p id="section-toc.1-1.21.1"><a href="#appendix-F" class="auto internal xref">Appendix F</a>.  <a href="#name-notices" class="internal xref">Notices</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.22">
-            <p id="section-toc.1-1.22.1"><a href="#appendix-G" class="auto internal xref">Appendix G</a>.  <a href="#name-document-history" class="internal xref">Document history</a></p>
+            <p id="section-toc.1-1.22.1"><a href="#appendix-G" class="auto internal xref">Appendix G</a>.  <a href="#name-translator" class="internal xref">Translator</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.23">
-            <p id="section-toc.1-1.23.1"><a href="#appendix-H" class="auto internal xref">Appendix H</a>.  <a href="#name-translator" class="internal xref">Translator</a></p>
-</li>
-          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.24">
-            <p id="section-toc.1-1.24.1"><a href="#appendix-I" class="auto internal xref"></a><a href="#name-authors-addresses" class="internal xref">Authors' Addresses</a></p>
+            <p id="section-toc.1-1.23.1"><a href="#appendix-H" class="auto internal xref"></a><a href="#name-authors-addresses" class="internal xref">Authors' Addresses</a></p>
 </li>
         </ul>
 </nav>
@@ -1679,7 +1676,7 @@ interpreted with their natural language meanings.<a href="#section-note.4-1" cla
 <div id="verified_claims_delivery">
 <section id="section-5.2">
         <h3 id="name-verified-claims-delivery">
-<a href="#section-5.2" class="section-number selfRef">5.2. </a><a href="#name-verified-claims-delivery" class="section-name selfRef">verified claims delivery</a>
+<a href="#section-5.2" class="section-number selfRef">5.2. </a><a href="#name-verified-claims-delivery" class="section-name selfRef">Verified claims delivery</a>
         </h3>
 <p id="section-5.2-1"><code>verified_claims</code> 要素は OpenID Connect UserInfo レスポンス，及び/または ID Token に追加することができる．<a href="#section-5.2-1" class="pilcrow">¶</a></p>
 <p id="section-5.2-2">以下は，Verified Claims を含む ID トークンのペイロードの例である:<a href="#section-5.2-2" class="pilcrow">¶</a></p>
@@ -1713,7 +1710,7 @@ interpreted with their natural language meanings.<a href="#section-note.4-1" cla
 <p id="section-5.3-1">Verified Claims は OpenID Connect specification <span>[<a href="#OpenID" class="cite xref">OpenID</a>]</span> の Section 5.5 に定義されている <code>claims</code> パラメータを利用することで, End-User について 個々の Claims のレベルで要求できる.<a href="#section-5.3-1" class="pilcrow">¶</a></p>
 <p id="section-5.3-2">注: <code>verified_claims</code> をリクエストするために使用される機械可読な構文定義は <span>[<a href="#verified_claims_request.json" class="cite xref">verified_claims_request.json</a>]</span> で JSON スキーマとして提供され，これを利用して <code>claims</code> リクエストパラメータを自動的に検証することができる．提供される JSON スキーマファイルは本ドキュメントの標準ではない実装であり，存在する矛盾は実装のバグか，解釈のいずれかである．<a href="#section-5.3-2" class="pilcrow">¶</a></p>
 <p id="section-5.3-3">検証済み Claim を要求するには，<code>verified_claims</code> 要素を <code>claims</code> パラメータの <code>userinfo</code> または <code>id_token</code> 要素に追加する．<a href="#section-5.3-3" class="pilcrow">¶</a></p>
-<p id="section-5.3-4"><code>verified_claims</code> にはネストされた <code>claims</code> 要素の中に End-User についての有効な Claims が含まれるため, syntax は次のようにネストされた要素の式を含むように拡張される，<code>verified_claims</code> 要素は <code>claims</code> 要素を含み，必要な Claims がキーとして含まれる．各 claim の値は <code>null</code> (デフォルト), または object のいずれかである．Object には <span>[<a href="#OpenID" class="cite xref">OpenID</a>]</span> にて定義される <code>value</code> または <code>values</code>，及び/または以下で説明する <code>essential</code> または <code>purpose</code> キーを使用する制限を含めてもよい (MAY)．以下に例を示す.<a href="#section-5.3-4" class="pilcrow">¶</a></p>
+<p id="section-5.3-4"><code>verified_claims</code> にはネストされた <code>claims</code> 要素の中に End-User についての有効な Claims が含まれるため, syntax は次のようにネストされた要素の式を含むように拡張される，<code>verified_claims</code> 要素は <code>claims</code> 要素を含み，必要な Claims がキーとして含まれる．各 claim の値は <code>null</code> (デフォルト), または object のいずれかである．Object には <span>[<a href="#OpenID" class="cite xref">OpenID</a>]</span> にて定義される <code>value</code> または <code>values</code>，及び/または以下で説明する <code>essential</code> キーを使用する制限を含めてもよい (MAY)．以下に例を示す.<a href="#section-5.3-4" class="pilcrow">¶</a></p>
 <div class="lang-json sourcecode" id="section-5.3-5">
 <pre>{
   "userinfo": {
@@ -1865,7 +1862,7 @@ interpreted with their natural language meanings.<a href="#section-note.4-1" cla
 <div id="value-values">
 <section id="section-5.5.1">
           <h4 id="name-value-values">
-<a href="#section-5.5.1" class="section-number selfRef">5.5.1. </a><a href="#name-value-values" class="section-name selfRef">value/values</a>
+<a href="#section-5.5.1" class="section-number selfRef">5.5.1. </a><a href="#name-value-values" class="section-name selfRef">Value/values</a>
           </h4>
 <p id="section-5.5.1-1">RP は <code>value</code> または <code>values</code> フィールドと <code>evidence/type</code> 要素を利用することで，<code>trust_framework</code>, <code>evidence/method</code>, <code>evidence/check_details</code>, 及び <code>evidence/document/type</code> 要素の <code>value</code> フィールドで利用可能な値を制限出来る．<a href="#section-5.5.1-1" class="pilcrow">¶</a></p>
 <p id="section-5.5.1-2">注: <code>evidence/type</code> の制限の使用例は，以前のセクションで示した．<a href="#section-5.5.1-2" class="pilcrow">¶</a></p>
@@ -1935,7 +1932,7 @@ interpreted with their natural language meanings.<a href="#section-note.4-1" cla
 <div id="max-age">
 <section id="section-5.5.2">
           <h4 id="name-max_age">
-<a href="#section-5.5.2" class="section-number selfRef">5.5.2. </a><a href="#name-max_age" class="section-name selfRef">max_age</a>
+<a href="#section-5.5.2" class="section-number selfRef">5.5.2. </a><a href="#name-max_age" class="section-name selfRef">Max_age</a>
           </h4>
 <p id="section-5.5.2-1">RP は特定のエビデンスタイプの発行/失効からの経過時間や，<code>verification</code> 要素でアサートされた検証プロセスが行われてからの経過時間のような，特定のデータの経過時間に関する要件を表現することもできる．OpenID Connect 仕様 <span>[<a href="#OpenID" class="cite xref">OpenID</a>]</span> の Section 5.5.1 では新しい特別なクエリメンバーを定義できるクエリ構文を定義している．このドキュメントでは，日付またはタイムスタンプを含む要素 (例えば，<code>document</code> タイプのエビデンスの <code>time</code>，<code>date_of_issuance</code> 及び <code>date_of_expiry</code> 要素) の取り得る値に適用される新しいメンバー <code>max_age</code> を導入する．<a href="#section-5.5.2-1" class="pilcrow">¶</a></p>
 <p id="section-5.5.2-2"><code>max_age</code>: OPTIONAL. 日付またはタイムスタンプを含む Claims にのみ適用可能な JSON number 値．日付/タイムスタンプの値からリクエストの時点までに許容される最大経過時間(秒)を定義する．OP は日付値の最後の有効な秒から開始して経過時間を計算することが望ましい (SHOULD)．<a href="#section-5.5.2-2" class="pilcrow">¶</a></p>
@@ -2551,7 +2548,7 @@ c. レスポンスの <code>_claim_sources</code> 要素内にキー名として
 <dl class="references">
 <dt id="IDA-verified-claims">[IDA-verified-claims]</dt>
       <dd>
-<span class="refAuthor">Lodderstedt, T.</span>, <span class="refAuthor">Fett, D.</span>, <span class="refAuthor">Haine, M.</span>, <span class="refAuthor">Pulido, A.</span>, <span class="refAuthor">Lehmann, K.</span>, and <span class="refAuthor">K. Koiwai</span>, <span class="refTitle">"OpenID Identity Assurance schema definition"</span>, <time datetime="2023-08-09" class="refDate">9 August 2023</time>, <span>&lt;<a href="https://openid.net/specs/openid-ida-verified-claims-1_0.html">https://openid.net/specs/openid-ida-verified-claims-1_0.html</a>&gt;</span>. </dd>
+<span class="refAuthor">Lodderstedt, T.</span>, <span class="refAuthor">Fett, D.</span>, <span class="refAuthor">Haine, M.</span>, <span class="refAuthor">Pulido, A.</span>, <span class="refAuthor">Lehmann, K.</span>, and <span class="refAuthor">K. Koiwai</span>, <span class="refTitle">"OpenID Identity Assurance Schema Definition"</span>, <time datetime="2023-08-09" class="refDate">9 August 2023</time>, <span>&lt;<a href="https://openid.net/specs/openid-ida-verified-claims-1_0.html">https://openid.net/specs/openid-ida-verified-claims-1_0.html</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="ISODIR2">[ISODIR2]</dt>
       <dd>
@@ -3808,312 +3805,25 @@ sources into an ID Token.<a href="#appendix-C.9-1" class="pilcrow">¶</a></p>
 <p id="appendix-F-3">The technology described in this document was made available from contributions from various sources, including members of the OpenID Foundation and others. Although the OpenID Foundation has taken steps to help ensure that the technology is available for distribution, it takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this document or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any independent effort to identify any such rights. The OpenID Foundation and the contributors to this document make no (and hereby expressly disclaim any) warranties (express, implied, or otherwise), including implied warranties of merchantability, non-infringement, fitness for a particular purpose, or title, related to this document to offer a patent promise not to assert certain patent claims against other contributors and against implementers. The OpenID Foundation invites any interested party to bring to its attention any copyrights, patents, patent applications, or other proprietary rights that may cover technology that may be required to practice this document.<a href="#appendix-F-3" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="document-history">
-<section id="appendix-G">
-      <h2 id="name-document-history">
-<a href="#appendix-G" class="section-number selfRef">Appendix G. </a><a href="#name-document-history" class="section-name selfRef">Document history</a>
-      </h2>
-<p id="appendix-G-1">[[ To be removed from the final specification ]]<a href="#appendix-G-1" class="pilcrow">¶</a></p>
-<p id="appendix-G-2">-15<a href="#appendix-G-2" class="pilcrow">¶</a></p>
-<ul class="compact">
-<li class="compact" id="appendix-G-3.1">added draft number to title<a href="#appendix-G-3.1" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-G-3.2">removed vestigial mention of "purpose" claim<a href="#appendix-G-3.2" class="pilcrow">¶</a>
-</li>
-      </ul>
-<p id="appendix-G-4">-14<a href="#appendix-G-4" class="pilcrow">¶</a></p>
-<ul class="compact">
-<li class="compact" id="appendix-G-5.1">Added requirements on aggregated and distributed claims to reduce risk of confusion with other JWTs (incl. IANA media type registration)<a href="#appendix-G-5.1" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-G-5.2">Removed deprecated elements <code>utility_bill</code> and <code>document</code><a href="#appendix-G-5.2" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-G-5.3">split out IANA claims registration into separate document "openid-connect-4-ida-claims"<a href="#appendix-G-5.3" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-G-5.4">split out schema definition of <code>verified_claims</code> into separate document<a href="#appendix-G-5.4" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-G-5.5">split attachments into separate document<a href="#appendix-G-5.5" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-G-5.6">Removed "transaction specific purpose" from IDA spec with intent to create separate draft<a href="#appendix-G-5.6" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-G-5.7">drop verified_claims_supported OP metadata as redundant<a href="#appendix-G-5.7" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-G-5.8">renamed the <code>txn</code> element to <code>check_id</code><a href="#appendix-G-5.8" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-G-5.9">removed duplicate JWT Claims registration from IANA Considerations<a href="#appendix-G-5.9" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-G-5.10">Reformatted to meet ISO Directive part 2<a href="#appendix-G-5.10" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-G-5.11">Fixed typos<a href="#appendix-G-5.11" class="pilcrow">¶</a>
-</li>
-      </ul>
-<p id="appendix-G-6">-13<a href="#appendix-G-6" class="pilcrow">¶</a></p>
-<ul class="compact">
-<li class="compact" id="appendix-G-7.1">Preparation for Implementers Draft 4<a href="#appendix-G-7.1" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-G-7.2">Checked and fixed referencing<a href="#appendix-G-7.2" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-G-7.3">Added note about issues with JSON null<a href="#appendix-G-7.3" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-G-7.4">Defined clearly that JSON schema is not normative<a href="#appendix-G-7.4" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-G-7.5">Various editorial clarifications<a href="#appendix-G-7.5" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-G-7.6">Added checking of defined end-user claims to JSON schema<a href="#appendix-G-7.6" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-G-7.7">Clarified OP Metadata wording<a href="#appendix-G-7.7" class="pilcrow">¶</a>
-</li>
-      </ul>
-<p id="appendix-G-8">-12<a href="#appendix-G-8" class="pilcrow">¶</a></p>
-<ul class="compact">
-<li class="compact" id="appendix-G-9.1">introduced <code>document</code> evidence type, which is more universal than <code>id_document</code><a href="#appendix-G-9.1" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-G-9.2">deprecated <code>id_document</code><a href="#appendix-G-9.2" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-G-9.3">introduced <code>electronic_record</code> and <code>vouch</code> evidence types<a href="#appendix-G-9.3" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-G-9.4">introduced <code>check_details</code> &amp; <code>assurance_details</code> to provide more detail than <code>method</code><a href="#appendix-G-9.4" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-G-9.5">added lookahead capabilities for distributed claims<a href="#appendix-G-9.5" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-G-9.6">added support to attach document artifacts<a href="#appendix-G-9.6" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-G-9.7">added txn for attachments<a href="#appendix-G-9.7" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-G-9.8">changed evidence type <code>qes</code> to <code>electronic_signature</code><a href="#appendix-G-9.8" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-G-9.9">added claim <code>also_known_as</code><a href="#appendix-G-9.9" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-G-9.10">added text regarding security profiles<a href="#appendix-G-9.10" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-G-9.11">editorial improvements<a href="#appendix-G-9.11" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-G-9.12">added further co-authors<a href="#appendix-G-9.12" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-G-9.13">added <code>assurance_level</code> field<a href="#appendix-G-9.13" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-G-9.14">added <code>assurance_process</code> type<a href="#appendix-G-9.14" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-G-9.15">added text about dependency between identity assurance and authentication assurance<a href="#appendix-G-9.15" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-G-9.16">added new field <code>country_code</code> to <code>address</code> claim<a href="#appendix-G-9.16" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-G-9.17">relaxed requirements for showing purpose<a href="#appendix-G-9.17" class="pilcrow">¶</a>
-</li>
-      </ul>
-<p id="appendix-G-10">-11<a href="#appendix-G-10" class="pilcrow">¶</a></p>
-<ul class="compact">
-<li class="compact" id="appendix-G-11.1">Added support for requesting different sets of claims with different requirements regarding trust_framework and other verification elements (e.g., evidence)<a href="#appendix-G-11.1" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-G-11.2">added <code>msisdn</code> claim<a href="#appendix-G-11.2" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-G-11.3">clarified scope of this specification<a href="#appendix-G-11.3" class="pilcrow">¶</a>
-</li>
-      </ul>
-<p id="appendix-G-12">-10<a href="#appendix-G-12" class="pilcrow">¶</a></p>
-<ul class="compact">
-<li class="compact" id="appendix-G-13.1">Editorial improvements<a href="#appendix-G-13.1" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-G-13.2">Improved JSON schema (alignment with spec and bug fix)<a href="#appendix-G-13.2" class="pilcrow">¶</a>
-</li>
-      </ul>
-<p id="appendix-G-14">-09<a href="#appendix-G-14" class="pilcrow">¶</a></p>
-<ul class="compact">
-<li class="compact" id="appendix-G-15.1">
-          <code>verified_claims</code> element may contain one or more verified claims objects<a href="#appendix-G-15.1" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-G-15.2">an individual assertion may contain <code>verified_claims</code> elements in the assertion itself and any aggregated or distributed claims sets it includes or refers to, respectively<a href="#appendix-G-15.2" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-G-15.3">moved all definitions of pre-defined values for trust frameworks, id documents and verification methods to a wiki page as non-normative overview<a href="#appendix-G-15.3" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-G-15.4">clarified and simplified request syntax<a href="#appendix-G-15.4" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-G-15.5">reduced mandatory requirement <code>verified_claims</code> to bare minimum<a href="#appendix-G-15.5" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-G-15.6">removed JSON schema from draft and added reference to JSON schema file instead<a href="#appendix-G-15.6" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-G-15.7">added request JSON schema<a href="#appendix-G-15.7" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-G-15.8">added IANA section with JSON Web Token claims Registration<a href="#appendix-G-15.8" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-G-15.9">integrated source into single md file<a href="#appendix-G-15.9" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-G-15.10">added privacy considerations regarding time zone data, enhanced syntax definition of time and date-time fields in spec and response schema<a href="#appendix-G-15.10" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-G-15.11">fixed typos<a href="#appendix-G-15.11" class="pilcrow">¶</a>
-</li>
-      </ul>
-<p id="appendix-G-16">-08<a href="#appendix-G-16" class="pilcrow">¶</a></p>
-<ul class="compact">
-<li class="compact" id="appendix-G-17.1">added <code>uripp</code> verification method<a href="#appendix-G-17.1" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-G-17.2">small fixes to examples<a href="#appendix-G-17.2" class="pilcrow">¶</a>
-</li>
-      </ul>
-<p id="appendix-G-18">-07<a href="#appendix-G-18" class="pilcrow">¶</a></p>
-<ul class="compact">
-<li class="compact" id="appendix-G-19.1">fixed typos<a href="#appendix-G-19.1" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-G-19.2">changed <code>nationality</code> String claim to <code>nationalities</code> String array claim<a href="#appendix-G-19.2" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-G-19.3">replaced <code>agent</code> in id_document verifier element by <code>txn</code> element<a href="#appendix-G-19.3" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-G-19.4">qes method: fixed error in description of <code>issuer</code><a href="#appendix-G-19.4" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-G-19.5">qes method: changed <code>issued_at</code> to <code>created_at</code> since this field applies to the signature (that is created and not issued)<a href="#appendix-G-19.5" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-G-19.6">Changed format of <code>nationalities</code> and issuing <code>country</code> to ICAO codes<a href="#appendix-G-19.6" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-G-19.7">Changed <code>date</code> in verification element to <code>time</code><a href="#appendix-G-19.7" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-G-19.8">Added Japanese trust frameworks to pre-defined values<a href="#appendix-G-19.8" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-G-19.9">Added Japanese id documents to pre-defined values<a href="#appendix-G-19.9" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-G-19.10">adapted JSON schema and examples<a href="#appendix-G-19.10" class="pilcrow">¶</a>
-</li>
-      </ul>
-<p id="appendix-G-20">-06<a href="#appendix-G-20" class="pilcrow">¶</a></p>
-<ul class="compact">
-<li class="compact" id="appendix-G-21.1">Incorporated review feedback by Marcos Sanz and Adam Cooper<a href="#appendix-G-21.1" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-G-21.2">Added text on integrity, authenticity, and confidentiality for data passed between OP and RP to Security Considerations section<a href="#appendix-G-21.2" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-G-21.3">added <code>purpose</code> field to <code>claims</code> parameter<a href="#appendix-G-21.3" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-G-21.4">added feature to let the RP explicitly requested certain <code>verification</code> data<a href="#appendix-G-21.4" class="pilcrow">¶</a>
-</li>
-      </ul>
-<p id="appendix-G-22">-05<a href="#appendix-G-22" class="pilcrow">¶</a></p>
-<ul class="compact">
-<li class="compact" id="appendix-G-23.1">incorporated review feedback by Mike Jones<a href="#appendix-G-23.1" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-G-23.2">Added OIDF Copyright Notices<a href="#appendix-G-23.2" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-G-23.3">Moved Acknowledgements to Appendix A<a href="#appendix-G-23.3" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-G-23.4">Removed RFC 2119 keywords from scope &amp; requirements section and rephrased section<a href="#appendix-G-23.4" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-G-23.5">rephrased introduction<a href="#appendix-G-23.5" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-G-23.6">replaced <code>birth_name</code> with <code>birth_family_name</code>, <code>birth_given_name</code>, and <code>birth_middle_name</code><a href="#appendix-G-23.6" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-G-23.7">replaced <code>transaction_id</code> with <code>txn</code> from RFC 8417<a href="#appendix-G-23.7" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-G-23.8">added references to eIDAS, ISO 3166-1, ISO 3166-3, and ISO 8601-2004<a href="#appendix-G-23.8" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-G-23.9">added note on <code>purpose</code> and locales<a href="#appendix-G-23.9" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-G-23.10">changed file name and document title to include 1.0 version id<a href="#appendix-G-23.10" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-G-23.11">corrected evidence plural<a href="#appendix-G-23.11" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-G-23.12">lots of editorial fixes<a href="#appendix-G-23.12" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-G-23.13">Alignment with OpenID Connect Core wording<a href="#appendix-G-23.13" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-G-23.14">Renamed <code>id</code> to <code>verification_process</code><a href="#appendix-G-23.14" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-G-23.15">Renamed <code>verified_person_data</code> to <code>verified_claims</code><a href="#appendix-G-23.15" class="pilcrow">¶</a>
-</li>
-      </ul>
-<p id="appendix-G-24">-04<a href="#appendix-G-24" class="pilcrow">¶</a></p>
-<ul class="compact">
-<li class="compact" id="appendix-G-25.1">incorporated review feedback by Marcos Sanz<a href="#appendix-G-25.1" class="pilcrow">¶</a>
-</li>
-      </ul>
-<p id="appendix-G-26">-03<a href="#appendix-G-26" class="pilcrow">¶</a></p>
-<ul class="compact">
-<li class="compact" id="appendix-G-27.1">enhanced draft to support multiple evidence<a href="#appendix-G-27.1" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-G-27.2">added a JSON Schema for assertions containing the <code>verified_person_data</code> claim<a href="#appendix-G-27.2" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-G-27.3">added more identity document definitions<a href="#appendix-G-27.3" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-G-27.4">added <code>region</code> field to <code>place_of_birth</code> claim<a href="#appendix-G-27.4" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-G-27.5">changed <code>eidas_loa_substantial/high</code> to <code>eidas_ial_substantial/high</code><a href="#appendix-G-27.5" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-G-27.6">fixed typos in examples<a href="#appendix-G-27.6" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-G-27.7">uppercased all editorial occurences of the term <code>claims</code> to align with OpenID Connect Core<a href="#appendix-G-27.7" class="pilcrow">¶</a>
-</li>
-      </ul>
-<p id="appendix-G-28">-02<a href="#appendix-G-28" class="pilcrow">¶</a></p>
-<ul class="compact">
-<li class="compact" id="appendix-G-29.1">added new request parameter <code>purpose</code><a href="#appendix-G-29.1" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-G-29.2">simplified/reduced number of verification methods<a href="#appendix-G-29.2" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-G-29.3">simplfied identifiers<a href="#appendix-G-29.3" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-G-29.4">added <code>identity_documents_supported</code> to metadata section<a href="#appendix-G-29.4" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-G-29.5">improved examples<a href="#appendix-G-29.5" class="pilcrow">¶</a>
-</li>
-      </ul>
-<p id="appendix-G-30">-01<a href="#appendix-G-30" class="pilcrow">¶</a></p>
-<ul class="compact">
-<li class="compact" id="appendix-G-31.1">fixed some typos<a href="#appendix-G-31.1" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-G-31.2">remove organization element (redundant) (issue 1080)<a href="#appendix-G-31.2" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-G-31.3">allow other claims about the end-user in the <code>claims</code> sub element (issue 1079)<a href="#appendix-G-31.3" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-G-31.4">changed <code>legal_context</code> to <code>trust_framework</code><a href="#appendix-G-31.4" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-G-31.5">added explanation how the content of the verification element is determined by the trust framework<a href="#appendix-G-31.5" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-G-31.6">added URI-based identifiers for <code>trust_framework</code>, <code>identity_document</code> and (verification) <code>method</code><a href="#appendix-G-31.6" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-G-31.7">added example attestation for notified/regulated eID system<a href="#appendix-G-31.7" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-G-31.8">adopted OP metadata section accordingly<a href="#appendix-G-31.8" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-G-31.9">changed error behavior for <code>max_age</code> member to alig with OpenID Core<a href="#appendix-G-31.9" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-G-31.10">Added feature to let the RP express requirements for verification data (trust framework, identity documents, verification method)<a href="#appendix-G-31.10" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-G-31.11">Added privacy consideration section and added text on legal basis for data exchange<a href="#appendix-G-31.11" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-G-31.12">Added explanation about regulated and un-regulated eID systems<a href="#appendix-G-31.12" class="pilcrow">¶</a>
-</li>
-      </ul>
-<p id="appendix-G-32">-00 (WG document)<a href="#appendix-G-32" class="pilcrow">¶</a></p>
-<ul class="compact">
-<li class="compact" id="appendix-G-33.1">turned the proposal into a WG document<a href="#appendix-G-33.1" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-G-33.2">changed name<a href="#appendix-G-33.2" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-G-33.3">added terminology section and reworked introduction<a href="#appendix-G-33.3" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-G-33.4">added several examples (ID Token vs UserInfo, unverified &amp; verified claims, aggregated &amp; distributed claims)<a href="#appendix-G-33.4" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-G-33.5">incorporated text proposal of Marcos Sanz regarding max_age<a href="#appendix-G-33.5" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-G-33.6">added IANA registration for new error code <code>unable_to_meet_requirement</code><a href="#appendix-G-33.6" class="pilcrow">¶</a>
-</li>
-      </ul>
-</section>
-</div>
 <div id="translator">
-<section id="appendix-H">
+<section id="appendix-G">
       <h2 id="name-translator">
-<a href="#appendix-H" class="section-number selfRef">Appendix H. </a><a href="#name-translator" class="section-name selfRef">Translator</a>
+<a href="#appendix-G" class="section-number selfRef">Appendix G. </a><a href="#name-translator" class="section-name selfRef">Translator</a>
       </h2>
-<p id="appendix-H-1">本仕様の翻訳は, OpenID ファウンデーションジャパン <span>[<a href="#oidfj" class="cite xref">oidfj</a>]</span> KYC ワーキンググループ <span>[<a href="#oidfj-kycwg" class="cite xref">oidfj-kycwg</a>]</span>, 翻訳・教育ワーキンググループ <span>[<a href="#oidfj-trans" class="cite xref">oidfj-trans</a>]</span> を主体として, 有志のメンバーによって行われました.
-質問や修正依頼などについては, Github レポジトリー <span>[<a href="#oidfj-github" class="cite xref">oidfj-github</a>]</span> にご連絡ください.<a href="#appendix-H-1" class="pilcrow">¶</a></p>
+<p id="appendix-G-1">本仕様の翻訳は, OpenID ファウンデーションジャパン <span>[<a href="#oidfj" class="cite xref">oidfj</a>]</span> KYC ワーキンググループ <span>[<a href="#oidfj-kycwg" class="cite xref">oidfj-kycwg</a>]</span>, 翻訳・教育ワーキンググループ <span>[<a href="#oidfj-trans" class="cite xref">oidfj-trans</a>]</span> を主体として, 有志のメンバーによって行われました.
+質問や修正依頼などについては, Github レポジトリー <span>[<a href="#oidfj-github" class="cite xref">oidfj-github</a>]</span> にご連絡ください.<a href="#appendix-G-1" class="pilcrow">¶</a></p>
 <ul class="compact">
-<li class="compact" id="appendix-H-2.1">Muneomi Sakuta (SoftBank Corp.)<a href="#appendix-H-2.1" class="pilcrow">¶</a>
+<li class="compact" id="appendix-G-2.1">Muneomi Sakuta (SoftBank Corp.)<a href="#appendix-G-2.1" class="pilcrow">¶</a>
 </li>
-        <li class="compact" id="appendix-H-2.2">Yuu Kikuchi (OPTiM Corp.)<a href="#appendix-H-2.2" class="pilcrow">¶</a>
+        <li class="compact" id="appendix-G-2.2">Yuu Kikuchi (OPTiM Corp.)<a href="#appendix-G-2.2" class="pilcrow">¶</a>
 </li>
-        <li class="compact" id="appendix-H-2.3">Nov Matake (YAuth.jp)<a href="#appendix-H-2.3" class="pilcrow">¶</a>
+        <li class="compact" id="appendix-G-2.3">Nov Matake (YAuth.jp)<a href="#appendix-G-2.3" class="pilcrow">¶</a>
 </li>
       </ul>
 </section>
 </div>
 <div id="authors-addresses">
-<section id="appendix-I">
+<section id="appendix-H">
       <h2 id="name-authors-addresses">
 <a href="#name-authors-addresses" class="section-name selfRef">Authors' Addresses</a>
       </h2>
