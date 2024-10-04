@@ -1,5 +1,5 @@
 %%%
-title = "OpenID Connect for Identity Assurance 1.0"
+title = "OpenID Connect for Identity Assurance 1.0 - draft 15"
 abbrev = "openid-connect-4-identity-assurance-1_0"
 ipr = "none"
 workgroup = "eKYC-IDA"
@@ -8,7 +8,7 @@ keyword = ["security", "openid", "identity assurance", "ekyc"]
 [seriesInfo]
 name = "Internet-Draft"
 
-value = "openid-connect-4-identity-assurance-1_0-13"
+value = "openid-connect-4-identity-assurance-1_0-15"
 
 status = "standard"
 
@@ -200,12 +200,13 @@ identity assurance に関する一部の管轄区域の要件を満たすため�
 
 # Verified claims {#verified_claims}
 
-<!-- The basic idea is to use a container element, called `verified_claims`, to provide the RP with a set of claims along with the respective metadata and verification evidence related to the verification of these claims. This way, it is explicit which claims are verified, reducing the risk of RPs accidentally processing unverified claims as verified claims. -->
-基本的な考え方は `verified_claims` と呼ばれるコンテナ要素を使用し，RP に一連の Claim と，これらの Claim の検証に関連するそれぞれのメタデータ及び検証のエビデンスを提供することである．この方法は，検証されている claims が明確になり，RPs が誤って検証されていない claims を 検証済み として処理するリスクが軽減される
-
 ## Verified claims schema
 
-<!-- This document uses the [!@IDA-verified-claims] document as the definition of the schema for representation of assured digital identity attributes and identity assurance metadata.  -->
+<!-- The basic idea is to use a container element, called `verified_claims`, to provide the RP with a set of claims along with the respective metadata and verification evidence related to the verification of these claims. This way, it is explicit which claims are verified, reducing the risk of RPs accidentally processing unverified claims as verified claims. -->
+基本的な考え方は `verified_claims` と呼ばれるコンテナ要素を使用し，RP に一連の Claim と，これらの Claim の検証に関連するそれぞれのメタデータ及び検証のエビデンスを提供することである．この方法は，検証されている claims が明確になり，RPs が誤って検証されていない claims を 検証済み として処理するリスクが軽減される．
+
+
+<!-- This document uses the [@!IDA-verified-claims] document as the definition of the schema for representation of assured digital identity attributes and identity assurance metadata.  -->
 このドキュメントでは，保証された digital identity 属性と identity assurance メタデータを表現するスキーマの定義として [!@IDA-verified-claims] ドキュメントを使用する．
 
 <!-- The following example would assert to the RP that the OP has verified the claims provided (`given_name` and `family_name`) according to an example trust framework `trust_framework_example`: -->
@@ -376,6 +377,8 @@ RP は `values` 要素を利用して，リクエスト中の複数の `verified
 上記の例では，RP は エビデンスタイプ `document` を持つトラストフレームワーク `gold` もしくは エビデンスタイプ `electronic_record` を持つトラストフレームワーク `silver` または `bronze` に基づいて，姓と名を要求する．
 
 ## Returning less data than requested
+
+### General requirements
 
 <!-- As stated in section 3.3.3.6 of [@!OpenID], "the OP may choose to return fewer claims about the end-user from the authorization endpoint".  This document makes no change to that provision.  The OP may also choose to return a subset of the `verification` element of any `verified_claims` providing it remains compliant with the `verified_claims` JSON schema defined in [@!OpenID4IDAClaims]. -->
 [@!OpenID] の section 3.3.3.6 に記載されているように，"OP は authorization endpoint からエンドユーザーに関する claim を少なく返すことを選択できる (MAY)"．このドキュメントではその規定を変更しない．OP は [@!OpenID4IDAClaims] で定義された `verified_claims` JSON スキーマに準拠している限り，任意の `verified_claims` の `verification` 要素のサブセットを返すことも出来る (MAY)．
@@ -698,24 +701,18 @@ scopes の利用は定義済みのクレームセットを要求するための�
 
 # Security considerations {#Security}
 
+## Security profile
+
 <!-- This document focuses on mechanisms to carry end-user claims and accompanying metadata in JSON objects and JSON Web Tokens, typically as part of an OpenID Connect protocol exchange. Since such an exchange is supposed to take place in security sensitive use cases, implementers shall: -->
 このドキュメントはエンドユーザーのクレームと付随するメタデータを JSON オブジェクトと JSON Web Token で運ぶメカニズムにフォーカスしており，通常これは OpenID Connect プロトコル交換の一部として行われる．このような交換はセキュリティにセンシティブなユースケースで行われるため，実装者は次のことを行わなければならない (SHALL):
 
 <!-- 
-* ensure end-users are authenticated using appropriately strong authentication methods, and
-* combine this document with an appropriate security profile for OpenID Connect.
+* combine this document with an appropriate security profile for OpenID Connect, and
+* ensure end-users are authenticated using appropriately strong authentication methods.
 -->
 
-* エンドユーザーが強力な認証方法を使用して認証されていることを確認すること，また，
-* OpenID Connect の適切なセキュリティプロファイルをこのドキュメントと組み合わせること．
-
-## End-user authentication
-
-<!-- Secure identification of end-users not only depends on the identity verification at the OP but also on the strength of the user authentication at the OP. Combining a strong identification with weak authentication creates a false impression of security while being open to attacks. For example if an OP uses a simple PIN login, an attacker could guess the PIN of another user and identify himself as the other user at an RP with a high identity assurance level. To prevent this kind of attack, RPs should request the OP to authenticate the user at a reasonable level, typically using multi-factor authentication, when requesting verified end-user claims. OpenID Connect supports this by way of the `acr_values` request parameter. -->
-
-エンドユーザーのセキュアな識別は，OP での identity verification だけでなく，OP でのユーザー認証の強度にも依存する．強力な識別と弱い認証を組み合わせると，セキュリティの間違った印象と同時に攻撃の余地を与える．例えば OP が単純な PIN ログインを使用する場合，攻撃者は他のユーザーの PIN を推測し，高い identity assurance レベルを持つ RP で自身を他のユーザーとして識別できる．この種の攻撃を防ぐため，エンドユーザーの検証済みクレームを要求するときに，RPs は OP に対して通常は多要素認証を利用するといった適正なレベルでユーザーを認証することを要求することが望ましい (SHOULD)．OpenID Connect は `acr_values` リクエストパラメータによってこれをサポートする．
-
-## Security profile
+* OpenID Connect の適切なセキュリティプロファイルをこのドキュメントと組み合わせること，また，
+* エンドユーザーが強力な認証方法を使用して認証されていることを確認すること．
 
 <!-- This document does not define or require a particular security profile since there are several security
 profiles and new security profiles under development.  Implementers have the flexibility to select the security profile that best suits
@@ -732,6 +729,13 @@ their needs. Implementers might consider [@FAPI-1-SP] or [@FAPI-2-SP]. -->
 
 <!-- Receiving parties shall ensure the confidentiality of all end-user data exchanged between the protocol parties using suitable methods at transport or application layer. -->
 受信側はトランスポートまたはアプリケーション層で適切な方法を使用し，プロトコル当事者間で交換される全てのエンドユーザーデータの機密性を確保しなければならない (SHALL)．
+
+## End-user authentication
+
+<!-- Secure identification of end-users not only depends on the identity verification at the OP but also on the strength of the user authentication at the OP. Combining a strong identification with weak authentication creates a false impression of security while being open to attacks. For example if an OP uses a simple PIN login, an attacker could guess the PIN of another user and identify himself as the other user at an RP with a high identity assurance level. To prevent this kind of attack, RPs should request the OP to authenticate the user at a reasonable level, typically using multi-factor authentication, when requesting verified end-user claims. OpenID Connect supports this by way of the `acr_values` request parameter. -->
+
+エンドユーザーのセキュアな識別は，OP での identity verification だけでなく，OP でのユーザー認証の強度にも依存する．強力な識別と弱い認証を組み合わせると，セキュリティの間違った印象と同時に攻撃の余地を与える．例えば OP が単純な PIN ログインを使用する場合，攻撃者は他のユーザーの PIN を推測し，高い identity assurance レベルを持つ RP で自身を他のユーザーとして識別できる．この種の攻撃を防ぐため，エンドユーザーの検証済みクレームを要求するときに，RPs は OP に対して通常は多要素認証を利用するといった適正なレベルでユーザーを認証することを要求することが望ましい (SHOULD)．OpenID Connect は `acr_values` リクエストパラメータによってこれをサポートする．
+
 
 # Implementation and interoperability {#Interoperability}
 
@@ -932,24 +936,6 @@ eKYC and Identity Assurance Working Group は，他の当事者と定義済み�
 
 # IANA considerations
 
-## JSON Web Token Claims registration
-
-This document requests registration of the following value in the IANA "JSON Web Token Claims Registry" established by [@!RFC7519].
-
-### Registry contents
-
-Claim Name:
-: `verified_claims`
-
-Claim Description:
-: This container claim is composed of the verification evidence related to a certain verification process and the corresponding claims about the end-user which were verified in this process.
-
-Change Controller:
-: eKYC and Identity Assurance Working Group - openid-specs-ekyc-ida@lists.openid.net
-
-Specification Document(s):
-: Section [verified claims](#verified_claims) of this document
-
 ## Media type registration
 
 This section registers the `application/provided-claims+jwt` media type [@RFC2046]
@@ -1114,8 +1100,9 @@ The technology described in this document was made available from contributions 
    [[ To be removed from the final specification ]]
 
    -15
-   * Reformatted to meet ISO Directive part 2
-   * Fixed typos
+
+   * added draft number to title
+   * removed vestigial mention of "purpose" claim
 
    -14
 
@@ -1127,6 +1114,9 @@ The technology described in this document was made available from contributions 
    * Removed "transaction specific purpose" from IDA spec with intent to create separate draft
    * drop verified_claims_supported OP metadata as redundant
    * renamed the `txn` element to `check_id`
+   * removed duplicate JWT Claims registration from IANA Considerations
+   * Reformatted to meet ISO Directive part 2
+   * Fixed typos
 
    -13
 

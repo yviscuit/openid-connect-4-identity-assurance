@@ -1,5 +1,5 @@
 %%%
-title = "OpenID Connect for Identity Assurance Claims Registration 1.0 draft"
+title = "OpenID Connect for Identity Assurance Claims Registration 1.0 - draft 01"
 abbrev = "openid-connect-4-ida-claims-1_0"
 ipr = "none"
 workgroup = "eKYC-IDA"
@@ -8,7 +8,7 @@ keyword = ["security", "openid", "identity assurance", "ekyc", "claims"]
 [seriesInfo]
 name = "Internet-Draft"
 
-value = "openid-connect-4-ida-claims-1_0-00"
+value = "openid-connect-4-ida-claims-1_0-01"
 
 status = "standard"
 
@@ -251,6 +251,14 @@ OP または claim provider が, RP に対してある一定の確からしさ�
   "country_code": "GBR"
 }
 ```
+
+# Security considerations {#Security}
+
+<!-- The working group has identified no security considerations that pertain directly to this specification. -->
+ワーキンググループはこの仕様に直接関係する security considerations を特定していない．
+
+<!-- The data structures described in this specification will contain personal information. Standards referencing this specification and implementers using this specification should consider the secure transport of these structures and security and privacy implications that may arise from their use. -->
+本仕様で説明されるデータ構造には個人情報が含まれる．本仕様を参照する標準と本仕様を使用する実装者は，これらの構造の安全な伝送と，その使用から生じうるセキュリティとプライバシーの影響を考慮すべきである．
 
 {backmatter}
 
@@ -525,6 +533,9 @@ The technology described in this specification was made available from contribut
 
    [[ To be removed from the final specification ]]
 
+   -01
+   fixed capitalization and added draft version number to title
+   editorial improvement to security considerations
 
    -00 (WG document)
 

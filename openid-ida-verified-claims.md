@@ -1,5 +1,5 @@
 %%%
-title = "OpenID Identity Assurance schema definition 1.0 draft"
+title = "OpenID Identity Assurance Schema Definition 1.0 - Draft 01"
 abbrev = "openid-ida-verified-claims-1_0"
 ipr = "none"
 workgroup = "eKYC-IDA"
@@ -8,7 +8,7 @@ keyword = ["security", "openid", "identity assurance", "ekyc", "claims"]
 [seriesInfo]
 name = "Internet-Draft"
 
-value = "openid-ida-verified-claims-1_0-00"
+value = "openid-ida-verified-claims-1_0-01"
 
 status = "standard"
 
@@ -309,6 +309,8 @@ Claim Recipients は理解できないトラストフレームワーク識別子
 
 ### evidence element {#evidence_element}
 
+#### Evidence element structure
+
 <!-- Members of the `evidence` array are structured with the following elements: -->
 `evidence` 配列の要素は, 次の要素で構成されている:
 
@@ -583,6 +585,14 @@ Claim Provider によってサポートされ，Claim Recipient から要求さ�
 
 <{{examples/response/derived_claims_1.json}}
 
+# Security considerations {#Security}
+
+<!-- The working group has identified no security considerations that pertain directly to this specification. -->
+ワーキンググループはこの仕様に直接関係する security considerations を特定していない．
+
+<!-- The data structures described in this specification will contain personal information. Standards referencing this specification and implementers using this specification should consider the secure transport of these structures and security and privacy implications that may arise from their use. -->
+本仕様で説明されるデータ構造には個人情報が含まれる．本仕様を参照する標準と本仕様を使用する実装者は，これらの構造の安全な伝送と，その使用から生じうるセキュリティとプライバシーの影響を考慮すべきである．
+
 {backmatter}
 
 <reference anchor="ISODIR2" target="https://www.iso.org/sites/directives/current/part2/index.xhtml">
@@ -823,8 +833,8 @@ Change Controller:
 : eKYC and Identity Assurance Working Group - openid-specs-ekyc-ida@lists.openid.net
 
 Specification Document(s):
-<!-- : Section [Claims](#claims) of this document -->
-: 本ドキュメントの [Claims](#claims) セクション
+<!-- : Section [verified claims](#verified_claims) of this document -->
+: 本ドキュメントの [verified claims](#verified_claims) セクション
 
 
 # Acknowledgements {#Acknowledgements}
@@ -852,6 +862,9 @@ The technology described in this specification was made available from contribut
 
    [[ To be removed from the final specification ]]
 
+   -01
+   fixed capitalization and added draft version number to title
+   editorial improvement to security considerations
 
    -00 (WG document)
 
