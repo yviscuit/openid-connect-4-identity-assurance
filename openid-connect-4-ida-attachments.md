@@ -206,7 +206,7 @@ External attachments は [@OpenID] で定義されている分散 Claim と似�
 <!-- 3. Ensure that the URL defined in the `url` element uses the `https` scheme. -->
 3. `url` 要素で定義された URL が `https` スキームを使用していることを確認．
 <!-- 4. Ensure that the `digest` element contains both `alg` and `value` keys. -->
-4. Ensure that the `digest` element contains both `alg` and `value` keys.
+4. `digest` 要素に `alg` と `value` キーの両方が含まれていることを確認．
 <!-- 5. Retrieve the attachment from the `url` element in the object. -->
 5. オブジェクトの `url` 要素から添付ファイルを取得．
 <!-- 6. Ensure that the content MIME type of the attachment is indicated in a content-type HTTP response header -->
