@@ -733,7 +733,7 @@ their needs. Implementers might consider [@FAPI-1-SP] or [@FAPI-2-SP]. -->
 ## End-user authentication
 
 <!-- Secure identification of end-users not only depends on the identity verification at the OP but also on the strength of the user authentication at the OP. Combining a strong identification with weak authentication creates a false impression of security while being open to attacks. For example if an OP uses a simple PIN login, an attacker could guess the PIN of another user and identify himself as the other user at an RP with a high identity assurance level. To prevent this kind of attack, RPs should request the OP to authenticate the user at a reasonable level, typically using multi-factor authentication, when requesting verified end-user claims. OpenID Connect supports this by way of the `acr_values` request parameter. -->
-エンドユーザーのセキュアな識別は，OP での identity verification だけでなく，OP でのユーザー認証の強度にも依存する．強力な識別と弱い認証を組み合わせると，セキュリティの間違った印象と同時に攻撃の余地を与える．例えば OP が単純な PIN ログインを使用する場合，攻撃者は他のユーザーの PIN を推測し，高い identity assurance レベルを持つ RP で自身を他のユーザーとして識別できる．この種の攻撃を防ぐため，エンドユーザーの検証済みクレームを要求するときに，RPs は OP に対して通常は多要素認証を利用するといった適正なレベルでユーザーを認証することを要求することが望ましい (SHOULD)．OpenID Connect は `acr_values` リクエストパラメータによってこれをサポートする．
+エンドユーザーのセキュアな識別は，OP での identity verification だけでなく，OP でのユーザー認証の強度にも依存する．強力な識別と弱い認証を組み合わせると，セキュリティの間違った印象と同時に攻撃の余地を与える．例えば OP が単純な PIN ログインを使用する場合，攻撃者は他のユーザーの PIN を推測し，高い identity assurance レベルを持つ RP で自身を他のユーザーとして識別できる．この種の攻撃を防ぐため，エンドユーザーの検証済みクレームを要求するときに，RP は OP に対して通常は多要素認証を利用するといった適正なレベルでユーザーを認証することを要求することが望ましい (SHOULD)．OpenID Connect は `acr_values` リクエストパラメータによってこれをサポートする．
 
 
 # Implementation and interoperability {#Interoperability}
