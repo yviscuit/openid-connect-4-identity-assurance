@@ -1233,7 +1233,7 @@ li > p:last-of-type:only-child {
 <dd class="workgroup">eKYC-IDA</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-10-04" class="published">4 October 2024</time>
+<time datetime="2024-10-08" class="published">8 October 2024</time>
     </dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
@@ -1572,7 +1572,8 @@ interpreted with their natural language meanings.<a href="#section-note.4-1" cla
           <li id="section-4.3-2.3">
             <code>url</code> 要素で定義された URL が <code>https</code> スキームを使用していることを確認．<a href="#section-4.3-2.3" class="pilcrow">¶</a>
 </li>
-          <li id="section-4.3-2.4">Ensure that the <code>digest</code> element contains both <code>alg</code> and <code>value</code> keys.<a href="#section-4.3-2.4" class="pilcrow">¶</a>
+          <li id="section-4.3-2.4">
+            <code>digest</code> 要素に <code>alg</code> と <code>value</code> キーの両方が含まれていることを確認．<a href="#section-4.3-2.4" class="pilcrow">¶</a>
 </li>
           <li id="section-4.3-2.5">オブジェクトの <code>url</code> 要素から添付ファイルを取得．<a href="#section-4.3-2.5" class="pilcrow">¶</a>
 </li>
@@ -1603,7 +1604,7 @@ interpreted with their natural language meanings.<a href="#section-note.4-1" cla
       <h2 id="name-client-registration-and-man">
 <a href="#section-6" class="section-number selfRef">6. </a><a href="#name-client-registration-and-man" class="section-name selfRef">Client registration and management</a>
       </h2>
-<p id="section-6-1">External attachments が <span>[<a href="#OpenID-Registration" class="cite xref">OpenID-Registration</a>]</span> または <span>[<a href="#RFC7592" class="cite xref">RFC7592</a>]</span> のいずれかを使用する OpenID Provider のコンテキストで使用される場合，クライアント登録またはクライアント管理のやり取りの一部として，以下のプロパティが利用可能でなければならない:<a href="#section-6-1" class="pilcrow">¶</a></p>
+<p id="section-6-1">External attachments が <span>[<a href="#OpenID-Registration" class="cite xref">OpenID-Registration</a>]</span> または <span>[<a href="#RFC7592" class="cite xref">RFC7592</a>]</span> のいずれかを使用する OpenID Provider のコンテキストで使用される場合，クライアント登録またはクライアント管理のやり取りの一部として，以下のプロパティが利用できることが望ましい:<a href="#section-6-1" class="pilcrow">¶</a></p>
 <p id="section-6-2"><code>digest_algorithm</code>: 選択されたダイジェストアルゴリズムを表す文字列値 (外部添付ファイル用) ．値は <a href="#opmetadata">OP metadata</a> で公表されているように，OP によってサポートされるダイジェスト アルゴリズムの 1 つでなければならない (SHALL)．このプロパティが設定されていない場合，デフォルトで <code>sha-256</code> が使用される．<a href="#section-6-2" class="pilcrow">¶</a></p>
 </section>
 </div>
