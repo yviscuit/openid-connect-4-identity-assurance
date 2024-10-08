@@ -229,7 +229,7 @@ External attachments は [@OpenID] で定義されている分散 Claim と似�
 # Client registration and management
 
 <!-- If external attachments are used in the context of an OpenID Provider that uses either [@!OpenID-Registration] or [@RFC7592] the following additional properties should be available as part of any client registration or client management interactions: -->
-External attachments が [@!OpenID-Registration] または [@RFC7592] のいずれかを使用する OpenID Provider のコンテキストで使用される場合，クライアント登録またはクライアント管理のやり取りの一部として，以下のプロパティが利用可能でなければならない:
+External attachments が [@!OpenID-Registration] または [@RFC7592] のいずれかを使用する OpenID Provider のコンテキストで使用される場合，クライアント登録またはクライアント管理のやり取りの一部として，以下のプロパティが利用できることが望ましい:
 
 <!-- `digest_algorithm`: String value representing the chosen digest algorithm (for external attachments). The value shall be one of the digest algorithms supported by the OP as advertised in the [OP metadata](#opmetadata). If this property is not set, `sha-256` will be used by default. -->
 `digest_algorithm`: 選択されたダイジェストアルゴリズムを表す文字列値 (外部添付ファイル用) ．値は [OP metadata](#opmetadata) で公表されているように，OP によってサポートされるダイジェスト アルゴリズムの 1 つでなければならない (SHALL)．このプロパティが設定されていない場合，デフォルトで `sha-256` が使用される．
