@@ -65,7 +65,7 @@ organization="KDDI Corporation"
 .# Abstract
 
 <!-- This document defines an extension of OpenID Connect protocol for providing relying parties with claims about end-users that have a certain level of verification and/or additional metadata about the claim or the process of verification for access control, entitlement decisions or input to further verification processes. -->
-このドキュメントは，アクセスコントロール，資格決定やさらなる検証プロセスへの入力のための Claim または検証プロセス に関する，特定の検証レベル及び/または追加のメタデータを持つエンドユーザーに関する検証済みクレームを Relying Parties に提供するための OpenID Connect の拡張機能を定義する．
+このドキュメントは，アクセスコントロール，資格決定やさらなる検証プロセスへの入力のための Claim または検証プロセス に関する，特定の検証レベル及び/または追加のメタデータを持つエンドユーザーに関する検証済みクレームを Relying Party に提供するための OpenID Connect の拡張機能を定義する．
 
 .# Foreword
 
@@ -203,7 +203,7 @@ identity assurance に関する一部の管轄区域の要件を満たすため�
 ## Verified claims schema
 
 <!-- The basic idea is to use a container element, called `verified_claims`, to provide the RP with a set of claims along with the respective metadata and verification evidence related to the verification of these claims. This way, it is explicit which claims are verified, reducing the risk of RPs accidentally processing unverified claims as verified claims. -->
-基本的な考え方は `verified_claims` と呼ばれるコンテナ要素を使用し，RP に一連の Claim と，これらの Claim の検証に関連するそれぞれのメタデータ及び検証のエビデンスを提供することである．この方法は，検証されている claims が明確になり，RPs が誤って検証されていない claims を 検証済み として処理するリスクが軽減される．
+基本的な考え方は `verified_claims` と呼ばれるコンテナ要素を使用し，RP に一連の Claim と，これらの Claim の検証に関連するそれぞれのメタデータ及び検証のエビデンスを提供することである．この方法は，検証されている claims が明確になり，RP が誤って検証されていない claims を 検証済み として処理するリスクが軽減される．
 
 
 <!-- This document uses the [@!IDA-verified-claims] document as the definition of the schema for representation of assured digital identity attributes and identity assurance metadata.  -->
@@ -271,7 +271,7 @@ Verified Claims は OpenID Connect specification [@!OpenID] の Section 5.5 に�
 Note: OpenID Connect Core または本ドキュメントのメカニズムを使用して，sub-claims (例えば，`address` claim の `country` subclaim) を要求することは出来ない．
 
 <!-- RPs can use the `essential` field as defined in section 5.5.1 of the OpenID Connect specification [@!OpenID]. The following example shows this for the family and given names. -->
-RPs は OpenID Connect [@!OpenID]  仕様の Section 5.5.1 に定義された `essential` フィールドを使うことが出来る．次の例は，姓と名についてこれを示す．
+RP は OpenID Connect [@!OpenID]  仕様の Section 5.5.1 に定義された `essential` フィールドを使うことが出来る．次の例は，姓と名についてこれを示す．
 
 <{{examples/request/essential.json}}
 
@@ -358,7 +358,7 @@ OP はこの要件を満たすよう務めることが望ましい (SHOULD)．�
 ## Requesting claims sets with different verification requirements
 
 <!-- It is also possible to request different trust frameworks, assurance levels, and methods for different claim sets. This requires the RP to send an array of `verified_claims` objects instead of passing a single object. -->
-異なった Claim Sets に対して，異なったトラストフレームワーク， assurance レベルや方法を要求することが出来る．これは RP が単一オブジェクトを渡すのではなく，`verified_claims` オブジェクトの配列を送信することを要求する．
+異なった Claim Set に対して，異なったトラストフレームワーク， assurance レベルや方法を要求することが出来る．これは RP が単一オブジェクトを渡すのではなく，`verified_claims` オブジェクトの配列を送信することを要求する．
 
 <!-- The following example illustrates this functionality. -->
 次の例はこの機能の利用例である．
@@ -468,7 +468,7 @@ OP でエラーに遭遇した場合，[@!OpenID] の section 3.1.2.6 で定義�
 * 1つ以上の `verified_claims` オブジェクトを含む `verified_claims` 要素．
 
 <!-- To ensure that assertions cannot be confused with OpenID Connect ID Tokens, assertions shall not contain: -->
-アサーションが OpenID Connect ID Tokens と混同されないようにするため，アサーションは下記を含んではならない (SHALL NOT):
+アサーションが OpenID Connect ID Token と混同されないようにするため，アサーションは下記を含んではならない (SHALL NOT):
 
 <!-- 
  * an `exp` claim, or
@@ -722,7 +722,7 @@ their needs. Implementers might consider [@FAPI-1-SP] or [@FAPI-2-SP]. -->
 実装者は [@FAPI-1-SP] または [@FAPI-2-SP] を検討することが望ましい．
 
 <!-- Implementers should select a security profile that has a certification program or other resources that allow both OpenID providers and relying parties to ensure they have complied with the profile’s security and interoperability requirements, such as the OpenID Foundation Certification Program, https://openid.net/certification/. -->
-実装者は，OpenID Foundation Certification Program (https://openid.net/certification/) のような，OpenID プロバイダーと Relying Parties の両方がプロファイルのセキュリティと相互運用性の要件に準拠していることを確認できる certification program またはその他のリソースを持つセキュリティプロファイルを選択することが望ましい (SHOULD)．
+実装者は，OpenID Foundation Certification Program (https://openid.net/certification/) のような，OpenID プロバイダーと Relying Party の両方がプロファイルのセキュリティと相互運用性の要件に準拠していることを確認できる certification program またはその他のリソースを持つセキュリティプロファイルを選択することが望ましい (SHOULD)．
 
 <!-- Receiving parties shall ensure the integrity and authenticity of the issued assertions in order to prevent identity spoofing. -->
 受信側は identity spoofing を防ぐため，発行されたアサーションの整合性と信頼性を確保しなければならない (SHALL)．
