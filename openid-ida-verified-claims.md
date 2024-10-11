@@ -564,7 +564,7 @@ identity verification プロセス中に，特定のドキュメントアーテ�
 Claim Provider によってサポートされ，Claim Recipient から要求された場合，Claim Recipient が検証済み Claim 情報とともにこれらのアーティファクトを保存できるように，これらの要素を検証済み Claim のレスポンスに含めることができる．
 
 <!-- An attachment is represented by a JSON element. The definition of attachments and the schema representing them are described in [@Attachments]. -->
-添付ファイルは JSON オブジェクト形式で表現される．The definition of attachments and the schema representing them are described in [@Attachments].
+添付ファイルは JSON オブジェクト形式で表現される．添付ファイルの定義とそれを表すスキーマは [@Attachments] で説明されている．
 
 ## Examples
 
