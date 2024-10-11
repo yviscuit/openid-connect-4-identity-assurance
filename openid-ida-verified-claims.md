@@ -275,7 +275,7 @@ Claim Recipients は理解できないトラストフレームワーク識別子
   * `procedure`: Optional. 準拠した `policy` からの特定の手順を表す文字列．
   * `assurance_details`: Optional. エビデンスが `policy` にどのように準拠しているかに関する詳細を示す JSON 配列. この配列が存在する場合, 少なくとも一つの要素を持たなければならない (SHALL). 各要素は以下のサブ要素を持つ可能性がある:
      * `assurance_type`: Optional. エビデンスが `assurance_process` のどの部分を満たしているのかを示す文字列.
-    * `assurance_classification`: Optional. `trust_framework`　の要求に応じて `evidence` がどのように分類又は評価されたのか反映する文字列.
+    * `assurance_classification`: Optional. `trust_framework` の要求に応じて `evidence` がどのように分類又は評価されたのか反映する文字列.
     * `evidence_ref`: Optional. 参照されているエビデンスの JSON 配列. この配列が存在する場合, 少なくとも一つの要素が存在しなければならない (SHALL).
       * `check_id`: Required. `evidence` 配列の要素である `check_details` で用いられる `check_id` キーを参照する識別子. claim provider は, `evidence_ref` が用いられる場合, `check_id` が `check_details` に存在することを確認しなければならない (SHALL).
       * `evidence_metadata`: Optional. `trust_framework` への準拠を示すために, `assurance_process` が必要とする `evidence` についてのメタデータを指すオブジェクト. 次のサブ要素を持つ:

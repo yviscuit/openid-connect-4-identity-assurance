@@ -178,7 +178,7 @@ OP または claim provider が, RP に対してある一定の確からしさ�
 この仕様は，[@!OpenID] で定義されている `address` クレームを，国を ISO コードとして含む別のサブフィールドによって拡張する．
 
 <!-- `country_code`: Optional. country part of an address represented using an ISO 3-letter code [@!ISO3166-3], e.g., "USA" or "JPN". 2-letter ISO codes [@!ISO3166-1] may be used for compatibility reasons. `country_code` may be used as alternative to the existing `country` field. -->
-`country_code`: Optional. ISO 3-letter code [@!ISO3166-3]  (例: "USA" や "JPN") を使用して表される住所の国部分．2-letter ISO codes [@!ISO3166-1] は，互換性の理由から使用されるかもしれない (NAY)．`country_code` は，既存の `country` フィールドの代わりに使用してもよい (MAY)．
+`country_code`: Optional. ISO 3-letter code [@!ISO3166-3]  (例: "USA" や "JPN") を使用して表される住所の国部分．2-letter ISO codes [@!ISO3166-1] は，互換性の理由から使用されるかもしれない (MAY)．`country_code` は，既存の `country` フィールドの代わりに使用してもよい (MAY)．
 
 ## Examples
 

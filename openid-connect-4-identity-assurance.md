@@ -174,7 +174,7 @@ RP は，必要最小限のデータセットの要求 (data minimization) と�
 本ドキュメントのコンセプトは，OP が identity assurance プロセスに関するメタデータとともに，identity data を提供できることである．このデータを評価し，それを独自の法的コンテキストにマッピングするのは RP の責任である．
 
 <!-- From a technical perspective, this means this document allows the OP to provide verified claims along with information about the respective trust framework, but also supports the externalization of information about the identity verification process. -->
-技術的な観点から，これは本仕様は OP が信頼するトラストフレームワークに関する情報とともに Verified Claim を提供できるようにするだけでなく，identity verificatoin process に関する情報の外部化もサポートすることを意味する．
+技術的な観点から，これは本仕様は OP が信頼するトラストフレームワークに関する情報とともに Verified Claim を提供できるようにするだけでなく，identity verification process に関する情報の外部化もサポートすることを意味する．
 
 <!-- The representation defined in this document can be used to provide RPs with verified claims about the end-user via any appropriate channel. In the context of OpenID Connect, verified claims can be provided in ID Tokens or as part of the UserInfo response. It is also possible to utilize the format described here in OAuth access tokens or token introspection responses to provide resource servers with verified claims. -->
 本仕様で定義される表現は，いずれかの適切なチャネルを介してエンドユーザーに関する Verified Claim を RP に提供できる．OpenID Connect のコンテキストにおいて，Verified Claim はID Token または UserInfo レスポンスの一部として提供できる．OAuth Access Token または Token Introspection レスポンスで記述される形式を用いてリソースサーバーに Verified Claim を提供することもできる．
@@ -297,7 +297,7 @@ RP は OP  が `verification` 要素に追加するデータを明示的に要�
 <{{examples/request/verification_deeper.json}}
 
 <!-- The example also requests the OP to add the respective `method` and the `document` elements (including data about the document type), for every evidence array member, to the resulting `verified_claims` claim. -->
-この例では OP に対して，エビデンス配列メンバーごとに，それぞれの `method` と `document` 要素 (ドキュメントタイプに関するデータを含む) を，結果の `verified_claims` Claim に含むように要求している．
+この例では OP に対して，evidence 配列メンバーごとに，それぞれの `method` と `document` 要素 (ドキュメントタイプに関するデータを含む) を，結果の `verified_claims` Claim に含むように要求している．
 
 <!-- A single entry in the `evidence` array represents a filter over elements of a certain evidence type. The RP therefore shall specify this type by including the `type` field including a suitable `value` sub-element value. The `values` sub-element shall not be used for the `evidence/type` field. -->
 `evidence` 配列の単一エントリは，特定の evidence タイプの要素に対するフィルターを表す．従って，RP は適切な `value` サブ要素値を含む `type` フィールドを含めることによって，このタイプを指定しなければならない (SHALL)．`values` サブ要素を `evidence/type` フィールドに使用してはならない (SHALL NOT)．
@@ -332,7 +332,7 @@ RP は `value` または `values` フィールドと `evidence/type` 要素を�
 <{{examples/request/verification_claims_different_trust_frameworks.json}}
 
 <!-- The following example shows that the RP wants to obtain an attestation based on the German anti-money laundering law (trust framework `de_aml`) and limited to end-users who were identified in a bank branch in person (physical in person proofing - method `pipp`) using either an `idcard` or a `passport`. -->
-次の例は，RP がドイツのマネーロンダリング防止法 (トラストフレームワーク `de_aml`) に基づき，`idcard` または `passport` を利用して銀行の窓口にて対面で識別された (物理的な身元確認 - `ppid` 手法) エンドユーザーに限定した証明の取得を希望していることを示す．
+次の例は，RP がドイツのマネーロンダリング防止法 (トラストフレームワーク `de_aml`) に基づき，`idcard` または `passport` を利用して銀行の窓口にて対面で識別された (物理的な身元確認 - `pipp` 手法) エンドユーザーに限定した証明の取得を希望していることを示す．
 
 <{{examples/request/verification_aml.json}}
 
@@ -522,7 +522,7 @@ RP は署名されたアサーションの検証に使用されるキーマテ�
 OP は集約および分散 Claim を，それ自身が提供する `verified_claims` と組み合わせることが出来る ((#op_attested_and_external_claims) 参照).
 
 <!-- If `verified_claims` elements are contained in multiple places of a response, e.g., in the ID Token and an embedded aggregated claim, the RP shall preserve the claims source as context of the particular `verified_claims` element. -->
-ID トークンや埋め込まれた集約 Claim のように `verified_claims` 要素が応答の複数の場所に含まれている場合，RP は　特定の `verified_claims` 要素のコンテキストとして Claim ソースを保持しなければならない (SHALL)．
+ID トークンや埋め込まれた集約 Claim のように `verified_claims` 要素が応答の複数の場所に含まれている場合，RP は 特定の `verified_claims` 要素のコンテキストとして Claim ソースを保持しなければならない (SHALL)．
 
 <!-- Note: Any assertion provided by an OP or AS including aggregated or distributed claims can contain multiple instances of the same end-user claim. It is up to the RP to decide how to process these different instances. -->
 注: 集約または分散 Claim を含む OP または AS によって提供されるアサーションには，同じエンドユーザー Claim の複数インスタンスを含むことが出来る．これらの様々なインスタンスを処理する方法を決定するのは RP 次第である．
@@ -567,7 +567,7 @@ ID トークンや埋め込まれた集約 Claim のように `verified_claims` 
 `verified_claims` が集約クレームとして配信される場合，すなわち `_claim_sources` のサブ要素に `JWT` クレームが含まれる場合，クライアントは次のことを行わなければならない (SHALL) :
 
 <!-- 1. Ensure that the value in the `JWT` claim is a valid JWT as per [@RFC7519]. -->
-1. `JWT` クレームの値が [@RFC7519]　に従って有効な JWT であることを確認する．
+1. `JWT` クレームの値が [@RFC7519] に従って有効な JWT であることを確認する．
 
 <!-- Once the JWT has been delivered either via distributed or aggregated mechanism the client shall: -->
 JWT が分散または集約メカニズムを介して配信されると，クライアントは次のことを行わなければならない (SHALL) :
